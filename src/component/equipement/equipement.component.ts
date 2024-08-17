@@ -17,74 +17,79 @@ export class EquipementComponent {
   constructor(){
     this.cards = this.buildCardList();
   }
+
+
+  public openPdf(url:string):void{
+    window.open(url,'_blank')
+  }
   
 private buildCardList():Array<Card>{
   const list : Array<Card> = [
     {
-      image:"assets/img/card/equipement/desert.png",
+      image:"assets/img/card/equipement/arme.PNG",
       titre:"Armes",
-      url:""
+      url:"assets/img/pdfs/equipement/arme.pdf"
     },
     {
-      image:"assets/img/card/equipement/est.png",
+      image:"assets/img/card/equipement/armure.PNG",
       titre:"Armures",
-      url:""
+      url:"assets/img/pdfs/equipement/tableau-protections-naheulbeuk-jdr.pdf"
     },
+    // {
+    //   image:"assets/img/card/equipement/mer.jpg",
+    //   titre:"Bateaux",
+    //   url:""
+    // },
     {
-      image:"assets/img/card/equipement/foret2.png",
-      titre:"Bateaux",
-      url:""
-    },
-    {
-      image:"assets/img/card/equipement/foret1.png",
+      image:"assets/img/card/equipement/chapeau.PNG",
       titre:"Chapeaux",
-      url:""
+      url:"assets/img/pdfs/equipement/tableau-chapeaux-couvrechefs-naheulbeuk-jdr.pdf"
     },
     {
-      image:"assets/img/card/equipement/givre.png",
+      image:"assets/img/card/equipement/gemme.PNG",
       titre:"Gemmes",
-      url:""
+      url:"assets/img/pdfs/equipement/gemmes-pierres-naheulbeuk-jdr.pdf"
     },
     {
-      image:"assets/img/card/equipement/grotte.png",
+      image:"assets/img/card/equipement/ingredient.PNG",
       titre:"Ingredients",
-      url:""
+      url:"assets/img/pdfs/equipement/tableau-ingredients-naheulbeuk-jdr.pdf"
     },
     {
-      image:"assets/img/card/equipement/jungle.png",
+      image:"assets/img/card/equipement/instrument.PNG",
       titre:"Instruments",
-      url:""
+      url:"assets/img/pdfs/equipement/instruments-naheulbeuk-jdr(licoy).pdf"
     },
     {
-      image:"assets/img/card/equipement/mer.jpg",
+      image:"assets/img/card/equipement/livre.PNG",
       titre:"Livres",
-      url:""
+      url:"assets/img/pdfs/equipement/tableau-livres-naheulbeuk-jdr.pdf"
     },
     {
-      image:"assets/img/card/equipement/montagne.png",
+      image:"assets/img/card/equipement/materiel.PNG",
       titre:"Materiels",
-      url:""
+      url:"assets/img/pdfs/equipement/tableau-materiel-naheulbeuk-jdr.pdf"
     },
     {
-      image:"assets/img/card/equipement/souterrain.png",
+      image:"assets/img/card/equipement/objet-exclusif.PNG",
       titre:"Objets exclusif",
-      url:""
+      url:"assets/img/pdfs/equipement/objets-exclusifs-naheulbeuk-jdr(licoy).pdf"
     },
-    {
-      image:"assets/img/card/equipement/terre-sauvage.png",
-      titre:"Pièges",
-      url:""
-    },
-    {
-      image:"assets/img/card/equipement/urbain.png",
-      titre:"Poisons",
-      url:""
-    },
-    {
-      image:"assets/img/card/equipement/urbain.png",
-      titre:"Potions",
-      url:""
-    },
+    // {
+    //   image:"assets/img/card/equipement/terre-sauvage.png",
+    //   titre:"Pièges",
+    //   url:""
+    // },
+    // {
+    //   image:"assets/img/card/equipement/urbain.png",
+    //   titre:"Poisons",
+    //   url:""
+    // },
+    // {
+    //   image:"assets/img/card/equipement/urbain.png",
+    //   titre:"Potions",
+    //   url:""
+    // },
   ]
 
   return list;
