@@ -17,68 +17,72 @@ export class BestiaireComponent {
   constructor(){
     this.cards = this.buildCardList();
   }
+
+  public openPdf(url:string):void{
+    window.open(url,'_blank')
+  }
   
 private buildCardList():Array<Card>{
   const list : Array<Card> = [
     {
       image:"assets/img/card/bestiaire/desert.png",
       titre:"Désert",
-      url:""
+      url:"assets/img/pdfs/bestiaire/rencontres-desert-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/bestiaire/est.png",
       titre:"Est",
-      url:""
+      url:"assets/img/pdfs/bestiaire/est.PNG"
     },
     {
       image:"assets/img/card/bestiaire/foret1.png",
       titre:"Fôret bas level",
-      url:""
+      url:"assets/img/pdfs/bestiaire/rencontres-foret1-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/bestiaire/foret2.png",
       titre:"Fôret",
-      url:""
+      url:"assets/img/pdfs/bestiaire/rencontres-foret2-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/bestiaire/givre.png",
       titre:"Givre",
-      url:""
+      url:"assets/img/pdfs/bestiaire/bestiaire-confinsdugivre-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/bestiaire/grotte.png",
       titre:"Grotte",
-      url:""
+      url:"assets/img/pdfs/bestiaire/Rencontres-grottes-naheulbeuk.pdf"
     },
     {
       image:"assets/img/card/bestiaire/jungle.png",
       titre:"Jungle",
-      url:""
+      url:"assets/img/pdfs/bestiaire/jungle.PNG"
     },
     {
       image:"assets/img/card/bestiaire/mer.jpg",
       titre:"Mer",
-      url:""
+      url:"assets/img/pdfs/bestiaire/mer.PNG"
     },
     {
       image:"assets/img/card/bestiaire/montagne.png",
       titre:"Montagne",
-      url:""
+      url:"assets/img/pdfs/bestiaire/rencontres-montagne-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/bestiaire/souterrain.png",
       titre:"Souterrain",
-      url:""
+      url:"assets/img/pdfs/bestiaire/rencontres-souterrains-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/bestiaire/terre-sauvage.png",
       titre:"Terre Sauvage",
-      url:""
+      url:"assets/img/pdfs/bestiaire/rencontres-terresauvage2-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/bestiaire/urbain.png",
       titre:"Urbain",
-      url:""
+      url:"assets/img/pdfs/bestiaire/rencontres-urbaines2-naheulbeuk-jdr.pdf"
     },
   ]
 
