@@ -4,6 +4,8 @@
     "/autre",
     "/bestiaire",
     "/equipement",
+    "/hero",
+    "/sorts",
     "/teleportation"
   ]
 }
