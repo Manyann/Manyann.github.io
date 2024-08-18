@@ -1,7 +1,9 @@
 {
   "routes": [
     "/",
+    "/autre",
     "/bestiaire",
-    "/equipement"
+    "/equipement",
+    "/teleportation"
   ]
 }
