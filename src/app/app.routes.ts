@@ -4,11 +4,15 @@ import { BestiaireComponent } from '../component/bestiaire/bestiaire.component';
 import { EquipementComponent } from '../component/equipement/equipement.component';
 import { AutreComponent } from '../component/autre/autre.component';
 import { TeleportationComponent } from '../component/teleportation/teleportation.component';
+import { HeroComponent } from '../component/hero/hero.component';
+import { SortComponent } from '../component/sort/sort.component';
 
 export const routes: Routes = [
     { path: '',component: HomeComponent,title: 'Home page'},
     { path: 'bestiaire', component: BestiaireComponent },
     { path: 'equipement', component: EquipementComponent },
     { path: 'autre', component: AutreComponent },
+    { path: 'hero', component: HeroComponent },
+    { path: 'sorts', component: SortComponent },
     { path: 'teleportation', component: TeleportationComponent },
 ];
