@@ -1,0 +1,21 @@
+<div class="main">
+  <div class="selection-panel">
+    <div class="item-panel" *ngFor="let item of panels">
+        <img class="img-panel" src="{{item.image}}">
+        <div class="mission-title">{{item.titre}}</div>
+        <div class="mission-option">
+            <div class="mission-context">
+            </div>
+            <div class="mission-reward">
+                <div class="mission-gold">
+                </div>
+                <div class="mission-level">
+                    <span class="circle">{{item.numero}}</span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<router-outlet />

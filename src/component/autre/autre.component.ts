@@ -20,7 +20,8 @@ export class AutreComponent {
 
   
   public openUrl(url:string):void{
-    if(url.indexOf("pdd") != -1){
+    console.log(url);
+    if(url.indexOf("pdf") != -1){
     window.open(url,'_blank')
     }
     else{
@@ -33,22 +34,22 @@ private buildCardList():Array<Card>{
     {
       image:"assets/img/card/autre/bienfait.PNG",
       titre:"Bienfait",
-      url:""
+      url:"assets/img/pdfs/autre/tableau-bienfaits-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/autre/calamite.PNG",
       titre:"Calamité",
-      url:""
+      url:"assets/img/pdfs/autre/tableau-calamites-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/autre/mutation.PNG",
       titre:"Mutation",
-      url:""
+      url:"assets/img/pdfs/autre/tableau-mutations-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/autre/teleportation.PNG",
-      titre:"téléportation",
-      url:""
+      titre:"Téléportation bridée",
+      url:"teleportation"
     },
   ]
 
