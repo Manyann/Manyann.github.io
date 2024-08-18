@@ -47,6 +47,16 @@ private buildCardList():Array<Card>{
       url:"assets/img/pdfs/autre/tableau-mutations-naheulbeuk-jdr.pdf"
     },
     {
+      image:"assets/img/card/autre/sort-entropique.PNG",
+      titre:"Sort entropique",
+      url:"tableau-sortsentropiques-naheulbeuk-jdr.pdf"
+    },
+    {
+      image:"assets/img/pdfs/autre/fangh_13.png",
+      titre:"Carte Fangh",
+      url:"assets/img/pdfs/autre/fangh_13.png"
+    },
+    {
       image:"assets/img/card/autre/teleportation.PNG",
       titre:"Téléportation bridée",
       url:"teleportation"
