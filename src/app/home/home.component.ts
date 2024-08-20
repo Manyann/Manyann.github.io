@@ -41,6 +41,11 @@ private buildCardList():Array<Card>{
       url:"equipement"
     },
     {
+      image:"assets/img/card/gestion.PNG",
+      titre:"Gestion personnage",
+      url:"gestion"
+    },
+    {
       image:"assets/img/card/aide.png",
       titre:"Autres",
       url:"autre"

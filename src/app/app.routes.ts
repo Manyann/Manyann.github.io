@@ -6,6 +6,8 @@ import { AutreComponent } from '../component/autre/autre.component';
 import { TeleportationComponent } from '../component/teleportation/teleportation.component';
 import { HeroComponent } from '../component/hero/hero.component';
 import { SortComponent } from '../component/sort/sort.component';
+import { GestionComponent } from '../component/gestion/gestion.component';
+import { CreerComponent } from '../component/gestion/creer/creer.component';
 
 export const routes: Routes = [
     { path: '',component: HomeComponent,title: 'Home page'},
@@ -14,5 +16,7 @@ export const routes: Routes = [
     { path: 'autre', component: AutreComponent },
     { path: 'hero', component: HeroComponent },
     { path: 'sorts', component: SortComponent },
+    { path: 'gestion', component: GestionComponent },
+    { path: 'creer', component: CreerComponent },
     { path: 'teleportation', component: TeleportationComponent },
 ];
