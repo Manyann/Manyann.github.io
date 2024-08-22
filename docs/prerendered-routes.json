@@ -3,7 +3,9 @@
     "/",
     "/autre",
     "/bestiaire",
+    "/creer",
     "/equipement",
+    "/gestion",
     "/hero",
     "/sorts",
     "/teleportation"

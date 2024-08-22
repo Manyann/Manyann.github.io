@@ -25,10 +25,6 @@
   .panel-header-option.active{
     border: 2px solid coral;
   }
-
-  .hidden{
-    display: none;
-  }
   
   .header{
     width: 100%;
@@ -71,43 +67,48 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    > div{
+        display: flex;
+        justify-content:center;
+        width: 13%;
+        &.min{
+            color:#0B6623;
+        }
+        &.max{
+            color:#BA0021;
+        }
+        &:first-child{
+            width: 22%;
+        }
+    }
 }
-.list-item-needs > div{
-    display: flex;
-    justify-content:center;
-    width: 13%;
-}
-.list-item-needs > div:first-child{
-    width: 22%;
-}
-.list-item-needs > div.min{
-    color:#0B6623;
-}
-.list-item-needs > div.max{
-    color:#BA0021;
-}
+
 .list-item-details{
     font-weight: 100;
     display: flex;
     margin: 5px;
     flex-direction: column;
     height: auto;
+    
+    .parts{
+        display: flex;
+        align-items: flex-start;
+    }
+
+    span{
+        margin-left:0.5rem;
+        padding:0.2rem;
+        border: 2px solid black;
+        border-radius: 5px;
+    }
 }
-.list-item-details .parts{
-    display: flex;
-    align-items: flex-start;
-}
+
 .list-item-details-items{
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
     margin:0.2rem;
-}
-.list-item-details  span{
-    margin-left:0.5rem;
-    padding:0.2rem;
-    border: 2px solid black;
-    border-radius: 5px;
 }
 .title{
     font-weight: bold;
@@ -116,18 +117,16 @@
 }
 .btn-metier{
     width: 10rem;
-    height: 0.5rem;
+    height: 2.5rem;
     margin-top: 1rem;
     border: 2px solid black;
     background: cadetblue;
     font-weight: bold;
     border-radius: 10px;
+    :hover{
+        cursor:pointer;
+    }
 }
-
-.btn-metier:hover{
-    cursor:pointer;
-}
-
 
 @media (max-width: 1250px) {
     .main{
@@ -146,18 +145,17 @@
         margin-top: 0.5rem;
     }
     .list-item-details-items{
+        .parts{
+            flex-direction: column;
+            }
         flex-wrap: wrap;
+        > span{
+            margin-top: 0.5rem;
+        }
     }
-    .list-item-details-items > span{
-        margin-top: 0.5rem;
-    }
-    
     .btn-metier{
         width: 5rem;
         height: 1.5rem;
         font-size: large;
     }
-.list-item-details .parts{
-  flex-direction: column;
-  }
 }
