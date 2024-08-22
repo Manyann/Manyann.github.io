@@ -45,37 +45,37 @@
           <div class="{{origine.chance.type}}">{{origine.chance.nombre}}</div>
       </div>
       <div class="list-item-details" *ngIf="origine.isOpen">
-          <div class="list-bonus parts">
+          <div class="list-bonus parts" *ngIf="origine.caracteristiques.length > 0">
               <div class="title">Characteristiques</div>
               <div class="list-item-details-items">
                   <span  *ngFor="let caracteristique of origine.caracteristiques">{{caracteristique}}</span>
               </div>
           </div>
-          <div class="list-restriction parts">
+          <div class="list-restriction parts" *ngIf="origine.restrictions.length > 0">
               <div class="title">Restriction</div>
               <div class="list-item-details-items">
                   <span  *ngFor="let restriction of origine.restrictions">{{restriction}}</span>  
               </div>
           </div>
-          <div class="list-competence-base parts">
+          <div class="list-competence-base parts" *ngIf="origine.competencesHerites.length > 0">
               <div class="title">Compétences Hérités</div>
               <div class="list-item-details-items">
                   <span  *ngFor="let competenceHerite of origine.competencesHerites">{{competenceHerite}}</span>  
               </div>
           </div>
-          <div class="list-competence parts">
+          <div class="list-competence parts" *ngIf="origine.competencesAleatoire.length > 0">
               <div class="title">Compétences aléatoire</div>
               <div class="list-item-details-items">
                   <span  *ngFor="let competenceAleatoire of origine.competencesAleatoire">{{competenceAleatoire}}</span>  
               </div>
           </div>
-          <div class="list-restriction-metier parts">
+          <div class="list-restriction-metier parts" *ngIf="origine.restrictionsMetier.length > 0">
               <div class="title">Restriction métier</div>
               <div class="list-item-details-items">
                   <span  *ngFor="let restrictionMetier of origine.restrictionsMetier">{{restrictionMetier}}</span>  
               </div>
           </div>
-          <div class="parts">
+          <div class="parts" *ngIf="origine.restrictionsMetierShortCode.length > 0">
               <button type="button" class="btn-metier" (click)="filterAndOpenMetier(origine.restrictionsMetierShortCode);">Métier</button>
           </div>
       </div>
@@ -93,31 +93,31 @@
             <div class="{{metier.chance.type}}">{{metier.chance.nombre}}</div>
         </div>
         <div class="list-item-details" *ngIf="metier.isOpen">
-            <div class="list-bonus parts">
+            <div class="list-bonus parts" *ngIf="metier.caracteristiques.length > 0">
                 <div class="title">Characteristiques</div>
                 <div class="list-item-details-items">
                     <span  *ngFor="let caracteristique of metier.caracteristiques">{{caracteristique}}</span>
                 </div>
             </div>
-            <div class="list-restriction parts">
+            <div class="list-restriction parts" *ngIf="metier.restrictions.length > 0">
                 <div class="title">Restriction</div>
                 <div class="list-item-details-items">
                     <span  *ngFor="let restriction of metier.restrictions">{{restriction}}</span>  
                 </div>
             </div>
-            <div class="list-competence-base parts">
+            <div class="list-competence-base parts" *ngIf="metier.competencesHerites.length > 0">
                 <div class="title">Compétences Hérités</div>
                 <div class="list-item-details-items">
                     <span  *ngFor="let competenceHerite of metier.competencesHerites">{{competenceHerite}}</span>  
                 </div>
             </div>
-            <div class="list-competence parts">
+            <div class="list-competence parts" *ngIf="metier.competencesAleatoire.length > 0">
                 <div class="title">Compétences aléatoire</div>
                 <div class="list-item-details-items">
                     <span  *ngFor="let competenceAleatoire of metier.competencesAleatoire">{{competenceAleatoire}}</span>  
                 </div>
             </div>
-            <div class="list-restriction-metier parts">
+            <div class="list-restriction-metier parts" *ngIf="metier.autres.length > 0">
                 <div class="title">Autres</div>
                 <div class="list-item-details-items">
                     <span  *ngFor="let autre of metier.autres">{{autre}}</span>  
