@@ -41,10 +41,10 @@
 .header > div {
     display: flex;
     justify-content:center;
-    width: 13%;
+    width: 12%;
 }
 .header > div:first-child{
-    width: 22%;
+    width: 25%;
 }
 .list-item{
     color: black;
@@ -72,7 +72,7 @@
     > div{
         display: flex;
         justify-content:center;
-        width: 13%;
+        width: 12%;
         &.min{
             color:#0B6623;
         }
@@ -80,7 +80,7 @@
             color:#BA0021;
         }
         &:first-child{
-            width: 22%;
+            width: 25%;
         }
     }
 }
