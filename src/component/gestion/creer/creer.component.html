@@ -63,12 +63,6 @@
                   <span  *ngFor="let competenceHerite of origine.competencesHerites">{{competenceHerite}}</span>  
               </div>
           </div>
-          <div class="list-competence parts" *ngIf="origine.competencesAleatoire.length > 0">
-              <div class="title">Compétences aléatoire</div>
-              <div class="list-item-details-items">
-                  <span  *ngFor="let competenceAleatoire of origine.competencesAleatoire">{{competenceAleatoire}}</span>  
-              </div>
-          </div>
           <div class="list-restriction-metier parts" *ngIf="origine.restrictionsMetier.length > 0">
               <div class="title">Restriction métier</div>
               <div class="list-item-details-items">
@@ -109,12 +103,6 @@
                 <div class="title">Compétences Hérités</div>
                 <div class="list-item-details-items">
                     <span  *ngFor="let competenceHerite of metier.competencesHerites">{{competenceHerite}}</span>  
-                </div>
-            </div>
-            <div class="list-competence parts" *ngIf="metier.competencesAleatoire.length > 0">
-                <div class="title">Compétences aléatoire</div>
-                <div class="list-item-details-items">
-                    <span  *ngFor="let competenceAleatoire of metier.competencesAleatoire">{{competenceAleatoire}}</span>  
                 </div>
             </div>
             <div class="list-restriction-metier parts" *ngIf="metier.autres.length > 0">
