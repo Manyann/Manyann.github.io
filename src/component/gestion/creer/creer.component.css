@@ -46,6 +46,9 @@
 .header > div:first-child{
     width: 22%;
 }
+.list-item{
+    color: black;
+}
 
   .list > div{
     min-height: 3rem;
@@ -57,9 +60,7 @@
     justify-content: center;
     text-align: center;
 }
-.list-item:nth-child(even){
-    background:whitesmoke;
-}
+
 .list > div:hover{
     cursor:pointer;
 }
