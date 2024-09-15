@@ -146,14 +146,14 @@
         margin-top: 0.5rem;
     }
     .list-item-details-items{
-        .parts{
-            flex-direction: column;
-            }
         flex-wrap: wrap;
         > span{
             margin-top: 0.5rem;
         }
     }
+    .parts{
+        flex-direction: column;
+        }
     .btn-metier{
         width: 5rem;
         height: 1.5rem;
