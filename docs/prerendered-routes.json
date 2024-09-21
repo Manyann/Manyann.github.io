@@ -1,13 +1,11 @@
 {
   "routes": [
     "/",
-    "/autre",
-    "/bestiaire",
-    "/creer",
-    "/equipement",
-    "/gestion",
-    "/hero",
-    "/sorts",
-    "/teleportation"
+    "/documentation",
+    "/documentation/autres",
+    "/documentation/bestiaires",
+    "/documentation/equipements",
+    "/documentation/heros",
+    "/documentation/heros/sorts"
   ]
 }
