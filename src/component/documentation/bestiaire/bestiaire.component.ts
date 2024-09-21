@@ -1,20 +1,21 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import {Card} from '../../app/common/card';
+import { Card } from '../../model/card';
+import { CommonModule } from '@angular/common';
+import { CardListComponent } from '../../common/card-list/card-list.component';
 
 @Component({
   selector: 'app-bestiaire',
-  standalone: true,
-  imports: [RouterOutlet,CommonModule],
   templateUrl: './bestiaire.component.html',
-  styleUrl: './bestiaire.component.css'
+  styleUrl: './bestiaire.component.css',
+  standalone:true,
+  imports:[CommonModule,CardListComponent]
 })
 export class BestiaireComponent {
   title = 'nhbk';
   cards: Array<Card>;
 
   constructor(){
+    console.log("bestiaire");
     this.cards = this.buildCardList();
   }
 

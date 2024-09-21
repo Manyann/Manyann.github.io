@@ -1,22 +1,40 @@
-import { Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { BestiaireComponent } from '../component/bestiaire/bestiaire.component';
-import { EquipementComponent } from '../component/equipement/equipement.component';
-import { AutreComponent } from '../component/autre/autre.component';
-import { TeleportationComponent } from '../component/teleportation/teleportation.component';
-import { HeroComponent } from '../component/hero/hero.component';
-import { SortComponent } from '../component/sort/sort.component';
-import { GestionComponent } from '../component/gestion/gestion.component';
-import { CreerComponent } from '../component/gestion/creer/creer.component';
+import { DocumentationComponent } from '../component/documentation/documentation.component';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { BestiaireComponent } from '../component/documentation/bestiaire/bestiaire.component';
+import { AutreComponent } from '../component/documentation/autre/autre.component';
+import { HeroComponent } from '../component/documentation/hero/hero.component';
+import { EquipementComponent } from '../component/documentation/equipement/equipement.component';
+import { SortComponent } from '../component/documentation/hero/sort/sort.component';
 
 export const routes: Routes = [
     { path: '',component: HomeComponent,title: 'Home page'},
-    { path: 'bestiaire', component: BestiaireComponent },
-    { path: 'equipement', component: EquipementComponent },
-    { path: 'autre', component: AutreComponent },
-    { path: 'hero', component: HeroComponent },
-    { path: 'sorts', component: SortComponent },
-    { path: 'gestion', component: GestionComponent },
-    { path: 'creer', component: CreerComponent },
-    { path: 'teleportation', component: TeleportationComponent },
+    { 
+        path: 'documentation',
+        pathMatch:"full",
+        component:DocumentationComponent,
+    },
+    {path:"documentation/autres", component:AutreComponent},
+    {path:"documentation/bestiaires", component:BestiaireComponent},
+    {path:"documentation/equipements", component:EquipementComponent},
+    {path:"documentation/heros", component:HeroComponent},
+    {path:"documentation/heros/sorts", component:SortComponent}
 ];
+
+
+@NgModule({
+    declarations: [],
+    imports: [
+      BrowserModule,
+      RouterModule ,
+      RouterModule.forRoot(routes),
+      AppComponent
+    ],
+    providers: [Router],
+    exports: [RouterModule]
+  })
+  export class AppModule { }
+  

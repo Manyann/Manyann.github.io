@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {Card} from '../common/card';
+import {Card} from '../../component/model/card';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -26,29 +26,14 @@ public goToPage(url:string){
 private buildCardList():Array<Card>{
   const list : Array<Card> = [
     {
-      image:"assets/img/card/hero.jpg",
-      titre:"Héro",
-      url:"hero"
-    },
-    {
-      image:"assets/img/card/bestiaire.jpg",
-      titre:"Bestiaire",
-      url:"bestiaire"
-    },
-    {
-      image:"assets/img/card/equipement.jpg",
-      titre:"Equipement",
-      url:"equipement"
+      image:"assets/img/card/equipement/materiel.PNG",
+      titre:"Documentation",
+      url:"documentation"
     },
     {
       image:"assets/img/card/gestion.PNG",
-      titre:"Gestion personnage",
-      url:"gestion"
-    },
-    {
-      image:"assets/img/card/aide.png",
-      titre:"Autres",
-      url:"autre"
+      titre:"In Game",
+      url:"in-game"
     },
   ]
 

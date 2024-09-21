@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {Card} from '../../app/common/card';
-
+import { Card } from '../../../model/card';
+import { CardListComponent } from '../../../common/card-list/card-list.component';
 @Component({
   selector: 'app-sort',
   standalone: true,
-  imports: [RouterOutlet,CommonModule],
+  imports: [RouterOutlet,CommonModule,CardListComponent],
   templateUrl: './sort.component.html',
   styleUrl: './sort.component.css'
 })
@@ -15,10 +15,11 @@ export class SortComponent {
   cards: Array<Card>;
 
   constructor(){
+    console.log("sort");
     this.cards = this.buildCardList();
   }
 
-  public openPdf(url:string):void{
+  public handleClick(url:string):void{
     window.open(url,'_blank')
   }
   

@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Card } from '../../app/common/card';
+import { Card } from '../../model/card';
+import { CardListComponent } from '../../common/card-list/card-list.component';
 
 @Component({
   selector: 'app-equipement',
   standalone: true,
-  imports: [RouterOutlet,CommonModule],
+  imports: [RouterOutlet,CommonModule,CardListComponent],
   templateUrl: './equipement.component.html',
   styleUrl: './equipement.component.css'
 })

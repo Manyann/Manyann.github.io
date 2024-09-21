@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import {Card} from '../../app/common/card';
+import {Card} from '../../model/card';
 
 @Component({
   selector: 'app-teleportation',

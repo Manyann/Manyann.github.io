@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import {Card} from '../../app/common/card';
+import {Card} from '../../model/card';
+import { CardListComponent } from '../../common/card-list/card-list.component';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [RouterOutlet,CommonModule],
+  imports: [RouterOutlet,CommonModule,CardListComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })
@@ -23,10 +24,10 @@ export class HeroComponent {
   public openUrl(url:string):void{
     console.log(url);
     if(url.indexOf("pdf") != -1){
-    window.open(url,'_blank')
+      window.open(url,'_blank')
     }
     else{
-      this.router.navigate([url]);
+      this.router.navigate(["documentation","heros",url]);
     }
   }
   

@@ -1,0 +1,9 @@
+<div class="main">
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab *ngFor="let ville of villes" header="{{ville.libelle}}">
+        <p>
+            {{ville.region}}
+        </p>
+    </p-accordionTab>
+</p-accordion>
+</div>

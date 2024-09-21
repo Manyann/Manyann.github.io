@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import {Card} from '../../app/common/card';
+import {Card} from '../../model/card';
+import { CardListComponent } from "../../common/card-list/card-list.component";
 
 @Component({
   selector: 'app-autre',
   standalone: true,
-  imports: [RouterOutlet,CommonModule],
+  imports: [RouterOutlet, CommonModule, CardListComponent],
   templateUrl: './autre.component.html',
   styleUrl: './autre.component.css'
 })
@@ -55,11 +56,6 @@ private buildCardList():Array<Card>{
       image:"assets/img/pdfs/autre/fangh_13.png",
       titre:"Carte Fangh",
       url:"assets/img/pdfs/autre/fangh_13.png"
-    },
-    {
-      image:"assets/img/card/autre/teleportation.PNG",
-      titre:"Téléportation bridée",
-      url:"teleportation"
     },
   ]
 
