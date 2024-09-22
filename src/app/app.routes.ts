@@ -9,6 +9,9 @@ import { AutreComponent } from '../component/documentation/autre/autre.component
 import { HeroComponent } from '../component/documentation/hero/hero.component';
 import { EquipementComponent } from '../component/documentation/equipement/equipement.component';
 import { SortComponent } from '../component/documentation/hero/sort/sort.component';
+import { InGameComponent } from '../component/in-game/in-game.component';
+import { TeleportationComponent } from '../component/in-game/teleportation/teleportation.component';
+import { ShopComponent } from '../component/in-game/shop/shop.component';
 
 export const routes: Routes = [
     { path: '',component: HomeComponent,title: 'Home page'},
@@ -21,7 +24,14 @@ export const routes: Routes = [
     {path:"documentation/bestiaires", component:BestiaireComponent},
     {path:"documentation/equipements", component:EquipementComponent},
     {path:"documentation/heros", component:HeroComponent},
-    {path:"documentation/heros/sorts", component:SortComponent}
+    {path:"documentation/heros/sorts", component:SortComponent},
+    { 
+        path: 'in-game',
+        pathMatch:"full",
+        component:InGameComponent,
+    },
+    {path:"in-game/teleportation", component:TeleportationComponent},
+    {path:"in-game/shop", component:ShopComponent},
 ];
 
 

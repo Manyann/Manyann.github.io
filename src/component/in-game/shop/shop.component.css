@@ -1,42 +1,50 @@
 
 .main{
     display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .card-list{
-    margin:auto;
-    display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  .card{
-    width: 15rem;
-    height: 15rem;
-    border-radius: 10px;
-    margin-top:2rem;
-    background-color: cadetblue;
-    font-weight: 500;
-  }
-  .card > div{
-    height: 20%;
-    display: flex;
-    align-items: center;
     justify-content: center;
-  }
-  .card > div:first-child{
-    height: 80%;
-  }
-  .card > div > img{
-    height: 100%;
-    width: 100%;
+    gap:5rem;
   }
 
-  @media (min-width: 1250px) {
-    .card-list{
-      flex-direction: row;
-    }
-    .card{
-      margin:2rem;
-    }
+  select{
+    height: 2.5em;
   }
+
+  p-table{
+    text-align: left;
+  }
+
+::ng-deep.p-button{
+  background: transparent;
+  border: none;
+}
+
+p-table{
+  width: 50rem;
+}
+
+td{
+  min-width: 6rem;
+}
+
+td.p-frozen-column{
+  text-align: center;
+}
+
+td.p-frozen-column:nth-child(1){
+  text-align: left;
+  min-width: 8rem;
+  background-color: #242427;
+}
+
+td.p-frozen-column:nth-child(2){
+  background-color: #242427;
+}
+
+
+th{
+  min-width: 6rem;
+  text-align: center;
+  background-color: #242427;
+}

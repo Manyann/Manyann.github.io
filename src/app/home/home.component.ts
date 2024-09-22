@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {Card} from '../../component/model/card';
+import { CardListComponent } from "../../component/common/card-list/card-list.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule, CardListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

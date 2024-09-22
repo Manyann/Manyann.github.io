@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {Card} from '../model/card';
+import { CardListComponent } from '../common/card-list/card-list.component';
 
 @Component({
-  selector: 'app-documentation',
+  selector: 'app-ingame',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './documentation.component.html',
-  styleUrl: './documentation.component.css'
+  imports: [CommonModule,CardListComponent],
+  templateUrl: './in-game.component.html',
+  styleUrl: './in-game.component.css'
 })
-export class DocumentationComponent {
+export class InGameComponent {
   title = 'nhbk';
   cards: Array<Card>;
 
@@ -20,35 +21,25 @@ export class DocumentationComponent {
   }
   
 public goToPage(url:string){
-    this.router.navigate([url]);
+    this.router.navigate(["in-game",url]);
 }
 
 private buildCardList():Array<Card>{
   const list : Array<Card> = [
     {
-      image:"assets/img/card/hero.jpg",
-      titre:"Héro",
-      url:"hero"
+      image:"assets/img/card/teleportation.PNG",
+      titre:"Téléportation",
+      url:"teleportation"
     },
     {
-      image:"assets/img/card/bestiaire.jpg",
-      titre:"Bestiaire",
-      url:"bestiaire"
+      image:"assets/img/card/ingame/shop.jpg",
+      titre:"Armes / Armures",
+      url:"shop"
     },
     {
-      image:"assets/img/card/equipement.jpg",
-      titre:"Equipement",
-      url:"equipement"
-    },
-    {
-      image:"assets/img/card/gestion.PNG",
-      titre:"Gestion personnage",
-      url:"gestion"
-    },
-    {
-      image:"assets/img/card/aide.png",
-      titre:"Autres",
-      url:"autre"
+      image:"assets/img/card/ingame/guilde.PNG",
+      titre:"Guildes",
+      url:"guildes"
     },
   ]
 

@@ -1,9 +1,64 @@
 <div class="main">
-  <p-accordion [activeIndex]="0">
-    <p-accordionTab *ngFor="let ville of villes" header="{{ville.libelle}}">
-        <p>
-            {{ville.region}}
-        </p>
-    </p-accordionTab>
-</p-accordion>
+    <select (change)="onChangedVille($event)">
+        <option value="" disabled selected>Choisissez...</option>
+        <option *ngFor="let ville of villes" [value]="ville.libelle">{{ville.libelle}}</option>
+    </select>
+
+    <p-table 
+    [value]="items"
+    [scrollable]="true"
+    dataKey="categorie.code" 
+    rowGroupMode="subheader" 
+    groupRowsBy="categorie.code" >
+        <ng-template pTemplate="header">
+            <tr>
+                <th pFrozenColumn>Nom</th>
+                <th pFrozenColumn pSortableColumn="prix">Prix</th>
+                <th>Dégats</th>
+                <th pSortableColumn="attaque">Attaque</th>
+                <th pSortableColumn="parade">Parade</th>
+                <th>Rupture</th>
+                <th pSortableColumn="vourage">Courage</th>
+                <th pSortableColumn="intelligence">Intelligence</th>
+                <th pSortableColumn="charisme">Charisme</th>
+                <th pSortableColumn="adresse">Adresse</th>
+                <th pSortableColumn="force">Force</th>
+                <th pSortableColumn="chance">Chance</th>
+                <th>Informations</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="groupheader" let-item  let-expanded="expanded">
+            <tr style="height: 2rem;">
+                <td colspan="13">
+                    <button 
+                        style="color:white;margin-left:7rem"
+                        type="button" 
+                        pButton 
+                        pRipple 
+                        [pRowToggler]="item" 
+                        class="p-button-text p-button-rounded p-button-plain mr-2" 
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                    </button>
+                    <span class="font-bold ml-2">{{item.categorie.libelle}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-item>
+            <tr>
+                <td pFrozenColumn>{{item.libelle}}</td>
+                <td pFrozenColumn>{{item.prix}}</td>
+                <th>{{item.degats}}</th>
+                <th>{{item.attaque}}</th>
+                <th>{{item.parade}}</th>
+                <th>{{item.rupture}}</th>
+                <th>{{item.courage}}</th>
+                <th>{{item.intelligence}}</th>
+                <th>{{item.charisme}}</th>
+                <th>{{item.adresse}}</th>
+                <th>{{item.force}}</th>
+                <th>{{item.chance}}</th>
+                <th>{{item.informations}}</th>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
