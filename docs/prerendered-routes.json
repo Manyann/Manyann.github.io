@@ -6,6 +6,9 @@
     "/documentation/bestiaires",
     "/documentation/equipements",
     "/documentation/heros",
-    "/documentation/heros/sorts"
+    "/documentation/heros/sorts",
+    "/in-game",
+    "/in-game/shop",
+    "/in-game/teleportation"
   ]
 }
