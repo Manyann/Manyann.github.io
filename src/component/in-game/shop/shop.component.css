@@ -34,17 +34,37 @@ td.p-frozen-column{
 
 td.p-frozen-column:nth-child(1){
   text-align: left;
-  min-width: 8rem;
-  background-color: #242427;
+  min-width: 12rem;
+  background-color: rgba(45, 60, 96);
 }
 
 td.p-frozen-column:nth-child(2){
-  background-color: #242427;
+  background-color: rgba(45, 60, 96);
+}
+
+th.p-frozen-column{
+  background-color:rgba(70,94,134);
 }
 
 
 th{
-  min-width: 6rem;
+  min-width: 5em;
   text-align: center;
-  background-color: #242427;
+}
+
+th:nth-child(1){
+  min-width: 12em;
+}
+
+::ng-deep.p-datatable-thead{
+  color:rgba(55, 149, 202);
+  background-color: rgba(70,94,134);
+}
+
+.pi.pi-angle-double-down{
+  color: green;
+}
+
+.pi.pi-angle-double-up{
+  color:red;
 }

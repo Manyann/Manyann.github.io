@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { Item,Categorie, ItemHelper } from '../../model/item';
 import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { PromotionPipe } from './promotion.pipe';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule,FormsModule,TableModule,ButtonModule  ],
+  imports: [CommonModule,FormsModule,TableModule,ButtonModule,PromotionPipe  ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })

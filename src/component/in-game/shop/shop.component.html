@@ -15,15 +15,14 @@
                 <th pFrozenColumn>Nom</th>
                 <th pFrozenColumn pSortableColumn="prix">Prix</th>
                 <th>Dégats</th>
-                <th pSortableColumn="attaque">Attaque</th>
-                <th pSortableColumn="parade">Parade</th>
-                <th>Rupture</th>
-                <th pSortableColumn="vourage">Courage</th>
-                <th pSortableColumn="intelligence">Intelligence</th>
-                <th pSortableColumn="charisme">Charisme</th>
-                <th pSortableColumn="adresse">Adresse</th>
-                <th pSortableColumn="force">Force</th>
-                <th pSortableColumn="chance">Chance</th>
+                <th>AT / PRD</th>
+                <th>RUP</th>
+                <th pSortableColumn="courage">COU</th>
+                <th pSortableColumn="intelligence">INT</th>
+                <th pSortableColumn="charisme">CHA</th>
+                <th pSortableColumn="adresse">AD</th>
+                <th pSortableColumn="force">FO</th>
+                <th pSortableColumn="chance">CHN</th>
                 <th>Informations</th>
             </tr>
         </ng-template>
@@ -31,7 +30,7 @@
             <tr style="height: 2rem;">
                 <td colspan="13">
                     <button 
-                        style="color:white;margin-left:7rem"
+                        style="color:white;"
                         type="button" 
                         pButton 
                         pRipple 
@@ -46,10 +45,9 @@
         <ng-template pTemplate="rowexpansion" let-item>
             <tr>
                 <td pFrozenColumn>{{item.libelle}}</td>
-                <td pFrozenColumn>{{item.prix}}</td>
+                <td pFrozenColumn [innerHTML]="item.prix | promotion"></td>
                 <th>{{item.degats}}</th>
-                <th>{{item.attaque}}</th>
-                <th>{{item.parade}}</th>
+                <th>{{item.attaque}} / {{item.parade}}</th>
                 <th>{{item.rupture}}</th>
                 <th>{{item.courage}}</th>
                 <th>{{item.intelligence}}</th>
