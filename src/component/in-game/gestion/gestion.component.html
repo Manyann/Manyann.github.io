@@ -1,10 +1,23 @@
-<div class="main">
-  <div class="card-list">
-      <div class="card" *ngFor="let card of cards" (click)="openUrl(card.url)">
-        <div class="card-img"><img src="{{card.image}}" /></div>
-        <div class="card-description">{{card.titre}}</div>
-      </div>  
-  </div>
-</div>
 
+<div class="table-area">
+<p-table 
+    [value]="heros" 
+    styleClass="p-datatable-striped" 
+    [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Hero</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-hero>
+            <tr>
+                <td>{{hero.nom}}</td>
+                <td>{{hero.type | typeHero : herosType}}</td>
+                <td><i class="pi pi pi-cog"></i> </td>
+            </tr>
+        </ng-template>
+</p-table>
+</div>
 <router-outlet />

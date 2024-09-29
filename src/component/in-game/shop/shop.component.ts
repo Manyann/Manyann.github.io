@@ -7,6 +7,7 @@ import { Item,Categorie, ItemHelper } from '../../model/item';
 import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { PromotionPipe } from './promotion.pipe';
+import { CodeLibelle } from '../../model/code-libelle';
 
 @Component({
   selector: 'app-shop',
@@ -18,21 +19,126 @@ import { PromotionPipe } from './promotion.pipe';
 export class ShopComponent {
   title = 'nhbk';
   villes: Array<Ville>;
+  villesType : Array<CodeLibelle>;
+  targets : Array<CodeLibelle>;
+  zones : Array<CodeLibelle>;
   items : Array<Item>;
   baseItems : Array<Item>;
+  selectedVilleType : string;
+  selectedTarget : string;
+  selectedZone : string;
 
   constructor(){
     this.villes =  VilleHelper.getAll().sort((a,b)=> a.libelle.localeCompare(b.libelle));
-    this.baseItems = ItemHelper.getAll().filter(x=>this.estPresent(x,undefined));
+    this.baseItems = ItemHelper.getAll();
     this.items = this.baseItems;
+    this.targets = this.buildTargets();
+    this.zones = this.buildZones();
+    this.villesType = this.buildVillesType();
+    this.selectedVilleType = "";
+    this.selectedTarget = "";
+    this.selectedZone = "";
+  }
+
+  buildTargets(): Array<CodeLibelle>{
+    return [
+      {
+        code:"commun",
+        libelle:"Commun"
+      },
+      {
+        code:"elfe",
+        libelle:"Elfes"
+      },
+      {
+        code:"nain",
+        libelle:"Nains"
+      },
+      {
+        code:"samurai",
+        libelle:"Samurais"
+      },
+    ];
+  }
+
+  buildZones(): Array<CodeLibelle>{
+    return [
+      {
+        code:"commun",
+        libelle:"Commun"
+      },
+      {
+        code:"nord",
+        libelle:"Grand Nord"
+      },
+      {
+        code:"desert",
+        libelle:"Désert"
+      },
+      {
+        code:"sud",
+        libelle:"Iles du sud"
+      },
+      {
+        code:"est",
+        libelle:"Est"
+      },
+    ];
+  }
+
+  buildVillesType(): Array<CodeLibelle>{
+    return [
+      {
+        code:"capitale",
+        libelle:"Capitale"
+      },
+      {
+        code:"ville-grande",
+        libelle:"Grande ville"
+      },
+      {
+        code:"ville-moyenne",
+        libelle:"Ville Moyenne"
+      },
+      {
+        code:"ville-petite",
+        libelle:"Petite Ville"
+      },
+      {
+        code:"bourgade",
+        libelle:"Bourgade, Hameaux, ..."
+      },
+      {
+        code:"campement",
+        libelle:"Campement, Groupement rustique, ..."
+      },
+    ];
   }
 
   onChangedVille(event:Event):void{
-    console.log("changed");
     const target = event.target as HTMLSelectElement;
     const value = target.value;
-    let ville = this.villes.find(x=>x.libelle===value);
-    this.items = this.baseItems.filter(x=>this.estPresent(x,ville));
+    this.selectedVilleType = value;
+  }
+
+  onChangedRegion(event:Event):void{
+    const target = event.target as HTMLSelectElement;
+    const value = target.value;
+    this.selectedZone = value;
+  }
+
+  onChangedTarget(event:Event):void{
+    const target = event.target as HTMLSelectElement;
+    const value = target.value;
+    this.selectedTarget = value;
+  }
+
+  public filterItems(){
+
+    let ville = this.villes.find(x=>x.region == this.selectedZone 
+      && x.type == this.selectedVilleType);
+
+    this.items = this.baseItems.filter(x=>this.estPresent(x, ville));
   }
 
   public estPresent(item:Item, ville:Ville|undefined):boolean{
@@ -41,12 +147,15 @@ export class ShopComponent {
       return true;
     }
 
-    let random = Math.floor(Math.random() * (100 - 0 + 1)) + 0
+    let random = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
     let handicap = item.basePourcentage;
     handicap -= ville.handicap
     if(ville !== undefined && ville.region !== item.region){
       let regionalHandicap = ville.malus.find(x=>x.region === item.region)?.handicap ?? 0;
       handicap -= regionalHandicap;
+    }
+    if(this.selectedTarget != "" && this.selectedTarget != item.origine){
+      handicap -= 10;
     }
     
     return random < handicap;

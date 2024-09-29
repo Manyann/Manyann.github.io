@@ -1,15 +1,25 @@
-<div class="main">
-    <select (change)="onChangedVille($event)">
-        <option value="" disabled selected>Choisissez...</option>
-        <option *ngFor="let ville of villes" [value]="ville.libelle">{{ville.libelle}}</option>
-    </select>
 
+<select (change)="onChangedRegion($event)">
+    <option value="" disabled selected>Choisissez une région ...</option>
+    <option *ngFor="let zone of zones" [value]="zone.code">{{zone.libelle}}</option>
+</select>
+<select (change)="onChangedVille($event)">
+    <option value="" disabled selected>Choisissez un type ...</option>
+    <option *ngFor="let type of villesType" [value]="type.code">{{type.libelle}}</option>
+</select>
+<select (change)="onChangedTarget($event)">
+    <option value="" disabled selected>Choisissez une affiliation ...</option>
+    <option *ngFor="let affiliation of targets" [value]="affiliation.code">{{affiliation.libelle}}</option>
+</select>
+<p-button label="Afficher" (onClick)="filterItems()"/>
     <p-table 
     [value]="items"
-    [scrollable]="true"
+    styleClass="p-datatable-striped"
+    [scrollable]="true" scrollHeight="20rem" styleClass="mt-3"
     dataKey="categorie.code" 
     rowGroupMode="subheader" 
-    groupRowsBy="categorie.code" >
+    groupRowsBy="categorie.code" 
+    [tableStyle]="{'min-width': '70rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th pFrozenColumn>Nom</th>
@@ -27,8 +37,9 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="groupheader" let-item  let-expanded="expanded">
-            <tr style="height: 2rem;">
+            <tr>
                 <td colspan="13">
+                    <div class="expanded-row-fixer">
                     <button 
                         style="color:white;"
                         type="button" 
@@ -38,7 +49,8 @@
                         class="p-button-text p-button-rounded p-button-plain mr-2" 
                         [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
                     </button>
-                    <span class="font-bold ml-2">{{item.categorie.libelle}}</span>
+                    <div class="font-bold ml-2">{{item.categorie.libelle}}</div>
+                </div>
                 </td>
             </tr>
         </ng-template>
@@ -59,4 +71,3 @@
             </tr>
         </ng-template>
     </p-table>
-</div>

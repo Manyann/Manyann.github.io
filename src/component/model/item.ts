@@ -1,6 +1,7 @@
 export class Item{
     "libelle":string;
     "region":string;
+    "origine":string;
     "prix" : number;
     "basePourcentage":number;
     "categorie" : Categorie;
@@ -29,7 +30,8 @@ export class ItemHelper{
             {
                 "libelle":"Epée perave",
                 "basePourcentage":100,
-                "region":"commune",
+                "region":"commun",
+                "origine":"commun",
                 "categorie":{
                     "code":1,
                     "libelle" : "Armes à 1 main"
@@ -51,7 +53,8 @@ export class ItemHelper{
             {
                 "libelle":"Epée de qualité",
                 "basePourcentage":100,
-                "region":"commune",
+                "region":"commun",
+                "origine":"commun",
                 "categorie":{
                     "code":1,
                     "libelle" : "Armes à 1 main"
@@ -72,7 +75,8 @@ export class ItemHelper{
             {
                 "libelle":"Hache de bataille Sylderine",
                 "basePourcentage":80,
-                "region":"commune",
+                "region":"commun",
+                "origine":"commun",
                 "categorie":{
                     "code":2,
                     "libelle" : "Armes à 2 mains - Haches"
@@ -93,7 +97,8 @@ export class ItemHelper{
             {
                 "libelle":"Arc des meuldor",
                 "basePourcentage":100,
-                "region":"commune",
+                "region":"commun",
+                "origine":"elfe",
                 "categorie":{
                     "code":3,
                     "libelle" : "Armes de jets"
@@ -114,7 +119,8 @@ export class ItemHelper{
             {
                 "libelle":"Hallebarde légendaire",
                 "basePourcentage":10,
-                "region":"commune",
+                "region":"commun",
+                "origine":"nain",
                 "categorie":{
                     "code":4,
                     "libelle" : "Arme à 2 mains - Lances"

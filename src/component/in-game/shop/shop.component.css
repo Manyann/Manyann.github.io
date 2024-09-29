@@ -1,65 +1,8 @@
 
-.main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap:5rem;
-  }
-
   select{
     height: 2.5em;
+    margin-right:2rem;
   }
-
-  p-table{
-    text-align: left;
-  }
-
-::ng-deep.p-button{
-  background: transparent;
-  border: none;
-}
-
-p-table{
-  width: 50rem;
-}
-
-td{
-  min-width: 6rem;
-}
-
-td.p-frozen-column{
-  text-align: center;
-}
-
-td.p-frozen-column:nth-child(1){
-  text-align: left;
-  min-width: 12rem;
-  background-color: rgba(45, 60, 96);
-}
-
-td.p-frozen-column:nth-child(2){
-  background-color: rgba(45, 60, 96);
-}
-
-th.p-frozen-column{
-  background-color:rgba(70,94,134);
-}
-
-
-th{
-  min-width: 5em;
-  text-align: center;
-}
-
-th:nth-child(1){
-  min-width: 12em;
-}
-
-::ng-deep.p-datatable-thead{
-  color:rgba(55, 149, 202);
-  background-color: rgba(70,94,134);
-}
 
 .pi.pi-angle-double-down{
   color: green;
@@ -67,4 +10,9 @@ th:nth-child(1){
 
 .pi.pi-angle-double-up{
   color:red;
+}
+
+.expanded-row-fixer{
+  display: flex;
+  align-items: center;
 }

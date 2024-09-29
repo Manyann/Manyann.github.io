@@ -1,48 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { Card } from '../../model/card';
+import { TableModule } from 'primeng/table';
+import { Hero, HeroHelper, HeroType } from '../../model/hero';
+import { TypeHeroPipe } from './type-hero.pipe';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-gestion',
   standalone: true,
-  imports: [RouterOutlet,CommonModule],
+  imports: [RouterOutlet,CommonModule,TableModule,TypeHeroPipe,ButtonModule],
   templateUrl: './gestion.component.html',
   styleUrl: './gestion.component.css'
 })
 export class GestionComponent {
-  title = 'nhbk';
-  cards: Array<Card>;
 
-  constructor(private router:Router){
-    this.cards = this.buildCardList();
+  heros : Array<Hero>;
+  herosType : Array<HeroType>;
+  constructor(){
+    this.heros = HeroHelper.getAllHero();
+    this.herosType = HeroHelper.getAllHeroType();
   }
 
-  
-  public openUrl(url:string):void{
-    console.log(url);
-    if(url.indexOf("pdf") != -1){
-    window.open(url,'_blank')
-    }
-    else{
-      this.router.navigate([url]);
-    }
-  }
-  
-private buildCardList():Array<Card>{
-  const list : Array<Card> = [
-    {
-      image:"assets/img/card/gestion/create.png",
-      titre:"Créer",
-      url:"creer"
-    },
-    {
-      image:"assets/img/card/gestion/manage.jpg",
-      titre:"Gérer",
-      url:"gestionlist"
-    },
-  ]
-
-  return list;
-}
 }

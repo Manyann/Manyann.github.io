@@ -38,8 +38,8 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/ingame/guilde.PNG",
-      titre:"Guildes",
-      url:"guildes"
+      titre:"Nos héros",
+      url:"gestion"
     },
   ]
 

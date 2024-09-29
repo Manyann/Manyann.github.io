@@ -1,21 +1,10 @@
 
-.main{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .card-list{
-    margin:auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .card{
+
+  p-card{
     width: 15rem;
     height: 15rem;
     border-radius: 10px;
-    margin-top:2rem;
-    background-color: cadetblue;
+    margin:2rem;
     font-weight: 500;
   }
   .card > div{
@@ -24,22 +13,15 @@
     align-items: center;
     justify-content: center;
   }
-  .card > div:first-child{
-    height: 80%;
-  }
-  .card > div > img{
-    height: 100%;
-    width: 100%;
-  }
 
-  @media (min-width: 1250px) {
-    .card-list{
-      flex-direction: row;
-    }
-    .card{
-      margin:2rem;
-    }
-    .card-list{
-      flex-wrap: wrap;
-    }
+  img{
+    height: 8rem;
+    width: 15rem;
+  }
+  
+  .card-list{
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }

@@ -1,6 +1,7 @@
 export class Ville{
     "libelle":string;
     "region":string;
+    "type":string;
     "handicap":number;
     "malus" : Array<Malus>;
 };
@@ -16,7 +17,8 @@ export class VilleHelper{
  return [
     {
         "libelle":"Capitale",
-        "region":"commune",
+        "region":"commun",
+        "type":"capitale",
         "handicap":0,
         "malus" : [
             {
@@ -39,7 +41,8 @@ export class VilleHelper{
     },
     {
         "libelle":"Commun - Grande ville",
-        "region":"commune",
+        "region":"commun",
+        "type":"ville-grande",
         "handicap":5,
         "malus" : [
             {
@@ -63,6 +66,7 @@ export class VilleHelper{
     {
         "libelle":"Est - Grande ville",
         "region":"est",
+        "type":"ville-grande",
         "handicap":5,
         "malus" : [
             {
@@ -74,7 +78,7 @@ export class VilleHelper{
                 "handicap":45
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -86,10 +90,11 @@ export class VilleHelper{
     {
         "libelle":"Désert - Grande ville",
         "region":"desert",
+        "type":"ville-grande",
         "handicap":10,
         "malus" : [
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -109,6 +114,7 @@ export class VilleHelper{
     {
         "libelle":"Iles - Grande port",
         "region":"ile",
+        "type":"ville-grande",
         "handicap":10,
         "malus" : [
             {
@@ -128,7 +134,7 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":10
             }
         ]
@@ -136,6 +142,7 @@ export class VilleHelper{
     {
         "libelle":"Sud - Grande ville",
         "region":"sud",
+        "type":"ville-grande",
         "handicap":10,
         "malus" : [
             {
@@ -155,7 +162,7 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             }
         ]
@@ -163,6 +170,7 @@ export class VilleHelper{
     {
         "libelle":"Nord - Grande ville",
         "region":"nord",
+        "type":"ville-grande",
         "handicap":10,
         "malus" : [
             {
@@ -170,7 +178,7 @@ export class VilleHelper{
                 "handicap":30
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":25
             },
             {
@@ -185,7 +193,8 @@ export class VilleHelper{
     },
     {
         "libelle":"Commun - Moyenne ville",
-        "region":"commune",
+        "region":"commun",
+        "type":"ville-moyenne",
         "handicap":10,
         "malus" : [
             {
@@ -209,6 +218,7 @@ export class VilleHelper{
     {
         "libelle":"Est - Moyenne ville",
         "region":"est",
+        "type":"ville-moyenne",
         "handicap":10,
         "malus" : [
             {
@@ -220,7 +230,7 @@ export class VilleHelper{
                 "handicap":45
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -232,10 +242,11 @@ export class VilleHelper{
     {
         "libelle":"Désert - Moyenne ville",
         "region":"desert",
+        "type":"ville-moyenne",
         "handicap":15,
         "malus" : [
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -255,6 +266,7 @@ export class VilleHelper{
     {
         "libelle":"Iles - Moyenne port",
         "region":"ile",
+        "type":"ville-moyenne",
         "handicap":15,
         "malus" : [
             {
@@ -274,7 +286,7 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":10
             }
         ]
@@ -282,6 +294,7 @@ export class VilleHelper{
     {
         "libelle":"Sud - Moyenne ville",
         "region":"sud",
+        "type":"ville-moyenne",
         "handicap":15,
         "malus" : [
             {
@@ -301,7 +314,7 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             }
         ]
@@ -309,6 +322,7 @@ export class VilleHelper{
     {
         "libelle":"Nord - Moyenne ville",
         "region":"nord",
+        "type":"ville-moyenne",
         "handicap":15,
         "malus" : [
             {
@@ -316,7 +330,7 @@ export class VilleHelper{
                 "handicap":30
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":25
             },
             {
@@ -331,7 +345,8 @@ export class VilleHelper{
     },
     {
         "libelle":"Commun - Petite ville",
-        "region":"commune",
+        "region":"commun",
+        "type":"ville-petite",
         "handicap":15,
         "malus" : [
             {
@@ -355,6 +370,7 @@ export class VilleHelper{
     {
         "libelle":"Est - Petite ville",
         "region":"est",
+        "type":"ville-petite",
         "handicap":15,
         "malus" : [
             {
@@ -366,7 +382,7 @@ export class VilleHelper{
                 "handicap":45
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -378,10 +394,11 @@ export class VilleHelper{
     {
         "libelle":"Désert - Petite ville",
         "region":"desert",
+        "type":"ville-petite",
         "handicap":20,
         "malus" : [
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -401,6 +418,7 @@ export class VilleHelper{
     {
         "libelle":"Iles - Petite port",
         "region":"ile",
+        "type":"ville-petite",
         "handicap":20,
         "malus" : [
             {
@@ -420,7 +438,7 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":10
             }
         ]
@@ -428,6 +446,7 @@ export class VilleHelper{
     {
         "libelle":"Sud - Petite ville",
         "region":"sud",
+        "type":"ville-petite",
         "handicap":20,
         "malus" : [
             {
@@ -447,7 +466,7 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             }
         ]
@@ -455,6 +474,7 @@ export class VilleHelper{
     {
         "libelle":"Nord - Petite ville",
         "region":"nord",
+        "type":"ville-petite",
         "handicap":20,
         "malus" : [
             {
@@ -462,7 +482,7 @@ export class VilleHelper{
                 "handicap":30
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":25
             },
             {
@@ -477,7 +497,8 @@ export class VilleHelper{
     },
     {
         "libelle":"Commun - Bourgades, villages, hameaux",
-        "region":"commune",
+        "region":"commun",
+        "type":"bourgade",
         "handicap":20,
         "malus" : [
             {
@@ -501,6 +522,7 @@ export class VilleHelper{
     {
         "libelle":"Est - Bourgades, villages, hameaux",
         "region":"est",
+        "type":"bourgade",
         "handicap":25,
         "malus" : [
             {
@@ -512,7 +534,7 @@ export class VilleHelper{
                 "handicap":45
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -524,10 +546,11 @@ export class VilleHelper{
     {
         "libelle":"Désert - Bourgades, villages, hameaux",
         "region":"desert",
+        "type":"bourgade",
         "handicap":25,
         "malus" : [
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -547,6 +570,7 @@ export class VilleHelper{
     {
         "libelle":"Iles - Bourgades, villages, hameaux",
         "region":"ile",
+        "type":"bourgade",
         "handicap":30,
         "malus" : [
             {
@@ -566,7 +590,7 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":10
             }
         ]
@@ -574,6 +598,7 @@ export class VilleHelper{
     {
         "libelle":"Sud - Bourgades, villages, hameaux",
         "region":"sud",
+        "type":"bourgade",
         "handicap":30,
         "malus" : [
             {
@@ -593,7 +618,7 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             }
         ]
@@ -601,6 +626,7 @@ export class VilleHelper{
     {
         "libelle":"Nord - Bourgades, villages, hameaux",
         "region":"nord",
+        "type":"bourgade",
         "handicap":30,
         "malus" : [
             {
@@ -608,7 +634,7 @@ export class VilleHelper{
                 "handicap":30
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":25
             },
             {
@@ -623,7 +649,8 @@ export class VilleHelper{
     },
     {
         "libelle":"Commun - Campement, fort",
-        "region":"commune",
+        "region":"commun",
+        "type":"campement",
         "handicap":8,
         "malus" : [
             {
@@ -645,8 +672,9 @@ export class VilleHelper{
         ]
     },
     {
-        "libelle":"Est - Bourgades, villages, hameaux",
+        "libelle":"Est - Campement, fort",
         "region":"est",
+        "type":"campement",
         "handicap":12,
         "malus" : [
             {
@@ -658,7 +686,7 @@ export class VilleHelper{
                 "handicap":45
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -668,12 +696,13 @@ export class VilleHelper{
         ]
     },
     {
-        "libelle":"Désert - Bourgades, villages, hameaux",
+        "libelle":"Désert - Campement, fort",
         "region":"desert",
+        "type":"campement",
         "handicap":12,
         "malus" : [
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             },
             {
@@ -691,8 +720,9 @@ export class VilleHelper{
         ]
     },
     {
-        "libelle":"Iles - Bourgades, villages, hameaux",
+        "libelle":"Iles - Campement, fort",
         "region":"ile",
+        "type":"campement",
         "handicap":15,
         "malus" : [
             {
@@ -712,14 +742,15 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":10
             }
         ]
     },
     {
-        "libelle":"Sud - Bourgades, villages, hameaux",
+        "libelle":"Sud - Campement, fort",
         "region":"sud",
+        "type":"campement",
         "handicap":15,
         "malus" : [
             {
@@ -739,14 +770,15 @@ export class VilleHelper{
                 "handicap":65
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":15
             }
         ]
     },
     {
-        "libelle":"Nord - Bourgades, villages, hameaux",
+        "libelle":"Nord - Campement, fort",
         "region":"nord",
+        "type":"campement",
         "handicap":15,
         "malus" : [
             {
@@ -754,7 +786,7 @@ export class VilleHelper{
                 "handicap":30
             },
             {
-                "region":"commune",
+                "region":"commun",
                 "handicap":25
             },
             {

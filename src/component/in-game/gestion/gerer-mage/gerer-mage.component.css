@@ -1,0 +1,162 @@
+
+.main{
+  width: 80%;
+  margin: auto;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  }
+  .panel-header{
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .panel-header-option{
+    background-color: cadetblue;
+    border: 2px solid cadetblue;
+    border-radius: 5px;
+    width: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:3rem;
+  }
+  
+  .panel-header-option.active{
+    border: 2px solid coral;
+  }
+  
+  .header{
+    width: 100%;
+    background: cadetblue;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 10px;
+    height: 3rem;
+    align-items: center;
+}
+.small-header{
+    display: none;
+}
+.header > div {
+    display: flex;
+    justify-content:center;
+    width: 12%;
+}
+.header > div:first-child{
+    width: 25%;
+}
+.list-item{
+    color: black;
+}
+
+  .list > div{
+    min-height: 3rem;
+    margin-top: 0.5rem;
+    background-color: lightsteelblue;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.list > div:hover{
+    cursor:pointer;
+}
+.list-item-needs{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    > div{
+        display: flex;
+        justify-content:center;
+        width: 12%;
+        &.min{
+            color:#0B6623;
+        }
+        &.max{
+            color:#BA0021;
+        }
+        &:first-child{
+            width: 25%;
+        }
+    }
+}
+
+.list-item-details{
+    font-weight: 100;
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+    height: auto;
+    
+    .parts{
+        display: flex;
+        align-items: flex-start;
+    }
+
+    span{
+        margin-left:0.5rem;
+        padding:0.2rem;
+        border: 2px solid black;
+        border-radius: 5px;
+    }
+}
+
+.list-item-details-items{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    margin:0.2rem;
+}
+.title{
+    font-weight: bold;
+    color:#145DA0;
+    margin-right: 1rem;
+}
+.btn-metier{
+    width: 10rem;
+    height: 2.5rem;
+    margin-top: 1rem;
+    border: 2px solid black;
+    background: cadetblue;
+    font-weight: bold;
+    border-radius: 10px;
+    :hover{
+        cursor:pointer;
+    }
+}
+
+@media (max-width: 1250px) {
+    .main{
+        width: 100%;
+    }
+    body{
+        font-size: xx-large;
+    }
+    .normal-header{
+        display: none;
+    }
+    .small-header{
+        display: block;
+    }
+    .list-item-details > div{
+        margin-top: 0.5rem;
+    }
+    .list-item-details-items{
+        flex-wrap: wrap;
+        > span{
+            margin-top: 0.5rem;
+        }
+    }
+    .parts{
+        flex-direction: column;
+        }
+    .btn-metier{
+        width: 5rem;
+        height: 1.5rem;
+        font-size: large;
+    }
+}
