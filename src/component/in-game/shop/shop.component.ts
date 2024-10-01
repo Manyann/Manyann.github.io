@@ -8,11 +8,14 @@ import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { PromotionPipe } from './promotion.pipe';
 import { CodeLibelle } from '../../model/code-libelle';
+import { OriginePipe, OriginePrixPipe } from './origine.pipe';
+import { BonusAdPipe } from './bonus.pipe';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule,FormsModule,TableModule,ButtonModule,PromotionPipe  ],
+  imports: [CommonModule,FormsModule,TableModule,ButtonModule,
+    PromotionPipe,OriginePipe,OriginePrixPipe, BonusAdPipe  ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })
@@ -119,6 +122,7 @@ export class ShopComponent {
     const target = event.target as HTMLSelectElement;
     const value = target.value;
     this.selectedVilleType = value;
+    this.filterItems();
   }
 
   onChangedRegion(event:Event):void{
@@ -150,13 +154,13 @@ export class ShopComponent {
     let random = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
     let handicap = item.basePourcentage;
     handicap -= ville.handicap
-    if(ville !== undefined && ville.region !== item.region){
-      let regionalHandicap = ville.malus.find(x=>x.region === item.region)?.handicap ?? 0;
-      handicap -= regionalHandicap;
-    }
-    if(this.selectedTarget != "" && this.selectedTarget != item.origine){
-      handicap -= 10;
-    }
+    // if(ville !== undefined && ville.region !== item.region){
+    //   let regionalHandicap = ville.malus.find(x=>x.region === item.region)?.handicap ?? 0;
+    //   handicap -= regionalHandicap;
+    // }
+    // if(this.selectedTarget != "" && this.selectedTarget != item.origine){
+    //   handicap -= 10;
+    // }
     
     return random < handicap;
   }

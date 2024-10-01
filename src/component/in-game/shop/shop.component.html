@@ -1,17 +1,17 @@
-
+<!-- 
 <select (change)="onChangedRegion($event)">
     <option value="" disabled selected>Choisissez une région ...</option>
     <option *ngFor="let zone of zones" [value]="zone.code">{{zone.libelle}}</option>
-</select>
+</select> -->
 <select (change)="onChangedVille($event)">
     <option value="" disabled selected>Choisissez un type ...</option>
     <option *ngFor="let type of villesType" [value]="type.code">{{type.libelle}}</option>
 </select>
-<select (change)="onChangedTarget($event)">
+<!-- <select (change)="onChangedTarget($event)">
     <option value="" disabled selected>Choisissez une affiliation ...</option>
     <option *ngFor="let affiliation of targets" [value]="affiliation.code">{{affiliation.libelle}}</option>
-</select>
-<p-button label="Afficher" (onClick)="filterItems()"/>
+</select> -->
+<!-- <p-button label="Afficher" (onClick)="filterItems()"/> -->
     <p-table 
     [value]="items"
     styleClass="p-datatable-striped"
@@ -56,15 +56,15 @@
         </ng-template>
         <ng-template pTemplate="rowexpansion" let-item>
             <tr>
-                <td pFrozenColumn>{{item.libelle}}</td>
-                <td pFrozenColumn [innerHTML]="item.prix | promotion"></td>
+                <td pFrozenColumn>{{item.libelle}} <span [innerHTML]="item.origine | origine"></span></td>
+                <td pFrozenColumn [innerHTML]="item.prix | originePrix : item.origine |  promotion   "></td>
                 <th>{{item.degats}}</th>
                 <th>{{item.attaque}} / {{item.parade}}</th>
                 <th>{{item.rupture}}</th>
                 <th>{{item.courage}}</th>
                 <th>{{item.intelligence}}</th>
                 <th>{{item.charisme}}</th>
-                <th>{{item.adresse}}</th>
+                <th [innerHTML]="item.adresse | bonusAd : item.origine" >{{item.adresse}}</th>
                 <th>{{item.force}}</th>
                 <th>{{item.chance}}</th>
                 <th>{{item.informations}}</th>
