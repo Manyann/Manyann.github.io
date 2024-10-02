@@ -76,6 +76,32 @@ export class ItemHelper{
 
         return dico[random];
     }
+
+    static getDefault() : Item{
+        return {
+            "libelle":"",
+            "basePourcentage":0,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"",
+                "libelle" : ""
+            },
+            "prix":0,
+            "degats":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+            
+        };
+    }
     
     static getAll():Array<Item>{
         return [
