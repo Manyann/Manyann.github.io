@@ -154,6 +154,7 @@ export class ShopComponent {
     let random = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
     let handicap = item.basePourcentage;
     handicap -= ville.handicap
+    
     // if(ville !== undefined && ville.region !== item.region){
     //   let regionalHandicap = ville.malus.find(x=>x.region === item.region)?.handicap ?? 0;
     //   handicap -= regionalHandicap;
@@ -161,6 +162,10 @@ export class ShopComponent {
     // if(this.selectedTarget != "" && this.selectedTarget != item.origine){
     //   handicap -= 10;
     // }
+
+    if(handicap <=3 ){
+      handicap = 3;
+    }
     
     return random < handicap;
   }
