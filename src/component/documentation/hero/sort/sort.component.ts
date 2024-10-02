@@ -15,7 +15,6 @@ export class SortComponent {
   cards: Array<Card>;
 
   constructor(){
-    console.log("sort");
     this.cards = this.buildCardList();
   }
 

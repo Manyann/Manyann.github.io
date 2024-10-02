@@ -138,7 +138,6 @@ export class ShopComponent {
   }
 
   public filterItems(){
-    console.log('filter');
     // let ville = this.villes.find(x=>x.region == this.selectedZone 
     //   && x.type == this.selectedVilleType);
     let ville = this.villes.find(x=>x.region == "commun" 
@@ -148,7 +147,6 @@ export class ShopComponent {
   }
 
   public estPresent(item:Item, ville:Ville|undefined):boolean{
-    console.log(ville);
     if(ville === undefined){
       return true;
     }

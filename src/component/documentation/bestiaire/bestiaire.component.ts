@@ -15,7 +15,6 @@ export class BestiaireComponent {
   cards: Array<Card>;
 
   constructor(){
-    console.log("bestiaire");
     this.cards = this.buildCardList();
   }
 

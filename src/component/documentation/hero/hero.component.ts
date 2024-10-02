@@ -22,7 +22,6 @@ export class HeroComponent {
 
   
   public openUrl(url:string):void{
-    console.log(url);
     if(url.indexOf("pdf") != -1){
       window.open(url,'_blank')
     }
