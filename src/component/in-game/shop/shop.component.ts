@@ -9,13 +9,13 @@ import { ButtonModule } from 'primeng/button';
 import { PromotionPipe } from './promotion.pipe';
 import { CodeLibelle } from '../../model/code-libelle';
 import { OriginePipe, OriginePrixPipe } from './origine.pipe';
-import { BonusAdPipe } from './bonus.pipe';
+import { BonusAdPipe, BonusDegatPipe, BonusForcePipe, BonusInfoPipe, BonusRupturePipe } from './bonus.pipe';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
   imports: [CommonModule,FormsModule,TableModule,ButtonModule,
-    PromotionPipe,OriginePipe,OriginePrixPipe, BonusAdPipe  ],
+    PromotionPipe,OriginePipe,OriginePrixPipe, BonusAdPipe, BonusForcePipe, BonusDegatPipe, BonusRupturePipe, BonusInfoPipe  ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })

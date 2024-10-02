@@ -57,17 +57,17 @@
         <ng-template pTemplate="rowexpansion" let-item>
             <tr>
                 <td pFrozenColumn>{{item.libelle}} <span [innerHTML]="item.origine | origine"></span></td>
-                <td pFrozenColumn [innerHTML]="item.prix | originePrix : item.origine |  promotion   "></td>
-                <th>{{item.degats}}</th>
+                <td pFrozenColumn [innerHTML]="item.prix | originePrix : item.origine |  promotion"></td>
+                <th [innerHTML]="item.degats | bonusDegat : item.origine"></th>
                 <th>{{item.attaque}} / {{item.parade}}</th>
-                <th>{{item.rupture}}</th>
+                <th [innerHTML]="item.rupture | bonusRupture : item.origine"></th>
                 <th>{{item.courage}}</th>
                 <th>{{item.intelligence}}</th>
                 <th>{{item.charisme}}</th>
-                <th [innerHTML]="item.adresse | bonusAd : item.origine" >{{item.adresse}}</th>
-                <th>{{item.force}}</th>
+                <th [innerHTML]="item.adresse | bonusAd : item.origine" ></th>
+                <th [innerHTML]="item.force | bonusForce : item.origine"></th>
                 <th>{{item.chance}}</th>
-                <th>{{item.informations}}</th>
+                <th [innerHTML]="item.informations| bonusInfo : item.origine"></th>
             </tr>
         </ng-template>
     </p-table>

@@ -17,8 +17,20 @@ export class OriginePipe implements PipeTransform {
 
     switch(value){
       case "elfe" :
-        color = "green";
+        color = "gold";
           break;
+      case "nain" :
+        color = "orange";
+            break;
+      case "orc" :
+        color = "green";
+            break;
+      case "pirate" :
+        color = "red";
+            break;
+      case "homme-sable" :
+          color = "cyan";
+            break;
     }
     
     return this.sanitizer.bypassSecurityTrustHtml('<span style=color:'+color+'>('+value+')</span>');

@@ -19,11 +19,11 @@ export class PromotionPipe implements PipeTransform {
         value = value * 0.8;
     }
     else if(random ==1 ){
-        infos = "<i class='pi pi-angle-double-down' style='color:green' title='"+value+"'></i>";
+        infos = "<i class='pi pi-angle-down' style='color:green' title='"+value+"'></i>";
         value = value * 0.9;
     }
     else if(random == 18){
-        infos = "<i class='pi pi-angle-double-up' style='color:red' title='"+value+"'></i>";
+        infos = "<i class='pi pi-angle-up' style='color:red' title='"+value+"'></i>";
         value = value * 1.1;
     }
     else if(random == 19){

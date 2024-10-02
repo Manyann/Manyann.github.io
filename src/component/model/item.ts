@@ -31,36 +31,36 @@ export class ItemHelper{
         },
         "epee" : {
             0:"elfe",
+            1:"pirate",
         },
         "hache" : {
-            0:"elfe",
+            0:"nain",
+            1:"orc",
         },
         "masse" : {
-            0:"elfe",
-        },
-        "epee-deux" : {
-            0:"elfe",
+            0:"nain",
         },
         "hache-deux" : {
-            0:"elfe",
+            0:"orc",
         },
         "marteau" : {
-            0:"elfe",
+            0:"nain",
         },
         "lance" : {
-            0:"elfe",
+            0:"orc",
         },
         "arc" : {
             0:"elfe",
         },
         "arbalete" : {
-            0:"elfe",
+            0:"homme-sable",
         },
         "javelot" : {
-            0:"elfe",
+            0:"orc",
         },
         "pistolet" : {
-            0:"elfe",
+            0:"homme-sable",
+            1:"pirate",
         },
     };
 
