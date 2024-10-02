@@ -82,7 +82,7 @@ export class ItemHelper{
             //#region  Dagues
             {
                 "libelle":"Dague pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("dague"),
                 "categorie":{
@@ -105,7 +105,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Dague de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("dague"),
                 "categorie":{
@@ -127,7 +127,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Dague de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("dague"),
                 "categorie":{
@@ -149,7 +149,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Dague d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("dague"),
                 "categorie":{
@@ -171,7 +171,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Dague Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("dague"),
                 "categorie":{
@@ -193,7 +193,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Dague d'excellence",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("dague"),
                 "categorie":{
@@ -215,7 +215,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Dague de combat",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("dague"),
                 "categorie":{
@@ -237,7 +237,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Dague éthérée",
-                "basePourcentage":70,
+                "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("dague"),
                 "categorie":{
@@ -261,7 +261,7 @@ export class ItemHelper{
             //#region Epee
             {
                 "libelle":"Epée pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("epee"),
                 "categorie":{
@@ -284,7 +284,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Epée de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("epee"),
                 "categorie":{
@@ -306,7 +306,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Epée de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("epee"),
                 "categorie":{
@@ -328,7 +328,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Epée d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("epee"),
                 "categorie":{
@@ -350,7 +350,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Rapière de Noble",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("epee"),
                 "categorie":{
@@ -372,7 +372,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Epée Durandil",
-                "basePourcentage":85,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("epee"),
                 "categorie":{
@@ -394,7 +394,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Lame d'excellence",
-                "basePourcentage":80,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("epee"),
                 "categorie":{
@@ -416,7 +416,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Lame de combat",
-                "basePourcentage":75,
+                "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("epee"),
                 "categorie":{
@@ -438,7 +438,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Lame de dueliste",
-                "basePourcentage":70,
+                "basePourcentage":60,
                 "region":"commun",
                 "origine":this.getOrigine("epee"),
                 "categorie":{
@@ -462,7 +462,7 @@ export class ItemHelper{
             //#region Haches 1 main
             {
                 "libelle":"Hache pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("hache"),
                 "categorie":{
@@ -485,7 +485,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("hache"),
                 "categorie":{
@@ -507,7 +507,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("hache"),
                 "categorie":{
@@ -529,7 +529,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("hache"),
                 "categorie":{
@@ -551,7 +551,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("hache"),
                 "categorie":{
@@ -573,7 +573,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache d'excellence",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("hache"),
                 "categorie":{
@@ -595,7 +595,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache de combat",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("hache"),
                 "categorie":{
@@ -615,11 +615,11 @@ export class ItemHelper{
                 "rupture":"1-2",
                 "informations":""
             },
-            //endregion Haches 1 main
-            //region Masses
+            //#endregion Haches 1 main
+            //#region Masses
             {
                 "libelle":"Masse pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("masse"),
                 "categorie":{
@@ -642,7 +642,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Masse de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("masse"),
                 "categorie":{
@@ -663,8 +663,8 @@ export class ItemHelper{
                 "informations":"1/12 chance d'infliger -1PR"
             },
             {
-                "libelle":"Hache de bonne qualité",
-                "basePourcentage":99,
+                "libelle":"Masse de bonne qualité",
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("masse"),
                 "categorie":{
@@ -686,7 +686,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Masse d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("masse"),
                 "categorie":{
@@ -708,7 +708,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Masse Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("masse"),
                 "categorie":{
@@ -730,7 +730,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Masse de combat",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("masse"),
                 "categorie":{
@@ -752,7 +752,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Masse d'Angmar",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("masse"),
                 "categorie":{
@@ -776,7 +776,7 @@ export class ItemHelper{
             //#region Haches 2 mains
             {
                 "libelle":"Hache pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("hache-deux"),
                 "categorie":{
@@ -799,7 +799,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("hache-deux"),
                 "categorie":{
@@ -821,7 +821,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("hache-deux"),
                 "categorie":{
@@ -843,7 +843,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("hache-deux"),
                 "categorie":{
@@ -865,7 +865,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("hache-deux"),
                 "categorie":{
@@ -887,7 +887,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache de combat",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("hache-deux"),
                 "categorie":{
@@ -909,7 +909,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Hache double",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("hache-deux"),
                 "categorie":{
@@ -933,7 +933,7 @@ export class ItemHelper{
             //#region Marteaux 2 mains
             {
                 "libelle":"Marteau pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("marteau"),
                 "categorie":{
@@ -956,7 +956,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Marteau de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("marteau"),
                 "categorie":{
@@ -978,7 +978,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Marteau de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("marteau"),
                 "categorie":{
@@ -1000,7 +1000,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Marteau d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("marteau"),
                 "categorie":{
@@ -1022,7 +1022,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Marteau Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("marteau"),
                 "categorie":{
@@ -1044,7 +1044,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Marteau de combat",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("marteau"),
                 "categorie":{
@@ -1066,7 +1066,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Marteau de destruction",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("marteau"),
                 "categorie":{
@@ -1091,7 +1091,7 @@ export class ItemHelper{
             
             {
                 "libelle":"Lance pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("lance"),
                 "categorie":{
@@ -1114,7 +1114,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"lance de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("lance"),
                 "categorie":{
@@ -1136,7 +1136,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Lance de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("lance"),
                 "categorie":{
@@ -1158,7 +1158,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Lance d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("lance"),
                 "categorie":{
@@ -1180,7 +1180,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Lance Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("lance"),
                 "categorie":{
@@ -1202,7 +1202,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Lance de combat",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("lance"),
                 "categorie":{
@@ -1224,7 +1224,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Lance de précision",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("lance"),
                 "categorie":{
@@ -1248,7 +1248,7 @@ export class ItemHelper{
             //#region Arc
             {
                 "libelle":"Arc pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("arc"),
                 "categorie":{
@@ -1271,7 +1271,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arc de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("arc"),
                 "categorie":{
@@ -1293,7 +1293,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arc de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("arc"),
                 "categorie":{
@@ -1315,7 +1315,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arc d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("arc"),
                 "categorie":{
@@ -1337,7 +1337,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arc Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("arc"),
                 "categorie":{
@@ -1359,7 +1359,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arc d'excellence",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("arc"),
                 "categorie":{
@@ -1381,7 +1381,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arc de précision",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("arc"),
                 "categorie":{
@@ -1403,7 +1403,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arc d'yggdrasil",
-                "basePourcentage":70,
+                "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("arc"),
                 "categorie":{
@@ -1427,7 +1427,7 @@ export class ItemHelper{
             //#region Arbaletes
             {
                 "libelle":"Arbalète pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("arbalete"),
                 "categorie":{
@@ -1450,7 +1450,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arbalète de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("arbalete"),
                 "categorie":{
@@ -1472,7 +1472,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arbalète de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("arbalete"),
                 "categorie":{
@@ -1494,7 +1494,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arbalète d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("arbalete"),
                 "categorie":{
@@ -1516,7 +1516,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arbalète Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("arbalete"),
                 "categorie":{
@@ -1538,7 +1538,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arbalète d'excellence",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("arbalete"),
                 "categorie":{
@@ -1560,7 +1560,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arbalète de combat",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("arbalete"),
                 "categorie":{
@@ -1582,7 +1582,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Arbalète d'immobilisation",
-                "basePourcentage":70,
+                "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("arbalete"),
                 "categorie":{
@@ -1606,7 +1606,7 @@ export class ItemHelper{
             //#region Javelots
             {
                 "libelle":"Javelot pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("javelot"),
                 "categorie":{
@@ -1629,7 +1629,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Javelot de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("javelot"),
                 "categorie":{
@@ -1651,7 +1651,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Javelot de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("javelot"),
                 "categorie":{
@@ -1673,7 +1673,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Javelot d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("javelot"),
                 "categorie":{
@@ -1695,7 +1695,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Javelot Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("javelot"),
                 "categorie":{
@@ -1717,7 +1717,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Javelot d'excellence",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("javelot"),
                 "categorie":{
@@ -1739,7 +1739,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Javelot de combat",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("javelot"),
                 "categorie":{
@@ -1763,7 +1763,7 @@ export class ItemHelper{
             //#region Armes à feu  
             {
                 "libelle":"Pistolet pérave",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("pistolet"),
                 "categorie":{
@@ -1786,7 +1786,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Pistolet de qualité correcte",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("pistolet"),
                 "categorie":{
@@ -1808,7 +1808,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Pistolet de bonne qualité",
-                "basePourcentage":99,
+                "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("pistolet"),
                 "categorie":{
@@ -1830,7 +1830,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Pistolet d'artisant renommé",
-                "basePourcentage":90,
+                "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("pistolet"),
                 "categorie":{
@@ -1852,7 +1852,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Pistolet Durandil",
-                "basePourcentage":85,
+                "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("pistolet"),
                 "categorie":{
@@ -1874,7 +1874,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Pistolet à bayonette",
-                "basePourcentage":80,
+                "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("pistolet"),
                 "categorie":{
@@ -1896,7 +1896,7 @@ export class ItemHelper{
             },
             {
                 "libelle":"Pistolet perforant",
-                "basePourcentage":75,
+                "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("pistolet"),
                 "categorie":{

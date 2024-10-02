@@ -138,15 +138,17 @@ export class ShopComponent {
   }
 
   public filterItems(){
-
-    let ville = this.villes.find(x=>x.region == this.selectedZone 
+    console.log('filter');
+    // let ville = this.villes.find(x=>x.region == this.selectedZone 
+    //   && x.type == this.selectedVilleType);
+    let ville = this.villes.find(x=>x.region == "commun" 
       && x.type == this.selectedVilleType);
 
     this.items = this.baseItems.filter(x=>this.estPresent(x, ville));
   }
 
   public estPresent(item:Item, ville:Ville|undefined):boolean{
-
+    console.log(ville);
     if(ville === undefined){
       return true;
     }
