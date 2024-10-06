@@ -14,6 +14,7 @@ import { TeleportationComponent } from '../component/in-game/teleportation/telep
 import { ShopComponent } from '../component/in-game/shop/shop.component';
 import { GestionComponent } from '../component/in-game/gestion/gestion.component';
 import { LootComponent } from '../component/in-game/loot/loot.component';
+import { CreationComponent } from '../component/in-game/creation/creation.component';
 
 export const routes: Routes = [
     { path: '',component: HomeComponent,title: 'Home page'},
@@ -36,6 +37,7 @@ export const routes: Routes = [
     {path:"in-game/shop", component:ShopComponent},
     {path:"in-game/loot", component:LootComponent},
     {path:"in-game/gestion", component:GestionComponent},
+    {path:"in-game/creer", component:CreationComponent},
 ];
 
 

@@ -1,0 +1,120 @@
+<div class="panel-header">
+    <div class="panel-header-option {{onglet==='origine' ? 'active' : ''}}" (click)="setOnglet('origine')">Origine</div>
+    <div class="panel-header-option {{onglet==='metier' ? 'active' : ''}}" (click)="setOnglet('metier')">Metier</div>
+  </div>
+  <div class="main">
+    <div class="header">
+      <div>
+          <div class="normal-header">Origine</div>
+          <div class="small-header"></div>
+      </div>
+      <div>
+          <div class="normal-header">Courage</div>
+          <div class="small-header">COU</div>
+      </div>
+      <div>
+          <div class="normal-header">Intélligence</div>
+          <div class="small-header">INT</div>
+      </div>
+      <div>
+          <div class="normal-header">Charisme</div>
+          <div class="small-header">CHA</div>
+      </div>
+      <div>
+          <div class="normal-header">Adresse</div>
+          <div class="small-header">AD</div>
+      </div>
+      <div>
+          <div class="normal-header">Force</div>
+          <div class="small-header">FO</div>
+      </div>
+      <div>
+          <div class="normal-header">Chance</div>
+          <div class="small-header">CHN</div>
+      </div>
+    </div>
+    <div class="list" *ngIf='isOrigine'>
+      <div class="list-item"  *ngFor="let origine of origines" (click)="openOrigine(origine.nom)">
+        <div class="list-item-needs">
+            <div>{{origine.nom}}</div>
+            <div class="{{origine.courage.type}}">{{origine.courage.nombre}}</div>
+            <div class="{{origine.intelligence.type}}">{{origine.intelligence.nombre}}</div>
+            <div class="{{origine.charisme.type}}">{{origine.charisme.nombre}}</div>
+            <div class="{{origine.adresse.type}}">{{origine.adresse.nombre}}</div>
+            <div class="{{origine.force.type}}">{{origine.force.nombre}}</div>
+            <div class="{{origine.chance.type}}">{{origine.chance.nombre}}</div>
+        </div>
+        <div class="list-item-details" *ngIf="origine.isOpen">
+            <div class="list-bonus parts" *ngIf="origine.caracteristiques.length > 0">
+                <div class="title">Characteristiques</div>
+                <div class="list-item-details-items">
+                    <span  *ngFor="let caracteristique of origine.caracteristiques">{{caracteristique}}</span>
+                </div>
+            </div>
+            <div class="list-restriction parts" *ngIf="origine.restrictions.length > 0">
+                <div class="title">Restriction</div>
+                <div class="list-item-details-items">
+                    <span  *ngFor="let restriction of origine.restrictions">{{restriction}}</span>  
+                </div>
+            </div>
+            <div class="list-competence-base parts" *ngIf="origine.competencesHerites.length > 0">
+                <div class="title">Compétences Hérités</div>
+                <div class="list-item-details-items">
+                    <span  *ngFor="let competenceHerite of origine.competencesHerites">{{competenceHerite}}</span>  
+                </div>
+            </div>
+            <div class="list-restriction-metier parts" *ngIf="origine.restrictionsMetier.length > 0">
+                <div class="title">Restriction métier</div>
+                <div class="list-item-details-items">
+                    <span  *ngFor="let restrictionMetier of origine.restrictionsMetier">{{restrictionMetier}}</span>  
+                </div>
+            </div>
+            <div class="parts" *ngIf="origine.restrictionsMetierShortCode.length > 0">
+                <button type="button" class="btn-metier" (click)="filterAndOpenMetier(origine.restrictionsMetierShortCode);">Métier</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="list"  *ngIf='isMetier'>
+      <div class="list-item"  *ngFor="let metier of metiers" (click)="openMetier(metier.shortCode)">
+          <div class="list-item-needs">
+              <div>{{metier.nom}}</div>
+              <div class="{{metier.courage.type}}">{{metier.courage.nombre}}</div>
+              <div class="{{metier.intelligence.type}}">{{metier.intelligence.nombre}}</div>
+              <div class="{{metier.charisme.type}}">{{metier.charisme.nombre}}</div>
+              <div class="{{metier.adresse.type}}">{{metier.adresse.nombre}}</div>
+              <div class="{{metier.force.type}}">{{metier.force.nombre}}</div>
+              <div class="{{metier.chance.type}}">{{metier.chance.nombre}}</div>
+          </div>
+          <div class="list-item-details" *ngIf="metier.isOpen">
+              <div class="list-bonus parts" *ngIf="metier.caracteristiques.length > 0">
+                  <div class="title">Characteristiques</div>
+                  <div class="list-item-details-items">
+                      <span  *ngFor="let caracteristique of metier.caracteristiques">{{caracteristique}}</span>
+                  </div>
+              </div>
+              <div class="list-restriction parts" *ngIf="metier.restrictions.length > 0">
+                  <div class="title">Restriction</div>
+                  <div class="list-item-details-items">
+                      <span  *ngFor="let restriction of metier.restrictions">{{restriction}}</span>  
+                  </div>
+              </div>
+              <div class="list-competence-base parts" *ngIf="metier.competencesHerites.length > 0">
+                  <div class="title">Compétences Hérités</div>
+                  <div class="list-item-details-items">
+                      <span  *ngFor="let competenceHerite of metier.competencesHerites">{{competenceHerite}}</span>  
+                  </div>
+              </div>
+              <div class="list-restriction-metier parts" *ngIf="metier.autres.length > 0">
+                  <div class="title">Autres</div>
+                  <div class="list-item-details-items">
+                      <span  *ngFor="let autre of metier.autres">{{autre}}</span>  
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  <router-outlet />
+  

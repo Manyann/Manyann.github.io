@@ -36,11 +36,6 @@ private buildCardList():Array<Card>{
       titre:"Armures",
       url:"assets/img/pdfs/equipement/tableau-protections-naheulbeuk-jdr.pdf"
     },
-    // {
-    //   image:"assets/img/card/equipement/mer.jpg",
-    //   titre:"Bateaux",
-    //   url:""
-    // },
     {
       image:"assets/img/card/equipement/chapeau.PNG",
       titre:"Chapeaux",
@@ -76,21 +71,6 @@ private buildCardList():Array<Card>{
       titre:"Objets exclusif",
       url:"assets/img/pdfs/equipement/objets-exclusifs-naheulbeuk-jdr(licoy).pdf"
     },
-    // {
-    //   image:"assets/img/card/equipement/terre-sauvage.png",
-    //   titre:"Pièges",
-    //   url:""
-    // },
-    // {
-    //   image:"assets/img/card/equipement/urbain.png",
-    //   titre:"Poisons",
-    //   url:""
-    // },
-    // {
-    //   image:"assets/img/card/equipement/urbain.png",
-    //   titre:"Potions",
-    //   url:""
-    // },
   ]
 
   return list;
