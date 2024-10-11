@@ -26,15 +26,14 @@ export class ShopComponent {
   targets : Array<CodeLibelle>;
   zones : Array<CodeLibelle>;
   items : Array<Item>;
-  baseItems : Array<Item>;
   selectedVilleType : string;
   selectedTarget : string;
   selectedZone : string;
 
   constructor(){
+    console.log('in');
     this.villes =  VilleHelper.getAll().sort((a,b)=> a.libelle.localeCompare(b.libelle));
-    this.baseItems = ItemHelper.getAll();
-    this.items = this.baseItems;
+    this.items = ItemHelper.getAll();
     this.targets = this.buildTargets();
     this.zones = this.buildZones();
     this.villesType = this.buildVillesType();
@@ -143,7 +142,7 @@ export class ShopComponent {
     let ville = this.villes.find(x=>x.region == "commun" 
       && x.type == this.selectedVilleType);
 
-    this.items = this.baseItems.filter(x=>this.estPresent(x, ville));
+    this.items = ItemHelper.getAll().filter(x=>this.estPresent(x, ville));
   }
 
   public estPresent(item:Item, ville:Ville|undefined):boolean{

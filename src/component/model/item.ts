@@ -62,6 +62,19 @@ export class ItemHelper{
             0:"homme-sable",
             1:"pirate",
         },
+        "baton" :{
+            0:'elfe',
+            1:'orc'
+        },
+        "grimoire" :{
+            0:'elfe',
+        },
+        "bouclier" :{
+            0:'elfe',
+            1:'orc',
+            2:'nain'
+        },
+
     };
 
     private static getOrigine(armeType:string):string{
@@ -1943,6 +1956,636 @@ export class ItemHelper{
                 "informations":"1/4 chance d'ignorer PR"
             },
             //#endregion Armes à feu
+            //#region Bouclier  
+            //#endregion Baton
+            //#region Baton   
+            {
+                "libelle":"Canne de Bois Mort",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("baton"),
+                "categorie":{
+                    "code":"baton",
+                    "libelle" : "Bâtons"
+                },
+                "prix":100,
+                "degats":"1D+1",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"-1",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"-3",
+                "parade":"-1",
+                "rupture":"1-5",
+                "informations":""
+                
+            },
+            {
+                "libelle":"Bâton du Bois Mouillé",
+                "basePourcentage":90,
+                "region":"commun",
+                "origine":this.getOrigine("baton"),
+                "categorie":{
+                    "code":"baton",
+                    "libelle" : "Bâtons"
+                },
+                "prix":200,
+                "degats":"1D+1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"-3",
+                "parade":"-1",
+                "rupture":"1-4",
+                "informations":"+1 dégat sorts"
+            },
+            {
+                "libelle":"Bâton de Saule",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("baton"),
+                "categorie":{
+                    "code":"baton",
+                    "libelle" : "Bâtons"
+                },
+                "prix":500,
+                "degats":"1D+2",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"-3",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Bâton d'Elémentaliste",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("baton"),
+                "categorie":{
+                    "code":"baton",
+                    "libelle" : "Bâtons"
+                },
+                "prix":1000,
+                "degats":"1D(m)",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"-3",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"+1 aux sorts d'un élément"
+            },
+            {
+                "libelle":"Bâton Arcanique",
+                "basePourcentage":60,
+                "region":"commun",
+                "origine":this.getOrigine("baton"),
+                "categorie":{
+                    "code":"baton",
+                    "libelle" : "Bâtons"
+                },
+                "prix":1500,
+                "degats":"1D+2",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"-2",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"+1 dégat sorts"
+            },
+            {
+                "libelle":"Le Bâton de l’Éclipse",
+                "basePourcentage":50,
+                "region":"commun",
+                "origine":this.getOrigine("baton"),
+                "categorie":{
+                    "code":"baton",
+                    "libelle" : "Bâtons"
+                },
+                "prix":2500,
+                "degats":"1D+3(m)",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"2",
+                "adresse":"-1",
+                "force":"",
+                "chance":"1",
+                "attaque":"-2",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":"critique 1-2 / échec 19-20"
+            },
+            {
+                "libelle":"Le Brise-Monde",
+                "basePourcentage":40,
+                "region":"commun",
+                "origine":this.getOrigine("baton"),
+                "categorie":{
+                    "code":"baton",
+                    "libelle" : "Bâtons"
+                },
+                "prix":4500,
+                "degats":"1D+3",
+                "courage":"1",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"",
+                "force":"1",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1",
+                "informations":"Peut faire son spell en attaquant avec le marteau"
+            },
+            //#endregion Baton
+             //#region Grimoire   
+             {
+                "libelle":"Grimoire élémentaire basique (feu)",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":350,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-6",
+                "informations":"-1EA cout sorts de l'élément"
+            },
+            {
+               "libelle":"Grimoire élémentaire basique (eau)",
+               "basePourcentage":95,
+               "region":"commun",
+               "origine":this.getOrigine("grimoire"),
+               "categorie":{
+                   "code":"grimoire",
+                   "libelle" : "Grimoires"
+               },
+               "prix":350,
+               "degats":"",
+               "courage":"",
+               "intelligence":"1",
+               "charisme":"",
+               "adresse":"-1",
+               "force":"",
+               "chance":"",
+               "attaque":"",
+               "parade":"-5",
+               "rupture":"1-6",
+               "informations":"-1EA cout sorts de l'élément"
+           },
+           {
+              "libelle":"Grimoire élémentaire basique (terre)",
+              "basePourcentage":95,
+              "region":"commun",
+              "origine":this.getOrigine("grimoire"),
+              "categorie":{
+                  "code":"grimoire",
+                  "libelle" : "Grimoires"
+              },
+              "prix":350,
+              "degats":"",
+              "courage":"",
+              "intelligence":"1",
+              "charisme":"",
+              "adresse":"-1",
+              "force":"",
+              "chance":"",
+              "attaque":"",
+              "parade":"-5",
+              "rupture":"1-6",
+              "informations":"-1EA cout sorts de l'élément"
+          },
+          {
+             "libelle":"Grimoire élémentaire basique (air)",
+             "basePourcentage":95,
+             "region":"commun",
+             "origine":this.getOrigine("grimoire"),
+             "categorie":{
+                 "code":"grimoire",
+                 "libelle" : "Grimoires"
+             },
+             "prix":350,
+             "degats":"",
+             "courage":"",
+             "intelligence":"1",
+             "charisme":"",
+             "adresse":"-1",
+             "force":"",
+             "chance":"",
+             "attaque":"",
+             "parade":"-5",
+             "rupture":"1-6",
+             "informations":"-1EA cout sorts de l'élément"
+         },
+            {
+                "libelle":"Grimoire élémentaire avancé (feu)",
+                "basePourcentage":90,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":700,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-5",
+                "informations":"-1EA cout sorts de l'élément"
+            },
+            {
+                "libelle":"Grimoire élémentaire avancé (eau)",
+                "basePourcentage":90,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":700,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-5",
+                "informations":"-1EA cout sorts de l'élément"
+            },
+            {
+                "libelle":"Grimoire élémentaire avancé (terre)",
+                "basePourcentage":90,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":700,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-5",
+                "informations":"-1EA cout sorts de l'élément"
+            },
+            {
+                "libelle":"Grimoire élémentaire avancé (air)",
+                "basePourcentage":90,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":700,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-5",
+                "informations":"-1EA cout sorts de l'élément"
+            },
+            {
+                "libelle":"Grimoire élémentaire expert (feu)",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":1100,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-4",
+                "informations":"-1EA cout sorts de l'élément et -1 durée cast"
+            },
+            {
+                "libelle":"Grimoire élémentaire expert (eau)",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":1100,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-4",
+                "informations":"-1EA cout sorts de l'élément et -1 durée cast"
+            },
+            {
+                "libelle":"Grimoire élémentaire expert (terre)",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":1100,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-4",
+                "informations":"-1EA cout sorts de l'élément et -1 durée cast"
+            },
+            {
+                "libelle":"Grimoire élémentaire expert (air)",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":1100,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-4",
+                "informations":"-1EA cout sorts de l'élément et -1 durée cast"
+            },
+            {
+                "libelle":"Grimoire universel",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":1500,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1-3",
+                "informations":"-1EA cout sorts"
+            },
+            {
+                "libelle":"Grimoire des Sables du Temps",
+                "basePourcentage":60,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":2000,
+                "degats":"",
+                "courage":"",
+                "intelligence":"2",
+                "charisme":"1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"1",
+                "informations":"-1EA cout sorts et +1 durée des sorts"
+            },
+            {
+                "libelle":"Codex de l'infini",
+                "basePourcentage":10,
+                "region":"commun",
+                "origine":this.getOrigine("grimoire"),
+                "categorie":{
+                    "code":"grimoire",
+                    "libelle" : "Grimoires"
+                },
+                "prix":5000,
+                "degats":"",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"",
+                "force":"",
+                "chance":"1",
+                "attaque":"",
+                "parade":"-5",
+                "rupture":"*",
+                "informations":"1/2 de faire double cast (*1,5mana)"
+            },
+            //#endregion Grimoire
+    
+        ];
+    }
+
+    static getAllArmure():Array<Item>{
+        return [
+            {
+                "libelle":"Bouclier de base",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("bouclier"),
+                "categorie":{
+                    "code":"bouclier",
+                    "libelle" : "Bouclier"
+                },
+                "prix":100,
+                "degats":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"-1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":"Impossible de parer avec"
+                
+            },
+            {
+                "libelle":"Grand bouclier",
+                "basePourcentage":90,
+                "region":"commun",
+                "origine":this.getOrigine("bouclier"),
+                "categorie":{
+                    "code":"bouclier",
+                    "libelle" : "Bouclier"
+                },
+                "prix":250,
+                "degats":"1D+3/1D+5",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"-",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"Impossible de parer avec"
+            },
+            {
+                "libelle":"Bouclier de luxe",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("bouclier"),
+                "categorie":{
+                    "code":"bouclier",
+                    "libelle" : "Bouclier"
+                },
+                "prix":500,
+                "degats":"1D+4/1D+6",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"-",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"Impossible de parer avec"
+            },
+            {
+                "libelle":"Grand bouclier de luxe",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("bouclier"),
+                "categorie":{
+                    "code":"bouclier",
+                    "libelle" : "Bouclier"
+                },
+                "prix":800,
+                "degats":"1D+5/1D+7",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"-",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"Impossible de parer avec"
+            },
+            {
+                "libelle":"Bouclier ultra-léger",
+                "basePourcentage":60,
+                "region":"commun",
+                "origine":this.getOrigine("bouclier"),
+                "categorie":{
+                    "code":"bouclier",
+                    "libelle" : "Bouclier"
+                },
+                "prix":1500,
+                "degats":"1D+5/1D+7",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":"Impossible de parer avec"
+            },
+            {
+                "libelle":"Bouclier de champion",
+                "basePourcentage":50,
+                "region":"commun",
+                "origine":this.getOrigine("bouclier"),
+                "categorie":{
+                    "code":"bouclier",
+                    "libelle" : "Bouclier"
+                },
+                "prix":2500,
+                "degats":"1D+5/1D+7",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"1",
+                "chance":"",
+                "attaque":"-3",
+                "parade":"-3",
+                "rupture":"1-3",
+                "informations":""
+            },
         ];
     }
 }

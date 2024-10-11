@@ -61,7 +61,7 @@ export class BonusDegatPipe implements PipeTransform {
     if(origine === "homme-sable"){
       return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:cyan>(+1)</span>');
     }
-    return this.sanitizer.bypassSecurityTrustHtml("");
+    return this.sanitizer.bypassSecurityTrustHtml(value);
   }
 }
 
