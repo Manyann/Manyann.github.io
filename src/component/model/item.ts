@@ -5,7 +5,6 @@ export class Item{
     "prix" : number;
     "basePourcentage":number;
     "categorie" : Categorie;
-    "degats":string;
     "courage":string;
     "intelligence":string;
     "charisme":string;
@@ -17,6 +16,14 @@ export class Item{
     "rupture":string;
     "informations":string="";
 };
+
+export class Arme extends Item{
+    "degats":string;
+}
+
+export class Armure extends Item{
+    "armure":string;
+}
 
 export class Categorie{
     "code":string;
@@ -74,6 +81,22 @@ export class ItemHelper{
             1:'orc',
             2:'nain'
         },
+        "armure-cuir":{
+            0:'elfe',
+            1:'orc',
+            2:'pirate'
+        },
+        "armure-maille":{
+            0:'elfe',
+            1:'orc',
+            2:'nain'
+        }
+        ,
+        "armure-plaque":{
+            0:'nain',
+            1:'orc',
+        }
+
 
     };
 
@@ -90,7 +113,7 @@ export class ItemHelper{
         return dico[random];
     }
 
-    static getDefault() : Item{
+    static getDefaultArme() : Arme{
         return {
             "libelle":"",
             "basePourcentage":0,
@@ -116,7 +139,33 @@ export class ItemHelper{
         };
     }
     
-    static getAll():Array<Item>{
+    static getDefaultArmure() : Armure{
+        return {
+            "libelle":"",
+            "basePourcentage":0,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"",
+                "libelle" : ""
+            },
+            "prix":0,
+            "armure":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+            
+        };
+    }
+    
+    static getAll():Array<Arme>{
         return [
             //#region  Dagues
             {
@@ -1955,9 +2004,7 @@ export class ItemHelper{
                 "rupture":"1-2",
                 "informations":"1/4 chance d'ignorer PR"
             },
-            //#endregion Armes à feu
-            //#region Bouclier  
-            //#endregion Baton
+            //#endregion Armes à feu  
             //#region Baton   
             {
                 "libelle":"Canne de Bois Mort",
@@ -2451,8 +2498,9 @@ export class ItemHelper{
         ];
     }
 
-    static getAllArmure():Array<Item>{
+    static getAllArmure():Array<Armure>{
         return [
+            //#region Bouclier
             {
                 "libelle":"Bouclier de base",
                 "basePourcentage":95,
@@ -2463,17 +2511,17 @@ export class ItemHelper{
                     "libelle" : "Bouclier"
                 },
                 "prix":100,
-                "degats":"",
+                "armure":"",
                 "courage":"",
                 "intelligence":"",
-                "charisme":"-1",
-                "adresse":"",
+                "charisme":"",
+                "adresse":"-1",
                 "force":"",
                 "chance":"",
-                "attaque":"",
-                "parade":"",
+                "attaque":"-2",
+                "parade":"1",
                 "rupture":"1-4",
-                "informations":"Impossible de parer avec"
+                "informations":""
                 
             },
             {
@@ -2486,17 +2534,17 @@ export class ItemHelper{
                     "libelle" : "Bouclier"
                 },
                 "prix":250,
-                "degats":"1D+3/1D+5",
+                "armure":"1",
                 "courage":"",
                 "intelligence":"",
                 "charisme":"",
-                "adresse":"-",
+                "adresse":"-2",
                 "force":"",
                 "chance":"",
-                "attaque":"",
-                "parade":"",
-                "rupture":"1-3",
-                "informations":"Impossible de parer avec"
+                "attaque":"-3",
+                "parade":"1",
+                "rupture":"1-4",
+                "informations":""
             },
             {
                 "libelle":"Bouclier de luxe",
@@ -2508,17 +2556,17 @@ export class ItemHelper{
                     "libelle" : "Bouclier"
                 },
                 "prix":500,
-                "degats":"1D+4/1D+6",
+                "armure":"",
                 "courage":"",
                 "intelligence":"",
-                "charisme":"",
-                "adresse":"-",
+                "charisme":"1",
+                "adresse":"-1",
                 "force":"",
                 "chance":"",
-                "attaque":"",
-                "parade":"",
+                "attaque":"-1",
+                "parade":"1",
                 "rupture":"1-3",
-                "informations":"Impossible de parer avec"
+                "informations":""
             },
             {
                 "libelle":"Grand bouclier de luxe",
@@ -2530,17 +2578,17 @@ export class ItemHelper{
                     "libelle" : "Bouclier"
                 },
                 "prix":800,
-                "degats":"1D+5/1D+7",
+                "armure":"1",
                 "courage":"",
                 "intelligence":"",
-                "charisme":"",
-                "adresse":"-",
+                "charisme":"1",
+                "adresse":"-2",
                 "force":"",
                 "chance":"",
-                "attaque":"",
-                "parade":"",
+                "attaque":"-2",
+                "parade":"1",
                 "rupture":"1-3",
-                "informations":"Impossible de parer avec"
+                "informations":""
             },
             {
                 "libelle":"Bouclier ultra-léger",
@@ -2552,17 +2600,17 @@ export class ItemHelper{
                     "libelle" : "Bouclier"
                 },
                 "prix":1500,
-                "degats":"1D+5/1D+7",
+                "armure":"",
                 "courage":"",
                 "intelligence":"",
-                "charisme":"1",
+                "charisme":"",
                 "adresse":"",
                 "force":"",
                 "chance":"",
-                "attaque":"",
-                "parade":"",
-                "rupture":"1-2",
-                "informations":"Impossible de parer avec"
+                "attaque":"-1",
+                "parade":"2",
+                "rupture":"1-3",
+                "informations":""
             },
             {
                 "libelle":"Bouclier de champion",
@@ -2574,18 +2622,830 @@ export class ItemHelper{
                     "libelle" : "Bouclier"
                 },
                 "prix":2500,
-                "degats":"1D+5/1D+7",
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"1",
+                "adresse":"",
+                "force":"1",
+                "chance":"",
+                "attaque":"0",
+                "parade":"2",
+                "rupture":"1-2",
+                "informations":""
+            },
+            //#endregion Bouclier
+            //#region Cuir
+            {
+                "libelle":"Casque ",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir",
+                    "libelle" : "Cuir"
+                },
+                "prix":30,
+                "armure":"",
+                "courage":"-1",
+                "intelligence":"",
+                "charisme":"-1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-5",
+                "informations":""
+                
+            },
+            {
+                "libelle":"Jambières",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir",
+                    "libelle" : "Cuir"
+                },
+                "prix":30,
+                "armure":"",
                 "courage":"",
                 "intelligence":"",
                 "charisme":"",
                 "adresse":"",
-                "force":"1",
+                "force":"",
                 "chance":"",
-                "attaque":"-3",
-                "parade":"-3",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-5",
+                "informations":""
+            },
+            {
+                "libelle":"Brassard",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir",
+                    "libelle" : "Cuir"
+                },
+                "prix":30,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-5",
+                "informations":""
+            },
+            {
+                "libelle":"Plastron",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir",
+                    "libelle" : "Cuir"
+                },
+                "prix":130,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-5",
+                "informations":""
+            },
+            {
+                "libelle":"Botte ",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir",
+                    "libelle" : "Cuir"
+                },
+                "prix":30,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-5",
+                "informations":""
+            },
+            {
+                "libelle":"Ensemble",
+                "basePourcentage":200,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir",
+                    "libelle" : "Cuir"
+                },
+                "prix":0,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"1",
+                "attaque":"",
+                "parade":"",
+                "rupture":"",
+                "informations":""
+            },
+            //#endregion Cuir
+            //#region Cuir renforcé
+            {
+                "libelle":"Casque ",
+                "basePourcentage":85,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-renforcé",
+                    "libelle" : "Cuir Renforcé"
+                },
+                "prix":75,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"-1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+                
+            },
+            {
+                "libelle":"Jambière ",
+                "basePourcentage":85,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-renforcé",
+                    "libelle" : "Cuir Renforcé"
+                },
+                "prix":75,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+                
+            },
+            {
+                "libelle":"Brassard ",
+                "basePourcentage":85,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-renforcé",
+                    "libelle" : "Cuir Renforcé"
+                },
+                "prix":75,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"-1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+                
+            },
+            {
+                "libelle":"Plastron ",
+                "basePourcentage":85,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-renforcé",
+                    "libelle" : "Cuir Renforcé"
+                },
+                "prix":200,
+                "armure":"2",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+                
+            },
+            {
+                "libelle":"Botte ",
+                "basePourcentage":85,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-renforcé",
+                    "libelle" : "Cuir Renforcé"
+                },
+                "prix":75,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+                
+            },
+            {
+                "libelle":"Ensemble ",
+                "basePourcentage":250,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-renforcé",
+                    "libelle" : "Cuir Renforcé"
+                },
+                "prix":0,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"1",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":"Rupture : sur 6 pièce au choix"
+                
+            },
+            //#endregion Cuir renforcé
+            //region Cuir travaillé
+            {
+                "libelle":"Casque ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-travaille",
+                    "libelle" : "Cuir Travaillé"
+                },
+                "prix":200,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Jambières ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-travaille",
+                    "libelle" : "Cuir Travaillé"
+                },
+                "prix":200,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Brassard ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-travaille",
+                    "libelle" : "Cuir Travaillé"
+                },
+                "prix":200,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"1",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Plastron ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-travaille",
+                    "libelle" : "Cuir Travaillé"
+                },
+                "prix":400,
+                "armure":"2",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Botte ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-travaille",
+                    "libelle" : "Cuir Travaillé"
+                },
+                "prix":200,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"1*",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Ensemble ",
+                "basePourcentage":250,
+                "region":"commun",
+                "origine":this.getOrigine("armure-cuir"),
+                "categorie":{
+                    "code":"armure-cuir-travaille",
+                    "libelle" : "Cuir Travaillé"
+                },
+                "prix":0,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"1",
+                "parade":"0",
+                "rupture":"1-4",
+                "informations":"Rupture : sur 6 pièce au choix"
+            },
+            //#endregion Cuir travaillé
+            //#region Maille
+            {
+                "libelle":"Casque ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille",
+                    "libelle" : "Mailles"
+                },
+                "prix":150,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Hambières ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille",
+                    "libelle" : "Mailles"
+                },
+                "prix":150,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Brassard ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille",
+                    "libelle" : "Mailles"
+                },
+                "prix":150,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Plastron ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille",
+                    "libelle" : "Mailles"
+                },
+                "prix":300,
+                "armure":"2",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Botte ",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille",
+                    "libelle" : "Mailles"
+                },
+                "prix":150,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Ensemble ",
+                "basePourcentage":250,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille",
+                    "libelle" : "Mailles"
+                },
+                "prix":0,
+                "armure":"",
+                "courage":"1",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"",
+                "informations":"+1 contre attaque"
+            },
+            //#endregion Maille
+            //#region Maille renforcée
+            {
+                "libelle":"Casque ",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-renforcee",
+                    "libelle" : "Mailles renforcées"
+                },
+                "prix":250,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
                 "rupture":"1-3",
                 "informations":""
             },
+            {
+                "libelle":"Jambières ",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-renforcee",
+                    "libelle" : "Mailles renforcées"
+                },
+                "prix":250,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":""
+            },
+            {
+                "libelle":"Brassard ",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-renforcee",
+                    "libelle" : "Mailles renforcées"
+                },
+                "prix":250,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":""
+            },
+            {
+                "libelle":"Plastron ",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-renforcee",
+                    "libelle" : "Mailles renforcées"
+                },
+                "prix":500,
+                "armure":"3",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":""
+            },
+            {
+                "libelle":"Botte ",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-renforcee",
+                    "libelle" : "Mailles renforcées"
+                },
+                "prix":250,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":""
+            },
+            {
+                "libelle":"Ensemble ",
+                "basePourcentage":250,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-renforcee",
+                    "libelle" : "Mailles renforcées"
+                },
+                "prix":0,
+                "armure":"",
+                "courage":"1",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"",
+                "informations":"+1 contre attaque"
+            },
+            //#endregion Maille renforcée
+            //#region Maille travaillée
+            {
+                "libelle":"Casque ",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-travaillees",
+                    "libelle" : "Mailles Travaillées"
+                },
+                "prix":350,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Jambières ",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-travaillees",
+                    "libelle" : "Mailles Travaillées"
+                },
+                "prix":350,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Brassard ",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-travaillees",
+                    "libelle" : "Mailles Travaillées"
+                },
+                "prix":350,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Plastron ",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-travaillees",
+                    "libelle" : "Mailles Travaillées"
+                },
+                "prix":700,
+                "armure":"3",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Botte ",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-travaillees",
+                    "libelle" : "Mailles Travaillées"
+                },
+                "prix":350,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Ensemble ",
+                "basePourcentage":250,
+                "region":"commun",
+                "origine":this.getOrigine("armure-maille"),
+                "categorie":{
+                    "code":"armure-maille-travaillees",
+                    "libelle" : "Mailles Travaillées"
+                },
+                "prix":0,
+                "armure":"",
+                "courage":"1",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"1",
+                "parade":"",
+                "rupture":"",
+                "informations":"+1 contre attaque"
+            },
+            //#endregion Maille travaillée
         ];
     }
 }

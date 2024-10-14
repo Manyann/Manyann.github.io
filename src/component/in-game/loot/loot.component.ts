@@ -23,7 +23,7 @@ export class LootComponent {
   constructor(){
     this.items = ItemHelper.getAll();
     this.luck = 10;
-    this.item = ItemHelper.getDefault();
+    this.item = ItemHelper.getDefaultArme();
     this.isOpen = false;
   }
 
@@ -52,7 +52,7 @@ rollSingleLoot(luck: number, lootTable: Item[]): Item  {
       }
   }
 
-  return ItemHelper.getDefault(); 
+  return ItemHelper.getDefaultArme(); 
 }
 
 modifyChance(baseChance: number, luck: number): number {

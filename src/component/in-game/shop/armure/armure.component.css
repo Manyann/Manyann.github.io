@@ -1,0 +1,18 @@
+
+select{
+    height: 2.5em;
+    margin-right:2rem;
+  }
+
+.pi.pi-angle-double-down{
+  color: green;
+}
+
+.pi.pi-angle-double-up{
+  color:red;
+}
+
+.expanded-row-fixer{
+  display: flex;
+  align-items: center;
+}

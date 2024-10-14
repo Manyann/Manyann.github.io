@@ -1,73 +1,14 @@
-<!-- 
-<select (change)="onChangedRegion($event)">
-    <option value="" disabled selected>Choisissez une région ...</option>
-    <option *ngFor="let zone of zones" [value]="zone.code">{{zone.libelle}}</option>
-</select> -->
+
 <select (change)="onChangedVille($event)">
     <option value="" disabled selected>Choisissez un type ...</option>
     <option *ngFor="let type of villesType" [value]="type.code">{{type.libelle}}</option>
 </select>
-<!-- <select (change)="onChangedTarget($event)">
-    <option value="" disabled selected>Choisissez une affiliation ...</option>
-    <option *ngFor="let affiliation of targets" [value]="affiliation.code">{{affiliation.libelle}}</option>
-</select> -->
-<!-- <p-button label="Afficher" (onClick)="filterItems()"/> -->
-    <p-table 
-    [value]="items"
-    styleClass="p-datatable-striped"
-    [scrollable]="true" scrollHeight="20rem" styleClass="mt-3"
-    dataKey="categorie.code" 
-    rowGroupMode="subheader" 
-    groupRowsBy="categorie.code" 
-    [tableStyle]="{'min-width': '70rem'}">
-        <ng-template pTemplate="header">
-            <tr>
-                <th pFrozenColumn>Nom</th>
-                <th pFrozenColumn pSortableColumn="prix">Prix</th>
-                <th>Dégats</th>
-                <th>AT / PRD</th>
-                <th>RUP</th>
-                <th pSortableColumn="courage">COU</th>
-                <th pSortableColumn="intelligence">INT</th>
-                <th pSortableColumn="charisme">CHA</th>
-                <th pSortableColumn="adresse">AD</th>
-                <th pSortableColumn="force">FO</th>
-                <th pSortableColumn="chance">CHN</th>
-                <th>Informations</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="groupheader" let-item  let-expanded="expanded">
-            <tr>
-                <td colspan="13">
-                    <div class="expanded-row-fixer">
-                    <button 
-                        style="color:white;"
-                        type="button" 
-                        pButton 
-                        pRipple 
-                        [pRowToggler]="item" 
-                        class="p-button-text p-button-rounded p-button-plain mr-2" 
-                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
-                    </button>
-                    <div class="font-bold ml-2">{{item.categorie.libelle}}</div>
-                </div>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="rowexpansion" let-item>
-            <tr>
-                <td pFrozenColumn>{{item.libelle}} <span [innerHTML]="item.origine | origine"></span></td>
-                <td pFrozenColumn [innerHTML]="item.prix | originePrix : item.origine |  promotion"></td>
-                <th [innerHTML]="item.degats | bonusDegat : item.origine"></th>
-                <th>{{item.attaque}} / {{item.parade}}</th>
-                <th [innerHTML]="item.rupture | bonusRupture : item.origine"></th>
-                <th>{{item.courage}}</th>
-                <th>{{item.intelligence}}</th>
-                <th>{{item.charisme}}</th>
-                <th [innerHTML]="item.adresse | bonusAd : item.origine" ></th>
-                <th [innerHTML]="item.force | bonusForce : item.origine"></th>
-                <th>{{item.chance}}</th>
-                <th [innerHTML]="item.informations| bonusInfo : item.origine"></th>
-            </tr>
-        </ng-template>
-    </p-table>
+
+<p-tabView>
+    <p-tabPanel header="Armes">
+        <app-shop-arme [selectedVilleType]="selectedVilleType"></app-shop-arme>
+    </p-tabPanel>
+    <p-tabPanel header="Armures">
+        <app-shop-armure [selectedVilleType]="selectedVilleType"></app-shop-armure>
+    </p-tabPanel>
+</p-tabView>

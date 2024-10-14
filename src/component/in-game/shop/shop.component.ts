@@ -10,22 +10,24 @@ import { PromotionPipe } from './promotion.pipe';
 import { CodeLibelle } from '../../model/code-libelle';
 import { OriginePipe, OriginePrixPipe } from './origine.pipe';
 import { BonusAdPipe, BonusDegatPipe, BonusForcePipe, BonusInfoPipe, BonusRupturePipe } from './bonus.pipe';
+import { ArmeComponent } from "./arme/arme.component";
+import { TabViewModule } from 'primeng/tabview';
+import { ArmureComponent } from "./armure/armure.component";
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule,FormsModule,TableModule,ButtonModule,
-    PromotionPipe,OriginePipe,OriginePrixPipe, BonusAdPipe, BonusForcePipe, BonusDegatPipe, BonusRupturePipe, BonusInfoPipe  ],
+  imports: [CommonModule, FormsModule, TableModule, ButtonModule, TabViewModule,
+    ArmeComponent, ArmureComponent],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })
 export class ShopComponent {
-  title = 'nhbk';
+  title = 'shop';
   villes: Array<Ville>;
   villesType : Array<CodeLibelle>;
   targets : Array<CodeLibelle>;
   zones : Array<CodeLibelle>;
-  items : Array<Item>;
   selectedVilleType : string;
   selectedTarget : string;
   selectedZone : string;
@@ -33,7 +35,6 @@ export class ShopComponent {
   constructor(){
     console.log('in');
     this.villes =  VilleHelper.getAll().sort((a,b)=> a.libelle.localeCompare(b.libelle));
-    this.items = ItemHelper.getAll();
     this.targets = this.buildTargets();
     this.zones = this.buildZones();
     this.villesType = this.buildVillesType();
@@ -121,7 +122,6 @@ export class ShopComponent {
     const target = event.target as HTMLSelectElement;
     const value = target.value;
     this.selectedVilleType = value;
-    this.filterItems();
   }
 
   onChangedRegion(event:Event):void{
@@ -134,39 +134,6 @@ export class ShopComponent {
     const target = event.target as HTMLSelectElement;
     const value = target.value;
     this.selectedTarget = value;
-  }
-
-  public filterItems(){
-    // let ville = this.villes.find(x=>x.region == this.selectedZone 
-    //   && x.type == this.selectedVilleType);
-    let ville = this.villes.find(x=>x.region == "commun" 
-      && x.type == this.selectedVilleType);
-
-    this.items = ItemHelper.getAll().filter(x=>this.estPresent(x, ville));
-  }
-
-  public estPresent(item:Item, ville:Ville|undefined):boolean{
-    if(ville === undefined){
-      return true;
-    }
-
-    let random = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
-    let handicap = item.basePourcentage;
-    handicap -= ville.handicap
-    
-    // if(ville !== undefined && ville.region !== item.region){
-    //   let regionalHandicap = ville.malus.find(x=>x.region === item.region)?.handicap ?? 0;
-    //   handicap -= regionalHandicap;
-    // }
-    // if(this.selectedTarget != "" && this.selectedTarget != item.origine){
-    //   handicap -= 10;
-    // }
-
-    if(handicap <=3 ){
-      handicap = 3;
-    }
-    
-    return random < handicap;
   }
 
 }
