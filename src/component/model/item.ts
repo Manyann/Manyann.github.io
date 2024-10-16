@@ -90,11 +90,18 @@ export class ItemHelper{
             0:'elfe',
             1:'orc',
             2:'nain'
-        }
-        ,
+        } ,
         "armure-plaque":{
             0:'nain',
             1:'orc',
+        },
+        "robe":{
+            0:'elfe',
+            1:'homme-sable',
+        },
+        "chapeau":{
+            0:'elfe',
+            1:'homme-sable',
         }
 
 
@@ -3446,6 +3453,787 @@ export class ItemHelper{
                 "informations":"+1 contre attaque"
             },
             //#endregion Maille travaillée
+            //#region Plaque
+            {
+                "libelle":"Casque ",
+                "basePourcentage":65,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque",
+                    "libelle" : "Plaque"
+                },
+                "prix":250,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":""
+            },
+            {
+                "libelle":"Jambière ",
+                "basePourcentage":65,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque",
+                    "libelle" : "Plaque"
+                },
+                "prix":250,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":""
+            },
+            {
+                "libelle":"Brassard ",
+                "basePourcentage":65,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque",
+                    "libelle" : "Plaque"
+                },
+                "prix":250,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":""
+            },
+            {
+                "libelle":"Plastron ",
+                "basePourcentage":65,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque",
+                    "libelle" : "Plaque"
+                },
+                "prix":500,
+                "armure":"3",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"-1",
+                "force":"",
+                "chance":"",
+                "attaque":"-1",
+                "parade":"0",
+                "rupture":"1-3",
+                "informations":""
+            },
+            {
+                "libelle":"Botte ",
+                "basePourcentage":65,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque",
+                    "libelle" : "Plaque"
+                },
+                "prix":250,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":""
+            },
+            {
+                "libelle":"Ensemble ",
+                "basePourcentage":65,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque",
+                    "libelle" : "Plaque"
+                },
+                "prix":0,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"",
+                "informations":"-1 aux critiques réçus"
+            },
+            //#endregion Plage
+            //#region Plaque renforcée
+            {
+                "libelle":"Casque ",
+                "basePourcentage":60,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-renforcee",
+                    "libelle" : "Plaque Renforcée"
+                },
+                "prix":400,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Jambières ",
+                "basePourcentage":60,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-renforcee",
+                    "libelle" : "Plaque Renforcée"
+                },
+                "prix":400,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Brasssard ",
+                "basePourcentage":60,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-renforcee",
+                    "libelle" : "Plaque Renforcée"
+                },
+                "prix":400,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Plastron ",
+                "basePourcentage":60,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-renforcee",
+                    "libelle" : "Plaque Renforcée"
+                },
+                "prix":800,
+                "armure":"3",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"-1",
+                "parade":"0",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Botte ",
+                "basePourcentage":60,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-renforcee",
+                    "libelle" : "Plaque Renforcée"
+                },
+                "prix":400,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Ensemble ",
+                "basePourcentage":60,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-renforcee",
+                    "libelle" : "Plaque Renforcée"
+                },
+                "prix":0,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"1",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"",
+                "informations":"-1 aux critiques réçus"
+            },
+            //#endregion Plaque renforcée
+            //#region Plaque travaillée
+            {
+                "libelle":"Casque ",
+                "basePourcentage":55,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-travaillee",
+                    "libelle" : "Plaque Travaillée"
+                },
+                "prix":600,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1",
+                "informations":""
+            },
+            {
+                "libelle":"Jambières ",
+                "basePourcentage":55,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-travaillee",
+                    "libelle" : "Plaque Travaillée"
+                },
+                "prix":600,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1",
+                "informations":""
+            },
+            {
+                "libelle":"Brassard ",
+                "basePourcentage":55,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-travaillee",
+                    "libelle" : "Plaque Travaillée"
+                },
+                "prix":600,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"1",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1",
+                "informations":""
+            },
+            {
+                "libelle":"Plastron ",
+                "basePourcentage":55,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-travaillee",
+                    "libelle" : "Plaque Travaillée"
+                },
+                "prix":1200,
+                "armure":"4",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"-1",
+                "parade":"0",
+                "rupture":"1",
+                "informations":""
+            },
+            {
+                "libelle":"Botte ",
+                "basePourcentage":55,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-travaillee",
+                    "libelle" : "Plaque Travaillée"
+                },
+                "prix":600,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1",
+                "informations":""
+            },
+            {
+                "libelle":"Ensemble ",
+                "basePourcentage":55,
+                "region":"commun",
+                "origine":this.getOrigine("armure-plaque"),
+                "categorie":{
+                    "code":"armure-plaque-travaillee",
+                    "libelle" : "Plaque Travaillée"
+                },
+                "prix":0,
+                "armure":"1",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"1",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"",
+                "informations":"-1 aux critiques réçus / -1 rupture PR"
+            },
+            //#endregion Plaque travaillée
+            //#region Robe
+            {
+                "libelle":"Robe trouée ",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":30,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"-1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-6",
+                "informations":""
+            },
+            {
+                "libelle":"Robe d'apprenti  ",
+                "basePourcentage":90,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":100,
+                "armure":"1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-5",
+                "informations":""
+            },
+            {
+                "libelle":"Robe de l'enchanteur",
+                "basePourcentage":85,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":300,
+                "armure":"1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"1",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Robe d'archimage",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":500,
+                "armure":"1 / 1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"1",
+                "adresse":"1",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":""
+            },
+            {
+                "libelle":"Robe du Seigneur des Arcanes (feu)",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":1000,
+                "armure":"1 / 1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"Pour l'élément : +1 au jet de réussite / +1 resistance "
+            },
+            {
+                "libelle":"Robe du Seigneur des Arcanes (eau)",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":1000,
+                "armure":"1 / 1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"Pour l'élément : +1 au jet de réussite / +1 resistance "
+            },
+            {
+                "libelle":"Robe du Seigneur des Arcanes (terre)",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":1000,
+                "armure":"1 / 1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"Pour l'élément : +1 au jet de réussite / +1 resistance "
+            },
+            {
+                "libelle":"Robe du Seigneur des Arcanes (air)",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":1000,
+                "armure":"1 / 1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"Pour l'élément : +1 au jet de réussite / +1 resistance "
+            },
+            {
+                "libelle":"Robe du Crépuscule ",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":2000,
+                "armure":"1 / 1*",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-2",
+                "informations":""
+            },
+            {
+                "libelle":"Robe du Tisseur de Réalités ",
+                "basePourcentage":65,
+                "region":"commun",
+                "origine":this.getOrigine("robe"),
+                "categorie":{
+                    "code":"robe",
+                    "libelle" : "Robes"
+                },
+                "prix":4000,
+                "armure":"2 / 2*",
+                "courage":"1",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"",
+                "force":"",
+                "chance":"2",
+                "attaque":"",
+                "parade":"",
+                "rupture":"*",
+                "informations":"+1 aux chances de crit"
+            },
+            //#endregion Robe
+            //#region Chapeau
+            {
+                "libelle":"Chapeau Fripé de l’Initié",
+                "basePourcentage":95,
+                "region":"commun",
+                "origine":this.getOrigine("chapeau"),
+                "categorie":{
+                    "code":"chapeau",
+                    "libelle" : "Chapeau"
+                },
+                "prix":15,
+                "armure":"",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"-1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-6",
+                "informations":""
+            },
+            
+            {
+                "libelle":"Chapeau d'apprenti",
+                "basePourcentage":90,
+                "region":"commun",
+                "origine":this.getOrigine("chapeau"),
+                "categorie":{
+                    "code":"chapeau",
+                    "libelle" : "Chapeau"
+                },
+                "prix":75,
+                "armure":"1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-5",
+                "informations":""
+            },
+            {
+                "libelle":"Chapeau de l’Invocateur",
+                "basePourcentage":85,
+                "region":"commun",
+                "origine":this.getOrigine("chapeau"),
+                "categorie":{
+                    "code":"chapeau",
+                    "libelle" : "Chapeau"
+                },
+                "prix":200,
+                "armure":"1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-5",
+                "informations":"+1 aux jets de sorts d'invocation"
+            },
+            {
+                "libelle":"Chapeau du Magicien Crépusculaire",
+                "basePourcentage":80,
+                "region":"commun",
+                "origine":this.getOrigine("chapeau"),
+                "categorie":{
+                    "code":"chapeau",
+                    "libelle" : "Chapeau"
+                },
+                "prix":400,
+                "armure":"1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"",
+                "adresse":"",
+                "force":"",
+                "chance":"1",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-4",
+                "informations":"+1EA en dormant"
+            },
+            {
+                "libelle":"Chapeau des Sphères Célestes",
+                "basePourcentage":75,
+                "region":"commun",
+                "origine":this.getOrigine("chapeau"),
+                "categorie":{
+                    "code":"chapeau",
+                    "libelle" : "Chapeau"
+                },
+                "prix":800,
+                "armure":"1 / 1*",
+                "courage":"",
+                "intelligence":"",
+                "charisme":"1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1-3",
+                "informations":"Recup 1/3 mana consommé après combat"
+            },
+            {
+                "libelle":"Chapeau de l’Astral Infini",
+                "basePourcentage":70,
+                "region":"commun",
+                "origine":this.getOrigine("chapeau"),
+                "categorie":{
+                    "code":"chapeau",
+                    "libelle" : "Chapeau"
+                },
+                "prix":2000,
+                "armure":"1 / 1*",
+                "courage":"",
+                "intelligence":"1",
+                "charisme":"1",
+                "adresse":"",
+                "force":"",
+                "chance":"",
+                "attaque":"",
+                "parade":"",
+                "rupture":"1",
+                "informations":"+1 récupération PA"
+            },
+            {
+                "libelle":"Chapeau du Maître des Dimensions",
+                "basePourcentage":65,
+                "region":"commun",
+                "origine":this.getOrigine("chapeau"),
+                "categorie":{
+                    "code":"chapeau",
+                    "libelle" : "Chapeau"
+                },
+                "prix":4000,
+                "armure":"1 / 1*",
+                "courage":"",
+                "intelligence":"2",
+                "charisme":"1",
+                "adresse":"",
+                "force":"",
+                "chance":"2",
+                "attaque":"",
+                "parade":"",
+                "rupture":"0",
+                "informations":"Téléportation"
+            },
+            //#endregion Chapeau
         ];
     }
 }

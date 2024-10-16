@@ -13,7 +13,7 @@ export class BonusAdPipe implements PipeTransform {
     if(origine === "elfe"){
       return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:gold>(+1)</span>');
     }
-    return this.sanitizer.bypassSecurityTrustHtml("");
+    return this.sanitizer.bypassSecurityTrustHtml(value);
   }
 }
 
@@ -29,7 +29,7 @@ export class BonusForcePipe implements PipeTransform {
     if(origine === "orc"){
       return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:green>(+1)</span>');
     }
-    return this.sanitizer.bypassSecurityTrustHtml("");
+    return this.sanitizer.bypassSecurityTrustHtml(value);
   }
 }
 
@@ -45,7 +45,7 @@ export class BonusRupturePipe implements PipeTransform {
     if(origine === "nain" && value != "*"){
       return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:orange>(-1)</span>');
     }
-    return this.sanitizer.bypassSecurityTrustHtml("");
+    return this.sanitizer.bypassSecurityTrustHtml(value);
   }
 }
 
@@ -77,6 +77,6 @@ export class BonusInfoPipe implements PipeTransform {
     if(origine === "pirate"){
       return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:red>(+10% po au loot)</span>');
     }
-    return this.sanitizer.bypassSecurityTrustHtml("");
+    return this.sanitizer.bypassSecurityTrustHtml(value);
   }
 }

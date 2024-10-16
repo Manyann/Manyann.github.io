@@ -47,15 +47,7 @@ export class OriginePrixPipe implements PipeTransform {
   transform(value: number, origine : string): number  {
     if(origine === "commun")
       return value;
-
-    let prix = value;
-
-    switch(origine){
-      case "elfe" :
-        prix *= 1.25;
-          break;
-    }
-    
-    return prix;
+    else
+      return value * 1.25;
   }
 }
