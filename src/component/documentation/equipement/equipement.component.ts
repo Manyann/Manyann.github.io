@@ -34,12 +34,7 @@ private buildCardList():Array<Card>{
     {
       image:"assets/img/card/equipement/armure.PNG",
       titre:"Armures",
-      url:"assets/img/pdfs/equipement/tableau-protections-naheulbeuk-jdr.pdf"
-    },
-    {
-      image:"assets/img/card/equipement/chapeau.PNG",
-      titre:"Chapeaux",
-      url:"assets/img/pdfs/equipement/tableau-chapeaux-couvrechefs-naheulbeuk-jdr.pdf"
+      url:"assets/img/pdfs/equipement/armure.pdf"
     },
     {
       image:"assets/img/card/equipement/gemme.PNG",
