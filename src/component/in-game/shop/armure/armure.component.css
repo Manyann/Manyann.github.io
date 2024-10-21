@@ -16,3 +16,7 @@ select{
   display: flex;
   align-items: center;
 }
+
+::ng-deep.p-datatable .p-datatable-tbody > tr > td {
+  padding:1rem 0rem;
+ }

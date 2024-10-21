@@ -2090,7 +2090,7 @@ export class ItemHelper{
                     "libelle" : "Bâtons"
                 },
                 "prix":1000,
-                "degats":"1D(m)",
+                "degats":"1D*",
                 "courage":"",
                 "intelligence":"1",
                 "charisme":"1",
@@ -2134,7 +2134,7 @@ export class ItemHelper{
                     "libelle" : "Bâtons"
                 },
                 "prix":2500,
-                "degats":"1D+3(m)",
+                "degats":"1D+3*",
                 "courage":"",
                 "intelligence":"1",
                 "charisme":"2",
