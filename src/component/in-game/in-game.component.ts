@@ -43,8 +43,8 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/ingame/guilde.PNG",
-      titre:"Nos héros",
-      url:"gestion"
+      titre:"Création",
+      url:"creer"
     },
   ]
 

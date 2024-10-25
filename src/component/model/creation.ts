@@ -30,6 +30,7 @@ export class Origine{
     "autres" : Array<string>
     "isOpen": boolean = false;
     "shortCodeParents" : Array<string>;
+    "subMetiers" : Array<Metier>;
   }
   
   export class Caracteristique{
@@ -38,6 +39,24 @@ export class Origine{
   }
   
 export class CreationHelper{
+
+    static getDefaultOrigine():Origine{
+        return {
+            "nom":"",
+            "courage":new Caracteristique(),
+            "intelligence":new Caracteristique(),
+            "charisme":new Caracteristique(),
+            "adresse":new Caracteristique(),
+            "force":new Caracteristique(),
+            "chance":new Caracteristique(),
+            "caracteristiques" : [],
+            "restrictions" : [],
+            "competencesHerites" : [],
+            "restrictionsMetier" : [],
+            "restrictionsMetierShortCode" : [],
+            "isOpen": false,
+          }
+    }
     
     static getAllOrigine():Array<Origine>{
         
@@ -289,6 +308,7 @@ export class CreationHelper{
             autres : [],
             shortCodeParents:[],
             isOpen : false,
+            subMetiers : []
             },
             {
             nom:"Moine",
@@ -304,7 +324,7 @@ export class CreationHelper{
             competencesHerites :["Comprendre les animaux","Déplacement silencieux","Récupération","Tête vide"],
             autres : ["Purification : 3EA, purge les effets d'un poison","Frappe d'énergie : A main nue le moine critique de 1 à 5"],
             shortCodeParents:["PR"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Paladin",
@@ -320,7 +340,7 @@ export class CreationHelper{
             competencesHerites :["Armes de bourrin","Bourre Pif","Chevaucher","Intimider"],
             autres : [],
             shortCodeParents:["PR"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Templier",
@@ -338,7 +358,7 @@ export class CreationHelper{
                 "Banissement des infidèles, les adversaires du templier avec un alignement différent du sien tombe hors combat à 10hp au lieu de 3",
                 "Conviction inébranlable, si une épreuve demande un test de courage ou de force que le templier reussit les autres membres ne sont pas obligé de réussir"],
             shortCodeParents:["PL"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Voleur",
@@ -354,7 +374,7 @@ export class CreationHelper{
             competencesHerites :["Chouraver","Déplacement silencieux","Détection","Serrurier"],
             autres : [],
             shortCodeParents:[],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Empoisoneur",
@@ -373,8 +393,8 @@ export class CreationHelper{
                 "Paralysie : -2AT/PRD => 1 feuille de Boulorne, 1 Herbe de Nilla, 1 dose poudre malachite",
                 "Embrumement : -2 stats => 1 Ecorce de boulorne, 1 essence jujuba, 1 poivre noir"
             ],
-            shortCodeParents:["VO"],
-            isOpen : false,
+            shortCodeParents:["VO","HE"],
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Assassin",
@@ -393,7 +413,7 @@ export class CreationHelper{
                 "La mort en bouteille (Hors combat uniquement): mort de la cible => 1 dose sang démon majeu, 3 cheveux de vierge, 1 poisson noyé"
             ],
             shortCodeParents:["EM"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Rodeur",
@@ -409,7 +429,8 @@ export class CreationHelper{
             competencesHerites :["Détecter","Déplacement silencieux","Pister","Instinct de survie","Tirer correctement"],
             autres : ["Faucon : Le ranger peut compter sur son animal de compagnie. Impuissant en combat mais permet d'observer une zone. Grace au faucon, les aventuriers ont moins de chance de faire des rencontres (1-3 au dé 8)"],
             shortCodeParents:["VO"],
-            isOpen : false,
+            isOpen : false, 
+            subMetiers : []
             },
             {
             nom:"Ninja",
@@ -425,16 +446,17 @@ export class CreationHelper{
             competencesHerites :["Ambdiextrie","Désamorcer","Déplacement silencieux","Pister","Ressemble à rien","Serrurier"],
             autres : ["Maitre des ombres : invisible quand dans les ombres", "Permutation : Le ninja peut echanger de place avec un allié"],
             shortCodeParents:["RO"],
-            isOpen : false,
+            isOpen : false, 
+            subMetiers : []
             },
             {
             nom:"Artiste",
             shortCode:"AR",
             courage:new Caracteristique(),
-            intelligence: {type:"min",nombre:"10"},
-            charisme: {type:"min",nombre:"10"},
-            adresse: {type:"min",nombre:"10"},
-            force: {type:"max",nombre:"12"},
+            intelligence: {type:"min",nombre:"10+"},
+            charisme: {type:"min",nombre:"10+"},
+            adresse: {type:"min",nombre:"10+"},
+            force: {type:"max",nombre:"12-"},
             chance: new Caracteristique(),
             caracteristiques : ["-3EV","+1PRD"],
             restrictions : ["Armes à 2 mains", "Bouclier", "2PR Max"],
@@ -442,9 +464,10 @@ export class CreationHelper{
             autres : ["+2 épreuves charisme (+4 sexe opposé","+2 jets chance","Repos bien mérité : Alliés +1EV/PA par heure de repos"],
             isOpen : false,
             shortCodeParents:[],
+            subMetiers : []
             },
             {
-            nom:"Magicien",
+            nom:"Prestidigitateur",
             shortCode:"MA",
             courage: new Caracteristique(),
             intelligence: {type:"min",nombre:"10+"},
@@ -457,8 +480,8 @@ export class CreationHelper{
             restrictions : ["3PR Max"],
             competencesHerites :["Ambidextrie","Méfiance","Mendier et pleurnichier","Rûnes bizarres","Tirer correctement","Tête vide"],
             autres : ["Substitution : Test INT => Le magicien peut altérer 2 de ses statistiques pour 2 tours dans un maximum de +4 / -4"],
-            shortCodeParents:["AR"],
-            isOpen : false,
+            shortCodeParents:["AT"],
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Célébrité",
@@ -475,8 +498,8 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Chef de groupe","Fariboles"],
             autres : ["Rencontre amicale: Lors d'une rencontre si les ennemis sont des humains il y a 1/4 chance qu'ils soit fan de la célébrité et n'attaque pas",
                 "Julia Roberts : Lors d'une rencontre si les ennemis sont des humains il y a 1/4 chance de détester la célébrité et la focus"],
-            shortCodeParents:["MA","PE","GT","ME"],
-            isOpen : false,
+            shortCodeParents:["MA","CM","GL"],
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Bourgeois",
@@ -492,8 +515,8 @@ export class CreationHelper{
             competencesHerites :["Appel des renforts","Chevaucher","Erudtion","Fariboles","Tirer correctement"],
             autres : ["L’avare : Le bourgeois ne peut pas donner de l’argent ou du matériel, il garde tout pour lui",
                 "Sens des affaires : Une fois par jour le bourgeois peut jouer en bourse. Il choisit d'engager une somme en PO. Avec 1D6, de 1 à 2 il gagne de l'argent, 3 et 4 rien, de 4 à 6 il pert de l'argent. 1D20 pour savoir le pourcentage d'argent gagné ou perdu"],
-            shortCodeParents:[],
-            isOpen : false,
+            shortCodeParents:["*","AT"],
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Noble",
@@ -510,7 +533,7 @@ export class CreationHelper{
             autres : ["L’argent appelle l’argent : Le Noble gagne 20% PO supplémentaire dans sa cagnotte personnelle",
                 "L’argent c’est du temps : Le Noble prend 10% xp supplémentaire du combat pour lui"],
             shortCodeParents:["BE"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Seigneur",
@@ -527,7 +550,7 @@ export class CreationHelper{
             autres : ["Taxes : Une fois par jour le seigneur reçoit l'argent des taxes de ses paysans (4D20)",
                 "Héritié : Le seigneur hérite de l'équipement familial (non vendable). Cote de maille luxe avec manche et lame d'excellence de riche (lame d'excellence mais avec 1D+5)"],
             shortCodeParents:["NB"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Artisant",
@@ -543,7 +566,7 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Bricolo du dimanche","Fouiller dans les poubelles"],
             autres : ["Tailleur : Peut réparer tout ce qui est pas en métal (test AD et 50%po)"],
             shortCodeParents:[],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Forgeron",
@@ -552,30 +575,30 @@ export class CreationHelper{
             intelligence: new Caracteristique(),
             charisme: new Caracteristique(),
             adresse: new Caracteristique(),
-            force: {type:"min",nombre:"12"},
+            force: {type:"min",nombre:"12+"},
             chance: new Caracteristique(),
             caracteristiques : ["+5EV","18EA","1D6EV level up","1DEA level up"],
             restrictions : [],
             competencesHerites :["Forgeron","Serrurier","Truc de mauviette"],
             autres : ["Renforcement : Peut enelever 1 de rupture sur test FO (si raté ajoute 1)"],
             shortCodeParents:["AT"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Forgeur de rûnes",
             shortCode:"FR",
             courage: new Caracteristique(),
-            intelligence: {type:"min",nombre:"12"},
+            intelligence: {type:"min",nombre:"12+"},
             charisme: new Caracteristique(),
-            adresse: {type:"min",nombre:"11"},
-            force: {type:"min",nombre:"12"},
+            adresse: {type:"min",nombre:"11+"},
+            force: {type:"min",nombre:"12+"},
             chance: new Caracteristique(),
             caracteristiques : ["+5EV","18EA","1D6EV level up","1DEA level up"],
             restrictions : ["Le forgeur de runes ne peut apposer une rune plus d’une fois sur un joueurs ou une arme/armure."],
             competencesHerites :["Chef de groupe","Erudition","Forgeron","Rûnes bizarre","Serrurier"],
             autres : [],
             shortCodeParents:["AT","FO"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Commerçant",
@@ -591,7 +614,7 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Erudition","Fariboles","Instinct du trésor"],
             autres : ["Pignon sur rue : Le commerçant peut vendre des items peut importe l'endroit ou il est pour 40% du prix (selon etat) au lieu des 50% classique en ville ( arnaque et carambouille ne s'applique pas)"],
             shortCodeParents:["AT,BE"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Herboriste",
@@ -610,7 +633,7 @@ export class CreationHelper{
                 "Baume du tigre : Heal de 1D4+1 pendant 1D4+1 tours. 1 griffre dragon, 10 Herbe de Nilla , 1 dose de sel, 1 dose de guy, 1 dose sang elfete vierge "
             ],
             shortCodeParents:["AT"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Ranger",
@@ -626,7 +649,7 @@ export class CreationHelper{
             competencesHerites :["Détection","Chevaucher","Nager","Pister"],
             autres : [],
             shortCodeParents:[],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Chasseur de primes",
@@ -644,8 +667,8 @@ export class CreationHelper{
                 "L'expérience n'a pas de prix : Toutes les 5 primes récoltés, le chasseur de prime gagne 1PI contre humain",
                 "Coup décisif : Le chasseur de prime peut décider que sa prochaine attaque sera critique de 1 à X et échec critique de 20-X à 20."
             ],
-            shortCodeParents:["RA"],
-            isOpen : false,
+            shortCodeParents:["RA","GR"],
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Chasseur de monstres",
@@ -664,7 +687,7 @@ export class CreationHelper{
                 "Coup décisif : Le chasseur de prime peut décider que sa prochaine attaque sera critique de 1 à X et échec critique de 20-X à 20."
             ],
             shortCodeParents:["RA"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Archéologue",
@@ -682,7 +705,7 @@ export class CreationHelper{
             competencesHerites :["Déplacement silencieux","Erudition","Escalader","Pister","Serrurier"],
             autres : ["Les parchemins mais y'en a trop à noter"],
             shortCodeParents:["RA"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Chasseur de trésor",
@@ -701,11 +724,11 @@ export class CreationHelper{
                 "Corde de rappel : Le chasseur de trésor peut revenir quand il le souhaite (hors combat) ( avec son groupe contre EV/2) à l'entrée de la ruine, du tombeau, donjon, etc"
             ],
             shortCodeParents:["AR"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Conservateur",
-            shortCode:"CO",
+            shortCode:"CV",
             courage: new Caracteristique(),
             intelligence: {type:"min",nombre:"13+"},
             charisme: new Caracteristique(),
@@ -720,7 +743,7 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Chef de groupe","Langue des monstres","Runes bizarres"],
             autres : ["Des parchemins lui aussi mais plus forts"],
             shortCodeParents:["AR"],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Ingénieur",
@@ -738,7 +761,7 @@ export class CreationHelper{
                 "Amélioration : Il peut ajouter 1 cara à une arme (test INT, si rate +1 RUP)",
                 "Polyvalence : Peut ajouter 1 aux tests des alliés"
             ],
-            isOpen : false,
+            isOpen : false, subMetiers : [],
             shortCodeParents:[],
             },
             {
@@ -754,7 +777,7 @@ export class CreationHelper{
             restrictions : ["4PR Max"],
             competencesHerites :["Désamorcer (sans test)","Tirer correctement"],
             autres : ["Fabrication : Peut fabriquer plusieurs type de dispositif explosif, fumigène, fragmentation, incendiaire, mortier, mine, feu d'artifice" ],
-            isOpen : false,
+            isOpen : false, subMetiers : [],
             shortCodeParents:["IN"],
             },
             {
@@ -770,7 +793,7 @@ export class CreationHelper{
             restrictions : ["3PR Max"],
             competencesHerites :["Serrurier"],
             autres : ["L’ingénieur dispose de 2 points de Méca par tour pour effectuer des actions de Meca"],
-            isOpen : false,
+            isOpen : false, subMetiers : [],
             shortCodeParents:["IN"],
             },
             {
@@ -786,7 +809,7 @@ export class CreationHelper{
             restrictions : ["Armes à 2 mains","Bouclier","2PR Max"],
             competencesHerites :["Agoraphobie","Appel des renforts","Arnaque et carambouille","Comprendre les animaux","Erudition","Langue de monstres"],
             autres : ["Collecte des âmes. Toutes les 20 âmes capturés -> +1 dégâts Magique","Repos des Damnés : Libère 1 âme pour rendre 1 pv à un allié"],
-            isOpen : false,
+            isOpen : false, subMetiers : [],
             shortCodeParents:[],
             },
             {
@@ -802,29 +825,29 @@ export class CreationHelper{
             restrictions : ["Armes à 2 mains","Bouclier","2PR Max"],
             competencesHerites :["Chef de groupe","Erudition","Langues des monstres","Méfiance","Pister"],
             autres : ["Agitateur : Sait galvaniser la foule","Sort de feu de niveau / magma niveau 3"],
-            isOpen : false,
-            shortCodeParents:[],
+            isOpen : false, subMetiers : [],
+            shortCodeParents:["DM","CM"],
             },
             {
             nom:"Guerrier",
             shortCode:"GR",
-            courage: {type:"min",nombre:"11"},
+            courage: {type:"min",nombre:"11+"},
             intelligence: new Caracteristique(),
             charisme: new Caracteristique(),
             adresse: new Caracteristique(),
-            force: {type:"min",nombre:"11"},
+            force: {type:"min",nombre:"11+"},
             chance: new Caracteristique(),
             caracteristiques : ["+5EV","Peut échanger 1AT et 1PRD"],
             restrictions : [],
             competencesHerites :["Appel du tonneau","Bourre pif","Chercher des noises","Intimider"],
             autres : [],
             shortCodeParents:[],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Soldat",
             shortCode:"SO",
-            courage: {type:"min",nombre:"12"},
+            courage: {type:"min",nombre:"12+"},
             intelligence: new Caracteristique(),
             charisme: new Caracteristique(),
             adresse: new Caracteristique(),
@@ -837,24 +860,66 @@ export class CreationHelper{
                 "Formation : +1 point d'impact si il ne combat pas tout seul",
                 "Porte étandard : +1 aux cara alliés pendant 3 tours sur test COU / CHA"
             ],
-            shortCodeParents:[],
-            isOpen : false,
+            shortCodeParents:["GR"],
+            isOpen : false, subMetiers : []
+            },
+            {
+            nom:"Berzerk",
+            shortCode:"BZ",
+            courage: {type:"min",nombre:"12+"},
+            intelligence: {type:"max",nombre:"10-"},
+            charisme: new Caracteristique(),
+            adresse: new Caracteristique(),
+            force: {type:"min",nombre:"13+"},
+            chance: new Caracteristique(),
+            caracteristiques : ["+15EV","-2PRD","+2AT","Rage : Le berzerk gagne 2 de rage par EV manquant"],
+            restrictions : ["2PR max","Pas de casque","Pas de bouclier"],
+            competencesHerites :["Ambidextrie","Arme de bourrin","Attire les monstres","Intimider","Tête vide"],
+            autres : ["Enragé : +level PI en dessous de 33% EV",
+                "Coute que coute : +level*2 PI en dessous de 66% EV",
+                "Frappe puissante, dégats +2 à la cible. 5 rages",
+                "Tourbilol, sur une attaque (-2) réussit le berzerk inflique une attaque circulaire sur toute personne à portée. 10 rages",
+                "GRRRRRBLBLBL, Transforme 10*x rages en 1*x PI. 1 fois par combat. Test COU"
+            ],
+            shortCodeParents:["GR"],
+            isOpen : false, subMetiers : []
+            },
+            {
+            nom:"Gladiateur",
+            shortCode:"GL",
+            courage: {type:"min",nombre:"12+"},
+            intelligence: new Caracteristique(),
+            charisme: new Caracteristique(),
+            adresse:  {type:"min",nombre:"10+"},
+            force: {type:"min",nombre:"13+"},
+            chance: new Caracteristique(),
+            caracteristiques : ["+5EV","-2AT","+2PRD","Gloire : Le gladiateur gagne 1 de gloire par AT réussit et 2 par PRD réussit. Il en perd 1 par PRD ou AT ratée."],
+            restrictions : ["4PR max","1 piece max","Casque obligatoire","Bouclier obligatoire"],
+            competencesHerites :["Chef de groupe","Intimider","Truc de mauviette (si pas déjà)"],
+            autres : ["Tenir bon : +level PR en dessous de 33% EV",
+                "Doigt d'honneur : Force l'ennemie à l'attaquer pendant 3 tours. COU/CHA 5 gloires",
+                "Coup de bouclier : Etourdit la cible pendant 2 tours. FO/AD 7 gloires",
+                "Un pour tous : Le gladiateur perd 3 AT mais peut rediriger sur lui les 3 prochains dégats qu'un allié va subir",
+                "Tortue : -2AT +2PRD +1PR. FO/COU 10 gloires"
+            ],
+            shortCodeParents:["GR"],
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Maitre d'armes",
             shortCode:"MA",
-            courage: {type:"min",nombre:"13"},
+            courage: {type:"min",nombre:"13+"},
             intelligence: new Caracteristique(),
-            charisme: {type:"min",nombre:"13"},
-            adresse: {type:"min",nombre:"13"},
+            charisme: {type:"min",nombre:"13+"},
+            adresse: {type:"min",nombre:"13+"},
             force: new Caracteristique(),
             chance: new Caracteristique(),
             caracteristiques : ["+1 AT / PRD"," Entraineur : Un allié au choix peut réaranger son AT / PRD dans une limite de +3 / -3"],
             restrictions : [],
             competencesHerites :["Ambidextrie","Arme de bourrin","Truc de mauviette"],
             autres : ["+1 PI pour chaque attaque réussie. Réinitialise si pas de dégats infligés"],
-            shortCodeParents:[],
-            isOpen : false,
+            shortCodeParents:["SO"],
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Pirate",
@@ -862,21 +927,37 @@ export class CreationHelper{
             courage: new Caracteristique(),
             intelligence: new Caracteristique(),
             charisme: new Caracteristique(),
-            adresse: {type:"min",nombre:"12"},
+            adresse: {type:"min",nombre:"12+"},
             force: new Caracteristique(),
             chance: new Caracteristique(),
             caracteristiques : ["Sur la mer : +1 stats en combat naval","Peut pistolet + épée sans ambidextrie"],
             restrictions : [],
             competencesHerites :["Appel du tonneau","Instinct de survie","Instinct du trésor","Nager","Tirer correctement"],
             autres : ["Pillage : Prend 10% a chacun des alliés pour les loots","Péroquet : pareil que faucon du rodeur"],
-            shortCodeParents:[],
-            isOpen : false,
+            shortCodeParents:["GR"],
+            isOpen : false, subMetiers : []
+            },
+            {
+            nom:"Corsaire",
+            shortCode:"CR",
+            courage: {type:"min",nombre:"12+"},
+            intelligence: new Caracteristique(),
+            charisme: {type:"min",nombre:"12+"},
+            adresse: new Caracteristique(),
+            force: new Caracteristique(),
+            chance: new Caracteristique(),
+            caracteristiques : ["Contrebande : Peut vendre n'importe où sans malus"],
+            restrictions : [],
+            competencesHerites :["Arnaque et carambouille","Chef de groupe","Pister"],
+            autres : ["Salves : Utilise 4 pistolets en une fois, puis à besoin de 2 tours pour tout recharger"],
+            shortCodeParents:["PI","SO","CP"],
+            isOpen : false, subMetiers : []
             },
             {
             nom:"Mage, Sorcier",
             shortCode:"MG",
             courage: new Caracteristique(),
-            intelligence: {type:"min",nombre:"12"},
+            intelligence: {type:"min",nombre:"12+"},
             charisme: new Caracteristique(),
             adresse: new Caracteristique(),
             force: new Caracteristique(),
@@ -886,23 +967,7 @@ export class CreationHelper{
             competencesHerites :["Erudition","Récupération","Rûnes bizarre"],
             autres : [""],
             shortCodeParents:[],
-            isOpen : false,
-            },
-            {
-            nom:"Corsaire",
-            shortCode:"CR",
-            courage: {type:"min",nombre:"12"},
-            intelligence: new Caracteristique(),
-            charisme: {type:"min",nombre:"12"},
-            adresse: new Caracteristique(),
-            force: new Caracteristique(),
-            chance: new Caracteristique(),
-            caracteristiques : ["Contrebande : Peut vendre n'importe où sans malus"],
-            restrictions : [],
-            competencesHerites :["Arnaque et carambouille","Chef de groupe","Pister"],
-            autres : ["Salves : Utilise 4 pistolets en une fois, puis à besoin de 2 tours pour tout recharger"],
-            shortCodeParents:[],
-            isOpen : false,
+            isOpen : false, subMetiers : []
             },
         ]
 

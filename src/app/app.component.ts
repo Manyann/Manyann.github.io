@@ -35,6 +35,11 @@ export class AppComponent {
         url:"/documentation/bestiaires",
         icon:"pi pi-bullseye"
       },
+      {
+        label :"Création",
+        url:"/in-game/creer",
+        icon:"pi pi-user"
+      },
     ]
   }
 }

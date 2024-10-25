@@ -1,0 +1,61 @@
+
+<p-treeTable [value]="treeNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Classe</th>
+            <th>COU</th>
+            <th>INT</th>
+            <th>CHA</th>
+            <th>AD</th>
+            <th>FO</th>
+            <th>CHN</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <p-treeTableToggler [rowNode]="rowNode" />
+                {{ rowData.nom }}
+            </td>
+            <td class="{{rowData.courage.type}}">{{ rowData.courage.nombre }}</td>
+            <td class="{{rowData.intelligence.type}}">{{ rowData.intelligence.nombre }}</td>
+            <td class="{{rowData.charisme.type}}">{{ rowData.charisme.nombre }}</td>
+            <td class="{{rowData.adresse.type}}">{{ rowData.adresse.nombre }}</td>
+            <td class="{{rowData.force.type}}">{{ rowData.force.nombre }}</td>
+            <td class="{{rowData.chance.type}}">{{ rowData.chance.nombre }}</td>
+            <td>
+                <p-button (onClick)="openInformations(rowData.nom)" icon="pi pi-question" />
+                <p-button (onClick)="openMetiers(rowData.nom)" class="ml-2" icon="pi pi-briefcase" />
+            </td>
+
+        </tr>
+    </ng-template>
+</p-treeTable>
+
+<p-sidebar [(visible)]="sidebarVisible">
+    <div class="list-bonus parts" *ngIf="origineToSee.caracteristiques.length > 0">
+        <div class="title">Characteristiques</div>
+        <div class="list-item-details-items">
+            <span  *ngFor="let caracteristique of origineToSee.caracteristiques">{{caracteristique}}</span>
+        </div>
+    </div>
+    <div class="list-restriction parts" *ngIf="origineToSee.restrictions.length > 0">
+        <div class="title">Restriction</div>
+        <div class="list-item-details-items">
+            <span  *ngFor="let restriction of origineToSee.restrictions">{{restriction}}</span>  
+        </div>
+    </div>
+    <div class="list-competence-base parts" *ngIf="origineToSee.competencesHerites.length > 0">
+        <div class="title">Compétences Hérités</div>
+        <div class="list-item-details-items">
+            <span  *ngFor="let competenceHerite of origineToSee.competencesHerites">{{competenceHerite}}</span>  
+        </div>
+    </div>
+    <div class="list-restriction-metier parts" *ngIf="origineToSee.restrictionsMetier.length > 0">
+        <div class="title">Restriction métier</div>
+        <div class="list-item-details-items">
+            <span  *ngFor="let restrictionMetier of origineToSee.restrictionsMetier">{{restrictionMetier}}</span>  
+        </div>
+    </div>
+</p-sidebar>

@@ -1,0 +1,29 @@
+
+<p-treeTable [value]="treeNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th>Metier</th>
+            <th>COU</th>
+            <th>INT</th>
+            <th>CHA</th>
+            <th>AD</th>
+            <th>FO</th>
+            <th>CHN</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>    
+            </td>
+            <td>{{ rowData.nom }}</td>
+            <td class="{{rowData.courage.type}}">{{ rowData.courage.nombre }}</td>
+            <td class="{{rowData.intelligence.type}}">{{ rowData.intelligence.nombre }}</td>
+            <td class="{{rowData.charisme.type}}">{{ rowData.charisme.nombre }}</td>
+            <td class="{{rowData.adresse.type}}">{{ rowData.adresse.nombre }}</td>
+            <td class="{{rowData.force.type}}">{{ rowData.force.nombre }}</td>
+            <td class="{{rowData.chance.type}}">{{ rowData.chance.nombre }}</td>
+        </tr>
+    </ng-template>
+</p-treeTable>

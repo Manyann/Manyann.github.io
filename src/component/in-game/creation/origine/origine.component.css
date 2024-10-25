@@ -1,0 +1,43 @@
+
+
+.max{
+    color: red;
+  }
+  
+  .min{
+    color:green;
+  }
+
+  .parts{
+    display:flex;
+    flex-direction:column;
+    .list-item-details-items{
+        margin-top:0.5rem;
+      display:flex;
+      gap: 0.5rem;
+      flex-wrap:wrap;
+    }
+    .title{
+        font-weight: bold;
+    }
+    margin-bottom: 1rem;
+  }
+
+  ::ng-deep.p-sidebar-left {
+    width:50%;
+  }
+
+  @media (max-width: 900px) { 
+    ::ng-deep.p-button.p-button-icon-only{
+        width: 2rem;
+        height: 2rem;
+        margin:0.1rem;
+    }
+}
+
+    @media (min-width: 900px) { 
+        .ml-2{
+          margin-left:2rem;
+        }
+      
+}
