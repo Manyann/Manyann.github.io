@@ -1,9 +1,9 @@
 <br>
-<p-tabView>
+<p-tabView  [(activeIndex)]="activeIndex"> 
     <p-tabPanel header="Classes">
-        <app-origine></app-origine>
+        <app-origine (openMetier)="openMetiers($event)"></app-origine>
     </p-tabPanel>
     <p-tabPanel header="Metiers">
-        <app-metier ></app-metier>
+        <app-metier [restrictions]="restrictionsMetier"></app-metier>
     </p-tabPanel>
 </p-tabView>

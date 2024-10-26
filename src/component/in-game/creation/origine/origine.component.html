@@ -26,7 +26,7 @@
             <td class="{{rowData.chance.type}}">{{ rowData.chance.nombre }}</td>
             <td>
                 <p-button (onClick)="openInformations(rowData.nom)" icon="pi pi-question" />
-                <p-button (onClick)="openMetiers(rowData.nom)" class="ml-2" icon="pi pi-briefcase" />
+                <p-button (onClick)="openMetiers(rowData.restrictionsMetierShortCode)" class="ml-2" icon="pi pi-briefcase" />
             </td>
 
         </tr>

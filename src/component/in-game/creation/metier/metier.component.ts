@@ -1,27 +1,43 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TreeTableModule } from 'primeng/treetable';
 import { CreationHelper, Metier } from '../../../model/creation';
 import { TreeNode } from 'primeng/api';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-metier',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, TreeTableModule],
+  imports: [RouterOutlet, CommonModule, TreeTableModule,SidebarModule, ButtonModule],
   templateUrl: './metier.component.html',
   styleUrl: './metier.component.css'
 })
 export class MetierComponent {
   title = 'nhbk';
-  metiersBase: Array<Metier>;
-  metiers: Array<Metier>;
-  treeNodes : Array<TreeNode>;
+  metiersBase: Array<Metier>=[];
+  metiers: Array<Metier>=[];
+  treeNodes : Array<TreeNode>=[];
+  metierToSee : Metier;
+  sidebarVisible : boolean = false;
+
+
+  @Input() restrictions:Array<string>=[];
 
   constructor(){
-    this.metiersBase = CreationHelper.getAllMetier();
-    this.metiers = this.metiersBase.filter(x=>x.shortCodeParents.length == 0 || x.shortCodeParents.includes("*"));
-    this.metiers.forEach(x=>x.subMetiers = this.fillSubMetier(x.shortCode));
-    this.treeNodes = this.metierToTreeNode(this.metiers);
+    this.metierToSee = CreationHelper.getDefaultMetier();
+    this.setAll();
+  }
+
+setAll():void{
+  this.metiersBase = CreationHelper.getAllMetier();
+  this.metiers = this.metiersBase
+    .filter(x=>
+      (x.shortCodeParents.length == 0 || x.shortCodeParents.includes("*"))
+      && !this.restrictions.includes(x.shortCode)
+    );
+  this.metiers.forEach(x=>x.subMetiers = this.fillSubMetier(x.shortCode));
+  this.treeNodes = this.metierToTreeNode(this.metiers);
 }
 
   fillSubMetier(code:string) : Array<Metier>
@@ -42,6 +58,15 @@ export class MetierComponent {
     }));
 
     return nodes;
+  }
+
+  openInformations(shortCode:string){
+    this.metierToSee = this.metiersBase.find(x=>x.shortCode == shortCode)??CreationHelper.getDefaultMetier();
+    this.sidebarVisible = true;
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    this.setAll();
   }
 
 }

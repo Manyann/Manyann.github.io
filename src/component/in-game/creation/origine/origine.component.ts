@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Output,EventEmitter } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TreeTableModule } from 'primeng/treetable';
 import { CreationHelper, Origine } from '../../../model/creation';
@@ -20,14 +20,13 @@ export class OrigineComponent {
   treeNodes : Array<TreeNode>;
   origineToSee : Origine;
   sidebarVisible : boolean;
-  restrictionsMetier : Array<string>;
+  @Output() openMetier:EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
 
   constructor(){
     this.originesBase = CreationHelper.getAllOrigine();
     this.treeNodes = this.metierToTreeNode();
     this.origineToSee = CreationHelper.getDefaultOrigine();
     this.sidebarVisible=false;
-    this.restrictionsMetier = [];
 }
 
   metierToTreeNode():Array<TreeNode>
@@ -48,7 +47,7 @@ export class OrigineComponent {
   }
 
   openMetiers(restrictions:Array<string>){
-    this.restrictionsMetier = restrictions;
+    this.openMetier.emit(restrictions);
   }
 
 }
