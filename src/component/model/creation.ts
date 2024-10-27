@@ -108,7 +108,7 @@ export class CreationHelper{
             restrictions : ["Arbalètes","Armure complete","Bouclier"],
             competencesHerites :["Armes de bourrin","Bourre pif","Chercher des noises","Sentier des pieds","Tête vide", "6 : Truc de mauviette"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Bourgeois','Artisant','Ranger','Ingénieur','Démonologue','Mage'],
-            restrictionsMetierShortCode: ['PR','VO','AR','BE','AT','RA','IN','DM','MG'],
+            restrictionsMetierShortCode: ['PR','VO','AR','BE','AT','RA','IN','DM','MG','SO','CR','PI','CP'],
             isForbidden : false
             },
             {
@@ -123,7 +123,7 @@ export class CreationHelper{
             restrictions : ["Arc et Arbalètes","Armes à 2 mains non naine","4PR Max"],
             competencesHerites :["Appel du tonneau","Chercher des noises","Méfiance","Instinct du trésor", "Pénible","Radin","Tirer Correctement" , "6 : Arnaque et carambouille"],
             restrictionsMetier : ['Voleur',"Artiste",'Ranger','Démonologue','Mage'],
-            restrictionsMetierShortCode: ['VO','AR','RA','DM','MG'],
+            restrictionsMetierShortCode: ['MO','VO','AR','HE','RA','DM','MG','MA','PI','CP','CR'],
             isForbidden : false
             },
             {
@@ -138,7 +138,7 @@ export class CreationHelper{
             restrictions : ["Armes à 2 mains","2PR Max"],
             competencesHerites :["Appel des renforst","Chef de groupe","Chevaucher","Erudition","Rûnes bizarres","Tomber dans les pièges ", "6 : Premiers soins"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Bourgeois','Artisant','Ranger','Ingénieur','Démonologue','Guerrier'],
-            restrictionsMetierShortCode: ['PR','VO','AR','BE','AT','RA','IN','DM','GR'],
+            restrictionsMetierShortCode: ['PR','VO','AR','AT','RA','IN','DM','GR'],
             isForbidden : false
             },
             {
@@ -168,7 +168,7 @@ export class CreationHelper{
             restrictions : ["Armes à 2 mains","4PR Max"],
             competencesHerites :["Chevaucher","Comprendre les animaux","Naïveté touchante","Premiers soins","Tirer Correctement","Tomber dans les pièges", "6 : Déplacements silencieux"],
             restrictionsMetier : ['Prêtre','Voleur','Bourgeois','Ingénieur','Démonologue','Mage','Guerrier'],
-            restrictionsMetierShortCode: ['PR','VO','BE','IN','DM','MG','GR'],
+            restrictionsMetierShortCode: ['PR','VO','BE','IN','DM','MG','GR','FO','CO'],
             isForbidden : false
             },
             {
@@ -183,7 +183,7 @@ export class CreationHelper{
             restrictions : ["Armes à 2 mains","3PR Max"],
             competencesHerites :["Agoraphobie","Déplacement silencieux","Détection","Escalader","Méfiance","Pister","Tirer correctement" ,"6 : Ambidextrie"],
             restrictionsMetier : ['Prêtre','Bourgeois','Artisant','Ingénieur','Démonologue','Mage','Guerrier'],
-            restrictionsMetierShortCode: ['PR','BE','AT','IN','DM','MG','GR'],
+            restrictionsMetierShortCode: ['PR','BE','AT','IN','MG','GR','AC'],
             isForbidden : false
             },
             {
@@ -198,7 +198,7 @@ export class CreationHelper{
             restrictions : ["Pas d'arme de jet"],
             competencesHerites :["Agoraphobie","Appel du tonneau","Bourre pif","Chercher des noises","Instinct de survie","Sentier des pieds","Truc de mauviette","6 : Armes de bourrin"],
             restrictionsMetier : ['Prêtre',"Artiste",'Bourgeois','Artisant','Ranger','Ingénieur','Démonologue','Mage'],
-            restrictionsMetierShortCode: ['PR','AR','BE','AT','RA','IN','DM','MG'],
+            restrictionsMetierShortCode: ['VO','PR','AR','BE','AT','RA','IN','DM'],
             isForbidden : false
             },
             {
@@ -228,7 +228,7 @@ export class CreationHelper{
             restrictions : ["Armes à feu","Armure complète"],
             competencesHerites :["Agoraphobie","Appel du tonneau","Appel du ventre","Armes de bourrins","Bourre pif","Instinct de survie","Intimider","Sentier des pieds","Tête vide","Truc de mauviette"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Bourgeois','Artisant','Ranger','Ingénieur','Démonologue','Mage'],
-            restrictionsMetierShortCode: ['PR','VO','AR','BE','AT','RA','IN','DM','MG'],
+            restrictionsMetierShortCode: ['PR','VO','AR','BE','AT','RA','IN','DM','MG','CP','SO','GL','PI'],
             isForbidden : false
             },
             {
@@ -243,7 +243,7 @@ export class CreationHelper{
             restrictions : ["Armes de jet","Armes a feu","Armure complète","4PR Max"],
             competencesHerites :["Appel du tonneau","Armes de bourrins","Bourre pif","Intimider","Pister","Tirer correctement","Truc de mauviette", "6 : Premiers soins"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Bourgeois','Ingénieur','Démonologue','Mage'],
-            restrictionsMetierShortCode: ['PR','VO','AR','BE','IN','DM','MG'],
+            restrictionsMetierShortCode: ['PR','VO','AR','BE','IN','DM','MG','HE','AC','BZ','PI','CR','CE','IQ'],
             isForbidden : false
             },
             {
@@ -273,7 +273,7 @@ export class CreationHelper{
             restrictions : ["Armes à 2 mains","3PR Max","Arme de jet sauf lance pierre"],
             competencesHerites :["Appel du tonneau","Appel du ventre","Cuistot","Déplacement silencieux","Escalader","Instinct de survie","Mendier et pleurnicher","Naïveté touchante","6 : Jonglage et danse"],
             restrictionsMetier : ['Prêtre','Voleur','Ranger','Ingénieur','Démonologue','Mage','Guerrier'],
-            restrictionsMetierShortCode: ['PR','VO','RA','IN','DM','MG','GR'],
+            restrictionsMetierShortCode: ['PR','VO','RA','IN','DM','MG','GR','FO','FR'],
             isForbidden : false
             },
             {
@@ -303,7 +303,7 @@ export class CreationHelper{
             restrictions : ["3PR Max","Arme de jet étrangère"],
             competencesHerites :["Ambidextrie","Erudition","Attire les monstres","Chevaucher","Tirer correctement","6 : Truc de mauviette"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Ranger','Ingénieur','Démonologue','Mage'],
-            restrictionsMetierShortCode: ['PR','VO','AR','RA','IN','DM','MG'],
+            restrictionsMetierShortCode: ['PR','VO','AR','RA','IN','DM','MG','HE','PI','BZ','GL'],
             isForbidden : false
             },
         ];
@@ -500,7 +500,7 @@ export class CreationHelper{
             restrictions : ["3PR Max"],
             competencesHerites :["Ambidextrie","Méfiance","Mendier et pleurnichier","Rûnes bizarres","Tirer correctement","Tête vide"],
             autres : ["Substitution : Test INT => Le magicien peut altérer 2 de ses statistiques pour 2 tours dans un maximum de +4 / -4"],
-            shortCodeParents:["AT"],
+            shortCodeParents:["AR"],
             isForbidden : false, subMetiers : []
             },
             {
@@ -711,7 +711,7 @@ export class CreationHelper{
             },
             {
             nom:"Archéologue",
-            shortCode:"AR",
+            shortCode:"AC",
             courage: {type:"min",nombre:"10+"},
             intelligence: {type:"min",nombre:"11+"},
             charisme: new Caracteristique(),
@@ -743,7 +743,7 @@ export class CreationHelper{
                 "Commissaire priseur : le chasseur de trésor connait la valeur des objets sans avoir besoin de les faire expertiser",
                 "Corde de rappel : Le chasseur de trésor peut revenir quand il le souhaite (hors combat) ( avec son groupe contre EV/2) à l'entrée de la ruine, du tombeau, donjon, etc"
             ],
-            shortCodeParents:["AR"],
+            shortCodeParents:["AC"],
             isForbidden : false, subMetiers : []
             },
             {
@@ -762,7 +762,7 @@ export class CreationHelper{
             restrictions : ["2PR Max"],
             competencesHerites :["Arnaque et carambouille","Chef de groupe","Langue des monstres","Runes bizarres"],
             autres : ["Des parchemins lui aussi mais plus forts"],
-            shortCodeParents:["AR"],
+            shortCodeParents:["AC"],
             isForbidden : false, subMetiers : []
             },
             {

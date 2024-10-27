@@ -38,7 +38,7 @@ setAll():void{
       x.shortCodeParents.length == 0 || x.shortCodeParents.includes("*")
     );
   this.metiers.forEach(x=>x.subMetiers = this.fillSubMetier(x.shortCode));
-  this.treeNodes = this.metierToTreeNode(this.metiers);
+  this.treeNodes = this.metierToTreeNode(this.metiers,1);
 }
 
   fillSubMetier(code:string) : Array<Metier>
@@ -48,7 +48,7 @@ setAll():void{
     return subMetiers;
   }
 
-  metierToTreeNode(metiers: Array<Metier>):Array<TreeNode>
+  metierToTreeNode(metiers: Array<Metier>, level:number):Array<TreeNode>
   {
     let nodes : Array<TreeNode> = [];
     metiers.forEach(x=>{
@@ -56,7 +56,7 @@ setAll():void{
       nodes.push({
         label:x.nom,
         data : x,
-        children : this.metierToTreeNode(x.subMetiers)
+        children : this.metierToTreeNode(x.subMetiers,level+3)
       })
     });
 
