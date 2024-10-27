@@ -14,7 +14,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
+        <tr [ttRow]="rowNode" class="{{rowData.isForbidden ? 'forbidden':''}}">
             <td>
                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>    
             </td>

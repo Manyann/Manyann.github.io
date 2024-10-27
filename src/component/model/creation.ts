@@ -12,7 +12,7 @@ export class Origine{
     "competencesHerites" : Array<string>;
     "restrictionsMetier" : Array<string>;
     "restrictionsMetierShortCode" : Array<string>;
-    "isOpen": boolean = false;
+    "isForbidden": boolean = false;
   }
   
   export class Metier{
@@ -28,7 +28,7 @@ export class Origine{
     "restrictions" : Array<string>;
     "competencesHerites" : Array<string>;
     "autres" : Array<string>
-    "isOpen": boolean = false;
+    "isForbidden": boolean = false;
     "shortCodeParents" : Array<string>;
     "subMetiers" : Array<Metier>;
   }
@@ -54,7 +54,7 @@ export class CreationHelper{
             "competencesHerites" : [],
             "restrictionsMetier" : [],
             "restrictionsMetierShortCode" : [],
-            "isOpen": false,
+            "isForbidden": false,
           }
     }
     
@@ -71,7 +71,7 @@ export class CreationHelper{
             "caracteristiques" : [],
             "restrictions" : [],
             "competencesHerites" : [],
-            "isOpen": false,
+            "isForbidden": false,
             "shortCodeParents" : [],
             "subMetiers" : [],
             "autres" : [],
@@ -94,7 +94,7 @@ export class CreationHelper{
             competencesHerites :[],
             restrictionsMetier : [],
             restrictionsMetierShortCode: [],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Barbare",
@@ -109,7 +109,7 @@ export class CreationHelper{
             competencesHerites :["Armes de bourrin","Bourre pif","Chercher des noises","Sentier des pieds","Tête vide", "6 : Truc de mauviette"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Bourgeois','Artisant','Ranger','Ingénieur','Démonologue','Mage'],
             restrictionsMetierShortCode: ['PR','VO','AR','BE','AT','RA','IN','DM','MG'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Nain",
@@ -124,7 +124,7 @@ export class CreationHelper{
             competencesHerites :["Appel du tonneau","Chercher des noises","Méfiance","Instinct du trésor", "Pénible","Radin","Tirer Correctement" , "6 : Arnaque et carambouille"],
             restrictionsMetier : ['Voleur',"Artiste",'Ranger','Démonologue','Mage'],
             restrictionsMetierShortCode: ['VO','AR','RA','DM','MG'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Haut Elfe",
@@ -139,7 +139,7 @@ export class CreationHelper{
             competencesHerites :["Appel des renforst","Chef de groupe","Chevaucher","Erudition","Rûnes bizarres","Tomber dans les pièges ", "6 : Premiers soins"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Bourgeois','Artisant','Ranger','Ingénieur','Démonologue','Guerrier'],
             restrictionsMetierShortCode: ['PR','VO','AR','BE','AT','RA','IN','DM','GR'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Demi Elfe",
@@ -154,7 +154,7 @@ export class CreationHelper{
             competencesHerites :["Appel des renforst","Détection","Chouraver","Méfiance","Mendier et pleurnicher","Instinct de survie","6 : Tirer correctement"],
             restrictionsMetier : [],
             restrictionsMetierShortCode: [],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Elfe Sylvain",
@@ -169,7 +169,7 @@ export class CreationHelper{
             competencesHerites :["Chevaucher","Comprendre les animaux","Naïveté touchante","Premiers soins","Tirer Correctement","Tomber dans les pièges", "6 : Déplacements silencieux"],
             restrictionsMetier : ['Prêtre','Voleur','Bourgeois','Ingénieur','Démonologue','Mage','Guerrier'],
             restrictionsMetierShortCode: ['PR','VO','BE','IN','DM','MG','GR'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Elfe Noir",
@@ -184,7 +184,7 @@ export class CreationHelper{
             competencesHerites :["Agoraphobie","Déplacement silencieux","Détection","Escalader","Méfiance","Pister","Tirer correctement" ,"6 : Ambidextrie"],
             restrictionsMetier : ['Prêtre','Bourgeois','Artisant','Ingénieur','Démonologue','Mage','Guerrier'],
             restrictionsMetierShortCode: ['PR','BE','AT','IN','DM','MG','GR'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Orque",
@@ -199,7 +199,7 @@ export class CreationHelper{
             competencesHerites :["Agoraphobie","Appel du tonneau","Bourre pif","Chercher des noises","Instinct de survie","Sentier des pieds","Truc de mauviette","6 : Armes de bourrin"],
             restrictionsMetier : ['Prêtre',"Artiste",'Bourgeois','Artisant','Ranger','Ingénieur','Démonologue','Mage'],
             restrictionsMetierShortCode: ['PR','AR','BE','AT','RA','IN','DM','MG'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Demi Orque",
@@ -214,7 +214,7 @@ export class CreationHelper{
             competencesHerites :["Agoraphobie","Bourre pif","Chercher des noises","Instinct de survie","Intimider","Mendier et pleurnicher","Sentier des pieds","6 : Truc de mauviette"],
             restrictionsMetier : [],
             restrictionsMetierShortCode: [],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Ogre",
@@ -229,7 +229,7 @@ export class CreationHelper{
             competencesHerites :["Agoraphobie","Appel du tonneau","Appel du ventre","Armes de bourrins","Bourre pif","Instinct de survie","Intimider","Sentier des pieds","Tête vide","Truc de mauviette"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Bourgeois','Artisant','Ranger','Ingénieur','Démonologue','Mage'],
             restrictionsMetierShortCode: ['PR','VO','AR','BE','AT','RA','IN','DM','MG'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Centaure",
@@ -244,7 +244,7 @@ export class CreationHelper{
             competencesHerites :["Appel du tonneau","Armes de bourrins","Bourre pif","Intimider","Pister","Tirer correctement","Truc de mauviette", "6 : Premiers soins"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Bourgeois','Ingénieur','Démonologue','Mage'],
             restrictionsMetierShortCode: ['PR','VO','AR','BE','IN','DM','MG'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Homme des sables",
@@ -259,7 +259,7 @@ export class CreationHelper{
             competencesHerites :["Déplacement silencieux","Désamorcer","Détection","Méfiance","Pister","Tirer correctement","6: Ambidextrie"],
             restrictionsMetier : ["Mage",'Guerrier'],
             restrictionsMetierShortCode: ["MG",'GR'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Hobbit",
@@ -274,7 +274,7 @@ export class CreationHelper{
             competencesHerites :["Appel du tonneau","Appel du ventre","Cuistot","Déplacement silencieux","Escalader","Instinct de survie","Mendier et pleurnicher","Naïveté touchante","6 : Jonglage et danse"],
             restrictionsMetier : ['Prêtre','Voleur','Ranger','Ingénieur','Démonologue','Mage','Guerrier'],
             restrictionsMetierShortCode: ['PR','VO','RA','IN','DM','MG','GR'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Walkyrie",
@@ -289,7 +289,7 @@ export class CreationHelper{
             competencesHerites :["Agoraphobie","Chef de groupe","Erudition","Rûnes bizarres","Premier soins","6 : Déplacement silencieux"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Bourgeois','Artisant','Ranger','Ingénieur','Démonologue','Mage','Guerrier'],
             restrictionsMetierShortCode: ['PR','VO','AR','BE','AT','RA','IN','DM','MG','GR'],
-            isOpen : false
+            isForbidden : false
             },
             {
             nom:"Samurai",
@@ -304,7 +304,7 @@ export class CreationHelper{
             competencesHerites :["Ambidextrie","Erudition","Attire les monstres","Chevaucher","Tirer correctement","6 : Truc de mauviette"],
             restrictionsMetier : ['Prêtre','Voleur',"Artiste",'Ranger','Ingénieur','Démonologue','Mage'],
             restrictionsMetierShortCode: ['PR','VO','AR','RA','IN','DM','MG'],
-            isOpen : false
+            isForbidden : false
             },
         ];
         return list;
@@ -327,7 +327,7 @@ export class CreationHelper{
             competencesHerites :["Erudition","Premiers soins","Runes bizarres"],
             autres : [],
             shortCodeParents:[],
-            isOpen : false,
+            isForbidden : false,
             subMetiers : []
             },
             {
@@ -344,7 +344,7 @@ export class CreationHelper{
             competencesHerites :["Comprendre les animaux","Déplacement silencieux","Récupération","Tête vide"],
             autres : ["Purification : 3EA, purge les effets d'un poison","Frappe d'énergie : A main nue le moine critique de 1 à 5"],
             shortCodeParents:["PR"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Paladin",
@@ -360,7 +360,7 @@ export class CreationHelper{
             competencesHerites :["Armes de bourrin","Bourre Pif","Chevaucher","Intimider"],
             autres : [],
             shortCodeParents:["PR"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Templier",
@@ -378,7 +378,7 @@ export class CreationHelper{
                 "Banissement des infidèles, les adversaires du templier avec un alignement différent du sien tombe hors combat à 10hp au lieu de 3",
                 "Conviction inébranlable, si une épreuve demande un test de courage ou de force que le templier reussit les autres membres ne sont pas obligé de réussir"],
             shortCodeParents:["PL"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Voleur",
@@ -394,7 +394,7 @@ export class CreationHelper{
             competencesHerites :["Chouraver","Déplacement silencieux","Détection","Serrurier"],
             autres : [],
             shortCodeParents:[],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Empoisoneur",
@@ -414,7 +414,7 @@ export class CreationHelper{
                 "Embrumement : -2 stats => 1 Ecorce de boulorne, 1 essence jujuba, 1 poivre noir"
             ],
             shortCodeParents:["VO","HE"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Assassin",
@@ -433,7 +433,7 @@ export class CreationHelper{
                 "La mort en bouteille (Hors combat uniquement): mort de la cible => 1 dose sang démon majeu, 3 cheveux de vierge, 1 poisson noyé"
             ],
             shortCodeParents:["EM"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Rodeur",
@@ -449,7 +449,7 @@ export class CreationHelper{
             competencesHerites :["Détecter","Déplacement silencieux","Pister","Instinct de survie","Tirer correctement"],
             autres : ["Faucon : Le ranger peut compter sur son animal de compagnie. Impuissant en combat mais permet d'observer une zone. Grace au faucon, les aventuriers ont moins de chance de faire des rencontres (1-3 au dé 8)"],
             shortCodeParents:["VO"],
-            isOpen : false, 
+            isForbidden : false, 
             subMetiers : []
             },
             {
@@ -466,7 +466,7 @@ export class CreationHelper{
             competencesHerites :["Ambdiextrie","Désamorcer","Déplacement silencieux","Pister","Ressemble à rien","Serrurier"],
             autres : ["Maitre des ombres : invisible quand dans les ombres", "Permutation : Le ninja peut echanger de place avec un allié"],
             shortCodeParents:["RO"],
-            isOpen : false, 
+            isForbidden : false, 
             subMetiers : []
             },
             {
@@ -482,7 +482,7 @@ export class CreationHelper{
             restrictions : ["Armes à 2 mains", "Bouclier", "2PR Max"],
             competencesHerites :["Arnaque et carambouille","Jonglage et danse", "Mendier et pleurnicher *2","Naïveté touchante","Pénible","Tomber dans les pièges"],
             autres : ["+2 épreuves charisme (+4 sexe opposé","+2 jets chance","Repos bien mérité : Alliés +1EV/PA par heure de repos"],
-            isOpen : false,
+            isForbidden : false,
             shortCodeParents:[],
             subMetiers : []
             },
@@ -501,7 +501,7 @@ export class CreationHelper{
             competencesHerites :["Ambidextrie","Méfiance","Mendier et pleurnichier","Rûnes bizarres","Tirer correctement","Tête vide"],
             autres : ["Substitution : Test INT => Le magicien peut altérer 2 de ses statistiques pour 2 tours dans un maximum de +4 / -4"],
             shortCodeParents:["AT"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Célébrité",
@@ -519,7 +519,7 @@ export class CreationHelper{
             autres : ["Rencontre amicale: Lors d'une rencontre si les ennemis sont des humains il y a 1/4 chance qu'ils soit fan de la célébrité et n'attaque pas",
                 "Julia Roberts : Lors d'une rencontre si les ennemis sont des humains il y a 1/4 chance de détester la célébrité et la focus"],
             shortCodeParents:["MA","CM","GL"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Bourgeois",
@@ -536,7 +536,7 @@ export class CreationHelper{
             autres : ["L’avare : Le bourgeois ne peut pas donner de l’argent ou du matériel, il garde tout pour lui",
                 "Sens des affaires : Une fois par jour le bourgeois peut jouer en bourse. Il choisit d'engager une somme en PO. Avec 1D6, de 1 à 2 il gagne de l'argent, 3 et 4 rien, de 4 à 6 il pert de l'argent. 1D20 pour savoir le pourcentage d'argent gagné ou perdu"],
             shortCodeParents:["*","AT"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Noble",
@@ -553,7 +553,7 @@ export class CreationHelper{
             autres : ["L’argent appelle l’argent : Le Noble gagne 20% PO supplémentaire dans sa cagnotte personnelle",
                 "L’argent c’est du temps : Le Noble prend 10% xp supplémentaire du combat pour lui"],
             shortCodeParents:["BE"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Seigneur",
@@ -570,7 +570,7 @@ export class CreationHelper{
             autres : ["Taxes : Une fois par jour le seigneur reçoit l'argent des taxes de ses paysans (4D20)",
                 "Héritié : Le seigneur hérite de l'équipement familial (non vendable). Cote de maille luxe avec manche et lame d'excellence de riche (lame d'excellence mais avec 1D+5)"],
             shortCodeParents:["NB"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Artisant",
@@ -586,7 +586,7 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Bricolo du dimanche","Fouiller dans les poubelles"],
             autres : ["Tailleur : Peut réparer tout ce qui est pas en métal (test AD et 50%po)"],
             shortCodeParents:[],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Forgeron",
@@ -602,7 +602,7 @@ export class CreationHelper{
             competencesHerites :["Forgeron","Serrurier","Truc de mauviette"],
             autres : ["Renforcement : Peut enelever 1 de rupture sur test FO (si raté ajoute 1)"],
             shortCodeParents:["AT"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Forgeur de rûnes",
@@ -618,7 +618,7 @@ export class CreationHelper{
             competencesHerites :["Chef de groupe","Erudition","Forgeron","Rûnes bizarre","Serrurier"],
             autres : [],
             shortCodeParents:["AT","FO"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Commerçant",
@@ -634,7 +634,7 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Erudition","Fariboles","Instinct du trésor"],
             autres : ["Pignon sur rue : Le commerçant peut vendre des items peut importe l'endroit ou il est pour 40% du prix (selon etat) au lieu des 50% classique en ville ( arnaque et carambouille ne s'applique pas)"],
             shortCodeParents:["AT,BE"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Herboriste",
@@ -653,7 +653,7 @@ export class CreationHelper{
                 "Baume du tigre : Heal de 1D4+1 pendant 1D4+1 tours. 1 griffre dragon, 10 Herbe de Nilla , 1 dose de sel, 1 dose de guy, 1 dose sang elfete vierge "
             ],
             shortCodeParents:["AT"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Ranger",
@@ -669,13 +669,13 @@ export class CreationHelper{
             competencesHerites :["Détection","Chevaucher","Nager","Pister"],
             autres : [],
             shortCodeParents:[],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Chasseur de primes",
             shortCode:"CP",
             courage: {type:"min",nombre:"12+"},
-            intelligence: new Caracteristique(),
+            intelligence: {type:"min",nombre:"10+"},
             charisme: new Caracteristique(),
             adresse: {type:"min",nombre:"12+"},
             force: new Caracteristique(),
@@ -688,13 +688,13 @@ export class CreationHelper{
                 "Coup décisif : Le chasseur de prime peut décider que sa prochaine attaque sera critique de 1 à X et échec critique de 20-X à 20."
             ],
             shortCodeParents:["RA","GR"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Chasseur de monstres",
             shortCode:"CM",
             courage: {type:"min",nombre:"12+"},
-            intelligence: new Caracteristique(),
+            intelligence: {type:"min",nombre:"10+"},
             charisme: new Caracteristique(),
             adresse: {type:"min",nombre:"12+"},
             force: new Caracteristique(),
@@ -707,7 +707,7 @@ export class CreationHelper{
                 "Coup décisif : Le chasseur de prime peut décider que sa prochaine attaque sera critique de 1 à X et échec critique de 20-X à 20."
             ],
             shortCodeParents:["RA"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Archéologue",
@@ -725,7 +725,7 @@ export class CreationHelper{
             competencesHerites :["Déplacement silencieux","Erudition","Escalader","Pister","Serrurier"],
             autres : ["Les parchemins mais y'en a trop à noter"],
             shortCodeParents:["RA"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Chasseur de trésor",
@@ -744,7 +744,7 @@ export class CreationHelper{
                 "Corde de rappel : Le chasseur de trésor peut revenir quand il le souhaite (hors combat) ( avec son groupe contre EV/2) à l'entrée de la ruine, du tombeau, donjon, etc"
             ],
             shortCodeParents:["AR"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Conservateur",
@@ -763,7 +763,7 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Chef de groupe","Langue des monstres","Runes bizarres"],
             autres : ["Des parchemins lui aussi mais plus forts"],
             shortCodeParents:["AR"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Ingénieur",
@@ -781,7 +781,7 @@ export class CreationHelper{
                 "Amélioration : Il peut ajouter 1 cara à une arme (test INT, si rate +1 RUP)",
                 "Polyvalence : Peut ajouter 1 aux tests des alliés"
             ],
-            isOpen : false, subMetiers : [],
+            isForbidden : false, subMetiers : [],
             shortCodeParents:[],
             },
             {
@@ -797,7 +797,7 @@ export class CreationHelper{
             restrictions : ["4PR Max"],
             competencesHerites :["Désamorcer (sans test)","Tirer correctement"],
             autres : ["Fabrication : Peut fabriquer plusieurs type de dispositif explosif, fumigène, fragmentation, incendiaire, mortier, mine, feu d'artifice" ],
-            isOpen : false, subMetiers : [],
+            isForbidden : false, subMetiers : [],
             shortCodeParents:["IN"],
             },
             {
@@ -813,7 +813,7 @@ export class CreationHelper{
             restrictions : ["3PR Max"],
             competencesHerites :["Serrurier"],
             autres : ["L’ingénieur dispose de 2 points de Méca par tour pour effectuer des actions de Meca"],
-            isOpen : false, subMetiers : [],
+            isForbidden : false, subMetiers : [],
             shortCodeParents:["IN"],
             },
             {
@@ -829,7 +829,7 @@ export class CreationHelper{
             restrictions : ["Armes à 2 mains","Bouclier","2PR Max"],
             competencesHerites :["Agoraphobie","Appel des renforts","Arnaque et carambouille","Comprendre les animaux","Erudition","Langue de monstres"],
             autres : ["Collecte des âmes. Toutes les 20 âmes capturés -> +1 dégâts Magique","Repos des Damnés : Libère 1 âme pour rendre 1 pv à un allié"],
-            isOpen : false, subMetiers : [],
+            isForbidden : false, subMetiers : [],
             shortCodeParents:[],
             },
             {
@@ -845,7 +845,7 @@ export class CreationHelper{
             restrictions : ["Armes à 2 mains","Bouclier","2PR Max"],
             competencesHerites :["Chef de groupe","Erudition","Langues des monstres","Méfiance","Pister"],
             autres : ["Agitateur : Sait galvaniser la foule","Sort de feu de niveau / magma niveau 3"],
-            isOpen : false, subMetiers : [],
+            isForbidden : false, subMetiers : [],
             shortCodeParents:["DM","CM"],
             },
             {
@@ -862,7 +862,7 @@ export class CreationHelper{
             competencesHerites :["Appel du tonneau","Bourre pif","Chercher des noises","Intimider"],
             autres : [],
             shortCodeParents:[],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Soldat",
@@ -881,7 +881,7 @@ export class CreationHelper{
                 "Porte étandard : +1 aux cara alliés pendant 3 tours sur test COU / CHA"
             ],
             shortCodeParents:["GR"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Berzerk",
@@ -902,7 +902,7 @@ export class CreationHelper{
                 "GRRRRRBLBLBL, Transforme 10*x rages en 1*x PI. 1 fois par combat. Test COU"
             ],
             shortCodeParents:["GR"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Gladiateur",
@@ -923,7 +923,7 @@ export class CreationHelper{
                 "Tortue : -2AT +2PRD +1PR. FO/COU 10 gloires"
             ],
             shortCodeParents:["GR"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Maitre d'armes",
@@ -939,7 +939,7 @@ export class CreationHelper{
             competencesHerites :["Ambidextrie","Arme de bourrin","Truc de mauviette"],
             autres : ["+1 PI pour chaque attaque réussie. Réinitialise si pas de dégats infligés"],
             shortCodeParents:["SO"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Pirate",
@@ -955,7 +955,7 @@ export class CreationHelper{
             competencesHerites :["Appel du tonneau","Instinct de survie","Instinct du trésor","Nager","Tirer correctement"],
             autres : ["Pillage : Prend 10% a chacun des alliés pour les loots","Péroquet : pareil que faucon du rodeur"],
             shortCodeParents:["GR"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Corsaire",
@@ -971,7 +971,7 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Chef de groupe","Pister"],
             autres : ["Salves : Utilise 4 pistolets en une fois, puis à besoin de 2 tours pour tout recharger"],
             shortCodeParents:["PI","SO","CP"],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
             {
             nom:"Mage, Sorcier",
@@ -987,7 +987,7 @@ export class CreationHelper{
             competencesHerites :["Erudition","Récupération","Rûnes bizarre"],
             autres : [""],
             shortCodeParents:[],
-            isOpen : false, subMetiers : []
+            isForbidden : false, subMetiers : []
             },
         ]
 

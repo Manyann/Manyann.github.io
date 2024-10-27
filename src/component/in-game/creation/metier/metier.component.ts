@@ -6,10 +6,13 @@ import { CreationHelper, Metier } from '../../../model/creation';
 import { TreeNode } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
+import { InputSwitchModule  } from 'primeng/inputswitch';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-metier',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, TreeTableModule,SidebarModule, ButtonModule],
+  imports: [RouterOutlet, InputSwitchModule, FormsModule , CommonModule, TreeTableModule,SidebarModule, ButtonModule],
   templateUrl: './metier.component.html',
   styleUrl: './metier.component.css'
 })
@@ -20,7 +23,6 @@ export class MetierComponent {
   treeNodes : Array<TreeNode>=[];
   metierToSee : Metier;
   sidebarVisible : boolean = false;
-
 
   @Input() restrictions:Array<string>=[];
 
@@ -33,8 +35,7 @@ setAll():void{
   this.metiersBase = CreationHelper.getAllMetier();
   this.metiers = this.metiersBase
     .filter(x=>
-      (x.shortCodeParents.length == 0 || x.shortCodeParents.includes("*"))
-      && !this.restrictions.includes(x.shortCode)
+      x.shortCodeParents.length == 0 || x.shortCodeParents.includes("*")
     );
   this.metiers.forEach(x=>x.subMetiers = this.fillSubMetier(x.shortCode));
   this.treeNodes = this.metierToTreeNode(this.metiers);
@@ -50,12 +51,14 @@ setAll():void{
   metierToTreeNode(metiers: Array<Metier>):Array<TreeNode>
   {
     let nodes : Array<TreeNode> = [];
-
-    metiers.forEach(x=>nodes.push({
+    metiers.forEach(x=>{
+      x.isForbidden = this.restrictions.includes(x.shortCode);
+      nodes.push({
         label:x.nom,
         data : x,
         children : this.metierToTreeNode(x.subMetiers)
-    }));
+      })
+    });
 
     return nodes;
   }
