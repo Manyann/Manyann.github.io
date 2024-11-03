@@ -1020,7 +1020,9 @@ export class CreationHelper{
             caracteristiques : ["Justice sombre : augmente à 5 la limite de mauvais points"],
             restrictions : [],
             competencesHerites :["Agoraphobie","Intimider"],
-            autres : [],
+            autres : [" Laser purificateur. XEV Immédiat. Magie Phy + 2. 2D+X/2 touche les ennemies en ligne. Dégat magique",
+                "Courroux du ciel. XEV. Magie Phy +2. X dégats magique"
+            ],
             shortCodeParents:["WA"],
             isForbidden : false, subMetiers : []
             },
@@ -1072,7 +1074,7 @@ export class CreationHelper{
             caracteristiques : ["+10EV","Justice personnelle : 1 bon point / 1 mauvais point","Ne peut être tué que par un critique (même 1-1)"],
             restrictions : [],
             competencesHerites :["Chef de groupe","Détecter (2)","Méfiance (2)","Tête vide"],
-            autres : ["Jugement divin : XEV. X magique à tous les ennemies.",
+            autres : ["Jugement divin : XEV. X dégats magique à tous les ennemies.",
                 "Grâce du ciel. Tombe à 15EV. Ressuscite un allié. La walkyrie perd 15 EV initiale et 1 points à 1 cara"
             ],
             shortCodeParents:["CC","LC","GA"],
