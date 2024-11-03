@@ -1039,7 +1039,7 @@ export class CreationHelper{
             autres : ["Arme céleste : XEV. Dégats de l'arme de la cible magique pendant X/5 tours (Magie phy)",
                 "Protection divine : XEV. Tous les alliés gagnent X/7 PR (Magie phy)"
             ],
-            shortCodeParents:[],
+            shortCodeParents:["WA"],
             isForbidden : false, subMetiers : []
             },
             {
