@@ -1001,7 +1001,7 @@ export class CreationHelper{
             caracteristiques : [],
             restrictions : [],
             competencesHerites :[],
-            autres : ["Soin des blessures légères : Allié uniquement. X EV. Donne X/2+2EV (X entre 4 et 10)",
+            autres : ["Soin des blessures légères : Allié uniquement. 10 EV. Donne 15EV",
                 "Pomme lumineuse : Crée un halo de lumière depuis ses mains : 1EV/H. Jusqu’à ce que les mains soient refermées",
                 "Rayon de lumière : XEV. 1D10+X/2 dégâts (Magie phy+2)"
             ],
@@ -1020,8 +1020,9 @@ export class CreationHelper{
             caracteristiques : ["Justice sombre : augmente à 5 la limite de mauvais points"],
             restrictions : [],
             competencesHerites :["Agoraphobie","Intimider"],
-            autres : [" Laser purificateur. XEV Immédiat. Magie Phy + 2. 2D+X/2 touche les ennemies en ligne. Dégat magique",
-                "Courroux du ciel. XEV. Magie Phy +2. X dégats magique"
+            autres : [" Laser purificateur. XEV. 2D+X magique touche les ennemies en ligne (Magie Phy+2)",
+                "Courroux du ciel. XEV. 2X dégats magique (Magie Phy +2)",
+                "Lance de rétribution : La walkyrie se heal du tiers des dégats infligés à la lance"
             ],
             shortCodeParents:["WA"],
             isForbidden : false, subMetiers : []
@@ -1039,7 +1040,8 @@ export class CreationHelper{
             restrictions : [],
             competencesHerites :["Forgeron","Truc de mauviette"],
             autres : ["Arme céleste : XEV. Dégats de l'arme de la cible magique pendant X/5 tours (Magie phy)",
-                "Protection divine : XEV. Tous les alliés gagnent X/7 PR (Magie phy)"
+                "Protection divine : XEV. Tous les alliés gagnent X/7 PR (Magie phy)",
+                "Lance du jugement : La première attaque réussie de la walkyrie inflie 2D supplémentaire et ignore PR"
             ],
             shortCodeParents:["WA"],
             isForbidden : false, subMetiers : []
@@ -1056,8 +1058,9 @@ export class CreationHelper{
             caracteristiques : ["Justice vertueuse : 3 bon points / 2 mauvais points"],
             restrictions : [],
             competencesHerites :["Comprendre les animaux","Premiers soins"],
-            autres : ["Soin des blessures majeures : Allié uniquement. X EV. Donne X/2+6EV. X entre 4 et 50",
-                "Bouclier de paix : XEV. Bouclier qui absorbe tous les dégâts sur cible pendant X/6 tours"
+            autres : ["Soin des blessures majeures : Allié uniquement. X EV. Donne 1.5*X EV",
+                "Bouclier de paix : XEV. Bouclier qui absorbe tous les dégâts sur cible pendant X/6 tours",
+                "Lance de la révélation : Peut choisir de tester la foi de la cible sur la prochaine attaque. Cible +15EV mais walkyrie crit de 1 à 10."
             ],
             shortCodeParents:["WA"],
             isForbidden : false, subMetiers : []
@@ -1075,7 +1078,8 @@ export class CreationHelper{
             restrictions : [],
             competencesHerites :["Chef de groupe","Détecter (2)","Méfiance (2)","Tête vide"],
             autres : ["Jugement divin : XEV. X dégats magique à tous les ennemies.",
-                "Grâce du ciel. Tombe à 15EV. Ressuscite un allié. La walkyrie perd 15 EV initiale et 1 points à 1 cara"
+                "Grâce du ciel. Tombe à 15EV. Ressuscite un allié. La walkyrie perd 15 EV initiale et 1 points à 1 cara",
+                "Lance du jugement dernier : Chaque ennemi reçoit un critique +3. La lance de la walkyrie est brisée."
             ],
             shortCodeParents:["CC","LC","GA"],
             isForbidden : false, subMetiers : []
