@@ -97,11 +97,9 @@ export class ItemHelper{
         },
         "robe":{
             0:'elfe',
-            1:'homme-sable',
         },
         "chapeau":{
             0:'elfe',
-            1:'homme-sable',
         }
 
 
