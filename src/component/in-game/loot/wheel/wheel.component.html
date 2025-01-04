@@ -1,0 +1,31 @@
+<div class="loot-wheel-container">
+	<h1>Loot</h1>
+	<div class="wheel-container">
+	  <div class="pointer"></div>
+	  <svg id="wheel" width="300" height="300" viewBox="0 0 300 300">
+		<ng-container *ngFor="let loot of lootTable; let index = index">
+		  <!-- Path for each segment -->
+		  <path
+			[attr.d]="generatePath(index)"
+			[attr.fill]="loot.color"
+			[attr.data-item]="loot.item"
+		  ></path>
+		  <!-- Text for each segment positioned along the radius -->
+		  <text 
+			[attr.x]="calculateTextPosition(index).x" 
+			[attr.y]="calculateTextPosition(index).y" 
+			[attr.transform]="'rotate(' + calculateTextRotation(index) + ',' + calculateTextPosition(index).x + ',' + calculateTextPosition(index).y + ')'"
+			text-anchor="middle" 
+			alignment-baseline="middle"
+			[style.fill]="'white'" 
+			font-size="12"
+		  >
+			{{ loot.item }}
+		  </text>
+		</ng-container>
+	  </svg>
+	</div>
+	<button (click)="spinWheel()" [disabled]="spinning">GO</button>
+	<div id="result">{{ resultMessage }}</div>
+  </div>
+  

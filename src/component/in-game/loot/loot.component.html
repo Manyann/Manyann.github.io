@@ -1,11 +1,4 @@
-Chance du personnage <input type="number" max="20" pInputText [(ngModel)]="luck" />
+Chance du personnage <input type="number" max="20" pInputText  />
 
-
-<div id="stage" class="content-width"><p>{{item.libelle}}</p>
-	<ul class="box-list" (click)="dropItem()">
-		<li>
-			<button type="button"[className]="isOpen ? 'box open' : 'box closed'" (onClick)="dropItem()"></button>
-			<span class="loot-shadow"></span>
-		</li>
-	</ul>
-</div>
+<app-loot-wheel></app-loot-wheel>
+  
