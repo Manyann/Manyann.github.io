@@ -36,6 +36,11 @@ private buildCardList():Array<Card>{
       titre:"In Game",
       url:"in-game"
     },
+    {
+      image:"assets/img/card/gestion.PNG",
+      titre:"Gestion",
+      url:"gestion"
+    },
   ]
 
   return list;

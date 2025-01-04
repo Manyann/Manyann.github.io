@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
+import { ItemsService } from './services/items.service';
+import {Firestore} from '@angular/fire/firestore'
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,8 @@ import { MenuItem } from 'primeng/api';
 })
 export class AppComponent {
   items: Array<MenuItem>;
-  constructor(){
+  constructor(itemsService:ItemsService){
+    itemsService.getAll();
     this.items = [
       {
         label :"Accueil",
