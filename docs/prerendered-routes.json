@@ -7,9 +7,9 @@
     "/documentation/equipements",
     "/documentation/heros",
     "/documentation/heros/sorts",
+    "/gestion",
     "/in-game",
     "/in-game/creer",
-    "/in-game/gestion",
     "/in-game/loot",
     "/in-game/shop",
     "/in-game/teleportation"
