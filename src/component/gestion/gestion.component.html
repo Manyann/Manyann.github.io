@@ -1,9 +1,9 @@
 <br>
 <p-tabView  > 
-    <p-tabPanel *ngFor="let joueur of (joueurs ?? [])" [header]="joueur.code">
+    <p-tabPanel header="session">
         <p-splitter [style]="{'height': '300px'}">
             <ng-template pTemplate>
-                <p-table [value]="heros | hero:joueur.code" [tableStyle]="{'min-width': '50rem'}">
+                <p-table responsiveLayout="scroll" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" [value]="(allHeros$ | async) ?? [] | isFromSession">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Nom</th>
@@ -15,7 +15,7 @@
                         <tr (click)="handleSelect(hero.nom)">
                             <td>{{hero.nom}}</td>
                             <td>{{hero.niveau}}</td>
-                            <td>{{hero.type}}</td>
+                            <td>{{hero.origine | heroType: herosTypes ?? []}}</td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -33,4 +33,95 @@
             </ng-template>
         </p-splitter>
     </p-tabPanel>
+    <p-tabPanel *ngFor="let joueur of (joueurs ?? [])" [header]="joueur.code">
+        <p-splitter [style]="{'height': '300px'}">
+            <ng-template pTemplate>
+                <p-table responsiveLayout="scroll" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" [value]="(allHeros$ | async) ?? [] | hero:joueur.code">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Niveau</th>
+                            <th>Type</th>
+                            <th>Session</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-hero>
+                        <tr (click)="handleSelect(hero.nom)">
+                            <td class="{{hero.vivant? 'c-green' : 'c-red'}}">{{hero.nom}}</td>
+                            <td>{{hero.niveau}}</td>
+                            <td>{{hero.origine | heroType: herosTypes ?? []}}</td>
+                            <td><p-inputSwitch *ngIf="hero.vivant" [(ngModel)]="hero.actif" (onChange)="changeSession($event,hero.nom)"></p-inputSwitch></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </ng-template>
+            <ng-template pTemplate>
+                <div  *ngFor="let hero of (hero$ | async) ??[]">
+                    <div>{{hero['nom']}}</div>
+                    <div>Or {{hero['or']}}</div>
+                    <div>Point de destin {{hero['destin']}}</div>
+                    <div>
+                        <p>stuff</p>
+                        <div *ngFor="let arme of (armes$ | async) ??[]">{{arme['libelle']}}</div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-splitter>
+    </p-tabPanel>
+    <br/>
+    <p-button class="m-2" (onClick)="triggerAjouter()">Ajouter </p-button>
+    <br/>
 </p-tabView>
+<p-sidebar [(visible)]="sidebarVisible">
+    <div class="add-panel">
+            <div class="mt-2">
+                <span>Joueur : </span>
+                <p-dropdown 
+                [options]="joueurs" 
+                [(ngModel)]="addJoueur" 
+                optionLabel="code" 
+                optionValue="code"
+                placeholder="Joueur"
+                class="w-12" />
+            </div>
+            <div class="mt-2">
+                <span>Nom :  </span>
+                <input type="text" pInputText [(ngModel)]="addNom" />
+            </div>
+            <div class="mt-2">
+                <span>Origine :  </span>
+                <p-autoComplete
+                [(ngModel)]="addOrigine"
+                [dropdown]="true"
+                [suggestions]="herosTypesSelect??[]"
+                optionLabel="libelle"
+                placeholder="origine"
+                (completeMethod)="search($event)"  />
+            </div>
+            <div class="mt-2">
+                <span>Metier :  </span>
+                <p-autoComplete
+                [(ngModel)]="addMetier"
+                [dropdown]="true"
+                [suggestions]="herosMetiersSelect??[]"
+                optionLabel="libelle"
+                placeholder="origine"
+                (completeMethod)="searchMetier($event)"  />
+            </div>
+            <div class="mt-2">
+                <span>Niveau :  </span>
+                <p-inputNumber  [(ngModel)]="addNiveau" />
+            </div>
+            <div class="mt-2">
+                <span>Or :  </span>
+                <p-inputNumber [(ngModel)]="addOr" />
+            </div>
+            <div class="mt-2"> 
+                <span>Point de destin : </span>
+                <p-inputNumber  [(ngModel)]="addDestin" />
+            </div>
+            <div class="mt-2"> 
+                <p-button (onClick)="valider()" >Valider</p-button>
+            </div>
+    </div>
+</p-sidebar>

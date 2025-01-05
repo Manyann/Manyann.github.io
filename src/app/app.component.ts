@@ -16,7 +16,7 @@ import {Firestore} from '@angular/fire/firestore'
 export class AppComponent {
   items: Array<MenuItem>;
   constructor(itemsService:ItemsService){
-    itemsService.getAll();
+   // itemsService.bulkInsert();
     this.items = [
       {
         label :"Accueil",

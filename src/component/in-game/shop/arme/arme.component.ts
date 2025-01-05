@@ -8,6 +8,7 @@ import { OriginePipe, OriginePrixPipe } from "../origine.pipe";
 import { PromotionPipe } from "../promotion.pipe";
 import { Ville, VilleHelper } from "../../../model/villes";
 import { Arme, Item, ItemHelper } from "../../../model/item";
+import { ItemsService } from "../../../../app/services/items.service";
 
 @Component({
     selector: 'app-shop-arme',
@@ -24,9 +25,9 @@ import { Arme, Item, ItemHelper } from "../../../model/item";
   villes: Array<Ville>;  
   items : Array<Arme>;
   
-  constructor(){
+  constructor(itemsService:ItemsService){
     this.villes =  VilleHelper.getAll().sort((a,b)=> a.libelle.localeCompare(b.libelle));
-    this.items = ItemHelper.getAll();  
+    this.items = ItemHelper.getAll(); 
     }
 
     public filterItems(){

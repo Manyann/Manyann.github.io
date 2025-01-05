@@ -2642,7 +2642,7 @@ export class ItemHelper{
             //#endregion Bouclier
             //#region Cuir
             {
-                "libelle":"Casque ",
+                "libelle":"Casque",
                 "basePourcentage":95,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2687,7 +2687,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Brassard",
+                "libelle":"Brassards",
                 "basePourcentage":95,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2731,7 +2731,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Botte ",
+                "libelle":"Bottes",
                 "basePourcentage":95,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2777,7 +2777,7 @@ export class ItemHelper{
             //#endregion Cuir
             //#region Cuir renforcé
             {
-                "libelle":"Casque ",
+                "libelle":"Casque renforcé",
                 "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2800,7 +2800,7 @@ export class ItemHelper{
                 
             },
             {
-                "libelle":"Jambière ",
+                "libelle":"Jambières renforcées",
                 "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2823,7 +2823,7 @@ export class ItemHelper{
                 
             },
             {
-                "libelle":"Brassard ",
+                "libelle":"Brassards renforcés",
                 "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2846,7 +2846,7 @@ export class ItemHelper{
                 
             },
             {
-                "libelle":"Plastron ",
+                "libelle":"Plastron renforcé",
                 "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2869,7 +2869,7 @@ export class ItemHelper{
                 
             },
             {
-                "libelle":"Botte ",
+                "libelle":"Bottes renforcées",
                 "basePourcentage":85,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2892,7 +2892,7 @@ export class ItemHelper{
                 
             },
             {
-                "libelle":"Ensemble ",
+                "libelle":"Ensemble renforcé",
                 "basePourcentage":250,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2917,7 +2917,7 @@ export class ItemHelper{
             //#endregion Cuir renforcé
             //region Cuir travaillé
             {
-                "libelle":"Casque ",
+                "libelle":"Casque travaillé",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2939,7 +2939,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Jambières ",
+                "libelle":"Jambières travaillées",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2961,7 +2961,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Brassard ",
+                "libelle":"Brassards travaillés",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -2983,7 +2983,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Plastron ",
+                "libelle":"Plastron travaillé",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -3005,7 +3005,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Botte ",
+                "libelle":"Bottes travaillées",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -3027,7 +3027,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Ensemble ",
+                "libelle":"Ensemble travaillé",
                 "basePourcentage":250,
                 "region":"commun",
                 "origine":this.getOrigine("armure-cuir"),
@@ -3051,7 +3051,7 @@ export class ItemHelper{
             //#endregion Cuir travaillé
             //#region Maille
             {
-                "libelle":"Casque ",
+                "libelle":"Casque de mailles",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3073,7 +3073,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Hambières ",
+                "libelle":"Jambières de mailles",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3095,7 +3095,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Brassard ",
+                "libelle":"Brassards de mailles",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3117,7 +3117,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Plastron ",
+                "libelle":"Plastron de mailles",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3139,7 +3139,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Botte ",
+                "libelle":"Bottes de mailles",
                 "basePourcentage":80,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3161,7 +3161,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Ensemble ",
+                "libelle":"Ensemble de mailles",
                 "basePourcentage":250,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3185,7 +3185,7 @@ export class ItemHelper{
             //#endregion Maille
             //#region Maille renforcée
             {
-                "libelle":"Casque ",
+                "libelle":"Casque de mailles renforcé",
                 "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3207,7 +3207,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Jambières ",
+                "libelle":"Jambières de mailles renforcées",
                 "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3229,7 +3229,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Brassard ",
+                "libelle":"Brassards de mailles renforcés",
                 "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3251,7 +3251,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Plastron ",
+                "libelle":"Plastron de mailles renforcé",
                 "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3273,7 +3273,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Botte ",
+                "libelle":"Bottes de mailles renforcées",
                 "basePourcentage":75,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3295,7 +3295,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Ensemble ",
+                "libelle":"Ensemble de mailles renforcé",
                 "basePourcentage":250,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3319,7 +3319,7 @@ export class ItemHelper{
             //#endregion Maille renforcée
             //#region Maille travaillée
             {
-                "libelle":"Casque ",
+                "libelle":"Casque de mailles travaillé",
                 "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3341,7 +3341,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Jambières ",
+                "libelle":"Jambières de mailles travaillées",
                 "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3363,7 +3363,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Brassard ",
+                "libelle":"Brassards de mailles travaillés",
                 "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3385,7 +3385,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Plastron ",
+                "libelle":"Plastron de mailles travaillé",
                 "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3407,7 +3407,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Botte ",
+                "libelle":"Bottes de mailles travaillées",
                 "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3429,7 +3429,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Ensemble ",
+                "libelle":"Ensemble de mailles travaillé",
                 "basePourcentage":250,
                 "region":"commun",
                 "origine":this.getOrigine("armure-maille"),
@@ -3453,7 +3453,7 @@ export class ItemHelper{
             //#endregion Maille travaillée
             //#region Plaque
             {
-                "libelle":"Casque ",
+                "libelle":"Casque de plaque",
                 "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3475,7 +3475,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Jambière ",
+                "libelle":"Jambières de plaque",
                 "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3497,7 +3497,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Brassard ",
+                "libelle":"Brassards de plaque",
                 "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3519,7 +3519,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Plastron ",
+                "libelle":"Plastron de plaque",
                 "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3541,7 +3541,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Botte ",
+                "libelle":"Bottes de plaque",
                 "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3563,7 +3563,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Ensemble ",
+                "libelle":"Ensemble de plaque",
                 "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3587,7 +3587,7 @@ export class ItemHelper{
             //#endregion Plage
             //#region Plaque renforcée
             {
-                "libelle":"Casque ",
+                "libelle":"Casque de plaque renforcé",
                 "basePourcentage":60,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3609,7 +3609,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Jambières ",
+                "libelle":"Jambières de plaque renforcées",
                 "basePourcentage":60,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3631,7 +3631,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Brasssard ",
+                "libelle":"Brasssards de plaque renforcées",
                 "basePourcentage":60,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3653,7 +3653,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Plastron ",
+                "libelle":"Plastron de plaque renforcé",
                 "basePourcentage":60,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3675,7 +3675,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Botte ",
+                "libelle":"Bottes de plaque renforcées",
                 "basePourcentage":60,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3697,7 +3697,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Ensemble ",
+                "libelle":"Ensemble de plaque renforcé",
                 "basePourcentage":60,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3721,7 +3721,7 @@ export class ItemHelper{
             //#endregion Plaque renforcée
             //#region Plaque travaillée
             {
-                "libelle":"Casque ",
+                "libelle":"Casque de plaque travaillé",
                 "basePourcentage":55,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3743,7 +3743,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Jambières ",
+                "libelle":"Jambières de plaque travaillées",
                 "basePourcentage":55,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3765,7 +3765,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Brassard ",
+                "libelle":"Brassards de plaque travaillés",
                 "basePourcentage":55,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3787,7 +3787,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Plastron ",
+                "libelle":"Plastron de plaque travaillé",
                 "basePourcentage":55,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3809,7 +3809,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Botte ",
+                "libelle":"Bottes de plaque travaillées",
                 "basePourcentage":55,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3831,7 +3831,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Ensemble ",
+                "libelle":"Ensemble de plaque travaillé",
                 "basePourcentage":55,
                 "region":"commun",
                 "origine":this.getOrigine("armure-plaque"),
@@ -3855,7 +3855,7 @@ export class ItemHelper{
             //#endregion Plaque travaillée
             //#region Robe
             {
-                "libelle":"Robe trouée ",
+                "libelle":"Robe trouée",
                 "basePourcentage":95,
                 "region":"commun",
                 "origine":this.getOrigine("robe"),
@@ -3877,7 +3877,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Robe d'apprenti  ",
+                "libelle":"Robe d'apprenti",
                 "basePourcentage":90,
                 "region":"commun",
                 "origine":this.getOrigine("robe"),
@@ -4031,7 +4031,7 @@ export class ItemHelper{
                 "informations":"Pour l'élément : +1 au jet de réussite / +1 resistance "
             },
             {
-                "libelle":"Robe du Crépuscule ",
+                "libelle":"Robe du Crépuscule",
                 "basePourcentage":70,
                 "region":"commun",
                 "origine":this.getOrigine("robe"),
@@ -4053,7 +4053,7 @@ export class ItemHelper{
                 "informations":""
             },
             {
-                "libelle":"Robe du Tisseur de Réalités ",
+                "libelle":"Robe du Tisseur de Réalités",
                 "basePourcentage":65,
                 "region":"commun",
                 "origine":this.getOrigine("robe"),
@@ -4077,7 +4077,7 @@ export class ItemHelper{
             //#endregion Robe
             //#region Chapeau
             {
-                "libelle":"Chapeau Fripé de l’Initié",
+                "libelle":"Chapeau Fripé de l Initié",
                 "basePourcentage":95,
                 "region":"commun",
                 "origine":this.getOrigine("chapeau"),
