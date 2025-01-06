@@ -6,6 +6,7 @@
                 <p-table responsiveLayout="scroll" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" [value]="(allHeros$ | async) ?? [] | isFromSession">
                     <ng-template pTemplate="header">
                         <tr>
+                            <th>Joueur</th>
                             <th>Nom</th>
                             <th>Niveau</th>
                             <th>Type</th>
@@ -13,6 +14,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-hero>
                         <tr (click)="handleSelect(hero.nom)">
+                            <td>{{hero.code_joueur}}</td>
                             <td>{{hero.nom}}</td>
                             <td>{{hero.niveau}}</td>
                             <td>{{hero.origine | heroType: herosTypes ?? []}}</td>
@@ -27,7 +29,7 @@
                     <div>Point de destin {{hero['destin']}}</div>
                     <div>
                         <p>stuff</p>
-                        <div *ngFor="let arme of (armes$ | async) ??[]">{{arme['libelle']}}</div>
+                        <div *ngFor="let arme of (armes$ | async)?.armes ??[]">{{arme['libelle']}}</div>
                     </div>
                 </div>
             </ng-template>
@@ -62,7 +64,7 @@
                     <div>Point de destin {{hero['destin']}}</div>
                     <div>
                         <p>stuff</p>
-                        <div *ngFor="let arme of (armes$ | async) ??[]">{{arme['libelle']}}</div>
+                        <div *ngFor="let arme of ((armes$ | async)?.armes ?? []) ">{{arme['libelle']}}</div>
                     </div>
                 </div>
             </ng-template>
@@ -122,6 +124,24 @@
             </div>
             <div class="mt-2"> 
                 <p-button (onClick)="valider()" >Valider</p-button>
+            </div>
+    </div>
+</p-sidebar>
+<p-sidebar [(visible)]="sidebarRigthVisible">
+    <div class="add-panel">
+            <div class="mt-2">
+                <span>Armes :  </span>
+                <p-multiselect 
+                [(ngModel)]="addArmes"
+                optionLabel="libelle"
+                placeholder="origine" />
+            </div>
+            <div class="mt-2">
+                <span>Armures :  </span>
+                <p-multiselect 
+                [(ngModel)]="addArmures"
+                optionLabel="libelle"
+                placeholder="origine" />
             </div>
     </div>
 </p-sidebar>

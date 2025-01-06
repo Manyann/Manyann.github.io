@@ -15,13 +15,15 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SidebarModule } from 'primeng/sidebar';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { HeroArmes, HeroArmures } from '../model/item';
 
 @Component({
   selector: 'app-ingame',
   standalone: true,
   imports: [CommonModule, TabViewModule, SplitterModule , 
     TableModule, InputSwitchModule, FormsModule, AutoCompleteModule, DropdownModule, ButtonModule,
-    ReactiveFormsModule,InputNumberModule, SidebarModule,
+    ReactiveFormsModule,InputNumberModule, SidebarModule,MultiSelectModule,
     HeroPipe,HeroTypePipe, IsFromSessionPipe],
   templateUrl: './gestion.component.html',
   styleUrl: './gestion.component.css'
@@ -33,13 +35,18 @@ export class GestionComponent {
   herosService:HerosService;
   armesService: ItemsService;
   hero$ : Promise<DocumentData[]> | undefined;
-  armes$ : Promise<DocumentData[]> | undefined;
+  armes$ : Promise<HeroArmes> | undefined;
+  armures$ : Promise<HeroArmures> | undefined;
   herosTypes : DocumentData[] | undefined;
-  herosTypesSelect : DocumentData[] | undefined;
   herosMetiers : DocumentData[] | undefined;
-  herosMetiersSelect : DocumentData[] | undefined;
+  
   sidebarVisible : boolean;
+  sidebarRigthVisible : boolean;
 
+  herosMetiersSelect : DocumentData[] | undefined;
+  herosTypesSelect : DocumentData[] | undefined;
+  herosArmuresSelect : DocumentData[] | undefined;
+  herosArmesSelect : DocumentData[] | undefined;
   addJoueur:string="";
   addNom:string="";
   addOrigine:{code:string,libelle:string}={code:" ",libelle:" "};
@@ -47,6 +54,8 @@ export class GestionComponent {
   addDestin:number=0;
   addOr:number=0;
   addNiveau:number=1;
+  addArmes : Array<string> = [];
+  addArmures : Array<string> = [];
 
   constructor(
     joueursService:JoueursService,
@@ -54,25 +63,33 @@ export class GestionComponent {
     armesService:ItemsService
   ){
     this.sidebarVisible = false;
+    this.sidebarRigthVisible = false;
      joueursService.getAll().then(snap =>{
       this.joueurs = snap
     });
 
    
-     this.allHeros$ = herosService.getAll();
+    this.allHeros$ = herosService.getAll();
     this.herosService = herosService;
     this.armesService = armesService;
     herosService.getAllOrigine().then(snap => {
       this.herosTypes = snap;
-    })
+    });
     herosService.getAllMetier().then(snap => {
       this.herosMetiers = snap;
-    })
+    });
+    armesService.getAllArmes().then(snap => {
+      this.herosArmesSelect = snap;
+    });
+    armesService.getAllArmures().then(snap => {
+      this.herosArmuresSelect = snap;
+    });
   }
 
   handleSelect(hero:string){
     this.hero$ = this.herosService.getByName(hero);
     this.armes$ = this.armesService.getArmesByHero(hero);
+    this.armures$ = this.armesService.getArmuresByHero(hero);
   }
 
   changeSession(e:InputSwitchOnChangeEvent, heroNom:string){

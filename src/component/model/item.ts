@@ -30,6 +30,23 @@ export class Categorie{
     "libelle":string;
 }
 
+export class HeroArmes{
+    "hero_nom" : string;
+    "armes" : Array<ItemShort>
+}
+
+export class HeroArmures{
+    "hero_nom" : string;
+    "armures" : Array<ItemShort>
+}
+
+
+export class ItemShort{
+    "code":string;
+    "libelle":string;
+    "equipe":boolean;
+}
+
 export class ItemHelper{
 
     private static origines: { [outerKey: string]: { [innerKey: number]: string } } = {
