@@ -23,14 +23,31 @@
                 </p-table>
             </ng-template>
             <ng-template pTemplate>
-                <div  *ngFor="let hero of (hero$ | async) ??[]">
-                    <div>{{hero['nom']}}</div>
-                    <div>Or {{hero['or']}}</div>
-                    <div>Point de destin {{hero['destin']}}</div>
+                <div  *ngFor="let hero of (hero$ | async) ??[]" class="mw-20 ml-2">
+                    <div class="text-center" ><h2>{{hero['nom']}}</h2></div>
+                    <div><span class="text-bold">Or</span> {{hero['or']}}</div>
+                    <div><span class="text-bold">Point de destin</span> {{hero['destin']}}</div>
                     <div>
-                        <p>stuff</p>
-                        <div *ngFor="let arme of (armes$ | async)?.armes ??[]">{{arme['libelle']}}</div>
-                    </div>
+                        <h3>Equipements</h3>
+                        <div class="div-flex">
+                            <div>
+                                <h4> Equipé </h4>
+                                <div *ngFor="let arme of (armes$ | async)?.armes ??[] | shouldBeEquipe : true">
+                                    <p-button (onClick)="supprimer(hero['nom'],arme['code'])" icon="pi pi-trash" class="red-dot bt-sm" /> 
+                                    {{arme['libelle']}} 
+                                    <p-button (onClick)="desequipe(hero['nom'],arme['code'])" icon="pi pi-arrow-right" class="blue-dot bt-sm" />
+                                </div>
+                            </div>
+                            <div>
+                                <h4> Inventaire   <p-button class=" bt-sm" (onClick)="triggerAjouterStuff()" icon="pi pi-plus"></p-button></h4>
+                                <div *ngFor="let arme of (armes$ | async)?.armes ??[]| shouldBeEquipe : false">
+                                    <p-button (onClick)="equipe(hero['nom'],arme['code'])" icon="pi pi-arrow-left" class="blue-dot bt-sm" />
+                                    {{arme['libelle']}} 
+                                    <p-button icon ="pi pi-trash" class="red-dot bt-sm" />
+                                </div>
+                            </div>
+                        </div>
+                      </div>
                 </div>
             </ng-template>
         </p-splitter>
@@ -58,8 +75,9 @@
                 </p-table>
             </ng-template>
             <ng-template pTemplate>
-                <div  *ngFor="let hero of (hero$ | async) ??[]">
-                    <div>{{hero['nom']}}</div>
+                <div  *ngFor="let hero of (hero$ | async) ??[]" class="mw-20">
+                    <div class="text-center" ><h2>{{hero['nom']}}</h2></div>
+                    
                     <div>Or {{hero['or']}}</div>
                     <div>Point de destin {{hero['destin']}}</div>
                     <div>
@@ -81,6 +99,7 @@
                 <p-dropdown 
                 [options]="joueurs" 
                 [(ngModel)]="addJoueur" 
+                name="addJoueur"
                 optionLabel="code" 
                 optionValue="code"
                 placeholder="Joueur"
@@ -94,6 +113,7 @@
                 <span>Origine :  </span>
                 <p-autoComplete
                 [(ngModel)]="addOrigine"
+                name="addOrigine"
                 [dropdown]="true"
                 [suggestions]="herosTypesSelect??[]"
                 optionLabel="libelle"
@@ -104,6 +124,7 @@
                 <span>Metier :  </span>
                 <p-autoComplete
                 [(ngModel)]="addMetier"
+                name="addMetier"
                 [dropdown]="true"
                 [suggestions]="herosMetiersSelect??[]"
                 optionLabel="libelle"
@@ -112,15 +133,15 @@
             </div>
             <div class="mt-2">
                 <span>Niveau :  </span>
-                <p-inputNumber  [(ngModel)]="addNiveau" />
+                <p-inputNumber  [(ngModel)]="addNiveau" name="addNiveau" />
             </div>
             <div class="mt-2">
                 <span>Or :  </span>
-                <p-inputNumber [(ngModel)]="addOr" />
+                <p-inputNumber [(ngModel)]="addOr" name="addOr"/>
             </div>
             <div class="mt-2"> 
                 <span>Point de destin : </span>
-                <p-inputNumber  [(ngModel)]="addDestin" />
+                <p-inputNumber  [(ngModel)]="addDestin" name="addDestin"/>
             </div>
             <div class="mt-2"> 
                 <p-button (onClick)="valider()" >Valider</p-button>
@@ -131,17 +152,32 @@
     <div class="add-panel">
             <div class="mt-2">
                 <span>Armes :  </span>
-                <p-multiselect 
+                <p-multiSelect 
+                [options]="herosArmesSelect"
                 [(ngModel)]="addArmes"
                 optionLabel="libelle"
-                placeholder="origine" />
+                placeholder="armes" />
             </div>
             <div class="mt-2">
                 <span>Armures :  </span>
-                <p-multiselect 
+                <p-multiSelect 
+                [options]="herosArmuresSelect"
                 [(ngModel)]="addArmures"
                 optionLabel="libelle"
-                placeholder="origine" />
+                placeholder="armures" />
+            </div>
+            <div class="mt-2"> 
+                <p-button (onClick)="validerStuff()" >Valider</p-button>
             </div>
     </div>
 </p-sidebar>
+
+<p-confirmDialog>
+    <ng-template #message let-message>
+        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+            <p>{{ message.message }}</p>
+        </div>
+    </ng-template>
+</p-confirmDialog>
+    

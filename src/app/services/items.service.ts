@@ -21,8 +21,13 @@ export class ItemsService {
   }
 
   async getArmesByHero(hero:string){
-    const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armes'),where('hero_nom','==',hero)))).docs.map((items) => items.data());
-    let armes =  (await getDocs(query(collection(this.firestore,'armes'),where('code','in',itemsLinked.map(x=>x['arme_code']))))).docs.map((items) => items.data());
+    const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armes')
+    ,where('hero_nom','==',hero)
+    ,where('supprime','==',false)))).docs.map((items) => items.data());
+console.log(itemsLinked);
+
+    let armes =  (await getDocs(query(collection(this.firestore,'armes')
+    ,where('code','in',itemsLinked.map(x=>x['arme_code']))))).docs.map((items) => items.data());
   
     let heroArmes : HeroArmes = {hero_nom:hero,armes:[]};
     let arme : DocumentData;
@@ -35,13 +40,16 @@ export class ItemsService {
         equipe : element['equipe']
       })
     });
-    console.log(heroArmes);
     return heroArmes;
   }
 
   async getArmuresByHero(hero:string){
-    const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armures'),where('hero_nom','==',hero)))).docs.map((items) => items.data());
-    let armes =  (await getDocs(query(collection(this.firestore,'armures'),where('code','in',itemsLinked.map(x=>x['armure_code']))))).docs.map((items) => items.data());
+    const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armures')
+    ,where('hero_nom','==',hero)
+    ,where('supprime','==',false)))).docs.map((items) => items.data());
+
+    let armes =  (await getDocs(query(collection(this.firestore,'armures')
+    ,where('code','in',itemsLinked.map(x=>x['armure_code']))))).docs.map((items) => items.data());
   
     let heroArmures : HeroArmures = {hero_nom:hero,armures:[]};
     let arme : DocumentData;
@@ -54,8 +62,82 @@ export class ItemsService {
         equipe : element['equipe']
       })
     });
-    console.log(heroArmures);
-    return heroArmures; }
+    return heroArmures; 
+  }
+
+  async equipe(heroCode:string, arme:string){
+    let armesHero =  (await getDocs(query(
+      collection(this.firestore,'heros_armes')
+      ,where('hero_nom','==',heroCode)
+      ,where('arme_code','==',arme)
+      ,where('equipe','==',false)
+      ,where('supprime',"==",false))));
+
+      let firstDealedWith : boolean = false;
+
+      armesHero.forEach(async (document) => {
+        const docId = document.id; // Get document ID
+        const docData = document.data(); // Get document data
+        docData['equipe'] = true;
+    
+        if(!firstDealedWith){
+          firstDealedWith=true;
+          await setDoc(doc(this.firestore,'heros_armes',docId), docData);
+        }
+      });
+  }
+
+  async desequipe(heroCode:string, arme:string){
+    let armesHero =  (await getDocs(query(
+      collection(this.firestore,'heros_armes')
+      ,where('hero_nom','==',heroCode)
+      ,where('arme_code','==',arme)
+      ,where('equipe','==',true)
+      ,where('supprime',"==",false))));
+
+      let firstDealedWith : boolean = false;
+
+      armesHero.forEach(async (document) => {
+        const docId = document.id; // Get document ID
+        const docData = document.data(); // Get document data
+        docData['equipe'] = false;
+    
+        if(!firstDealedWith){
+          firstDealedWith=true;
+          await setDoc(doc(this.firestore,'heros_armes',docId), docData);
+        }
+      });
+  }
+
+  async addToHero(heroCode:string, arme:string, equipe:boolean){
+    await setDoc(doc(this.firestore, "heros_armes", crypto.randomUUID()), {
+      hero_nom: heroCode,
+      arme_code:arme,
+      equipe:equipe,
+    });
+  }
+
+  async removeFromHero(heroCode:string, arme: string){
+    let armesHero =  (await getDocs(query(
+      collection(this.firestore,'heros_armes')
+      ,where('hero_nom','==',heroCode)
+      ,where('arme_code','==',arme)
+      ,where('supprime','==',false))));
+
+      let firstDealedWith : boolean = false;
+
+      armesHero.forEach(async (document) => {
+        const docId = document.id; // Get document ID
+        const docData = document.data(); // Get document data
+        docData['supprime'] = true;
+    
+        if(!firstDealedWith){
+          firstDealedWith=true;
+          await setDoc(doc(this.firestore,'heros_armes',docId), docData);
+        }
+      });
+  }
+
 
   async bulkInsert(){
     let origines =  CreationHelper.getAllMetier();

@@ -24,6 +24,9 @@
 .m-2{
     margin: 2rem;    
 }
+.ml-2{
+    margin-left:2rem;
+}
 
 input{
     background-color : rgb(4, 13, 25);
@@ -34,4 +37,40 @@ input{
 }
 
 
+.text-center{
+    text-align: center;
+}
 
+.mw-20{
+    min-width: 20rem;
+}
+
+.div-flex{
+    display: flex;
+    justify-content: space-between;
+    min-width: 30rem;
+    > div > div{
+        display: flex;
+        align-items: center;
+        > p-button > button{
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+}
+
+.text-bold{
+    font-weight: 400;
+}
+.bt-sm{
+    margin-left:0.5rem;
+    margin-right:0.5rem;
+}
+::ng-deep.bt-sm > button{
+    width: 1.5rem;
+    height: 1.5rem;
+    }
+
+::ng-deep.p-sidebar-left {
+        width: 30rem;
+    }

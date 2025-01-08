@@ -33,7 +33,7 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/ingame/shop.jpg",
-      titre:"Armes / Armures",
+      titre:"Shop",
       url:"shop"
     },
     {

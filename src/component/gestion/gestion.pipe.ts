@@ -46,3 +46,15 @@ export class IsFromSessionPipe implements PipeTransform {
       return items.filter(item => item.actif);
     }
 }
+
+@Pipe({
+  name: 'shouldBeEquipe',
+  standalone: true
+})
+export class ShouldBeEquipePipe implements PipeTransform {
+  constructor() {}
+
+    transform(items: any[], shouldBe:boolean): any {
+      return items.filter(item => item['equipe'] == shouldBe);
+    }
+}

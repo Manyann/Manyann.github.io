@@ -5,7 +5,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { JoueursService } from '../../app/services/joueur.service';
 import { HerosService } from '../../app/services/hero.service';
 import { TableModule } from 'primeng/table';
-import { HeroPipe, HeroTypePipe, IsFromSessionPipe } from './gestion.pipe';
+import { HeroPipe, HeroTypePipe, IsFromSessionPipe, ShouldBeEquipePipe } from './gestion.pipe';
 import { DocumentData } from '@angular/fire/firestore';
 import { ItemsService } from '../../app/services/items.service';
 import { InputSwitchModule, InputSwitchOnChangeEvent } from 'primeng/inputswitch';
@@ -16,15 +16,18 @@ import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SidebarModule } from 'primeng/sidebar';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HeroArmes, HeroArmures } from '../model/item';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-ingame',
   standalone: true,
   imports: [CommonModule, TabViewModule, SplitterModule , 
     TableModule, InputSwitchModule, FormsModule, AutoCompleteModule, DropdownModule, ButtonModule,
-    ReactiveFormsModule,InputNumberModule, SidebarModule,MultiSelectModule,
-    HeroPipe,HeroTypePipe, IsFromSessionPipe],
+    ReactiveFormsModule,InputNumberModule, SidebarModule,MultiSelectModule,ConfirmDialogModule, 
+    HeroPipe,HeroTypePipe, IsFromSessionPipe, ShouldBeEquipePipe],
+  providers:[ConfirmationService],
   templateUrl: './gestion.component.html',
   styleUrl: './gestion.component.css'
 })
@@ -57,11 +60,17 @@ export class GestionComponent {
   addArmes : Array<string> = [];
   addArmures : Array<string> = [];
 
+  confirmationService:ConfirmationService;
+
   constructor(
     joueursService:JoueursService,
     herosService:HerosService,
-    armesService:ItemsService
+    armesService:ItemsService,
+    confirmationService:ConfirmationService 
   ){
+
+    this.confirmationService = confirmationService;
+
     this.sidebarVisible = false;
     this.sidebarRigthVisible = false;
      joueursService.getAll().then(snap =>{
@@ -132,10 +141,36 @@ export class GestionComponent {
     this.sidebarVisible = true;
   }
 
+  triggerAjouterStuff(){
+    this.sidebarRigthVisible = true;
+  }
+
   valider(){
     this.herosService.add(this.addJoueur,this.addNom,this.addOrigine.code,this.addMetier.code,this.addOr,this.addDestin,this.addNiveau).then(() => {
       this.allHeros$ = this.herosService.getAll();
     });
+  }
+
+  equipe(hero:string,armeCode:string){
+    this.armesService.equipe(hero,armeCode).then(() => this.handleSelect(hero));
+  }
+
+  desequipe(hero:string,armeCode:string){
+    this.armesService.desequipe(hero,armeCode).then(() => this.handleSelect(hero));
+  }
+
+  validerStuff(){
+  }
+
+  supprimer(hero:string,armeCode:string){
+    this.confirmationService.confirm(
+      {
+        message:"T\'es sur frérot ?",
+        header: 'T\'es sur frérot ?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {this.armesService.removeFromHero(hero,armeCode)},
+      }
+    )
   }
 
 }
