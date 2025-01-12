@@ -38,7 +38,7 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/gestion.PNG",
-      titre:"Gestion",
+      titre:"Maitre du jeu",
       url:"gestion"
     },
   ]

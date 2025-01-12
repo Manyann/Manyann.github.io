@@ -19,6 +19,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HeroArmes, HeroArmures } from '../model/item';
 import { ConfirmationService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ingame',
@@ -44,12 +45,14 @@ export class GestionComponent {
   herosMetiers : DocumentData[] | undefined;
   
   sidebarVisible : boolean;
-  sidebarRigthVisible : boolean;
+  sidebarStuffVisible : boolean;
+  sidebarStatsVisible : boolean;
 
   herosMetiersSelect : DocumentData[] | undefined;
   herosTypesSelect : DocumentData[] | undefined;
   herosArmuresSelect : DocumentData[] | undefined;
   herosArmesSelect : DocumentData[] | undefined;
+
   addJoueur:string="";
   addNom:string="";
   addOrigine:{code:string,libelle:string}={code:" ",libelle:" "};
@@ -57,8 +60,13 @@ export class GestionComponent {
   addDestin:number=0;
   addOr:number=0;
   addNiveau:number=1;
+  addhero:string="";
   addArmes : Array<string> = [];
   addArmures : Array<string> = [];
+  addStatsHero:DocumentData[] = [];
+  addKmParcourus: number=0;
+  addOrs: number=0;
+
 
   confirmationService:ConfirmationService;
 
@@ -66,17 +74,19 @@ export class GestionComponent {
     joueursService:JoueursService,
     herosService:HerosService,
     armesService:ItemsService,
-    confirmationService:ConfirmationService 
+    confirmationService:ConfirmationService,
+    private router: Router
   ){
 
     this.confirmationService = confirmationService;
 
     this.sidebarVisible = false;
-    this.sidebarRigthVisible = false;
+    this.sidebarStuffVisible = false;
+    this.sidebarStatsVisible = false;
+
      joueursService.getAll().then(snap =>{
       this.joueurs = snap
     });
-
    
     this.allHeros$ = herosService.getAll();
     this.herosService = herosService;
@@ -96,6 +106,7 @@ export class GestionComponent {
   }
 
   handleSelect(hero:string){
+    this.addhero = hero;
     this.hero$ = this.herosService.getByName(hero);
     this.armes$ = this.armesService.getArmesByHero(hero);
     this.armures$ = this.armesService.getArmuresByHero(hero);
@@ -104,7 +115,7 @@ export class GestionComponent {
   changeSession(e:InputSwitchOnChangeEvent, heroNom:string){
     e.originalEvent.stopPropagation();
     this.herosService.updateSession(heroNom,e.checked).then(()=>{
-      // this.allHeros$ = this.herosService.getAll();
+       this.allHeros$ = this.herosService.getAll();
     });
   }
 
@@ -142,7 +153,15 @@ export class GestionComponent {
   }
 
   triggerAjouterStuff(){
-    this.sidebarRigthVisible = true;
+    this.sidebarStuffVisible = true;
+  }
+
+  triggerAjouterStats(){
+    this.sidebarStatsVisible = true;
+  }
+
+  goToCombat(){
+    this.router.navigate(["/gestion/combat"]);
   }
 
   valider(){
@@ -159,18 +178,69 @@ export class GestionComponent {
     this.armesService.desequipe(hero,armeCode).then(() => this.handleSelect(hero));
   }
 
-  validerStuff(){
-  }
-
   supprimer(hero:string,armeCode:string){
     this.confirmationService.confirm(
       {
         message:"T\'es sur frérot ?",
         header: 'T\'es sur frérot ?',
         icon: 'pi pi-exclamation-triangle',
-        accept: () => {this.armesService.removeFromHero(hero,armeCode)},
+        accept: () => {this.armesService.removeFromHero(hero,armeCode).then(() => this.handleSelect(hero));},
       }
     )
+  }
+
+  equipeArmure(hero:string,armureCode:string){
+    this.armesService.equipeArmure(hero,armureCode).then(() => this.handleSelect(hero));
+  }
+
+  desequipeArmure(hero:string,armureCode:string){
+    this.armesService.desequipeArmure(hero,armureCode).then(() => this.handleSelect(hero));
+  }
+
+  supprimerArmure(hero:string,armureCode:string){
+    this.confirmationService.confirm(
+      {
+        message:"T\'es sur frérot ?",
+        header: 'T\'es sur frérot ?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {this.armesService.removeArmureFromHero(hero,armureCode).then(() => this.handleSelect(hero));},
+      }
+    )
+  }
+
+  validerStuff(){
+    this.addArmes.forEach((arme:any) =>{
+      this.armesService.addToHero(this.addhero,arme['code'],false);
+    });
+    this.addArmures.forEach((armure:any) =>{
+      this.armesService.addArmureToHero(this.addhero,armure['code'],false);
+    });
+    this.addArmes = [];
+    this.addArmures = [];
+    this.handleSelect(this.addhero);
+  }
+
+  addBonPoint(hero:string){
+    this.herosService.addBonPoint(hero).then(() => this.handleSelect(this.addhero));
+  }
+
+  addMauvaisPoint(hero:string){
+    this.herosService.addMauvaisPoint(hero).then(() => this.handleSelect(this.addhero));
+  }
+
+  removeDestin(hero:string){
+    this.herosService.removeDestin(hero).then(() => this.handleSelect(this.addhero));
+  }
+
+  validerStats(){
+    this.addStatsHero.forEach(element => { 
+      this.herosService.updateStats(element['nom'],this.addKmParcourus,this.addOrs);
+    });
+    
+    this.addStatsHero = [];
+    this.addKmParcourus = 0 ;
+    this.addOrs = 0;
+    this.handleSelect(this.addhero);
   }
 
 }

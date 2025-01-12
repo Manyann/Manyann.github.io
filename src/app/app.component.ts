@@ -43,6 +43,16 @@ export class AppComponent {
         url:"/in-game/creer",
         icon:"pi pi-user"
       },
+      {
+        label :"Statistiques",
+        url:"/statistique",
+        icon:"pi pi-chart-pie"
+      },
+      {
+        label :"Gestion",
+        url:"/gestion",
+        icon:"pi pi-cog"
+      },
     ]
   }
 }

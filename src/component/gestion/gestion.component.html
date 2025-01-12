@@ -1,7 +1,7 @@
 <br>
 <p-tabView  > 
     <p-tabPanel header="session">
-        <p-splitter [style]="{'height': '300px'}">
+        <p-splitter [style]="{'height': '40rem'}">
             <ng-template pTemplate>
                 <p-table responsiveLayout="scroll" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" [value]="(allHeros$ | async) ?? [] | isFromSession">
                     <ng-template pTemplate="header">
@@ -26,7 +26,9 @@
                 <div  *ngFor="let hero of (hero$ | async) ??[]" class="mw-20 ml-2">
                     <div class="text-center" ><h2>{{hero['nom']}}</h2></div>
                     <div><span class="text-bold">Or</span> {{hero['or']}}</div>
-                    <div><span class="text-bold">Point de destin</span> {{hero['destin']}}</div>
+                    <div><span class="text-bold">Point de destin</span> {{hero['destin']}}<p-button (onClick)="removeDestin(hero['nom'])" icon="pi pi-minus" class="bt-sm" /></div>
+                    <div><span class="text-bold">Bon point</span> {{hero['bon_point']}} <p-button (onClick)="addBonPoint(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
+                    <div><span class="text-bold">Mauvais point</span> {{hero['mauvais_point']}} <p-button (onClick)="addMauvaisPoint(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
                     <div>
                         <h3>Equipements</h3>
                         <div class="div-flex">
@@ -37,13 +39,23 @@
                                     {{arme['libelle']}} 
                                     <p-button (onClick)="desequipe(hero['nom'],arme['code'])" icon="pi pi-arrow-right" class="blue-dot bt-sm" />
                                 </div>
+                                <div *ngFor="let armure of (armures$ | async)?.armures ??[] | shouldBeEquipe : true">
+                                    <p-button (onClick)="supprimerArmure(hero['nom'],armure['code'])" icon="pi pi-trash" class="red-dot bt-sm" /> 
+                                    {{armure['libelle']}} 
+                                    <p-button (onClick)="desequipeArmure(hero['nom'],armure['code'])" icon="pi pi-arrow-right" class="blue-dot bt-sm" />
+                                </div>
                             </div>
                             <div>
                                 <h4> Inventaire   <p-button class=" bt-sm" (onClick)="triggerAjouterStuff()" icon="pi pi-plus"></p-button></h4>
                                 <div *ngFor="let arme of (armes$ | async)?.armes ??[]| shouldBeEquipe : false">
                                     <p-button (onClick)="equipe(hero['nom'],arme['code'])" icon="pi pi-arrow-left" class="blue-dot bt-sm" />
                                     {{arme['libelle']}} 
-                                    <p-button icon ="pi pi-trash" class="red-dot bt-sm" />
+                                    <p-button (onClick)="supprimer(hero['nom'],arme['code'])" icon ="pi pi-trash" class="red-dot bt-sm" />
+                                </div>
+                                <div *ngFor="let armure of (armures$ | async)?.armures ??[]| shouldBeEquipe : false">
+                                    <p-button (onClick)="equipeArmure(hero['nom'],armure['code'])" icon="pi pi-arrow-left" class="blue-dot bt-sm" />
+                                    {{armure['libelle']}} 
+                                    <p-button (onClick)="supprimerArmure(hero['nom'],armure['code'])" icon ="pi pi-trash" class="red-dot bt-sm" />
                                 </div>
                             </div>
                         </div>
@@ -53,7 +65,7 @@
         </p-splitter>
     </p-tabPanel>
     <p-tabPanel *ngFor="let joueur of (joueurs ?? [])" [header]="joueur.code">
-        <p-splitter [style]="{'height': '300px'}">
+        <p-splitter [style]="{'height': '40rem'}">
             <ng-template pTemplate>
                 <p-table responsiveLayout="scroll" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" [value]="(allHeros$ | async) ?? [] | hero:joueur.code">
                     <ng-template pTemplate="header">
@@ -89,7 +101,9 @@
         </p-splitter>
     </p-tabPanel>
     <br/>
-    <p-button class="m-2" (onClick)="triggerAjouter()">Ajouter </p-button>
+    <p-button class="m-2" (onClick)="triggerAjouter()" label="Hero" icon="pi pi-plus" />
+    <p-button class="m-2" (onClick)="goToCombat()" label="Combat" icon="pi pi-caret-right" />
+    <p-button class="m-2" (onClick)="triggerAjouterStats()" label="Ajouter statistique" icon="pi pi-chart-line" />
     <br/>
 </p-tabView>
 <p-sidebar [(visible)]="sidebarVisible">
@@ -148,7 +162,7 @@
             </div>
     </div>
 </p-sidebar>
-<p-sidebar [(visible)]="sidebarRigthVisible">
+<p-sidebar [(visible)]="sidebarStuffVisible">
     <div class="add-panel">
             <div class="mt-2">
                 <span>Armes :  </span>
@@ -168,6 +182,35 @@
             </div>
             <div class="mt-2"> 
                 <p-button (onClick)="validerStuff()" >Valider</p-button>
+            </div>
+    </div>
+</p-sidebar>
+<p-sidebar [(visible)]="sidebarStatsVisible">
+    <div class="add-panel">
+            <div class="mt-2">
+                <span>Hero(s) : </span>
+                <p-multiSelect 
+                [options]="(allHeros$ | async) ?? [] | isFromSession" 
+                [(ngModel)]="addStatsHero" 
+                name="addStatsHero"
+                optionLabel="nom" 
+                placeholder="Hero(s)"
+                class="w-12" />
+            </div>
+            <div class="mt-2">
+                <span>Kms :  </span>
+                <p-inputNumber 
+                [(ngModel)]="addKmParcourus"
+                placeholder="Kms" />
+            </div>
+            <div class="mt-2">
+                <span>Or :  </span>
+                <p-inputNumber 
+                [(ngModel)]="addOrs"
+                placeholder="Ors" />
+            </div>
+            <div class="mt-2"> 
+                <p-button (onClick)="validerStats()" >Valider</p-button>
             </div>
     </div>
 </p-sidebar>

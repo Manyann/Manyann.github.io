@@ -24,7 +24,6 @@ export class ItemsService {
     const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armes')
     ,where('hero_nom','==',hero)
     ,where('supprime','==',false)))).docs.map((items) => items.data());
-console.log(itemsLinked);
 
     let armes =  (await getDocs(query(collection(this.firestore,'armes')
     ,where('code','in',itemsLinked.map(x=>x['arme_code']))))).docs.map((items) => items.data());
@@ -47,6 +46,7 @@ console.log(itemsLinked);
     const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armures')
     ,where('hero_nom','==',hero)
     ,where('supprime','==',false)))).docs.map((items) => items.data());
+    console.log(itemsLinked);
 
     let armes =  (await getDocs(query(collection(this.firestore,'armures')
     ,where('code','in',itemsLinked.map(x=>x['armure_code']))))).docs.map((items) => items.data());
@@ -109,11 +109,66 @@ console.log(itemsLinked);
       });
   }
 
+  async equipeArmure(heroCode:string, armure:string){
+    let armesHero =  (await getDocs(query(
+      collection(this.firestore,'heros_armures')
+      ,where('hero_nom','==',heroCode)
+      ,where('armure_code','==',armure)
+      ,where('equipe','==',false)
+      ,where('supprime',"==",false))));
+
+      let firstDealedWith : boolean = false;
+
+      armesHero.forEach(async (document) => {
+        const docId = document.id; // Get document ID
+        const docData = document.data(); // Get document data
+        docData['equipe'] = true;
+    
+        if(!firstDealedWith){
+          firstDealedWith=true;
+          await setDoc(doc(this.firestore,'heros_armures',docId), docData);
+        }
+      });
+  }
+
+  async desequipeArmure(heroCode:string, armure:string){
+    let armesHero =  (await getDocs(query(
+      collection(this.firestore,'heros_armures')
+      ,where('hero_nom','==',heroCode)
+      ,where('armure_code','==',armure)
+      ,where('equipe','==',true)
+      ,where('supprime',"==",false))));
+
+      let firstDealedWith : boolean = false;
+
+      armesHero.forEach(async (document) => {
+        const docId = document.id; // Get document ID
+        const docData = document.data(); // Get document data
+        docData['equipe'] = false;
+    
+        if(!firstDealedWith){
+          firstDealedWith=true;
+          await setDoc(doc(this.firestore,'heros_armures',docId), docData);
+        }
+      });
+  }
+
+
   async addToHero(heroCode:string, arme:string, equipe:boolean){
     await setDoc(doc(this.firestore, "heros_armes", crypto.randomUUID()), {
       hero_nom: heroCode,
       arme_code:arme,
       equipe:equipe,
+      supprime:false
+    });
+  }
+
+  async addArmureToHero(heroCode:string, arme:string, equipe:boolean){
+    await setDoc(doc(this.firestore, "heros_armures", crypto.randomUUID()), {
+      hero_nom: heroCode,
+      armure_code:arme,
+      equipe:equipe,
+      supprime:false
     });
   }
 
@@ -134,6 +189,28 @@ console.log(itemsLinked);
         if(!firstDealedWith){
           firstDealedWith=true;
           await setDoc(doc(this.firestore,'heros_armes',docId), docData);
+        }
+      });
+  }
+  
+
+  async removeArmureFromHero(heroCode:string, armure: string){
+    let armesHero =  (await getDocs(query(
+      collection(this.firestore,'heros_armures')
+      ,where('hero_nom','==',heroCode)
+      ,where('armure_code','==',armure)
+      ,where('supprime','==',false))));
+
+      let firstDealedWith : boolean = false;
+
+      armesHero.forEach(async (document) => {
+        const docId = document.id; // Get document ID
+        const docData = document.data(); // Get document data
+        docData['supprime'] = true;
+    
+        if(!firstDealedWith){
+          firstDealedWith=true;
+          await setDoc(doc(this.firestore,'heros_armures',docId), docData);
         }
       });
   }
