@@ -12,6 +12,17 @@ export class EnnemiType{
     "zoneCode":string;
 };
 
+export class Mob{
+    "code":string;
+    "libelle":string;
+    "vie" : number;
+    "armure":number;
+    "degats":string;
+    "attaque":number;
+    "parade":number;
+    "experience":number;
+    "informations":string;
+}
 
 export class EnnemiHelper{
     

@@ -25,10 +25,12 @@
             <ng-template pTemplate>
                 <div  *ngFor="let hero of (hero$ | async) ??[]" class="mw-20 ml-2">
                     <div class="text-center" ><h2>{{hero['nom']}}</h2></div>
+                    <div><span class="text-bold">Niveau</span> {{hero['niveau']}}<p-button (onClick)="levelUp(hero['nom'])" icon="pi pi-plus" class="bt-sm" /></div>
                     <div><span class="text-bold">Or</span> {{hero['or']}}</div>
                     <div><span class="text-bold">Point de destin</span> {{hero['destin']}}<p-button (onClick)="removeDestin(hero['nom'])" icon="pi pi-minus" class="bt-sm" /></div>
                     <div><span class="text-bold">Bon point</span> {{hero['bon_point']}} <p-button (onClick)="addBonPoint(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
                     <div><span class="text-bold">Mauvais point</span> {{hero['mauvais_point']}} <p-button (onClick)="addMauvaisPoint(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
+                    <div><span class="text-bold">Morts</span> {{ hero['morts']}} <p-button (onClick)="addMort(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
                     <div>
                         <h3>Equipements</h3>
                         <div class="div-flex">

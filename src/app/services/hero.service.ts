@@ -13,6 +13,11 @@ export class HerosService {
     return heros;
   }
 
+  async getAllFromSession(){
+    const heros = (await getDocs(query(collection(this.firestore,'heros'),where('actif','==',true)))).docs.map((entries) => entries.data());
+    return heros;
+  }
+
   async getByName(name: string){
     const heros = (await getDocs(query(collection(this.firestore,'heros'),where('nom','==',name)))).docs.map((entries) => entries.data());
     return heros;
@@ -41,6 +46,53 @@ export class HerosService {
   async addMauvaisPoint(nom:string){
     const hero = doc(this.firestore, 'heros', nom);
     await setDoc(hero, { mauvais_point: increment(1)  }, { merge: true });
+  }
+
+  async addMort(nom:string){
+    const hero = doc(this.firestore, 'heros', nom);
+    await setDoc(hero, { morts: increment(1)  }, { merge: true });
+  }
+
+  async addNiveau(nom:string){
+    const hero = doc(this.firestore, 'heros', nom);
+    await setDoc(hero, { niveau: increment(1)  }, { merge: true });
+  }
+
+  async addCritique(nom:string, intensite:number){
+    await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()), {
+      hero_nom:nom,
+      intensite:intensite,
+      date:new Date()
+    });
+  }
+
+  async addEchecCritique(nom:string, intensite:number){
+    await setDoc(doc(this.firestore, "heros_echecs", crypto.randomUUID()), {
+      hero_nom:nom,
+      intensite:intensite,
+      date:new Date()
+    });
+  }
+
+  async addCritiqueMJ(intensite:number){
+    await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()), {
+      hero_nom:"MJ",
+      intensite:intensite,
+      date:new Date()
+    });
+  }
+
+  async addEchecCritiqueMJ(intensite:number){
+    await setDoc(doc(this.firestore, "heros_echecs", crypto.randomUUID()), {
+      hero_nom:'MJ',
+      intensite:intensite,
+      date:new Date()
+    });
+  }
+
+  async updateDegatsDealt(nom:string,degats:number){
+    const hero = doc(this.firestore, 'heros', nom);
+    await setDoc(hero, { degats: increment(degats)  }, { merge: true });
   }
 
   async removeDestin(nom:string){

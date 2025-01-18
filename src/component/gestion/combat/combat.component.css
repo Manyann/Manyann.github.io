@@ -1,0 +1,64 @@
+.hero-card-layout{
+    display: flex;
+    justify-content: space-around;
+}
+
+.hero-card{
+    padding:0.5rem;
+    border:1px solid white;
+    border-radius: 10px;
+}
+
+.header{
+    font-weight: bold;
+    text-align: center;
+}
+
+.body{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.row{
+    margin-top:0.5rem;
+}
+
+.input-sm{
+    width: 5rem;
+}
+
+::ng-deep.p-inputnumber {
+    width: 5rem;
+}
+
+::ng-deep.p-inputnumber-input{
+    width: 5rem;
+}
+
+.row > p-button{
+    margin-left: 0.5rem;
+}
+
+::ng-deep.p-autoComplete{
+    margin-right: 0.5rem;
+}
+
+.row-flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-start{
+    display: flex;
+    justify-content: start;
+}
+
+.flex-end{
+    display: flex;
+    justify-content: end;
+}
+
+.flex-start , .flex-end{
+    gap:0.5rem;
+}

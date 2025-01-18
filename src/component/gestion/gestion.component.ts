@@ -228,6 +228,14 @@ export class GestionComponent {
     this.herosService.addMauvaisPoint(hero).then(() => this.handleSelect(this.addhero));
   }
 
+  addMort(hero:string){
+    this.herosService.addMort(hero).then(() => this.handleSelect(this.addhero));
+  }
+
+  levelUp(hero:string){
+    this.herosService.addNiveau(hero).then(() => this.handleSelect(this.addhero));
+  }
+
   removeDestin(hero:string){
     this.herosService.removeDestin(hero).then(() => this.handleSelect(this.addhero));
   }

@@ -1,0 +1,191 @@
+<p-panel header="Heros" [toggleable]="true" class="player-panel">
+    <div class="hero-card-layout">
+        <div *ngFor="let hero of (heroSession$ | async)" class="hero-card">
+            <div class="header">{{hero['nom']}}</div>
+            <div class="body">
+                <span><i class="pi pi-heart-fill" title="vie"></i>{{hero['vie']}}</span>
+                <span><i class="pi pi-bolt" title="mana"></i>{{hero['mana']}}</span>
+                <span><i class="pi pi-history" title="destin"></i>{{hero['destin']}}</span>
+            </div>
+            <div class="action">
+                <div class="row">
+                    <p-button (onClick)="removeDestin(hero['nom'])" icon="pi pi-minus" label="Destin" />
+                    <p-button (onClick)="addMort(hero['nom'])" icon="pi pi-plus" label="Mort" />
+                </div>
+                <div class="row">
+                    <p-inputNumber class="input-sm" [(ngModel)]="addDegats"></p-inputNumber>
+                    <p-button (onClick)="updateDegatsDealt(hero['nom'])" icon="pi pi-plus" label="Dégats" />
+                 </div>
+                <div class="row">
+                    <p-inputNumber class="input-sm" [(ngModel)]="addIntensite"></p-inputNumber>
+                    <p-button (onClick)="addCoupCritique(hero['nom'])"  icon="pi pi-plus" label="CC" />
+                    <p-button (onClick)="addEchecCritique(hero['nom'])"  icon="pi pi-plus" label="EC" />
+                </div>
+            </div>
+        </div>
+    </div>
+</p-panel>
+<br />
+<br />
+<p-panel header="Combat" [toggleable]="true" class="combat-panel">
+    <div class="row-flex">
+        <div class="flex-start">
+            <p-autoComplete
+            [(ngModel)]="addMob"
+            name="addOrigine"
+            [dropdown]="true"
+            [suggestions]="autoCompleteMobs??[]"
+            optionLabel="libelle"
+            placeholder="Mob"
+            (completeMethod)="search($event)" 
+            class="p-autoComplete" />
+            <p-inputNumber class="input-sm" [(ngModel)]="addMobNumber"></p-inputNumber>
+            <p-button (onClick)="generateMob()">Générer</p-button>
+        </div>   
+        <div class="flex-middle">
+            <p-button (onClick)="generateCustomMob()" icon="fi fi-plus" label="Custom"/>
+        </div>
+        <div class="flex-end">
+            <p-inputNumber class="input-sm" [(ngModel)]="addIntensite"></p-inputNumber>
+            <p-button (onClick)="addCoupCritiqueMJ()"  icon="pi pi-plus" label="CC MJ" />
+            <p-button (onClick)="addEchecCritiqueMJ()"  icon="pi pi-plus" label="EC MJ" />
+        </div>               
+    </div>
+    <div class="mob-list">
+        <p-table [value]="mobs" dataKey="code" >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        Nom
+                    </th>
+                    <th>
+                        Vie
+                    </th>
+                    <th>
+                        Attaque
+                    </th>
+                    <th>
+                        Parade
+                    </th>
+                    <th>
+                        Dégats
+                    </th>
+                    <th>
+                        Armure
+                    </th>
+                    <th>
+                        XP
+                    </th>
+                    <th>
+                        Informations
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template  pTemplate="body" let-mob>
+                <tr>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template  pTemplate="input">
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="mob.libelle" />
+                            </ng-template>
+                            <ng-template  pTemplate="output">
+                                {{ mob.libelle }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template  pTemplate="input">
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="mob.vie"
+                                    required />
+                            </ng-template>
+                            <ng-template  pTemplate="output">
+                                {{ mob.vie }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template  pTemplate="input">
+                                <input
+                                    pInputText
+                                    [(ngModel)]="mob.attaque" />
+                            </ng-template>
+                            <ng-template  pTemplate="output">
+                                {{ mob.attaque }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template  pTemplate="input">
+                                <input
+                                    pInputText type="text"
+                                    [(ngModel)]="mob.parade" />
+                            </ng-template>
+                            <ng-template  pTemplate="output">
+                                {{ mob.parade}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template #input>
+                                <input
+                                    pInputText type="text"
+                                    [(ngModel)]="mob.degats" />
+                            </ng-template>
+                            <ng-template  pTemplate="output">
+                                {{ mob.degats}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template  pTemplate="input">
+                                <input
+                                    pInputText type="text"
+                                    [(ngModel)]="mob.armure" />
+                            </ng-template>
+                            <ng-template  pTemplate="output">
+                                {{ mob.armure}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template  pTemplate="input">
+                                <input
+                                    pInputText type="text"
+                                    [(ngModel)]="mob.experience" />
+                            </ng-template>
+                            <ng-template  pTemplate="output">
+                                {{ mob.experience}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn>
+                        <p-cellEditor>
+                            <ng-template  pTemplate="input">
+                                <input
+                                    pInputText type="text"
+                                    [(ngModel)]="mob.informations" />
+                            </ng-template>
+                            <ng-template  pTemplate="output">
+                                {{ mob.informations}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-panel>
+
+<p-toast />
