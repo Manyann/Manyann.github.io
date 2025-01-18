@@ -8,6 +8,7 @@
     "/documentation/heros",
     "/documentation/heros/sorts",
     "/gestion",
+    "/gestion/combat",
     "/in-game",
     "/in-game/creer",
     "/in-game/loot",
