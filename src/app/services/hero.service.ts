@@ -129,4 +129,10 @@ export class HerosService {
     });
   }
 
+  async addMobCombattu(nom:string,mob:string, nombre :number){
+    console.log(nom,mob,nombre);
+    const hero = doc(this.firestore, 'heros_mobs', nom);
+    await setDoc(hero, { [mob]: increment(nombre)  }, { merge: true });
+  }
+
 }

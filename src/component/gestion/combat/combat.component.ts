@@ -15,6 +15,7 @@ import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { Mob } from '../../model/ennemi';
+import { MobsService } from '../../../app/services/mob.service';
 
 @Component({
   selector: 'app-combat',
@@ -28,18 +29,21 @@ export class CombatComponent {
   title = 'nhbk';
   heroSession$ : Promise<DocumentData[]> | undefined;
 
+  allMobs$ : Promise<Mob[]> | undefined;
   mobs : Mob[] = [];
+  mobsToSearch : Mob[] = [];
   autoCompleteMobs:any;
 
   addIntensite:number=0;
   addDegats:number=0;
-  addMob:string="";
-  addMobNumber:number=0;
+  addMob:Mob | undefined;
+  addMobNumber:number=1;
   
   sidebarVisible : boolean;
 
   constructor(
     private herosService:HerosService,
+    private mobsService: MobsService,
     private confirmationService:ConfirmationService,
     private messageService: MessageService,
     private router: Router
@@ -51,30 +55,11 @@ export class CombatComponent {
    
     this.heroSession$ = herosService.getAllFromSession();
 
-    this.mobs = [
-        {
-            armure:3,
-            attaque:12,
-            code:"a",
-            degats:"1D+4",
-            experience:22,
-            informations:"",
-            libelle:"Mob random",
-            parade:10,
-            vie:25
-        },
-        {
-          armure:0,
-          attaque:2,
-          code:"a",
-          degats:"1D-2",
-          experience:1,
-          informations:"1/4 chance de ce suicide par peur",
-          libelle:"Mob nul",
-          parade:0,
-          vie:5
-      }
-    ];
+    this.allMobs$ = mobsService.getAll();
+
+    this.allMobs$.then((m) =>{
+      this.mobsToSearch = m;
+    })
   }
 
 
@@ -164,21 +149,43 @@ export class CombatComponent {
   }
 
   generateMob(){
-
-  }
+    let mobCode = this.addMob?.code ?? "";
+    let nombre = this.addMobNumber;
+    for (let i = 0; i < this.addMobNumber; i++) {
+      this.mobs.push(this.mobsToSearch.find(x=>x.code == mobCode) ?? this.mobsToSearch[0]);
+    }
+    this.heroSession$?.then((hero) =>{
+      this.herosService.addMobCombattu(hero[0]['nom'] as string,mobCode,nombre);
+    })
+    this.addMobNumber = 1;
+    this.addMob = undefined;
+   }
 
   
-  generateCustomMob(){
-
+  generateCustomMob(){ 
+    this.mobs.push(
+      {
+        armure : 0,
+        attaque : 0,
+        code : "*",
+        degats : "dégats",
+        experience : 0,
+        informations : "infos",
+        libelle : "nom",
+        parade : 0,
+        vie : 0,
+        zone : "*"
+      }
+    );
   }
 
   
   search(event:AutoCompleteCompleteEvent){
     let filtered: any[] = [];
     let query = event.query;
-    this.autoCompleteMobs = this.mobs ?? [];
-    for (let i = 0; i < this.mobs.length; i++) {
-      let type = this.mobs[i];
+    this.autoCompleteMobs = this.mobsToSearch ?? [];
+    for (let i = 0; i < this.mobsToSearch.length; i++) {
+      let type = this.mobsToSearch[i];
       if (type['libelle'].toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(type);
       }

@@ -3,8 +3,8 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
+import { MobsService } from './services/mob.service';
 import { ItemsService } from './services/items.service';
-import {Firestore} from '@angular/fire/firestore'
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,6 @@ import {Firestore} from '@angular/fire/firestore'
 export class AppComponent {
   items: Array<MenuItem>;
   constructor(itemsService:ItemsService){
-   // itemsService.bulkInsert();
     this.items = [
       {
         label :"Accueil",
