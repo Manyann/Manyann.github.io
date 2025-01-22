@@ -13,6 +13,7 @@
     "/in-game/creer",
     "/in-game/loot",
     "/in-game/shop",
-    "/in-game/teleportation"
+    "/in-game/teleportation",
+    "/statistique"
   ]
 }
