@@ -91,6 +91,7 @@ export class HerosService {
   }
 
   async updateDegatsDealt(nom:string,degats:number){
+    console.log(nom,degats);
     await setDoc(doc(this.firestore, "heros_degats", crypto.randomUUID()), {
       hero_nom:nom,
       intensite:degats,
