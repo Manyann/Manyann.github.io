@@ -1,0 +1,72 @@
+<br>
+<p-tabView  > 
+    <p-tabPanel header="Global">
+        <div  class="infos-container">
+            <div class="info-group">
+                <div class="info-group-header">
+                    Orines et métiers
+                </div>
+                <div class="info-group-body">
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataOrigines" [options]="optionsBardataOrigines" />
+                    </div>
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataMetiers" [options]="optionsBardataMetiers"/>
+                    </div>
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="info-group-header">
+                    Equipements
+                </div>
+                <div class="info-group-body">
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataArmes" [options]="optionsBardataArmes"/>
+                    </div>
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataArmures" [options]="optionsBardataArmures"/>
+                    </div>
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="info-group-header">
+                    Combats
+                </div>
+                <div class="info-group-body">
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataCrits" [options]="optionsBardataCrits"/>
+                    </div>
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataEchecCrits" [options]="optionsBardataCritsdataEchecCrits"/>
+                    </div>
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataDegatsTotal" [options]="optionsBardataDegatsTotal"/>
+                    </div>
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataDegatsMax" [options]="optionsBardataDegatsMax"/>
+                    </div>
+                </div>
+            </div>
+            <div class="info-group">
+                <div class="info-group-header">
+                    Trivia
+                </div>
+                <div class="info-group-body">
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataOrs" [options]="optionsBardataOrs"/>
+                    </div>
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataKms" [options]="optionsBardataKms"/>
+                    </div>
+                    <div class="chart">
+                        <p-chart type="bar" [data]="dataEnnemis" [options]="optionsBardataEnnemis"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-tabPanel>
+    
+    <p-tabPanel *ngFor="let joueur of (joueurs ?? [])" [header]="joueur.code">
+    </p-tabPanel>
+    
+</p-tabView  > 

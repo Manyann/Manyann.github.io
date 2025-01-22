@@ -91,8 +91,11 @@ export class HerosService {
   }
 
   async updateDegatsDealt(nom:string,degats:number){
-    const hero = doc(this.firestore, 'heros', nom);
-    await setDoc(hero, { degats: increment(degats)  }, { merge: true });
+    await setDoc(doc(this.firestore, "heros_degats", crypto.randomUUID()), {
+      hero_nom:nom,
+      intensite:degats,
+      date:new Date()
+    });
   }
 
   async removeDestin(nom:string){
@@ -125,7 +128,13 @@ export class HerosService {
       destin:destin,
       niveau:niveau,
       actif:false,
-      vivant:true
+      vivant:true,
+      km:0,
+      bon_point:0,
+      mauvais_point:0,
+      mana:0,
+      morts:0,
+      vie:0
     });
   }
 
