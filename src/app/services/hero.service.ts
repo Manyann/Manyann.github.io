@@ -122,7 +122,7 @@ export class HerosService {
   async add(joueur:string, nom:string, origine:string, metier:string, or : number, destin : number, niveau : number){
     await setDoc(doc(this.firestore, "heros", nom.toLowerCase()), {
       code_joueur: joueur,
-      nom: nom,
+      nom: nom.toLowerCase(),
       origine:origine,
       metier:metier,
       or:or,
@@ -143,6 +143,31 @@ export class HerosService {
     console.log(nom,mob,nombre);
     const hero = doc(this.firestore, 'heros_mobs', nom);
     await setDoc(hero, { [mob]: increment(nombre)  }, { merge: true });
+  }
+
+  async bulkUpdate(){
+    const heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
+    
+    heros.forEach(async (hero) => {
+      await setDoc(doc(this.firestore, "heros", hero['nom']), {
+        actif:hero['actif'],
+        bon_point:hero['bon_point'],
+        code_joueur: hero['code_joueur'],
+        destin:hero['destin'],
+        km:hero['km'],
+        mana:hero['mana'],
+        mauvais_point:hero['mauvais_point'],
+        metier:hero['metier'],
+        morts:hero['morts'],
+        niveau:hero['niveau'],
+        nom: hero['nom'],
+        or:hero['or'],
+        origine:hero['origine'],
+        vie:hero['vie'],
+        vivant:hero['vivant'],
+      });
+    })
+    
   }
 
 }

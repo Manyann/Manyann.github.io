@@ -201,4 +201,221 @@ export class StatistiquesService {
     return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
   }
 
+  async getJoueurStatistique(joueur:string){
+    let statistiques : JoueurStatistique = {
+      origine: await this.getOrigineJoueur(joueur),
+      metier: await this.getMetierJoueur(joueur),
+      heroCritiques: await this.getHeroCritiqueJoueur(joueur),
+      heroEchecs : await this.getHeroEchecsJoueur(joueur),
+      level: await this.getMaxLevelJoueur(joueur),
+      nombrePersonnage : await this.getPersoCountJoueur(joueur),
+      totalCritiques : await this.getTotalCritiquesJoueur(joueur),
+      totalEchecs : await this.getTotalEchecsJoueur(joueur),
+      totalDegats : await this.getTotalDegatsJoueur(joueur),
+      totalEnnemis : await this.getTotalEnnemisJoueur(joueur),
+    };
+
+    return statistiques;
+  }
+
+  async getOrigineJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let origines = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
+
+    let libelle = "";
+    let originesCount : { [key: string]: number } = {};
+
+    for (const hero of heros) {
+      libelle = origines.find(x=>x['code'] == hero['origine'])!['libelle'] ?? hero['origine'];
+      if(!(libelle in originesCount)){
+        originesCount[libelle] = 0;
+      }
+      originesCount[libelle] = originesCount[libelle] +1;
+    }
+
+    let maxValue = -Infinity;
+    let maxKey: string | null = null;
+    for (const key in originesCount) {
+      if (originesCount[key] > maxValue) {
+        maxValue = originesCount[key];
+        maxKey = key;
+      }
+    }
+
+    return maxKey + " ( " + maxValue + " )" ;
+  }
+
+  async getMetierJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let origines = (await getDocs(query(collection(this.firestore,'metiers')))).docs.map((entries) => entries.data());
+
+    let libelle = "";
+    let originesCount : { [key: string]: number } = {};
+
+    for (const hero of heros) {
+      libelle = origines.find(x=>x['code'] == hero['metier'])!['libelle'] ?? hero['metier'];
+      if(originesCount[libelle] === undefined){
+        originesCount[libelle] = 0;
+      }
+      originesCount[libelle] = originesCount[libelle] +1;
+    }
+
+    let maxValue = -Infinity;
+    let maxKey: string | null = null;
+    for (const key in originesCount) {
+      if (originesCount[key] > maxValue) {
+        maxValue = originesCount[key];
+        maxKey = key;
+      }
+    }
+
+    return maxKey + " ( " + maxValue + " )" ;
+  }
+
+  async getHeroCritiqueJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    
+    let heroNom = "";
+    let critiqueCount = 0;
+    let currentHeroNom = "";
+    let currentCritiqueCount = 0;
+
+    for (const hero of heros) {
+      currentHeroNom = hero['nom'];
+      let heroCritiques = (await getDocs(query(collection(this.firestore,'heros_critiques'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      currentCritiqueCount = heroCritiques.length;
+      if(currentCritiqueCount > critiqueCount){
+        critiqueCount = currentCritiqueCount;
+        heroNom = currentHeroNom;
+      }
+    }
+
+    return heroNom + " ( " + critiqueCount + " )";
+  }
+
+  async getHeroEchecsJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    
+    let heroNom = "";
+    let critiqueCount = 0;
+    let currentHeroNom = "";
+    let currentCritiqueCount = 0;
+
+    for (const hero of heros) {
+      currentHeroNom = hero['nom'];
+      let heroCritiques = (await getDocs(query(collection(this.firestore,'heros_echecs'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      currentCritiqueCount = heroCritiques.length;
+      if(currentCritiqueCount > critiqueCount){
+        critiqueCount = currentCritiqueCount;
+        heroNom = currentHeroNom;
+      }
+    }
+
+    return heroNom + " ( " + critiqueCount + " )";
+  }
+
+  async getMaxLevelJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    
+    let heroNom = "";
+    let maxLevel = 0;
+    let currentHeroNom = "";
+    let currentLevel = 0;
+
+    heros.forEach(async (hero) =>{
+      currentHeroNom = hero['nom'];
+      currentLevel = hero['niveau'];
+      if(currentLevel > maxLevel){
+        maxLevel = currentLevel;
+        heroNom = currentHeroNom;
+      }
+    });
+
+    return maxLevel + " ( " + heroNom + " )";
+  }
+
+  async getPersoCountJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+
+    return ""+heros.length;
+  }
+  
+  async getTotalCritiquesJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    
+    let total = 0;
+    for (const hero of heros) {
+      let heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_critiques'), 
+        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data());
+      total += heroCritiques.length;
+    }
+
+    return ""+total;
+  }
+
+  async getTotalEchecsJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    
+    let total = 0;
+
+    for (const hero of heros) {
+      let heroCritiques = (await getDocs(query(collection(this.firestore,'heros_echecs'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      total += heroCritiques.length;
+    }
+
+    return ""+total;
+  }
+
+  async getTotalDegatsJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    
+    let total = 0;
+
+    for (const hero of heros) {
+      let degats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      total += degats.length;
+    }
+
+    return ""+total;
+  }
+
+  async getTotalEnnemisJoueur(joueur:string){
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    
+    let total = 0;
+
+    for (const hero of heros) {
+      let mobs = (await getDocs(query(collection(this.firestore,'heros_mobs'),hero['nom']))).docs.map((entries) => entries.data());
+      for (const key in mobs) {
+        if (Object.prototype.hasOwnProperty.call(mobs, key)) {
+          total += (mobs[key] as unknown as number);
+        }
+      }
+    }
+
+    return ""+total;
+  }
 }
+
+export class JoueurStatistique{
+  "origine":string;
+  "metier":string;
+  "nombrePersonnage":string;
+  "totalCritiques":string;
+  "totalEchecs":string;
+  "totalDegats":string;
+  "level":string;
+  "heroCritiques":string;
+  "heroEchecs":string;
+  "totalEnnemis":string;
+};

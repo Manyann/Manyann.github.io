@@ -1,6 +1,6 @@
 <br>
-<p-tabView  > 
-    <p-tabPanel header="Global">
+<p-tabView  (onChange)="onTabChange($event)"> 
+    <p-tabPanel header="Global" >
         <div  class="infos-container">
             <div class="info-group">
                 <div class="info-group-header">
@@ -66,7 +66,56 @@
         </div>
     </p-tabPanel>
     
-    <p-tabPanel *ngFor="let joueur of (joueurs ?? [])" [header]="joueur.code">
+    <p-tabPanel *ngFor="let joueur of (joueurs ?? [])" [header]="joueur.code" (onAfterToggle)="updateStats(joueur.code)" >
+        <p-panel header="Statistiques"  class="stats-panel">
+        <div  class="infos-container">
+            <div class="info-stats">
+                <div class="info-group-row">
+                    <div>Nombre de personnage : </div>
+                    <div>{{statistiquesJoueur?.nombrePersonnage}}</div>
+                </div>
+                <div class="info-group-row">
+                    <div>Origine la plus jouée : </div>
+                    <div>{{statistiquesJoueur?.origine}}</div>
+                </div>
+                <div class="info-group-row">
+                    <div>Métier le plus joué : </div>
+                    <div>{{statistiquesJoueur?.metier}}</div>
+                </div>
+                <div class="info-group-row">
+                    <div>Plus haut niveau : </div>
+                    <div>{{statistiquesJoueur?.level}}</div>
+                </div>
+                <div class="info-group-row">
+                    <div>Total de critiques : </div>
+                    <div>{{statistiquesJoueur?.totalCritiques}}</div>
+                </div>
+                <div class="info-group-row">
+                    <div>Héro avec le plus de critiques : </div>
+                    <div>{{statistiquesJoueur?.heroCritiques}}</div>
+                </div>
+                <div class="info-group-row">
+                    <div>Total d'échecs critiques : </div>
+                    <div>{{statistiquesJoueur?.totalEchecs}}</div>
+                </div>
+                <div class="info-group-row">
+                    <div>Héro avec le plus d'échec critiques : </div>
+                    <div>{{statistiquesJoueur?.heroEchecs}}</div>
+                </div>
+                <div class="info-group-row">
+                    <div>Total des dégats infligés : </div>
+                    <div>{{statistiquesJoueur?.totalDegats}}</div>
+                </div>
+                <div class="info-group-row">
+                    <div>Nombre d'énnemis rencontrés : </div>
+                    <div>{{statistiquesJoueur?.totalEnnemis}}</div>
+                </div>
+            </div>
+            <div class="infos-achievment">
+
+            </div>
+        </div>
+    </p-panel>
     </p-tabPanel>
     
 </p-tabView  > 

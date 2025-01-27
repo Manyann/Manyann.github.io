@@ -4,13 +4,14 @@ import { CommonModule } from '@angular/common';
 import { TabViewModule } from 'primeng/tabview';
 import { JoueursService } from '../../app/services/joueur.service';
 import { CodeValeur } from '../model/code-libelle';
-import { StatistiquesService } from '../../app/services/statistiques.service';
+import { JoueurStatistique, StatistiquesService } from '../../app/services/statistiques.service';
 import { ChartModule } from 'primeng/chart';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-statistique',
   standalone: true,
-  imports: [CommonModule,TabViewModule,ChartModule],
+  imports: [CommonModule,TabViewModule,ChartModule,PanelModule],
   templateUrl: './statistique.component.html',
   styleUrl: './statistique.component.css'
 })
@@ -177,10 +178,12 @@ export class StatistiqueComponent {
 
   //#endregion Options
 
+  statistiquesJoueur : JoueurStatistique | undefined;
+
   constructor(
     joueursService:JoueursService,
-    statistiquesService:StatistiquesService,
-    private router: Router){
+    private statistiquesService:StatistiquesService
+  ){
       
      joueursService.getAll().then(snap =>{
       this.joueurs = snap
@@ -322,7 +325,6 @@ export class StatistiqueComponent {
         ], 
       };
     });
-    
     statistiquesService.getEnnemis().then(snap =>{
       this.dataEnnemis = { 
         labels: snap.map(x=>x.code), 
@@ -336,6 +338,23 @@ export class StatistiqueComponent {
         ], 
       };
     });
+  }
+
+  // async updateStats(joueur:string){
+  //   console.log(joueur + "aaa");
+  //   this.statistiquesJoueur = await this.statistiquesService.getJoueurStatistique(joueur);
+  // }
+
+  onTabChange(event: any) {
+    const index = (event as { index: number }).index; // Cast $event to the correct type
+    const joueur = this.joueurs[index-1];
+    if (joueur) {
+      this.updateStats(joueur.code);
+    }
+  }
+  
+  async updateStats(joueurCode: string) {
+    this.statistiquesJoueur = await this.statistiquesService.getJoueurStatistique(joueurCode);
   }
   
   

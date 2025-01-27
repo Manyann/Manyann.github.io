@@ -17,3 +17,12 @@
     flex-wrap: wrap;
     gap:3rem;
 }
+
+.info-group-row{
+    display: flex;
+    margin:1rem;
+}
+
+.info-group-row>div:first-child{
+    width: 20rem;;
+}
