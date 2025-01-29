@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, doc, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { EnnemiHelper, Mob } from '../../component/model/ennemi';
 import { CodeValeur } from '../../component/model/code-libelle';
 
@@ -382,7 +382,9 @@ export class StatistiquesService {
 
     for (const hero of heros) {
       let degats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
-      total += degats.length;
+      degats.forEach(element => {
+        total += element['intensite'];
+      });;
     }
 
     return ""+total;
@@ -396,14 +398,205 @@ export class StatistiquesService {
 
     for (const hero of heros) {
       let mobs = (await getDocs(query(collection(this.firestore,'heros_mobs'),hero['nom']))).docs.map((entries) => entries.data());
-      for (const key in mobs) {
-        if (Object.prototype.hasOwnProperty.call(mobs, key)) {
-          total += (mobs[key] as unknown as number);
-        }
-      }
+      total += mobs.reduce((acc, obj) => {
+        return acc + Object.values(obj).reduce((sum, num) => sum + num, 0);
+    }, 0);
     }
 
     return ""+total;
+  }
+
+  async getJoueurTrophes(joueur:string){
+
+    //tous les heros du joueurs
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+
+    let heroCritiques: number[] = [];
+    for (const hero of heros) {
+      heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_critiques'), 
+        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data()['intensite']);
+    }
+
+    let heroEchecs: number[] = [];
+    for (const hero of heros) {
+      heroEchecs = (await getDocs(query(collection(this.firestore, 'heros_echecs'), 
+        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data()['intensite']);
+    }
+
+    let heroArmes: DocumentData[] = [];
+    for (const hero of heros) {
+      heroArmes = (await getDocs(query(collection(this.firestore, 'heros_armes'), 
+        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data());
+    }
+
+    const nameMap = new Map<string, number>();
+    for (const item of heroArmes) {
+      let armeCode:string = item['arme_code'];
+      if (new Set(["baton-d-elementaliste", "grimoire-universel"]).has(armeCode)) {
+        nameMap.set(item['hero_nom'], (nameMap.get(item['hero_nom']) || 0) + 1);
+      }
+    }
+    let isElementaire =  nameMap.size > 0;
+
+    return [
+      {
+        caterorie:3,
+        titre:"Pourquoi moi ?!",
+        description:"Lancer un 20-19",
+        possede:heroEchecs.includes(19),
+      },
+      {
+        caterorie:3,
+        titre:"Expelliarmus",
+        description:"Lancer un 20 puis 10, 11 ou 12",
+        possede:[10,11,12].some(e => heroEchecs.includes(e)),
+      },
+      {
+        caterorie:3,
+        titre:"Mon fidèle bras droit",
+        description:"Lancer un 20 puis 8 ou 9",
+        possede:[8,9].some(e => heroEchecs.includes(e)),
+      },
+      {
+        caterorie:3,
+        titre:"Mon fidèle bras gauche",
+        description:"Lancer un 20 puis 6 ou 7",
+        possede:[6,7].some(e => heroEchecs.includes(e)),
+      },
+      {
+        caterorie:3,
+        titre:"Pas de temps à perdre",
+        description:"Lancer un 1-19 ou 1-20",
+        possede:[19,20].some(e => heroCritiques.includes(e)),
+      },
+      {
+        caterorie:3,
+        titre:"Façon elle était moche cette armure",
+        description:"Lancer un 20-11",
+        possede:heroEchecs.includes(11),
+      },
+      {
+        caterorie:3,
+        titre:"Sacrieur",
+        description:"Lancer un 20 puis 16, 17 ou 18",
+        possede:[16,17,18].some(e => heroEchecs.includes(e)),
+      },
+      {
+        caterorie:3,
+        titre:"Petite sieste reposante",
+        description:"Lancer un 20 puis 3 ou 5",
+        possede:[3,5].some(e => heroEchecs.includes(e)),
+      },
+      {
+        caterorie:3,
+        titre:"One does not simply walk 100km",
+        description:"Parcourir 100km avec un seul personnage",
+        possede:heros.find(x=>x['km'] >= 100) !== undefined,
+      },
+      {
+        caterorie:3,
+        titre:"Un destin tout tracé",
+        description:"Utiliser tous les points de destin d'un personnage",
+        possede:heros.find(x=>x['destin'] == 0) !== undefined,
+      },
+      {
+        caterorie:3,
+        titre:"C'est un échec",
+        description:"Faire un échec critique sur un lancé de combat",
+        possede:heroEchecs.length > 0,
+      },
+      {
+        caterorie:2,
+        titre:"En voie d'extinction",
+        description:"Combattre 100* le même type d'ennemi",
+        possede:false,
+      },
+      {
+        caterorie:2,
+        titre:"Elémentaire mon cher",
+        description:"Possédé un Grimoire universel et un Baton d'élémentaliste sur le même personnage",
+        possede: isElementaire
+      },
+      {
+        caterorie:2,
+        titre:"Monster Hunter",
+        description:"Avoir incarné un chasseur de monstres",
+        possede:heros.find(x=>x['metier'] == 'chasseur-de-monstres') !== undefined,
+      },
+      {
+        caterorie:2,
+        titre:"Uncharted",
+        description:"Avoir incarné un chasseur de trésors",
+        possede:heros.find(x=>x['metier'] == 'chasseur-de-tresor') !== undefined,
+      },
+      {
+        caterorie:2,
+        titre:"Marshal",
+        description:"Avoir incarné un chasseur de primes",
+        possede:heros.find(x=>x['metier'] == 'chasseur-de-primes') !== undefined,
+      },
+      {
+        caterorie:2,
+        titre:"Budo",
+        description:"Avoir incarné un Samurai",
+        possede:heros.find(x=>x['origine'] == 'samurai') !== undefined,
+      },
+      {
+        caterorie:2,
+        titre:"Picsou",
+        description:"Accumuler 5000 PO sans les dépenser",
+        possede:heros.find(x=>x['origine'] == 'samurai') !== undefined,
+      },
+      {
+        caterorie:2,
+        titre:"Comme un air de supériorité",
+        description:"Avoir incarné une Walkyrie",
+        possede:heros.find(x=>x['origine'] == 'walkyrie') !== undefined,
+      },
+      {
+        caterorie:2,
+        titre:"Maximus Decimus",
+        description:"Avoir atteint le rang de Gladiateur",
+        possede:heros.find(x=>x['origine'] == 'gladiateur') !== undefined,
+      },
+      {
+        caterorie:2,
+        titre:"David Copperfield",
+        description:"Avoir atteint le rang de prestidigitateur",
+        possede:heros.find(x=>x['origine'] == 'prestidigitateur') !== undefined,
+      },
+      {
+        caterorie:1,
+        titre:"Smaug",
+        description:"Accumuler 5000 PO sans les dépenser",
+        possede:heros.find(x=>x['or'] >= 5000) !== undefined,
+      },
+      {
+        caterorie:1,
+        titre:"Représentant divin",
+        description:"Avoir débloqué une évolution de Walkyrie",
+        possede:heros.find(x=> ['compagnie-du-crepuscule','gardienne-de-l-aube','legion-celeste'].includes(x['metier'])) !== undefined,
+      },
+      {
+        caterorie:0,
+        description:"One shot un ennemi 100* avec un critique",
+        possede:heroCritiques.filter(x=>x == 19 || x == 20).length >= 100,
+        titre:"Highlander"
+      },
+      {
+        caterorie:0,
+        titre:"Envoyé des dieux",
+        description:"Avoir atteint le rang d'Archange",
+        possede:heros.find(x=>x['metier'] == 'archange') !== undefined,
+      },
+      {
+        caterorie:0,
+        titre:"The YOU show",
+        description:"Avoir atteint le rand de Célébrité",
+        possede: heros.find(x=>x['metier'] == 'celebrite') !== undefined,
+      },
+    ];
   }
 }
 
@@ -419,3 +612,11 @@ export class JoueurStatistique{
   "heroEchecs":string;
   "totalEnnemis":string;
 };
+
+export class Trophe{
+  "caterorie":number;
+  "titre":string;
+  "description":string;
+  "possede":boolean;
+}
+

@@ -24,5 +24,74 @@
 }
 
 .info-group-row>div:first-child{
-    width: 20rem;;
+    text-align: right;
+    width: 20rem;
+    margin-right: 2rem;
+}
+
+.top-container{
+    display:flex;
+    flex-wrap: wrap;
+    gap:1rem;
+}
+
+.infos-achivement{
+    display: flex;   
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.achivement{
+    display: flex;
+        align-items: center;
+        border: 1px solid rgb(68, 68, 68);;
+        color:rgb(68, 68, 68);
+        width: 30rem;
+        padding: 0.5rem;
+        gap:0.5rem;
+        .icon{
+            width: 4rem;
+        }
+}
+
+.color-0{
+    color:#287233;
+}
+
+.color-1{
+    color:gold;
+}
+
+.color-2{
+    color:silver;
+}
+
+.color-3{
+    color:#cd7f32;
+}
+
+.bcolor-0{
+    border-color:#287233;
+}
+.bcolor-1{
+    border-color:gold;
+}
+
+.bcolor-2{
+    border-color:silver;
+}
+
+.bcolor-3{
+    border-color:#cd7f32;
+}
+.title{
+    font-weight: bold;
+    font-size: 16px;
+}
+.description{
+    font-size: 12px;
+}
+
+.visible-false{
+    visibility: hidden;
 }

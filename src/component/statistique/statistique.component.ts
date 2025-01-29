@@ -4,14 +4,15 @@ import { CommonModule } from '@angular/common';
 import { TabViewModule } from 'primeng/tabview';
 import { JoueursService } from '../../app/services/joueur.service';
 import { CodeValeur } from '../model/code-libelle';
-import { JoueurStatistique, StatistiquesService } from '../../app/services/statistiques.service';
+import { JoueurStatistique, StatistiquesService, Trophe } from '../../app/services/statistiques.service';
 import { ChartModule } from 'primeng/chart';
 import { PanelModule } from 'primeng/panel';
+import { TrophesPipe } from './trophe.pipe';
 
 @Component({
   selector: 'app-statistique',
   standalone: true,
-  imports: [CommonModule,TabViewModule,ChartModule,PanelModule],
+  imports: [CommonModule,TabViewModule,ChartModule,PanelModule,TrophesPipe],
   templateUrl: './statistique.component.html',
   styleUrl: './statistique.component.css'
 })
@@ -179,6 +180,7 @@ export class StatistiqueComponent {
   //#endregion Options
 
   statistiquesJoueur : JoueurStatistique | undefined;
+  trophesJoueur : Trophe[] | undefined;
 
   constructor(
     joueursService:JoueursService,
@@ -350,11 +352,16 @@ export class StatistiqueComponent {
     const joueur = this.joueurs[index-1];
     if (joueur) {
       this.updateStats(joueur.code);
+      this.updateTrophes(joueur.code);
     }
   }
   
   async updateStats(joueurCode: string) {
     this.statistiquesJoueur = await this.statistiquesService.getJoueurStatistique(joueurCode);
+  }
+
+  async updateTrophes(joueurCode:string){
+    this.trophesJoueur = await this.statistiquesService.getJoueurTrophes(joueurCode);
   }
   
   

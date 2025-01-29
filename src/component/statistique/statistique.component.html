@@ -67,6 +67,7 @@
     </p-tabPanel>
     
     <p-tabPanel *ngFor="let joueur of (joueurs ?? [])" [header]="joueur.code" (onAfterToggle)="updateStats(joueur.code)" >
+        <div class="top-container">
         <p-panel header="Statistiques"  class="stats-panel">
         <div  class="infos-container">
             <div class="info-stats">
@@ -111,11 +112,20 @@
                     <div>{{statistiquesJoueur?.totalEnnemis}}</div>
                 </div>
             </div>
-            <div class="infos-achievment">
-
-            </div>
         </div>
     </p-panel>
+    <p-panel header="{{trophesJoueur ?? [] | trophes}}"  class="stats-panel">
+            <div class="infos-achivement">
+                <div class="achivement {{(trophe.possede ? 'bcolor-'+trophe.caterorie : '' )}}" *ngFor="let trophe of (trophesJoueur ?? [])">
+                    <div class="icon"><i class="pi pi-crown {{(trophe.possede ? 'color-'+trophe.caterorie : '' )}}"></i></div>
+                    <div class="message {{(trophe.possede ? 'color-'+trophe.caterorie : '' )}}">
+                        <div class="title">{{trophe.titre}}</div>
+                        <div class="description visible-{{trophe.possede}}">{{trophe.description}}</div>
+                    </div>
+                </div>
+            </div>
+    </p-panel>
+</div>
     </p-tabPanel>
     
 </p-tabView  > 
