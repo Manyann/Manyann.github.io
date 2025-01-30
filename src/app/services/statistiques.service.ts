@@ -384,7 +384,7 @@ export class StatistiquesService {
       let degats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
       degats.forEach(element => {
         total += element['intensite'];
-      });;
+      });
     }
 
     return ""+total;
@@ -412,9 +412,7 @@ export class StatistiquesService {
     let heros = (await getDocs(query(collection(this.firestore,'heros'),
     where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
 
-    let herosDegats = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data()['degat']);
-
+   
     let heroCritiques: Critique[] = [];
     for (const hero of heros) {
       heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_critiques'), 
@@ -439,6 +437,22 @@ export class StatistiquesService {
         where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data());
     }
 
+    let heroDegats = 0;
+    let heroTopDegat = 0;
+    let currentHeroTopDegat = 0;
+
+    for (const hero of heros) {
+      let degats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      currentHeroTopDegat = 0;
+      degats.forEach(element => {
+        heroDegats += element['intensite'];
+        currentHeroTopDegat+=element['intensite'];
+      });
+      if(currentHeroTopDegat > heroTopDegat){
+        heroTopDegat = currentHeroTopDegat;
+      }
+    }
+
     const nameMap = new Map<string, number>();
     let hasBriseMonde = false;
     let heroPlaque: { [hero: string] : number; } = {};
@@ -461,6 +475,12 @@ export class StatistiquesService {
     return [
       {
         categorie:3,
+        titre:"Sacré torgnole",
+        description:"Faire 10+ dégats en un lancé",
+        possede:heroTopDegat>10,
+      },
+      {
+        categorie:3,
         titre:"Pourquoi moi ?!",
         description:"Lancer un 20-19",
         possede:heroEchecs.includes(19),
@@ -469,7 +489,7 @@ export class StatistiquesService {
         categorie:3,
         titre:"Premiers pas... dans leur tronche",
         description:"Avoir 500+ dégats",
-        possede:heros.map(x=>x['degat']).reduce((sum, current) => sum + current.total, 0)>500,
+        possede:heroDegats>500,
       },
       {
         categorie:3,
@@ -575,7 +595,7 @@ export class StatistiquesService {
 },
 {
         categorie:3,
-        titre:"1 javelot ... 3 c'est mieux",
+        titre:"1 javelot c'est bien ... 3 c'est mieux",
         description:"Avoir incarné un Demi-Orque",
         possede:heros.find(x=>x['origine'] == 'demi-orque') !== undefined
 },
@@ -663,11 +683,17 @@ export class StatistiquesService {
         description:"Avoir incarné un Mage",
         possede:heros.find(x=>x['metier'] == 'mage') !== undefined
 },
+{
+  categorie:2,
+  titre:"Patate de forain",
+  description:"Faire 20+ dégats en un lancé",
+  possede:heroTopDegat>20,
+},
       {
         categorie:2,
         titre:"I hate you 3 thousands",
         description:"Avoir 3000+ dégats",
-        possede:heros.find(x=>x['degats'] > 3000) !== undefined,
+        possede:heroDegats > 3000,
       },
       {
         categorie:2,
@@ -736,7 +762,7 @@ export class StatistiquesService {
         possede:heroParades.length > 0,
       },
 {
-  categorie:2,
+        categorie:2,
         titre:"Dice throne #1",
         description:"Avoir incarné un Moine",
         possede:heros.find(x=>x['metier'] == 'moine') !== undefined,
@@ -825,11 +851,29 @@ export class StatistiquesService {
         description:"Avoir incarné un Humain sans métier",
         possede:heros.find(x=>x['origine'] == 'humain' && x['metier'] == '') !== undefined,
 },
+{
+  categorie:2,
+  titre:"Combattre les stéréotypes",
+  description:"Avoir incarné un Orque Mage",
+  possede:heros.find(x=> x['origine'] == 'orque' &&x['metier'] == 'mage') !== undefined,
+},
+{
+  categorie:2,
+  titre:"Renforcer les stéréotypes",
+  description:"Avoir incarné un Hommes des sables Voleur",
+  possede:heros.find(x=> x['origine'] == 'homme-des-sables' && x['metier'] == 'voleur') !== undefined,
+},
+{
+  categorie:2,
+  titre:"Coup de pied au cul du Daron",
+  description:"Faire 30+ dégats en un lancé",
+  possede:heroTopDegat>30,
+},
       {
         categorie:1,
         titre:"Over 9000 !",
         description:"Avoir 9000+ dégats",
-        possede:heros.find(x=>x['degats'] > 9000) !== undefined,
+        possede:heroDegats > 9000,
       },
       {
         categorie:1,
@@ -905,6 +949,13 @@ export class StatistiquesService {
 },
 {
   categorie:1,
+  titre:"Le vrai Dark Sasuke",
+  description:"Avoir incarné un Elfe Noir Démonologue",
+  possede:heros.find(x=> x['origine'] == 'elfe-noir' && x['metier'] == 'demologue') !== undefined,
+
+},
+{
+  categorie:1,
   titre:"Charles Darwin",
   description:"Avoir combattu 100 ennemis différents",
   possede:false
@@ -932,6 +983,12 @@ export class StatistiquesService {
   titre:"Pokedex complet",
   description:"Avoir combattu tous les types d'ennemis",
   possede:false
+},
+{
+  categorie:0,
+  titre:"C'est donc possible ...",
+  description:"Avoir atteint le niveau 10",
+  possede:heros.find(x=>x['niveau'] > 10) !== undefined
 },
       {
         categorie:0,
@@ -1007,14 +1064,14 @@ export class StatistiquesService {
     },
     {
         categorie:10,
-        titre:"L'Alpha et l'Oméga",
-        description:"Avoir incarné toutes les origines et tous les metiers possibles",
+        titre:"Rudolf Clausius",
+        description:"Avoir lancé 50 sorts entropiques avec un seul personnage",
         possede:false
     },
     {
-        categorie:10,
-        titre:"Rudolf Clausius",
-        description:"Avoir lancé 50 sorts entropiques avec un seul personnage",
+        categorie:11,
+        titre:"La fin",
+        description:"Avoir tous les trophés",
         possede:false
     },
     ];

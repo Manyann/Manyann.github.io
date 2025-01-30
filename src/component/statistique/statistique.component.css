@@ -36,6 +36,7 @@
 }
 
 .infos-achivement{
+    z-index: 0;
     display: flex;   
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -69,15 +70,15 @@
 .color-3{
     color:#cd7f32;
 }
-.color-1{
+.color-5{
     color:#e5e4e2;
 }
 
-.color-2{
-    color:#e5e4e2;
+.color-8{
+    color:#86E9FF;
 }
 
-.color-3{
+.color-10{
     color:#C73131;
 }
 
@@ -95,84 +96,7 @@
 .bcolor-3{
     border-color:#cd7f32;
 }
-.bcolor-5::before{
-    content: "";
-    position: absolute;
-    z-index: -2;
-    left: -50%;
-    top: -50%;
-    width: 200%;
-    height: 200%;
-    background-color: #000;
-    background-repeat: no-repeat;
-    background-size: 100%100%, 50%50%;
-    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-    background-image: linear-gradient(#fff, #e5e4e2);
-    animation: bgRotate 4s linear infinite;
-}
-.bcolor-5::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    left: 1px;
-    top: 1px;
-    width: calc(100% - 2px);
-    height: calc(100% - 2px);
-    background: linear-gradient(#fff, #e5e4e2);
-    border-radius: 12px;
-  }
-  .bcolor-8::before{
-    content: "";
-    position: absolute;
-    z-index: -2;
-    left: -50%;
-    top: -50%;
-    width: 200%;
-    height: 200%;
-    background-color: #000;
-    background-repeat: no-repeat;
-    background-size: 100%100%, 50%50%;
-    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-    background-image: linear-gradient(#fff, #e5e4e2);
-    animation: bgRotate 4s linear infinite;
-}
-.bcolor-8::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    left: 1px;
-    top: 1px;
-    width: calc(100% - 2px);
-    height: calc(100% - 2px);
-    background: linear-gradient(#fff, #B9F2FF);
-    border-radius: 12px;
-  }
-  .bcolor-10::before{
-    content: "";
-    position: absolute;
-    z-index: -2;
-    left: -50%;
-    top: -50%;
-    width: 200%;
-    height: 200%;
-    background-color: #000;
-    background-repeat: no-repeat;
-    background-size: 100%100%, 50%50%;
-    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
-    background-image: linear-gradient(#fff, #C73131);
-    animation: bgRotate 4s linear infinite;
-}
-.bcolor-10::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    left: 1px;
-    top: 1px;
-    width: calc(100% - 2px);
-    height: calc(100% - 2px);
-    background: linear-gradient(#fff, #C73131);
-    border-radius: 12px;
-  }
+
 .title{
     font-weight: bold;
     font-size: 16px;
@@ -187,8 +111,79 @@
 .display-false{
     display: none;
 }
-@keyframes bgRotate {
-    100% {
-      transform: rotate(1turn);
-    }
+
+
+
+  .bcolor-5,.bcolor-8,.bcolor-10 {
+    background: #1D1F20;
+    position: relative;
+    border-radius: 1px;
+  }
+  /* .gradient-border:after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    height: 108%;
+    width: 100.8%;
+    background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+    border-radius: calc(2* 1px);
+    z-index: -1;
+    animation: _ngcontent-ng-c1820034613_animatedgradient 3s ease alternate infinite;
+    background-size: 300% 300%;
+  } */
+  .bcolor-5:after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    height: 108%;
+    width: 100.8%;
+    background:linear-gradient(60deg, #e5e4e2,#000000,#e5e4e2);
+    border-radius: calc(2* 1px);
+    z-index: -1;
+    animation: _ngcontent-ng-c1820034613_animatedgradient 3s ease alternate infinite;
+    background-size: 300% 300%;
+  }
+  .bcolor-8:after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    height: 108%;
+    width: 100.8%;
+    background:linear-gradient(60deg, #86E9FF,#000000,#86E9FF);
+    border-radius: calc(2* 1px);
+    z-index: -1;
+    animation: _ngcontent-ng-c1820034613_animatedgradient 3s ease alternate infinite;
+    background-size: 300% 300%;
+  }
+  .bcolor-10:after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    height: 108%;
+    width: 100.8%;
+    background:linear-gradient(
+        60deg,
+        #C73131,
+        #000000,
+        #C73131);
+    border-radius: calc(2* 1px);
+    z-index: -1;
+    animation: _ngcontent-ng-c1820034613_animatedgradient 3s ease alternate infinite;
+    background-size: 300% 300%;
+  }
+  
+  @keyframes animatedgradient {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
   }
