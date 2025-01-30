@@ -58,24 +58,43 @@ export class HerosService {
     await setDoc(hero, { niveau: increment(1)  }, { merge: true });
   }
 
-  async addCritique(nom:string, intensite:number){
+  async addCritique(nom:string, intensite:number,tour:number){
     await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()), {
       hero_nom:nom,
       intensite:intensite,
-      date:new Date()
+      date:new Date(),
+      tour:tour
     });
   }
 
-  async addEchecCritique(nom:string, intensite:number){
+  async addParade(nom:string, intensite:number,tour:number){
+    await setDoc(doc(this.firestore, "heros_parades", crypto.randomUUID()), {
+      hero_nom:nom,
+      intensite:intensite,
+      date:new Date(),
+      tour:tour
+    });
+  }
+
+  async addEchecCritique(nom:string, intensite:number,tour:number){
     await setDoc(doc(this.firestore, "heros_echecs", crypto.randomUUID()), {
       hero_nom:nom,
       intensite:intensite,
-      date:new Date()
+      date:new Date(),
+      tour:tour
     });
   }
 
   async addCritiqueMJ(intensite:number){
     await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()), {
+      hero_nom:"MJ",
+      intensite:intensite,
+      date:new Date()
+    });
+  }
+
+  async addParadeMJ(intensite:number){
+    await setDoc(doc(this.firestore, "heros_parades", crypto.randomUUID()), {
       hero_nom:"MJ",
       intensite:intensite,
       date:new Date()
@@ -90,12 +109,13 @@ export class HerosService {
     });
   }
 
-  async updateDegatsDealt(nom:string,degats:number){
+  async updateDegatsDealt(nom:string,degats:number,tour:number){
     console.log(nom,degats);
     await setDoc(doc(this.firestore, "heros_degats", crypto.randomUUID()), {
       hero_nom:nom,
       intensite:degats,
-      date:new Date()
+      date:new Date(),
+      tour:tour
     });
   }
 

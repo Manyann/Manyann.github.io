@@ -28,6 +28,7 @@ import { MobsService } from '../../../app/services/mob.service';
 export class CombatComponent {
   title = 'nhbk';
   heroSession$ : Promise<DocumentData[]> | undefined;
+  herosCode : string[] = [];
 
   allMobs$ : Promise<Mob[]> | undefined;
   mobs : Mob[] = [];
@@ -38,6 +39,7 @@ export class CombatComponent {
   addDegats:number=0;
   addMob:Mob | undefined;
   addMobNumber:number=1;
+  tour:number=1;
   
   sidebarVisible : boolean;
 
@@ -54,6 +56,14 @@ export class CombatComponent {
     this.sidebarVisible = false;
    
     this.heroSession$ = herosService.getAllFromSession();
+    this.heroSession$.then(
+      (heros) => {
+        heros.forEach((hero) =>{
+          let code :string  = hero['nom'];
+          this.herosCode.push(code);
+        });
+      }
+    );
 
     this.allMobs$ = mobsService.getAll();
 
@@ -62,6 +72,9 @@ export class CombatComponent {
     })
   }
 
+  nextTour(){
+    this.tour++;
+  }
 
   addMort(hero:string){
     this.herosService.addMort(hero)
@@ -75,7 +88,7 @@ export class CombatComponent {
   }
 
   addCoupCritique(hero:string){
-    this.herosService.addCritique(hero,this.addIntensite)
+    this.herosService.addCritique(hero,this.addIntensite,this.tour)
     .then(()=> {
       this.addIntensite = 0;
       this.messageService.add({
@@ -87,13 +100,25 @@ export class CombatComponent {
   }
 
   addEchecCritique(hero:string){
-    this.herosService.addEchecCritique(hero,this.addIntensite)
+    this.herosService.addEchecCritique(hero,this.addIntensite,this.tour)
     .then(()=> {
       this.addIntensite = 0;
       this.messageService.add({
         severity:'info',
         closable:true,
         summary:"Echec critique ajouté"
+      });
+    });
+  }
+
+  addParadeCritique(hero:string){
+    this.herosService.addParade(hero,this.addIntensite,this.tour)
+    .then(()=> {
+      this.addIntensite = 0;
+      this.messageService.add({
+        severity:'info',
+        closable:true,
+        summary:"Parade critique ajoutée"
       });
     });
   }
@@ -111,6 +136,18 @@ export class CombatComponent {
     });
   }
 
+  addParadeCritiqueMJ(){
+    this.herosService.addParadeMJ(this.addIntensite)
+    .then(()=> {
+      this.addIntensite = 0;
+      this.messageService.add({
+        severity:'info',
+        closable:true,
+        summary:"Parade critique ajoutée"
+      });
+    });
+  }
+
   addEchecCritiqueMJ(){
     this.herosService.addEchecCritiqueMJ(this.addIntensite)
     .then(()=> {
@@ -124,7 +161,7 @@ export class CombatComponent {
   }
 
   updateDegatsDealt(hero:string){
-    this.herosService.updateDegatsDealt(hero,this.addDegats)
+    this.herosService.updateDegatsDealt(hero,this.addDegats,this.tour)
     .then(()=> {
       this.messageService.add({
         severity:'info',
@@ -149,14 +186,27 @@ export class CombatComponent {
   }
 
   generateMob(){
+    debugger;
     let mobCode = this.addMob?.code ?? "";
-    let nombre = this.addMobNumber;
     for (let i = 0; i < this.addMobNumber; i++) {
-      this.mobs.push(this.mobsToSearch.find(x=>x.code == mobCode) ?? this.mobsToSearch[0]);
+      let mob = this.mobsToSearch.find(x=>x.code == mobCode) ?? this.mobsToSearch[0];
+      this.mobs.push(
+        {
+          index: this.mobs.length,
+          armure : mob.armure,
+          attaque : mob.attaque,
+          code :mob.code,
+          degats : mob.degats,
+          experience : mob.experience,
+          informations : mob.informations,
+          libelle : mob.libelle,
+          parade : mob.parade,
+          vie : mob.vie,
+          zone : mob.zone
+        }
+      );
     }
-    this.heroSession$?.then((hero) =>{
-      this.herosService.addMobCombattu(hero[0]['nom'] as string,mobCode,nombre);
-    })
+    
     this.addMobNumber = 1;
     this.addMob = undefined;
    }
@@ -165,9 +215,10 @@ export class CombatComponent {
   generateCustomMob(){ 
     this.mobs.push(
       {
+        index: this.mobs.length,
         armure : 0,
         attaque : 0,
-        code : "*",
+        code :"*-" +this.mobs.length,
         degats : "dégats",
         experience : 0,
         informations : "infos",
@@ -177,6 +228,15 @@ export class CombatComponent {
         zone : "*"
       }
     );
+  }
+
+  killMob(index:number,mobCode:string,mobLibelle:string){
+    let id = mobCode.startsWith("*") ? mobLibelle :mobCode;
+    this.herosCode.forEach((hero) =>{
+      this.herosService.addMobCombattu(hero,id.toLowerCase(),1);
+    });
+
+    this.mobs =  this.mobs.filter(x=>x.index != index);
   }
 
   

@@ -119,7 +119,7 @@
                 <div class="achivement {{(trophe.possede ? 'bcolor-'+trophe.caterorie : '' )}}" *ngFor="let trophe of (trophesJoueur ?? [])">
                     <div class="icon"><i class="pi pi-crown {{(trophe.possede ? 'color-'+trophe.caterorie : '' )}}"></i></div>
                     <div class="message {{(trophe.possede ? 'color-'+trophe.caterorie : '' )}}">
-                        <div class="title">{{trophe.titre}}</div>
+                        <div class="title visible-{{trophe.caterorie <= 3}}">{{trophe.titre}}</div>
                         <div class="description visible-{{trophe.possede}}">{{trophe.description}}</div>
                     </div>
                 </div>

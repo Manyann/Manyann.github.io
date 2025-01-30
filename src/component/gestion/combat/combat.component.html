@@ -2,11 +2,7 @@
     <div class="hero-card-layout">
         <div *ngFor="let hero of (heroSession$ | async)" class="hero-card">
             <div class="header">{{hero['nom']}}</div>
-            <div class="body">
-                <span><i class="pi pi-heart-fill" title="vie"></i>{{hero['vie']}}</span>
-                <span><i class="pi pi-bolt" title="mana"></i>{{hero['mana']}}</span>
-                <span><i class="pi pi-history" title="destin"></i>{{hero['destin']}}</span>
-            </div>
+            <div class="body"> </div>
             <div class="action">
                 <div class="row">
                     <p-button (onClick)="removeDestin(hero['nom'])" icon="pi pi-minus" label="Destin" />
@@ -20,9 +16,13 @@
                     <p-inputNumber class="input-sm" [(ngModel)]="addIntensite"></p-inputNumber>
                     <p-button (onClick)="addCoupCritique(hero['nom'])"  icon="pi pi-plus" label="CC" />
                     <p-button (onClick)="addEchecCritique(hero['nom'])"  icon="pi pi-plus" label="EC" />
+                    <p-button (onClick)="addParadeCritique(hero['nom'])"  icon="pi pi-plus" label="PC" />
                 </div>
             </div>
         </div>
+    </div>
+    <div class="next-tour">
+        Tour {{tour}} <p-button icon="pi pi-angle-double-right" label="Tour suivant" (click)="nextTour()" />
     </div>
 </p-panel>
 <br />
@@ -49,6 +49,7 @@
             <p-inputNumber class="input-sm" [(ngModel)]="addIntensite"></p-inputNumber>
             <p-button (onClick)="addCoupCritiqueMJ()"  icon="pi pi-plus" label="CC MJ" />
             <p-button (onClick)="addEchecCritiqueMJ()"  icon="pi pi-plus" label="EC MJ" />
+            <p-button (onClick)="addParadeCritiqueMJ()"  icon="pi pi-plus" label="PC MJ" />
         </div>               
     </div>
     <div class="mob-list">
@@ -79,6 +80,7 @@
                     <th>
                         Informations
                     </th>
+                    <th></th>
                 </tr>
             </ng-template>
             <ng-template  pTemplate="body" let-mob>
@@ -181,6 +183,9 @@
                                 {{ mob.informations}}
                             </ng-template>
                         </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-times" label="Mort" (onClick)="killMob(mob.index,mob.code,mob.libelle)"/>
                     </td>
                 </tr>
             </ng-template>

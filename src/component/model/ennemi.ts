@@ -13,6 +13,7 @@ export class EnnemiType{
 };
 
 export class Mob{
+    "index":number;
     "zone":string
     "code":string;
     "libelle":string;
@@ -30,59 +31,59 @@ export class EnnemiHelper{
     static  getAllZone():Array<CodeLibelle>
     {
         return [{
-            code:"foret",
+code:"foret",
             libelle:"Forêt"
         },
         {
-            code:"foret-dangereuse",
+code:"foret-dangereuse",
             libelle:"Forêt Dangereuse"
         },
         {
-            code:"desert",
+code:"desert",
             libelle:"Désert"
         },
         {
-            code:"grottes",
+code:"grottes",
             libelle:"Grottes"
         },
         {
-            code:"humain",
+code:"humain",
             libelle:"Humains"
         },
         {
-            code:"mer",
+code:"mer",
             libelle:"Milieu aquatique"
         },
         {
-            code:"montagne",
+code:"montagne",
             libelle:"Montagne"
         },
         {
-            code:"souterrain",
+code:"souterrain",
             libelle:"Souterrain"
         },
         {
-            code:"terre",
+code:"terre",
             libelle:"Terres Sauvage"
         },
         {
-            code:"terre-dangereux",
+code:"terre-dangereux",
             libelle:"Terres Sauvage Dangereuses"
         },
         {
-            code:"urbain",
+code:"urbain",
             libelle:"Urbain"
         },
         {
-            code:"montagne",
+code:"montagne",
             libelle:"Montagne"
         },
         {
-            code:"givre",
+code:"givre",
             libelle:"Givre"
         },
         {
-            code:"jungle",
+code:"jungle",
             libelle:"Jungle"
         }];
     }  
@@ -91,32 +92,32 @@ export class EnnemiHelper{
     {
         return [
         {
-            code:"coccinelle",
+code:"coccinelle",
             libelle:"Coccinelle berserk",
             zoneCode:"foret"
         },
         {
-            code:"brigant",
+code:"brigant",
             libelle:"1 brigant de base",
             zoneCode:"foret"
         },
         {
-            code:"rat-geant",
+code:"rat-geant",
             libelle:"1 rat géant affamés",
             zoneCode:"foret"
         },
         {
-            code:"bouc",
+code:"bouc",
             libelle:"Bouc en colère",
             zoneCode:"terre"
         },
         {
-            code:"coyote",
+code:"coyote",
             libelle:"1 coyote affamé",
             zoneCode:"terre"
         },
         {
-            code:"troll-geant",
+code:"troll-geant",
             libelle:"1 Troll géant maladrois",
             zoneCode:"terre"
         },
@@ -131,7 +132,8 @@ export class EnnemiHelper{
     static getMobDesert(): Mob[]{
         return [
             {
-                code:("Scarabée du désert").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Scarabée du désert").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Scarabée du désert",
                 zone:"désert",
                 attaque:15,
@@ -143,7 +145,8 @@ export class EnnemiHelper{
                 experience:2,
             },
             {
-                code:("Scorpion du désert").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Scorpion du désert").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Scorpion du désert",
                 zone:"désert",
                 attaque:12,
@@ -155,7 +158,8 @@ export class EnnemiHelper{
                 experience:4,
             },
             {
-                code:("Fennec").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Fennec").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Fennec",
                 zone:"désert",
                 attaque:10,
@@ -167,7 +171,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Cobra").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Cobra").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Cobra",
                 zone:"désert",
                 attaque:8,
@@ -179,7 +184,8 @@ export class EnnemiHelper{
                 informations:"Poison : -1 Stats",
             },
             {
-                code:("Momie").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Momie").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Momie",
                 zone:"désert",
                 attaque:8,
@@ -191,7 +197,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Vautour").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Vautour").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Vautour",
                 zone:"désert",
                 attaque:8,
@@ -203,7 +210,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Homme des sables").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Homme des sables").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Homme des sables",
                 zone:"désert",
                 attaque:8,
@@ -215,7 +223,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Dromadaire enragé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Dromadaire enragé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Dromadaire enragé",
                 zone:"désert",
                 attaque:7,
@@ -227,7 +236,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Taupe géante").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Taupe géante").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Taupe géante",
                 zone:"désert",
                 attaque:9,
@@ -239,7 +249,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Marchand de sable").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Marchand de sable").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Marchand de sable",
                 zone:"désert",
                 attaque:8,
@@ -251,7 +262,8 @@ export class EnnemiHelper{
                 informations:"1D 100 pièce or",
             },
             {
-                code:("Tigre à dents de sable").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Tigre à dents de sable").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Tigre à dents de sable",
                 zone:"désert",
                 attaque:9,
@@ -263,7 +275,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Vieux tigre à dents de sable").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Vieux tigre à dents de sable").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Vieux tigre à dents de sable",
                 zone:"désert",
                 attaque:10,
@@ -275,7 +288,8 @@ export class EnnemiHelper{
                 informations:"A 50% => 1/4 chance appeler un jeune en renfort",
             },
             {
-                code:("Garde de la pyramide").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Garde de la pyramide").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Garde de la pyramide",
                 zone:"désert",
                 attaque:11,
@@ -287,7 +301,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Grand requin des sables").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Grand requin des sables").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Grand requin des sables",
                 zone:"désert",
                 attaque:12,
@@ -299,7 +314,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Pharaon").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Pharaon").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Pharaon",
                 zone:"désert",
                 attaque:13,
@@ -311,7 +327,8 @@ export class EnnemiHelper{
                 informations:"1D6 pierre précieuse",
             },
             {
-                code:("Phénix").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Phénix").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Phénix",
                 zone:"désert",
                 attaque:10,
@@ -323,7 +340,8 @@ export class EnnemiHelper{
                 informations:"1/2 chance de repop quand mort",
             },
             {
-                code:("Elephant furieux").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Elephant furieux").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Elephant furieux",
                 zone:"désert",
                 attaque:8,
@@ -335,7 +353,8 @@ export class EnnemiHelper{
                 informations:"Impossible à parer",
             },
             {
-                code:("Statue d'un dieu").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Statue d'un dieu").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Statue d'un dieu",
                 zone:"désert",
                 attaque:9,
@@ -347,7 +366,8 @@ export class EnnemiHelper{
                 informations:"arme en pierre",
             },
             {
-                code:("Ver géant des sables").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Ver géant des sables").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Ver géant des sables",
                 zone:"désert",
                 attaque:8,
@@ -359,7 +379,8 @@ export class EnnemiHelper{
                 informations:"Attaque furtive",
             },
             {
-                code:("Sphinx géant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Sphinx géant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Sphinx géant",
                 zone:"désert",
                 attaque:8,
@@ -376,7 +397,8 @@ export class EnnemiHelper{
     static getMobTerreSauvage(): Mob[]{
         return [
             {
-                code:("Coyote affamé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Coyote affamé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Coyote affamé",
                 zone:"terre-sauvage",
                 attaque:10,
@@ -388,7 +410,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Scorpion").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Scorpion").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Scorpion",
                 zone:"terre-sauvage",
                 attaque:12,
@@ -400,7 +423,8 @@ export class EnnemiHelper{
                 informations:"Poison : -1 Stats",
             },
             {
-                code:("Cochon mutant énervé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Cochon mutant énervé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Cochon mutant énervé",
                 zone:"terre-sauvage",
                 attaque:10,
@@ -412,7 +436,8 @@ export class EnnemiHelper{
                 informations:"Poison : -1 Stats",
             },
             {
-                code:("Brigand costaud").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Brigand costaud").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Brigand costaud",
                 zone:"terre-sauvage",
                 attaque:10,
@@ -424,7 +449,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Ogre débile").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Ogre débile").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Ogre débile",
                 zone:"terre-sauvage",
                 attaque:8,
@@ -436,7 +462,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Troll berzerk débile").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Troll berzerk débile").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Troll berzerk débile",
                 zone:"terre-sauvage",
                 attaque:8,
@@ -448,7 +475,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Ogre mutant débile").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Ogre mutant débile").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Ogre mutant débile",
                 zone:"terre-sauvage",
                 attaque:8,
@@ -460,7 +488,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Auroch énervé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Auroch énervé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Auroch énervé",
                 zone:"terre-sauvage",
                 attaque:11,
@@ -472,7 +501,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Troll géant maladroit").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Troll géant maladroit").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Troll géant maladroit",
                 zone:"terre-sauvage",
                 attaque:7,
@@ -484,7 +514,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Brébiphant enragé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Brébiphant enragé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Brébiphant enragé",
                 zone:"terre-sauvage",
                 attaque:8,
@@ -496,7 +527,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Guerrier maudit perdu").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Guerrier maudit perdu").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Guerrier maudit perdu",
                 zone:"terre-sauvage",
                 attaque:12,
@@ -508,7 +540,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Orque élite sur sanglier").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Orque élite sur sanglier").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Orque élite sur sanglier",
                 zone:"terre-sauvage",
                 attaque:12,
@@ -520,7 +553,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Hyppopogriffe").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Hyppopogriffe").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Hyppopogriffe",
                 zone:"terre-sauvage",
                 attaque:8,
@@ -532,7 +566,8 @@ export class EnnemiHelper{
                 informations:"Parade impossible",
             },
             {
-                code:("Grosse tarentule des cavernes").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Grosse tarentule des cavernes").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Grosse tarentule des cavernes",
                 zone:"terre-sauvage",
                 attaque:12,
@@ -544,7 +579,8 @@ export class EnnemiHelper{
                 informations:"Poison : -1 Stats",
             },
             {
-                code:("Nécrophage frénétique").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Nécrophage frénétique").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Nécrophage frénétique",
                 zone:"terre-sauvage",
                 attaque:12,
@@ -556,7 +592,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Scorpion géant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Scorpion géant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Scorpion géant",
                 zone:"terre-sauvage",
                 attaque:12,
@@ -568,7 +605,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Morshleg à poil long").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Morshleg à poil long").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Morshleg à poil long",
                 zone:"terre-sauvage",
                 attaque:6,
@@ -580,7 +618,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Millepattes monstrueux").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Millepattes monstrueux").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Millepattes monstrueux",
                 zone:"terre-sauvage",
                 attaque:12,
@@ -592,7 +631,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Dragon de banlieu adulte").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Dragon de banlieu adulte").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Dragon de banlieu adulte",
                 zone:"terre-sauvage",
                 attaque:13,
@@ -609,7 +649,8 @@ export class EnnemiHelper{
     static getMobForet(): Mob[]{
         return [
             {
-                code:("Coccinelle berzerk").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Coccinelle berzerk").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Coccinelle berzerk",
                 zone:"foret",
                 attaque:15,
@@ -621,7 +662,8 @@ export class EnnemiHelper{
                 informations:"Adresse pour l écraser",
             },
             {
-                code:("Brigand de base").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Brigand de base").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Brigand de base",
                 zone:"foret",
                 attaque:9,
@@ -633,7 +675,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Globzoule").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Globzoule").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Globzoule",
                 zone:"foret",
                 attaque:8,
@@ -645,7 +688,8 @@ export class EnnemiHelper{
                 informations:"Poison : -1 Stats",
             },
             {
-                code:("Rat géant affamé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Rat géant affamé").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Rat géant affamé",
                 zone:"foret",
                 attaque:9,
@@ -657,7 +701,8 @@ export class EnnemiHelper{
                 informations:"Poison : -1 Stats",
             },
             {
-                code:("Castor mutant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Castor mutant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Castor mutant",
                 zone:"foret",
                 attaque:8,
@@ -669,7 +714,8 @@ export class EnnemiHelper{
                 informations:"Crache acide, si dégats -1 PR",
             },
             {
-                code:("Brigand archer").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Brigand archer").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Brigand archer",
                 zone:"foret",
                 attaque:8,
@@ -681,7 +727,8 @@ export class EnnemiHelper{
                 informations:"11 AD",
             },
             {
-                code:("Araignée tranchante").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Araignée tranchante").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Araignée tranchante",
                 zone:"foret",
                 attaque:9,
@@ -693,7 +740,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Chapon fanghien").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Chapon fanghien").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Chapon fanghien",
                 zone:"foret",
                 attaque:10,
@@ -705,7 +753,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Orque miteux").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Orque miteux").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Orque miteux",
                 zone:"foret",
                 attaque:9,
@@ -717,7 +766,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Brigand costaud").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Brigand costaud").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Brigand costaud",
                 zone:"foret",
                 attaque:10,
@@ -729,7 +779,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Kobold de base").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Kobold de base").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Kobold de base",
                 zone:"foret",
                 attaque:16,
@@ -741,7 +792,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Sanglier noir fou").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Sanglier noir fou").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Sanglier noir fou",
                 zone:"foret",
                 attaque:10,
@@ -753,7 +805,8 @@ export class EnnemiHelper{
                 informations:"Parade impossible",
             },
             {
-                code:("Plante carnivore").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Plante carnivore").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Plante carnivore",
                 zone:"foret",
                 attaque:10,
@@ -765,7 +818,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Ogre débile foret").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Ogre débile foret").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Ogre débile foret",
                 zone:"foret",
                 attaque:8,
@@ -777,7 +831,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Cochon mutant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Cochon mutant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Cochon mutant",
                 zone:"foret",
                 attaque:10,
@@ -789,7 +844,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Panthère affamée").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Panthère affamée").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Panthère affamée",
                 zone:"foret",
                 attaque:14,
@@ -801,7 +857,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Ogre mutant débilé foret").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Ogre mutant débilé foret").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Ogre mutant débilé foret",
                 zone:"foret",
                 attaque:8,
@@ -813,7 +870,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Troll berzerk débile foret").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Troll berzerk débile foret").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Troll berzerk débile foret",
                 zone:"foret",
                 attaque:8,
@@ -825,7 +883,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Troll géant maladroit foret").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Troll géant maladroit foret").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Troll géant maladroit foret",
                 zone:"foret",
                 attaque:7,
@@ -837,7 +896,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Dragon des cimes").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Dragon des cimes").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Dragon des cimes",
                 zone:"foret",
                 attaque:12,
@@ -854,7 +914,8 @@ export class EnnemiHelper{
     static getMobJungle(): Mob[]{
         return [
             {
-                code:("Curupira").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Curupira").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Curupira",
                 zone:"jungle",
                 attaque:3,
@@ -866,7 +927,8 @@ export class EnnemiHelper{
                 informations:"Esquive 8",
             },
             {
-                code:("Petit singe").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Petit singe").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Petit singe",
                 zone:"jungle",
                 attaque:8,
@@ -878,7 +940,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Indigène agressif").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Indigène agressif").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Indigène agressif",
                 zone:"jungle",
                 attaque:8,
@@ -890,7 +953,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Chaman agressif").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Chaman agressif").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Chaman agressif",
                 zone:"jungle",
                 attaque:6,
@@ -902,7 +966,8 @@ export class EnnemiHelper{
                 informations:"1/2 chance invoquer Jaguar",
             },
             {
-                code:("Grand singe").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Grand singe").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Grand sing",
                 zone:"jungle",
                 attaque:10,
@@ -914,7 +979,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Jaguar").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Jaguar").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Jaguar",
                 zone:"jungle",
                 attaque:11,
@@ -926,7 +992,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Mapinguari").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Mapinguari").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Mapinguari",
                 zone:"jungle",
                 attaque:5,
@@ -938,7 +1005,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Chupacabra").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Chupacabra").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Chupacabra",
                 zone:"jungle",
                 attaque:14,
@@ -950,7 +1018,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Singe géant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Singe géant").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Singe géant",
                 zone:"jungle",
                 attaque:8,
@@ -962,7 +1031,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Boiùna").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Boiùna").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Boiùna",
                 zone:"jungle",
                 attaque:3,
@@ -979,7 +1049,8 @@ export class EnnemiHelper{
     static getMobEst(): Mob[]{
         return [
             {
-                code:("Chien sauvage").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Chien sauvage").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Chien sauvage",
                 zone:"est",
                 attaque:6,
@@ -991,7 +1062,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Kallikantzaroi").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Kallikantzaroi").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Kallikantzaroi",
                 zone:"est",
                 attaque:7,
@@ -1003,7 +1075,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Tizheruk").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Tizheruk").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Tizheruk",
                 zone:"est",
                 attaque:9,
@@ -1015,7 +1088,8 @@ export class EnnemiHelper{
                 informations:"Poison : -1 Stats",
             },
             {
-                code:("Mahaha").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Mahaha").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Mahaha",
                 zone:"est",
                 attaque:11,
@@ -1027,7 +1101,8 @@ export class EnnemiHelper{
                 informations:"1/20 chance briser arme si paré",
             },
             {
-                code:("Aigle électrique").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Aigle électrique").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Aigle électrique",
                 zone:"est",
                 attaque:8,
@@ -1039,7 +1114,8 @@ export class EnnemiHelper{
                 informations:"Test AD nécessaire avant test AT",
             },
             {
-                code:("Ogre à peau bleu").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Ogre à peau bleu").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Ogre à peau bleu",
                 zone:"est",
                 attaque:6,
@@ -1051,7 +1127,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Olsklül").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Olsklül").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Olsklül",
                 zone:"est",
                 attaque:12,
@@ -1063,7 +1140,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Amarok").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Amarok").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Amarok",
                 zone:"est",
                 attaque:11,
@@ -1075,7 +1153,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Yeti").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Yeti").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Yeti",
                 zone:"est",
                 attaque:83,
@@ -1087,7 +1166,8 @@ export class EnnemiHelper{
                 informations:"",
             },
             {
-                code:("Yukiona").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Yukiona").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Yukiona",
                 zone:"est",
                 attaque:14,
@@ -1104,7 +1184,8 @@ export class EnnemiHelper{
     static getMobMontagne(): Mob[]{
         return [
             {
-                code:("Scarabée du désert").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
+                index:0,
+code:("Scarabée du désert").replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""),
                 libelle: "Scarabée du désert",
                 zone:"foret",
                 attaque:15,

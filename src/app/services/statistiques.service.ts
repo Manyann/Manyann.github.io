@@ -412,10 +412,19 @@ export class StatistiquesService {
     let heros = (await getDocs(query(collection(this.firestore,'heros'),
     where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
 
-    let heroCritiques: number[] = [];
+    let herosDegats = (await getDocs(query(collection(this.firestore,'heros'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data()['degat']);
+
+    let heroCritiques: Critique[] = [];
     for (const hero of heros) {
       heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_critiques'), 
-        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data()['intensite']);
+        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
+    }
+
+    let heroParades: Critique[] = [];
+    for (const hero of heros) {
+      heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_parades'), 
+        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
     }
 
     let heroEchecs: number[] = [];
@@ -423,7 +432,7 @@ export class StatistiquesService {
       heroEchecs = (await getDocs(query(collection(this.firestore, 'heros_echecs'), 
         where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data()['intensite']);
     }
-
+    
     let heroArmes: DocumentData[] = [];
     for (const hero of heros) {
       heroArmes = (await getDocs(query(collection(this.firestore, 'heros_armes'), 
@@ -431,8 +440,18 @@ export class StatistiquesService {
     }
 
     const nameMap = new Map<string, number>();
+    let hasBriseMonde = false;
+    let heroPlaque: { [hero: string] : number; } = {};
+    let heroDueliste: { [hero: string] : number; } = {};
     for (const item of heroArmes) {
       let armeCode:string = item['arme_code'];
+      if(armeCode == 'le-brise-monde'){
+        hasBriseMonde = true;
+      }else if(armeCode == 'lame-de-dueliste'){
+        heroDueliste[item['hero_nom']]++;
+      }else if(armeCode.indexOf('plaque-travaille')!= -1 && item['equipe'] == true){
+        heroPlaque[item['hero_nom']]++;
+      }
       if (new Set(["baton-d-elementaliste", "grimoire-universel"]).has(armeCode)) {
         nameMap.set(item['hero_nom'], (nameMap.get(item['hero_nom']) || 0) + 1);
       }
@@ -445,6 +464,12 @@ export class StatistiquesService {
         titre:"Pourquoi moi ?!",
         description:"Lancer un 20-19",
         possede:heroEchecs.includes(19),
+      },
+      {
+        caterorie:3,
+        titre:"Premiers pas... dans leur tronche",
+        description:"Avoir 500+ dégats",
+        possede:heros.map(x=>x['degat']).reduce((sum, current) => sum + current.total, 0)>500,
       },
       {
         caterorie:3,
@@ -466,9 +491,9 @@ export class StatistiquesService {
       },
       {
         caterorie:3,
-        titre:"Pas de temps à perdre",
+        titre:"Mort instantané",
         description:"Lancer un 1-19 ou 1-20",
-        possede:[19,20].some(e => heroCritiques.includes(e)),
+        possede:[19,20].some(e => heroCritiques.map(x=>x.intensite).includes(e)),
       },
       {
         caterorie:3,
@@ -505,6 +530,144 @@ export class StatistiquesService {
         titre:"C'est un échec",
         description:"Faire un échec critique sur un lancé de combat",
         possede:heroEchecs.length > 0,
+      },
+      {
+        categorie:3,
+        titre:"Mangeur de salade marque repère",
+        description:"Avoir incarné un Demi-Elfe",
+        possede:heros.find(x=>x['origine'] == 'demi-elfe') !== undefined
+},
+{
+        categorie:3,
+        titre:"Mangeur de salade bio",
+        description:"Avoir incarné un Elfe Sylvain",
+        possede:heros.find(x=>x['origine'] == 'elfe-sylvain') !== undefined
+},
+{
+        categorie:3,
+        titre:"Mangeur de salade aux truffes",
+        description:"Avoir incarné un Haut Elfe",
+        possede:heros.find(x=>x['origine'] == 'haut-elfe') !== undefined
+},
+{
+        categorie:3,
+        titre:"Simple, basique",
+        description:"Avoir incarné un Humain",
+        possede:heros.find(x=>x['origine'] == 'humain') !== undefined
+},
+{
+        categorie:3,
+        titre:"Conan",
+        description:"Avoir incarné un Barbare",
+        possede:heros.find(x=>x['origine'] == 'barbare') !== undefined
+},
+{
+        categorie:3,
+        titre:"Dark Sasuke",
+        description:"Avoir incarné un Elfe Noir",
+        possede:heros.find(x=>x['origine'] == 'elfe-noir') !== undefined
+},
+{
+        categorie:3,
+        titre:"Orque ...",
+        description:"Avoir incarné un Orque",
+        possede:heros.find(x=>x['origine'] == 'orque') !== undefined
+},
+{
+        categorie:3,
+        titre:"1 javelot ... 3 c'est mieux",
+        description:"Avoir incarné un Demi-Orque",
+        possede:heros.find(x=>x['origine'] == 'demi-orque') !== undefined
+},
+{
+        categorie:3,
+        titre:"9 Intelligence, 13 Force .. Hum ",
+        description:"Avoir incarné un Ogre",
+        possede:heros.find(x=>x['origine'] == 'ogre') !== undefined
+},
+{
+        categorie:3,
+        titre:"4 pattes et un gros p****",
+        description:"Avoir incarné un Centaure",
+        possede:heros.find(x=>x['origine'] == 'centaure') !== undefined
+},
+{
+        categorie:3,
+        titre:"Atréide",
+        description:"Avoir incarné un Homme des sables",
+        possede:heros.find(x=>x['origine'] == 'homme-des-sables') !== undefined
+},
+{
+        categorie:3,
+        titre:"Un Sam en devenir",
+        description:"Avoir incarné un Hobbit",
+        possede:heros.find(x=>x['origine'] == 'hobbit') !== undefined
+},
+{
+        categorie:3,
+        titre:"BRUT",
+        description:"Avoir incarné un Prêtre",
+        possede:heros.find(x=>x['metier'] == 'pretre') !== undefined
+},
+{
+        categorie:3,
+        titre:"De l'autre coté de la mer",
+        description:"Avoir incarné un Voleur",
+        possede:heros.find(x=>x['metier'] == 'vleur') !== undefined
+},
+{
+        categorie:3,
+        titre:"Picasso",
+        description:"Avoir incarné un Artiste",
+        possede:heros.find(x=>x['metier'] == 'artiste') !== undefined
+},
+{
+        categorie:3,
+        titre:"92%",
+        description:"Avoir incarné un Bourgeois",
+        possede:heros.find(x=>x['metier'] == 'bourgeois') !== undefined
+},
+{
+        categorie:3,
+        titre:"C'est moi qui l'ait fait",
+        description:"Avoir incarné un Artisant",
+        possede:heros.find(x=>x['metier'] == 'artisant') !== undefined
+},
+{
+        categorie:3,
+        titre:"Buzz la foudre",
+        description:"Avoir incarné un Ranger",
+        possede:heros.find(x=>x['metier'] == 'ranger') !== undefined
+},
+{
+        categorie:3,
+        titre:"Il a encore oublié d'enlever l'armure",
+        description:"Avoir incarné un Ingénieur",
+        possede:heros.find(x=>x['metier'] == 'ingenieur') !== undefined
+},
+{
+        categorie:3,
+        titre:"Tes HP ... nos HP",
+        description:"Avoir incarné un Démonologue",
+        possede:heros.find(x=>x['metier'] == 'demonologue') !== undefined
+},
+{
+        categorie:3,
+        titre:"Ma seule stat c'est force",
+        description:"Avoir incarné un Guerrier",
+        possede:heros.find(x=>x['metier'] == 'guerrier') !== undefined
+},
+{
+        categorie:3,
+        titre:"Poudlard",
+        description:"Avoir incarné un Mage",
+        possede:heros.find(x=>x['metier'] == 'mage') !== undefined
+},
+      {
+        caterorie:2,
+        titre:"I hate you 3 thousands",
+        description:"Avoir 3000+ dégats",
+        possede:heros.find(x=>x['degats'] > 3000) !== undefined,
       },
       {
         caterorie:2,
@@ -558,13 +721,127 @@ export class StatistiquesService {
         caterorie:2,
         titre:"Maximus Decimus",
         description:"Avoir atteint le rang de Gladiateur",
-        possede:heros.find(x=>x['origine'] == 'gladiateur') !== undefined,
+        possede:heros.find(x=>x['metier'] == 'gladiateur') !== undefined,
       },
       {
         caterorie:2,
         titre:"David Copperfield",
         description:"Avoir atteint le rang de prestidigitateur",
-        possede:heros.find(x=>x['origine'] == 'prestidigitateur') !== undefined,
+        possede:heros.find(x=>x['metier'] == 'prestidigitateur') !== undefined,
+      },
+      {
+        caterorie:2,
+        titre:"The Hail Mary",
+        description:"Lancer un 1 sur un critique",
+        possede:heroParades.length > 0,
+      },
+{
+        categorie:2,
+        titre:"Dice throne #1",
+        description:"Avoir incarné un Moine",
+        possede:heros.find(x=>x['metier'] == 'moine') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Dîme 2",
+        description:"Avoir incarné un Paladin",
+        possede:heros.find(x=>x['metier'] == 'paladin') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Une pomme bien rouge",
+        description:"Avoir incarné un Empoisonneur",
+        possede:heros.find(x=>x['metier'] == 'empoisonneur') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Grand pas",
+        description:"Avoir incarné metier Rodeur",
+        possede:heros.find(x=>x['metier'] == 'rodeur') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Promis je casse pas ton armure",
+        description:"Avoir incarné un Forgeron",
+        possede:heros.find(x=>x['metier'] == 'forgeron') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Forgeur de rêves",
+        description:"Avoir incarné un Forgeur de rûnes",
+        possede:heros.find(x=>x['metier'] == 'forgeur-de-runes') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Le père du mousse",
+        description:"Avoir incarné un Herboriste",
+        possede:heros.find(x=>x['metier'] == 'herboriste') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Enzo Santorini",
+        description:"Avoir incarné un Artificier",
+        possede:heros.find(x=>x['metier'] == 'artificier') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Le reveil des machines",
+        description:"Avoir incarné un Ingénieur Automate",
+        possede:heros.find(x=>x['metier'] == 'ingenieur-automate') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Au bûcher",
+        description:"Avoir incarné un Inquisiteur",
+        possede:heros.find(x=>x['metier'] == 'inquisiteur') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Formation tortue",
+        description:"Avoir incarné un Soldat",
+        possede:heros.find(x=>x['metier'] == 'soldat') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Tryndamère",
+        description:"Avoir incarné un Berzerk",
+        possede:heros.find(x=>x['metier'] == 'berzerk') !== undefined,
+},
+{
+        categorie:2,
+        titre:"Sea of thieves",
+        description:"Avoir incarné un Pirate",
+        possede:heros.find(x=>x['metier'] == 'pirate') !== undefined,
+},
+{
+        categorie:2,
+        titre:"95%",
+        description:"Avoir incarné un Noble",
+        possede:heros.find(x=>x['metier'] == 'noble') !== undefined,
+},
+{
+        categorie:2,
+        titre:"C'est sur qu'on a pas de swap ?",
+        description:"Avoir incarné un Humain sans métier",
+        possede:heros.find(x=>x['origine'] == 'humain' && x['metier'] == '') !== undefined,
+},
+      {
+        caterorie:1,
+        titre:"Over 9000 !",
+        description:"Avoir 9000+ dégats",
+        possede:heros.find(x=>x['degats'] > 9000) !== undefined,
+      },
+      {
+        caterorie:1,
+        titre:"No, U",
+        description:"Lancer un 1-19 ou 1-20 sur un critique",
+        possede:[19,20].some(e => heroParades.map(x=>x.intensite).includes(e)),
+      },
+      {
+        caterorie:1,
+        titre:"Pas de temps à perdre",
+        description:"Lancer un 1-19 ou 1-20 au premier tour",
+        possede:[19,20].some(e => heroCritiques.filter(x=>x.tour == 1).map(x=>x.intensite).includes(e)),
       },
       {
         caterorie:1,
@@ -579,10 +856,88 @@ export class StatistiquesService {
         possede:heros.find(x=> ['compagnie-du-crepuscule','gardienne-de-l-aube','legion-celeste'].includes(x['metier'])) !== undefined,
       },
       {
-        caterorie:0,
-        description:"One shot un ennemi 100* avec un critique",
-        possede:heroCritiques.filter(x=>x == 19 || x == 20).length >= 100,
+        caterorie:1,
+        description:"One shot un ennemi 10* avec un critique",
+        possede:heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 10,
         titre:"Highlander"
+      },
+      {
+        categorie:1,
+        titre:"99%",
+        description:"Avoir incarné un Seigneur",
+        possede:heros.find(x=>x['metier'] == 'seigneur') !== undefined,
+},
+{
+        categorie:1,
+        titre:"Richard coeur de lion",
+        description:"Avoir incarné un Templier",
+        possede:heros.find(x=>x['metier'] == 'templier') !== undefined,
+},
+{
+        categorie:1,
+        titre:"Naruto sans les pouvoirs",
+        description:"Avoir incarné un Ninja",
+        possede:heros.find(x=>x['metier'] == 'ninja') !== undefined,
+},
+{
+        categorie:1,
+        titre:"Ezio Auditore da Firenze",
+        description:"Avoir incarné un Assassin",
+        possede:heros.find(x=>x['metier'] == 'assassin') !== undefined,
+},
+{
+        categorie:1,
+        titre:"Piraterie réglementée",
+        description:"Avoir incarné un Corsaire",
+        possede:heros.find(x=>x['metier'] == 'corsaire') !== undefined,
+},
+{
+        categorie:1,
+        titre:"La nuit au musée",
+        description:"Avoir incarné un Conservateur",
+        possede:heros.find(x=>x['metier'] == 'conservateur') !== undefined,
+},
+{
+        categorie:1,
+        titre:"Edwin til' Ilan",
+        description:"Avoir incarné un Maître d'armes",
+        possede:heros.find(x=>x['metier'] == 'maitre-d-armes') !== undefined,
+},
+{
+  categorie:1,
+  titre:"Charles Darwin",
+  description:"Avoir combattu 100 ennemis différents",
+  possede:false
+},
+{
+  categorie:1,
+  titre:"Galactus",
+  description:"Posséder le Brise-Monde",
+  possede:hasBriseMonde
+},
+{
+  categorie:1,
+  titre:"Indestructible",
+  description:"Avoir un set complet de plaque travaillée",
+  possede:Object.values(heroPlaque).includes(5)
+},
+{
+  categorie:0,
+  titre:"Go 1v1",
+  description:"Avoir 2 lames de duéliste équipé",
+  possede:Object.values(heroDueliste).includes(2)
+},
+{
+  categorie:0,
+  titre:"Pokedex complet",
+  description:"Avoir combattu tous les types d'ennemis",
+  possede:false
+},
+      {
+        caterorie:0,
+        titre:"La fierté de Thanos",
+        description:"Avoir 25000+ dégats",
+        possede:heros.find(x=>x['degats'] > 25000) !== undefined,
       },
       {
         caterorie:0,
@@ -596,6 +951,74 @@ export class StatistiquesService {
         description:"Avoir atteint le rand de Célébrité",
         possede: heros.find(x=>x['metier'] == 'celebrite') !== undefined,
       },
+      {
+        caterorie:0,
+        titre:"One punch man",
+        description:"One shot un ennemi 100* avec un critique",
+        possede: heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 100,
+      },
+      {
+        caterorie:0,
+        titre:"La chatasse ultime",
+        description:"Lancer un 1-19 ou 1-20 sur un critique au 1er tour",
+        possede:[19,20].some(e => heroParades.filter(x=>x.tour == 1).map(x=>x.intensite).includes(e)),
+      },
+
+
+      {
+        categorie:5,
+        titre:"Joueur du monde",
+        description:"Avoir incarné toutes les origines possibles",    
+        possede:false    
+    },    
+    {   
+        categorie:5,
+        titre:"Polyvalent", 
+        description:"Avoir incarné tous les metiers de base possibles",
+        possede:false
+    },
+    {
+        categorie:5,
+        titre:"Le fidèle",
+        description:"Avoir incarné la même origine 10 fois",
+        possede:false
+    },
+    {
+        categorie:5,
+        titre:"Le spécialiste",
+        description:"Avoir incarné le même métier 10 fois",
+        possede:false
+    },
+    {
+        categorie:8,
+        titre:"Agent du chaos",
+        description:"Avoir lancé 100 sorts entropiques",
+        possede:false
+    },
+    {
+        categorie:8,
+        titre:"1001 vies",
+        description:"Avoir incarné toutes les origines et tous les metiers de base possibles",
+        possede:false
+    },
+    {
+        categorie:10,
+        titre:"L'Alpha et l'Oméga",
+        description:"Avoir incarné toutes les origines et tous les metiers possibles",
+        possede:false
+    },
+    {
+        categorie:10,
+        titre:"L'Alpha et l'Oméga",
+        description:"Avoir incarné toutes les origines et tous les metiers possibles",
+        possede:false
+    },
+    {
+        categorie:10,
+        titre:"Rudolf Clausius",
+        description:"Avoir lancé 50 sorts entropiques avec un seul personnage",
+        possede:false
+    },
     ];
   }
 }
@@ -620,3 +1043,9 @@ export class Trophe{
   "possede":boolean;
 }
 
+
+export class Critique{
+  "hero_nom":string;
+  "intensite":number;
+  "tour":number;
+}
