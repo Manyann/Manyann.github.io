@@ -116,10 +116,10 @@
     </p-panel>
     <p-panel header="{{trophesJoueur ?? [] | trophes}}"  class="stats-panel">
             <div class="infos-achivement">
-                <div class="achivement {{(trophe.possede ? 'bcolor-'+trophe.caterorie : '' )}}" *ngFor="let trophe of (trophesJoueur ?? [])">
-                    <div class="icon"><i class="pi pi-crown {{(trophe.possede ? 'color-'+trophe.caterorie : '' )}}"></i></div>
-                    <div class="message {{(trophe.possede ? 'color-'+trophe.caterorie : '' )}}">
-                        <div class="title visible-{{trophe.caterorie <= 3}}">{{trophe.titre}}</div>
+                <div class="achivement {{(trophe.possede ? 'bcolor-'+trophe.categorie : '' )}}" *ngFor="let trophe of (trophesJoueur ?? [])">
+                    <div class="icon"><i class="pi pi-crown {{(trophe.possede ? 'color-'+trophe.categorie : '' )}}"></i></div>
+                    <div class="message {{(trophe.possede ? 'color-'+trophe.categorie : '' )}}">
+                        <div class="title visible-{{trophe.categorie <= 3}}">{{trophe.titre}}</div>
                         <div class="description visible-{{trophe.possede}}">{{trophe.description}}</div>
                     </div>
                 </div>

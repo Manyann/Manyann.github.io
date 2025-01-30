@@ -460,73 +460,73 @@ export class StatistiquesService {
 
     return [
       {
-        caterorie:3,
+        categorie:3,
         titre:"Pourquoi moi ?!",
         description:"Lancer un 20-19",
         possede:heroEchecs.includes(19),
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"Premiers pas... dans leur tronche",
         description:"Avoir 500+ dégats",
         possede:heros.map(x=>x['degat']).reduce((sum, current) => sum + current.total, 0)>500,
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"Expelliarmus",
         description:"Lancer un 20 puis 10, 11 ou 12",
         possede:[10,11,12].some(e => heroEchecs.includes(e)),
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"Mon fidèle bras droit",
         description:"Lancer un 20 puis 8 ou 9",
         possede:[8,9].some(e => heroEchecs.includes(e)),
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"Mon fidèle bras gauche",
         description:"Lancer un 20 puis 6 ou 7",
         possede:[6,7].some(e => heroEchecs.includes(e)),
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"Mort instantané",
         description:"Lancer un 1-19 ou 1-20",
         possede:[19,20].some(e => heroCritiques.map(x=>x.intensite).includes(e)),
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"Façon elle était moche cette armure",
         description:"Lancer un 20-11",
         possede:heroEchecs.includes(11),
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"Sacrieur",
         description:"Lancer un 20 puis 16, 17 ou 18",
         possede:[16,17,18].some(e => heroEchecs.includes(e)),
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"Petite sieste reposante",
         description:"Lancer un 20 puis 3 ou 5",
         possede:[3,5].some(e => heroEchecs.includes(e)),
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"One does not simply walk 100km",
         description:"Parcourir 100km avec un seul personnage",
         possede:heros.find(x=>x['km'] >= 100) !== undefined,
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"Un destin tout tracé",
         description:"Utiliser tous les points de destin d'un personnage",
         possede:heros.find(x=>x['destin'] == 0) !== undefined,
       },
       {
-        caterorie:3,
+        categorie:3,
         titre:"C'est un échec",
         description:"Faire un échec critique sur un lancé de combat",
         possede:heroEchecs.length > 0,
@@ -664,79 +664,79 @@ export class StatistiquesService {
         possede:heros.find(x=>x['metier'] == 'mage') !== undefined
 },
       {
-        caterorie:2,
+        categorie:2,
         titre:"I hate you 3 thousands",
         description:"Avoir 3000+ dégats",
         possede:heros.find(x=>x['degats'] > 3000) !== undefined,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"En voie d'extinction",
         description:"Combattre 100* le même type d'ennemi",
         possede:false,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"Elémentaire mon cher",
         description:"Possédé un Grimoire universel et un Baton d'élémentaliste sur le même personnage",
         possede: isElementaire
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"Monster Hunter",
         description:"Avoir incarné un chasseur de monstres",
         possede:heros.find(x=>x['metier'] == 'chasseur-de-monstres') !== undefined,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"Uncharted",
         description:"Avoir incarné un chasseur de trésors",
         possede:heros.find(x=>x['metier'] == 'chasseur-de-tresor') !== undefined,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"Marshal",
         description:"Avoir incarné un chasseur de primes",
         possede:heros.find(x=>x['metier'] == 'chasseur-de-primes') !== undefined,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"Budo",
         description:"Avoir incarné un Samurai",
         possede:heros.find(x=>x['origine'] == 'samurai') !== undefined,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"Picsou",
         description:"Accumuler 5000 PO sans les dépenser",
         possede:heros.find(x=>x['origine'] == 'samurai') !== undefined,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"Comme un air de supériorité",
         description:"Avoir incarné une Walkyrie",
         possede:heros.find(x=>x['origine'] == 'walkyrie') !== undefined,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"Maximus Decimus",
         description:"Avoir atteint le rang de Gladiateur",
         possede:heros.find(x=>x['metier'] == 'gladiateur') !== undefined,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"David Copperfield",
         description:"Avoir atteint le rang de prestidigitateur",
         possede:heros.find(x=>x['metier'] == 'prestidigitateur') !== undefined,
       },
       {
-        caterorie:2,
+        categorie:2,
         titre:"The Hail Mary",
         description:"Lancer un 1 sur un critique",
         possede:heroParades.length > 0,
       },
 {
-        categorie:2,
+  categorie:2,
         titre:"Dice throne #1",
         description:"Avoir incarné un Moine",
         possede:heros.find(x=>x['metier'] == 'moine') !== undefined,
@@ -826,37 +826,37 @@ export class StatistiquesService {
         possede:heros.find(x=>x['origine'] == 'humain' && x['metier'] == '') !== undefined,
 },
       {
-        caterorie:1,
+        categorie:1,
         titre:"Over 9000 !",
         description:"Avoir 9000+ dégats",
         possede:heros.find(x=>x['degats'] > 9000) !== undefined,
       },
       {
-        caterorie:1,
+        categorie:1,
         titre:"No, U",
         description:"Lancer un 1-19 ou 1-20 sur un critique",
         possede:[19,20].some(e => heroParades.map(x=>x.intensite).includes(e)),
       },
       {
-        caterorie:1,
+        categorie:1,
         titre:"Pas de temps à perdre",
         description:"Lancer un 1-19 ou 1-20 au premier tour",
         possede:[19,20].some(e => heroCritiques.filter(x=>x.tour == 1).map(x=>x.intensite).includes(e)),
       },
       {
-        caterorie:1,
+        categorie:1,
         titre:"Smaug",
         description:"Accumuler 5000 PO sans les dépenser",
         possede:heros.find(x=>x['or'] >= 5000) !== undefined,
       },
       {
-        caterorie:1,
+        categorie:1,
         titre:"Représentant divin",
         description:"Avoir débloqué une évolution de Walkyrie",
         possede:heros.find(x=> ['compagnie-du-crepuscule','gardienne-de-l-aube','legion-celeste'].includes(x['metier'])) !== undefined,
       },
       {
-        caterorie:1,
+        categorie:1,
         description:"One shot un ennemi 10* avec un critique",
         possede:heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 10,
         titre:"Highlander"
@@ -934,37 +934,35 @@ export class StatistiquesService {
   possede:false
 },
       {
-        caterorie:0,
+        categorie:0,
         titre:"La fierté de Thanos",
         description:"Avoir 25000+ dégats",
         possede:heros.find(x=>x['degats'] > 25000) !== undefined,
       },
       {
-        caterorie:0,
+        categorie:0,
         titre:"Envoyé des dieux",
         description:"Avoir atteint le rang d'Archange",
         possede:heros.find(x=>x['metier'] == 'archange') !== undefined,
       },
       {
-        caterorie:0,
+        categorie:0,
         titre:"The YOU show",
         description:"Avoir atteint le rand de Célébrité",
         possede: heros.find(x=>x['metier'] == 'celebrite') !== undefined,
       },
       {
-        caterorie:0,
+        categorie:0,
         titre:"One punch man",
         description:"One shot un ennemi 100* avec un critique",
         possede: heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 100,
       },
       {
-        caterorie:0,
+        categorie:0,
         titre:"La chatasse ultime",
         description:"Lancer un 1-19 ou 1-20 sur un critique au 1er tour",
         possede:[19,20].some(e => heroParades.filter(x=>x.tour == 1).map(x=>x.intensite).includes(e)),
       },
-
-
       {
         categorie:5,
         titre:"Joueur du monde",
@@ -1037,7 +1035,7 @@ export class JoueurStatistique{
 };
 
 export class Trophe{
-  "caterorie":number;
+  "categorie":number;
   "titre":string;
   "description":string;
   "possede":boolean;
