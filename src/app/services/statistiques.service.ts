@@ -439,18 +439,16 @@ export class StatistiquesService {
 
     let heroDegats = 0;
     let heroTopDegat = 0;
-    let currentHeroTopDegat = 0;
 
+    debugger;
     for (const hero of heros) {
       let degats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
-      currentHeroTopDegat = 0;
       degats.forEach(element => {
         heroDegats += element['intensite'];
-        currentHeroTopDegat+=element['intensite'];
+        if(element['intensite'] > heroTopDegat){
+          heroTopDegat = element['intensite'];
+        }
       });
-      if(currentHeroTopDegat > heroTopDegat){
-        heroTopDegat = currentHeroTopDegat;
-      }
     }
 
     const nameMap = new Map<string, number>();
@@ -864,7 +862,7 @@ export class StatistiquesService {
   possede:heros.find(x=> x['origine'] == 'homme-des-sables' && x['metier'] == 'voleur') !== undefined,
 },
 {
-  categorie:2,
+  categorie:1,
   titre:"Coup de pied au cul du Daron",
   description:"Faire 30+ dégats en un lancé",
   possede:heroTopDegat>30,
