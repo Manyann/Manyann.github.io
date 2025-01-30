@@ -184,7 +184,9 @@
 .visible-false{
     visibility: hidden;
 }
-
+.display-false{
+    display: none;
+}
 @keyframes bgRotate {
     100% {
       transform: rotate(1turn);
