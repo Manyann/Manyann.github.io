@@ -631,7 +631,7 @@ export class StatistiquesService {
         categorie:3,
         titre:"De l'autre coté de la mer",
         description:"Avoir incarné un Voleur",
-        possede:heros.find(x=>x['metier'] == 'vleur') !== undefined
+        possede:heros.find(x=>x['metier'] == 'voleur') !== undefined
 },
 {
         categorie:3,
@@ -733,7 +733,7 @@ export class StatistiquesService {
         categorie:2,
         titre:"Picsou",
         description:"Accumuler 5000 PO sans les dépenser",
-        possede:heros.find(x=>x['origine'] == 'samurai') !== undefined,
+        possede:heros.find(x=>x['or'] >= 5000) !== undefined,
       },
       {
         categorie:2,
@@ -1063,7 +1063,7 @@ export class StatistiquesService {
     {
         categorie:10,
         titre:"Rudolf Clausius",
-        description:"Avoir lancé 50 sorts entropiques avec un seul personnage",
+        description:"Avoir lancé 200 sorts entropiques avec un seul personnage",
         possede:false
     },
     {
