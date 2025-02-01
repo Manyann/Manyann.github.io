@@ -5,7 +5,9 @@
 
 .info-group-body{
     display:flex;
+    flex-direction: column;
 }
+
 
 .info-group-header{
     text-align:center;
@@ -21,12 +23,8 @@
 .info-group-row{
     display: flex;
     margin:1rem;
-}
-
-.info-group-row>div:first-child{
-    text-align: right;
-    width: 20rem;
-    margin-right: 2rem;
+    align-items: center;
+    flex-direction: column;
 }
 
 .top-container{
@@ -47,7 +45,7 @@
         align-items: center;
         border: 1px solid rgb(68, 68, 68);;
         color:rgb(68, 68, 68);
-        width: 30rem;
+        width: 100%;
         padding: 0.5rem;
         gap:0.5rem;
         .icon{
@@ -119,19 +117,6 @@
     position: relative;
     border-radius: 1px;
   }
-  /* .gradient-border:after {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    height: 108%;
-    width: 100.8%;
-    background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
-    border-radius: calc(2* 1px);
-    z-index: -1;
-    animation: _ngcontent-ng-c1820034613_animatedgradient 3s ease alternate infinite;
-    background-size: 300% 300%;
-  } */
   .bcolor-5:after {
     content: "";
     position: absolute;
@@ -187,3 +172,21 @@
           background-position: 0% 50%;
       }
   }
+
+  
+@media (min-width: 1250px) {
+    .info-group-body{
+        flex-direction: row;
+    }
+    .info-group-row{
+        flex-direction: row;
+    }
+    .info-group-row>div:first-child{
+        text-align: right;
+        width: 20rem;
+        margin-right: 2rem;
+    }
+    .achivement{
+        width: 30rem;
+    }
+}
