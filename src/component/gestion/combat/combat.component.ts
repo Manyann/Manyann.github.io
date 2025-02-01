@@ -123,6 +123,30 @@ export class CombatComponent {
     });
   }
 
+  addEntropique(hero:string){
+    this.herosService.addEntropique(hero,this.addIntensite,this.tour)
+    .then(()=> {
+      this.addIntensite = 0;
+      this.messageService.add({
+        severity:'info',
+        closable:true,
+        summary:"Entropique ajoutée"
+      });
+    });
+  }
+
+  addEntropiqueMJ(){
+    this.herosService.addEntropiqueMJ(this.addIntensite,this.tour)
+    .then(()=> {
+      this.addIntensite = 0;
+      this.messageService.add({
+        severity:'info',
+        closable:true,
+        summary:"Entropique ajoutée"
+      });
+    });
+  }
+
   
   addCoupCritiqueMJ(){
     this.herosService.addCritiqueMJ(this.addIntensite)

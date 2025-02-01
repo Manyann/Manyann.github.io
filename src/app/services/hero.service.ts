@@ -84,6 +84,22 @@ export class HerosService {
       tour:tour
     });
   }
+  async addEntropique(nom:string, intensite:number,tour:number){
+    await setDoc(doc(this.firestore, "heros_entropiques", crypto.randomUUID()), {
+      hero_nom:nom,
+      intensite:intensite,
+      date:new Date(),
+      tour:tour
+    });
+  }
+  async addEntropiqueMJ(intensite:number,tour:number){
+    await setDoc(doc(this.firestore, "heros_entropiques", crypto.randomUUID()), {
+      hero_nom:'MJ',
+      intensite:intensite,
+      date:new Date(),
+      tour:tour
+    });
+  }
 
   async addCritiqueMJ(intensite:number){
     await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()), {
