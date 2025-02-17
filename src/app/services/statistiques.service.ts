@@ -132,7 +132,7 @@ export class StatistiquesService {
       }
       statistiques.find(x=>x.code == degat['hero_nom'])!.valeur +=degat['intensite'];
     });
-
+debugger;
     return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
   }
 
@@ -414,34 +414,28 @@ export class StatistiquesService {
 
    
     let heroCritiques: Critique[] = [];
-    for (const hero of heros) {
-      heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_critiques'), 
-        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
-    }
-
     let heroParades: Critique[] = [];
-    for (const hero of heros) {
-      heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_parades'), 
-        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
-    }
-
     let heroEchecs: number[] = [];
-    for (const hero of heros) {
-      heroEchecs = (await getDocs(query(collection(this.firestore, 'heros_echecs'), 
-        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data()['intensite']);
-    }
-    
+    let heroEntropique: Critique[] = [];
     let heroArmes: DocumentData[] = [];
-    for (const hero of heros) {
-      heroArmes = (await getDocs(query(collection(this.firestore, 'heros_armes'), 
-        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data());
-    }
+    let herosDestinUtilise = 0;
 
     let heroDegats = 0;
     let heroTopDegat = 0;
 
-    debugger;
     for (const hero of heros) {
+      herosDestinUtilise += hero['destin_utilise'];
+      heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_critiques'), 
+        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
+      heroParades = (await getDocs(query(collection(this.firestore, 'heros_parades'), 
+          where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
+      heroEchecs = (await getDocs(query(collection(this.firestore, 'heros_echecs'), 
+            where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data()['intensite']);
+      heroEntropique = (await getDocs(query(collection(this.firestore, 'heros_entropiques'), 
+            where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
+      heroArmes = (await getDocs(query(collection(this.firestore, 'heros_armes'), 
+                  where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data());
+                  
       let degats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
       degats.forEach(element => {
         heroDegats += element['intensite'];
@@ -468,14 +462,25 @@ export class StatistiquesService {
         nameMap.set(item['hero_nom'], (nameMap.get(item['hero_nom']) || 0) + 1);
       }
     }
+
     let isElementaire =  nameMap.size > 0;
 
+    let hasAllOrigine = heros.map(x=>x['origine'])?.filter((n, i) => heros.indexOf(n) === i).length ==15;
+    let hasAllMetierBase = heros.map(x=>x['origine'])?.filter((n, i) => heros.indexOf(n) === i).length ==11;
+
     return [
+      // #region Categorie 3
       {
         categorie:3,
         titre:"Sacré torgnole",
         description:"Faire 10+ dégats en un lancé",
         possede:heroTopDegat>10,
+      },
+      {
+        categorie:3,
+        titre:"Try Again",
+        description:"Avoir utilié un point de destin",
+        possede:heros.find(x=>x['destin_utilise'] != 0) !== undefined,
       },
       {
         categorie:3,
@@ -681,6 +686,8 @@ export class StatistiquesService {
         description:"Avoir incarné un Mage",
         possede:heros.find(x=>x['metier'] == 'mage') !== undefined
 },
+// #endregion Categorie 3
+// #region Categorie 2
 {
   categorie:2,
   titre:"Patate de forain",
@@ -862,6 +869,14 @@ export class StatistiquesService {
   possede:heros.find(x=> x['origine'] == 'homme-des-sables' && x['metier'] == 'voleur') !== undefined,
 },
 {
+  categorie:2,
+  titre:"El Gato",
+  description:"Avoir utilisé 8 points de destin",
+  possede:herosDestinUtilise >= 8,
+},
+// #endregion Categorie 2
+// #region Categorie 1
+{
   categorie:1,
   titre:"Coup de pied au cul du Daron",
   description:"Faire 30+ dégats en un lancé",
@@ -976,6 +991,8 @@ export class StatistiquesService {
   description:"Avoir 2 lames de duéliste équipé",
   possede:Object.values(heroDueliste).includes(2)
 },
+// #endregion Categorie 1
+// #region Categorie 0
 {
   categorie:0,
   titre:"Pokedex complet",
@@ -1018,6 +1035,54 @@ export class StatistiquesService {
         description:"Lancer un 1-19 ou 1-20 sur un critique au 1er tour",
         possede:[19,20].some(e => heroParades.filter(x=>x.tour == 1).map(x=>x.intensite).includes(e)),
       },
+      // #endregion Categorie 0
+// #region Categorie 5
+      {
+        categorie:5,
+        titre:"Peau verte",
+        description:"Avoir incarné un Orque, un Demi-Orque et un Orgre",    
+        possede:heros.find(x=> x['origine'] == 'orque') !== undefined
+        && heros.find(x=> x['origine'] == 'demi-orque') !== undefined
+        && heros.find(x=> x['origine'] == 'ogre') !== undefined,    
+    },  
+    {
+      categorie:5,
+      titre:"Batavia, Iceberg, Roquette, Mache",
+      description:"Avoir incarné un Demi-Elfe, un Elfe Sylvain, un Haut-Elfe et un Elfe-Noir",    
+      possede:heros.find(x=> x['origine'] == 'elfe-sylvain') !== undefined
+      && heros.find(x=> x['origine'] == 'demi-elfe') !== undefined
+      && heros.find(x=> x['origine'] == 'elfe-noir') !== undefined
+      && heros.find(x=> x['origine'] == 'haut-elfe') !== undefined,    
+  },  
+  {
+    categorie:5,
+    titre:"Voir les choses en Grand",
+    description:"Avoir incarné un Hobbit et un Nain",    
+    possede:heros.find(x=> x['origine'] == 'hobbit') !== undefined
+    && heros.find(x=> x['origine'] == 'nain') !== undefined, 
+},  
+{
+  categorie:5,
+  titre:"Manuel",
+  description:"Avoir incarné un Artisant, un Artiste, un Ingénieur et un Voleur",    
+  possede:heros.find(x=> x['origine'] == 'voleur') !== undefined
+  && heros.find(x=> x['origine'] == 'artisant') !== undefined
+  && heros.find(x=> x['origine'] == 'artiste') !== undefined
+  && heros.find(x=> x['origine'] == 'ingenieur') !== undefined, 
+},  
+{
+  categorie:5,
+  titre:"La Magie sous toutes ses formes",
+  description:"Avoir incarné un Mage et un Prestidigitateur",    
+  possede:heros.find(x=> x['metier'] == 'mage') !== undefined
+  && heros.find(x=> x['metier'] == 'prestidigitateur') !== undefined, 
+},  
+      {
+        categorie:5,
+        titre:"La chute dans les escaliers",
+        description:"Avoir incarné un hobbit voleur niveau 3",    
+        possede:heros.find(x=> x['origine'] == 'hobbit' && x['metier'] == 'voleur' && x['niveau'] == 3) !== undefined,    
+    },  
       {
         categorie:5,
         titre:"Joueur du monde",
@@ -1043,6 +1108,41 @@ export class StatistiquesService {
         possede:false
     },
     {
+      categorie:5,
+      titre:"Un homme d'énergie",
+      description:"Avoir incarné un Mage, un Pretre et un Démonologue",    
+      possede:heros.find(x=> x['metier'] == 'mage') !== undefined
+      && heros.find(x=> x['metier'] == 'pretre') !== undefined
+      && heros.find(x=> x['metier'] == 'demonologue') !== undefined, 
+    },  
+    {
+      categorie:5,
+      titre:"C'est un forgeant qu'on devient forgeron",
+      description:"Avoir incarné un Forgeron et un Forgeur de rûnes",    
+      possede:heros.find(x=> x['metier'] == 'forgeron') !== undefined
+      && heros.find(x=> x['metier'] == 'forgeur-de-runes') !== undefined, 
+    },  
+    //#endregion Categorie 5
+    //#region Categorie 8
+    
+    {
+      categorie:8,
+      titre:"Contrées lointaines",
+      description:"Avoir incarné un Centaure, un Homme des sables, un Samurai et une Walkyrie", 
+      possede:heros.find(x=> x['origine'] == 'centaure') !== undefined
+      && heros.find(x=> x['origine'] == 'hommes-des-sables') !== undefined
+      && heros.find(x=> x['origine'] == 'samurai') !== undefined
+      && heros.find(x=> x['origine'] == 'walkyrie') !== undefined,
+  },
+  {
+    categorie:8,
+    titre:"Apex Predator",
+    description:"Avoir incarné un Chasseur de primes, de monstres et de trésors", 
+    possede:heros.find(x=> x['metier'] == 'chasseur-de-primes') !== undefined
+    && heros.find(x=> x['metier'] == 'chasseur-de-monstres') !== undefined
+    && heros.find(x=> x['metier'] == 'chasseur-de-tresor') !== undefined,
+},
+    {
         categorie:8,
         titre:"Agent du chaos",
         description:"Avoir lancé 100 sorts entropiques",
@@ -1055,15 +1155,32 @@ export class StatistiquesService {
         possede:false
     },
     {
-        categorie:10,
+      categorie:8,
+      titre:"Apex Predator",
+      description:"Avoir incarné un Chasseur de primes, de monstres et de trésors", 
+      possede:heros.find(x=> x['metier'] == 'chasseur-de-primes') !== undefined
+      && heros.find(x=> x['metier'] == 'chasseur-de-monstres') !== undefined
+      && heros.find(x=> x['metier'] == 'chasseur-de-tresor') !== undefined,
+  },
+  {
+    categorie:8,
+    titre:"I can do this all day",
+    description:"Avoir utilisé 100 points de destin", 
+    possede: herosDestinUtilise >=100,
+},
+  {
+    categorie:10,
+    titre:"Purificateur",
+    description:"Avoir incarné un Templier, un Démonologue, un Inquisiteur et une Walkyrie du crépuscule", 
+    possede:heros.find(x=> x['metier'] == 'templier') !== undefined
+    && heros.find(x=> x['metier'] == 'demonologue') !== undefined
+    && heros.find(x=> x['metier'] == 'inquisiteur') !== undefined
+    && heros.find(x=> x['metier'] == 'compagnie-du-crepuscule') !== undefined,
+},
+    {
+        categorie:11,
         titre:"L'Alpha et l'Oméga",
         description:"Avoir incarné toutes les origines et tous les metiers possibles",
-        possede:false
-    },
-    {
-        categorie:10,
-        titre:"Rudolf Clausius",
-        description:"Avoir lancé 200 sorts entropiques avec un seul personnage",
         possede:false
     },
     {

@@ -171,7 +171,8 @@ export class HerosService {
       mauvais_point:0,
       mana:0,
       morts:0,
-      vie:0
+      vie:0,
+      destin_utilise:0
     });
   }
 
