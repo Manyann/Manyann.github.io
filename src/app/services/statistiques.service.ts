@@ -413,36 +413,16 @@ debugger;
     where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
 
    
-    let heroCritiques: Critique[] = [];
-    let heroParades: Critique[] = [];
-    let heroEchecs: number[] = [];
     let heroEntropique: Critique[] = [];
     let heroArmes: DocumentData[] = [];
-    let herosDestinUtilise = 0;
 
-    let heroDegats = 0;
-    let heroTopDegat = 0;
 
     for (const hero of heros) {
-      herosDestinUtilise += hero['destin_utilise'];
-      heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_critiques'), 
-        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
-      heroParades = (await getDocs(query(collection(this.firestore, 'heros_parades'), 
-          where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
-      heroEchecs = (await getDocs(query(collection(this.firestore, 'heros_echecs'), 
-            where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data()['intensite']);
       heroEntropique = (await getDocs(query(collection(this.firestore, 'heros_entropiques'), 
             where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
       heroArmes = (await getDocs(query(collection(this.firestore, 'heros_armes'), 
                   where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data());
-                  
-      let degats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
-      degats.forEach(element => {
-        heroDegats += element['intensite'];
-        if(element['intensite'] > heroTopDegat){
-          heroTopDegat = element['intensite'];
-        }
-      });
+                
     }
 
     const nameMap = new Map<string, number>();
@@ -472,87 +452,9 @@ debugger;
       // #region Categorie 3
       {
         categorie:3,
-        titre:"Sacré torgnole",
-        description:"Faire 10+ dégats en un lancé",
-        possede:heroTopDegat>10,
-      },
-      {
-        categorie:3,
-        titre:"Try Again",
-        description:"Avoir utilié un point de destin",
-        possede:heros.find(x=>x['destin_utilise'] != 0) !== undefined,
-      },
-      {
-        categorie:3,
-        titre:"Pourquoi moi ?!",
-        description:"Lancer un 20-19",
-        possede:heroEchecs.includes(19),
-      },
-      {
-        categorie:3,
-        titre:"Premiers pas... dans leur tronche",
-        description:"Avoir 500+ dégats",
-        possede:heroDegats>500,
-      },
-      {
-        categorie:3,
-        titre:"Expelliarmus",
-        description:"Lancer un 20 puis 10, 11 ou 12",
-        possede:[10,11,12].some(e => heroEchecs.includes(e)),
-      },
-      {
-        categorie:3,
-        titre:"Mon fidèle bras droit",
-        description:"Lancer un 20 puis 8 ou 9",
-        possede:[8,9].some(e => heroEchecs.includes(e)),
-      },
-      {
-        categorie:3,
-        titre:"Mon fidèle bras gauche",
-        description:"Lancer un 20 puis 6 ou 7",
-        possede:[6,7].some(e => heroEchecs.includes(e)),
-      },
-      {
-        categorie:3,
-        titre:"Mort instantané",
-        description:"Lancer un 1-19 ou 1-20",
-        possede:[19,20].some(e => heroCritiques.map(x=>x.intensite).includes(e)),
-      },
-      {
-        categorie:3,
-        titre:"Façon elle était moche cette armure",
-        description:"Lancer un 20-11",
-        possede:heroEchecs.includes(11),
-      },
-      {
-        categorie:3,
-        titre:"Sacrieur",
-        description:"Lancer un 20 puis 16, 17 ou 18",
-        possede:[16,17,18].some(e => heroEchecs.includes(e)),
-      },
-      {
-        categorie:3,
-        titre:"Petite sieste reposante",
-        description:"Lancer un 20 puis 3 ou 5",
-        possede:[3,5].some(e => heroEchecs.includes(e)),
-      },
-      {
-        categorie:3,
         titre:"One does not simply walk 100km",
         description:"Parcourir 100km avec un seul personnage",
         possede:heros.find(x=>x['km'] >= 100) !== undefined,
-      },
-      {
-        categorie:3,
-        titre:"Un destin tout tracé",
-        description:"Utiliser tous les points de destin d'un personnage",
-        possede:heros.find(x=>x['destin'] == 0) !== undefined,
-      },
-      {
-        categorie:3,
-        titre:"C'est un échec",
-        description:"Faire un échec critique sur un lancé de combat",
-        possede:heroEchecs.length > 0,
       },
       {
         categorie:3,
@@ -688,18 +590,6 @@ debugger;
 },
 // #endregion Categorie 3
 // #region Categorie 2
-{
-  categorie:2,
-  titre:"Patate de forain",
-  description:"Faire 20+ dégats en un lancé",
-  possede:heroTopDegat>20,
-},
-      {
-        categorie:2,
-        titre:"I hate you 3 thousands",
-        description:"Avoir 3000+ dégats",
-        possede:heroDegats > 3000,
-      },
       {
         categorie:2,
         titre:"En voie d'extinction",
@@ -759,12 +649,6 @@ debugger;
         titre:"David Copperfield",
         description:"Avoir atteint le rang de prestidigitateur",
         possede:heros.find(x=>x['metier'] == 'prestidigitateur') !== undefined,
-      },
-      {
-        categorie:2,
-        titre:"The Hail Mary",
-        description:"Lancer un 1 sur un critique",
-        possede:heroParades.length > 0,
       },
 {
         categorie:2,
@@ -868,38 +752,8 @@ debugger;
   description:"Avoir incarné un Hommes des sables Voleur",
   possede:heros.find(x=> x['origine'] == 'homme-des-sables' && x['metier'] == 'voleur') !== undefined,
 },
-{
-  categorie:2,
-  titre:"El Gato",
-  description:"Avoir utilisé 8 points de destin",
-  possede:herosDestinUtilise >= 8,
-},
 // #endregion Categorie 2
 // #region Categorie 1
-{
-  categorie:1,
-  titre:"Coup de pied au cul du Daron",
-  description:"Faire 30+ dégats en un lancé",
-  possede:heroTopDegat>30,
-},
-      {
-        categorie:1,
-        titre:"Over 9000 !",
-        description:"Avoir 9000+ dégats",
-        possede:heroDegats > 9000,
-      },
-      {
-        categorie:1,
-        titre:"No, U",
-        description:"Lancer un 1-19 ou 1-20 sur un critique",
-        possede:[19,20].some(e => heroParades.map(x=>x.intensite).includes(e)),
-      },
-      {
-        categorie:1,
-        titre:"Pas de temps à perdre",
-        description:"Lancer un 1-19 ou 1-20 au premier tour",
-        possede:[19,20].some(e => heroCritiques.filter(x=>x.tour == 1).map(x=>x.intensite).includes(e)),
-      },
       {
         categorie:1,
         titre:"Smaug",
@@ -911,12 +765,6 @@ debugger;
         titre:"Représentant divin",
         description:"Avoir débloqué une évolution de Walkyrie",
         possede:heros.find(x=> ['compagnie-du-crepuscule','gardienne-de-l-aube','legion-celeste'].includes(x['metier'])) !== undefined,
-      },
-      {
-        categorie:1,
-        description:"One shot un ennemi 10* avec un critique",
-        possede:heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 10,
-        titre:"Highlander"
       },
       {
         categorie:1,
@@ -1022,18 +870,6 @@ debugger;
         titre:"The YOU show",
         description:"Avoir atteint le rand de Célébrité",
         possede: heros.find(x=>x['metier'] == 'celebrite') !== undefined,
-      },
-      {
-        categorie:0,
-        titre:"One punch man",
-        description:"One shot un ennemi 100* avec un critique",
-        possede: heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 100,
-      },
-      {
-        categorie:0,
-        titre:"La chatasse ultime",
-        description:"Lancer un 1-19 ou 1-20 sur un critique au 1er tour",
-        possede:[19,20].some(e => heroParades.filter(x=>x.tour == 1).map(x=>x.intensite).includes(e)),
       },
       // #endregion Categorie 0
 // #region Categorie 5
@@ -1162,12 +998,6 @@ debugger;
       && heros.find(x=> x['metier'] == 'chasseur-de-monstres') !== undefined
       && heros.find(x=> x['metier'] == 'chasseur-de-tresor') !== undefined,
   },
-  {
-    categorie:8,
-    titre:"I can do this all day",
-    description:"Avoir utilisé 100 points de destin", 
-    possede: herosDestinUtilise >=100,
-},
   {
     categorie:10,
     titre:"Purificateur",
