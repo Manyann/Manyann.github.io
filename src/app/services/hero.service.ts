@@ -42,11 +42,77 @@ export class HerosService {
   async addBonPoint(nom:string){
     const hero = doc(this.firestore, 'heros', nom);
     await setDoc(hero, { bon_point: increment(1) }, { merge: true });
+
+    //#region trophes
+    
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('nom',"==", nom)))).docs.map((entries) => entries.data());
+    
+   let trophes = [];
+
+    if(heros[0]['bon_point'] == 5){
+      trophes.push("Gentilhomme");
+      await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+        trophe : "Gentilhomme",
+        joueur:heros[0]['code_joueur']
+      });
+    }
+    if(heros[0]['bon_point'] == 10){
+      trophes.push("Un saint parmi les saints");
+      await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+        trophe : "Un saint parmi les saints",
+        joueur:heros[0]['code_joueur']
+      });
+    }
+    if(heros[0]['bon_point'] == 15){
+      trophes.push("Gros lèche botte là");
+      await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+        trophe : "Gros lèche botte là",
+        joueur:heros[0]['code_joueur']
+      });
+    }
+
+    return trophes
+
+    //#endregion
   }
 
   async addMauvaisPoint(nom:string){
     const hero = doc(this.firestore, 'heros', nom);
     await setDoc(hero, { mauvais_point: increment(1)  }, { merge: true });
+
+    //#region trophes
+    
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('nom',"==", nom)))).docs.map((entries) => entries.data());
+    
+   let trophes = [];
+
+    if(heros[0]['mauvais_point'] == 5){
+      trophes.push("Filer du mauvais coton");
+      await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+        trophe : "Filer du mauvais coton",
+        joueur:heros[0]['code_joueur']
+      });
+    }
+    if(heros[0]['mauvais_point'] == 10){
+      trophes.push("L'incarnation du mal");
+      await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+        trophe : "L'incarnation du mal",
+        joueur:heros[0]['code_joueur']
+      });
+    }
+    if(heros[0]['mauvais_point'] == 15){
+      trophes.push("Gros lèche botte là");
+      await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+        trophe : "Gros lèche botte là",
+        joueur:heros[0]['code_joueur']
+      });
+    }
+
+    return trophes
+
+    //#endregion
   }
 
   async addMort(nom:string){
@@ -57,6 +123,25 @@ export class HerosService {
   async addNiveau(nom:string){
     const hero = doc(this.firestore, 'heros', nom);
     await setDoc(hero, { niveau: increment(1)  }, { merge: true });
+
+    //#region trophes
+    
+    let heros = (await getDocs(query(collection(this.firestore,'heros'),
+    where('nom',"==", nom)))).docs.map((entries) => entries.data());
+    
+   let trophes = [];
+
+    if(heros[0]['niveau'] == 10){
+      trophes.push("C'est donc possible ...");
+      await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+        trophe : "C'est donc possible ...",
+        joueur:heros[0]['code_joueur']
+      });
+    }
+
+    return trophes
+
+    //#endregion
   }
 
   async addCritique(nom:string, intensite:number,tour:number):Promise<string[]>{
@@ -254,6 +339,42 @@ export class HerosService {
       date:new Date(),
       tour:tour
     });
+
+
+     //#region trophes
+    
+     let heros = (await getDocs(query(collection(this.firestore,'heros'),
+     where('nom',"==", nom)))).docs.map((entries) => entries.data());
+     
+     let allHeros = (await getDocs(query(collection(this.firestore,'heros'),
+     where('code_joueur',"==", heros[0]['code_joueur'])))).docs.map((entries) => entries.data());
+ 
+     let trophes = [];
+     let heroEntropique: Critique[] = [];
+ 
+     for (const hero of allHeros) {
+      heroEntropique = (await getDocs(query(collection(this.firestore, 'heros_entropiques'), 
+          where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
+      }
+ 
+     if(heroEntropique.length > 0){
+       trophes.push('The Hail Mary');
+       await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+         trophe : 'The Hail Mary',
+         joueur:heros[0]['code_joueur']
+       });
+     }
+     if(heroEntropique.length > 100){
+       trophes.push('Agent du chaos');
+       await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+         trophe : 'Agent du chaos',
+         joueur:heros[0]['code_joueur']
+       });
+     }
+ 
+     return trophes
+ 
+     //#endregion
   }
 
   async addEntropiqueMJ(intensite:number,tour:number){
@@ -360,6 +481,13 @@ export class HerosService {
       });
       trophes.push('Over 9000 !');
     }
+    if(totalDegat > 25000){
+      await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+        trophe : 'La fierté de Thanos',
+        joueur:heros[0]['code_joueur']
+      });
+      trophes.push('La fierté de Thanos');
+    }
     
 
     //#endregion trophes
@@ -437,7 +565,9 @@ export class HerosService {
   }
 
   
-  async add(joueur:string, nom:string, origine:string, metier:string, or : number, destin : number, niveau : number){
+  async add(joueur:string, nom:string, origine:string, 
+    metier:string, or : number, 
+    destin : number, niveau : number) : Promise<string[]>{
     await setDoc(doc(this.firestore, "heros", nom.toLowerCase()), {
       code_joueur: joueur,
       nom: nom.toLowerCase(),
@@ -456,6 +586,176 @@ export class HerosService {
       vie:0,
       destin_utilise:0
     });
+
+     //#region trophes
+     
+     let allHeros = (await getDocs(query(collection(this.firestore,'heros'),
+     where('code_joueur',"==",joueur)))).docs.map((entries) => entries.data());
+ 
+     let trophes = [];
+ 
+    if(origine == 'demi-elfe'){
+       trophes.push(await this.setTrophe(joueur,'Mangeur de salade marque repère'));
+    }
+    else if(origine == 'elfe-sylvain'){
+      trophes.push(await this.setTrophe(joueur,'Mangeur de salade bio'));
+    }
+    else if(origine == 'haut-elfe'){
+      trophes.push(await this.setTrophe(joueur,'Mangeur de salade aux truffes'));
+    }
+    else if(origine == 'humain'){
+      trophes.push(await this.setTrophe(joueur,'Simple, basique'));
+      if(metier == ''){
+        trophes.push(await this.setTrophe(joueur,"C'est sur qu'on a pas de swap ?"));
+      }
+    }
+    else if(origine == 'barbare'){
+      trophes.push(await this.setTrophe(joueur,'Conan'));
+    }
+    else if(origine == 'elfe-noir'){
+      trophes.push(await this.setTrophe(joueur,'Dark Sasuke'));
+    }
+    else if(origine == 'orque'){
+      trophes.push(await this.setTrophe(joueur,"Orque ..."));
+      if(metier == 'mage'){
+        trophes.push(await this.setTrophe(joueur,"Combattre les stéréotypes"));
+      }
+    }
+    else if(origine == 'demi-orque'){
+      trophes.push(await this.setTrophe(joueur,"1 javelot c'est bien ... 3 c'est mieux"));
+    }
+    else if(origine == 'ogre'){
+      trophes.push(await this.setTrophe(joueur,'9 Intelligence, 13 Force .. Hum'));
+    }
+    else if(origine == 'centaure'){
+      trophes.push(await this.setTrophe(joueur,'4 pattes et un gros p****'));
+    }
+    else if(origine == 'homme-des-sables'){
+      trophes.push(await this.setTrophe(joueur,'Atréide'));
+      if(metier == 'voleur'){
+        trophes.push(await this.setTrophe(joueur,"Renforcer les stéréotypes"));
+      }
+    }
+    else if(origine == 'hobbit'){
+      trophes.push(await this.setTrophe(joueur,'Un Sam en devenir'));
+    }
+    else if(origine == 'samurai'){
+      trophes.push(await this.setTrophe(joueur,'Budo'));
+    }
+    else if(origine == 'walkyrie'){
+      trophes.push(await this.setTrophe(joueur,'Comme un air de supériorité'));
+      if(metier == 'compagnie-du-crepuscule' || metier == 'gardienne-de-l-aube' || metier == 'legion-celeste'){
+        trophes.push(await this.setTrophe(joueur,"Représentant divin"));
+      }
+    }
+    if(metier == 'pretre'){
+      trophes.push(await this.setTrophe(joueur,'BRUT'));
+    }
+    else if(metier == 'voleur'){
+      trophes.push(await this.setTrophe(joueur,"De l'autre coté de la mer"));
+    }
+    else if(metier == 'artiste'){
+      trophes.push(await this.setTrophe(joueur,'Picasso'));
+    }
+    else if(metier == 'bourgeois'){
+      trophes.push(await this.setTrophe(joueur,'92%'));
+    }
+    else if(metier == 'artisant'){
+      trophes.push(await this.setTrophe(joueur,"C'est moi qui l'ait fait"));
+    }
+    else if(metier == 'ranger'){
+      trophes.push(await this.setTrophe(joueur,'Buzz la foudre'));
+    }
+    else if(metier == 'ingenieur'){
+      trophes.push(await this.setTrophe(joueur,"Il a encore oublié d'enlever l'armure"));
+    }
+    else if(metier == 'demonologue'){
+      trophes.push(await this.setTrophe(joueur,'Tes HP ... nos HP'));
+    }
+    else if(metier == 'guerrier'){
+      trophes.push(await this.setTrophe(joueur,"Ma seule stat c'est force"));
+    }
+    else if(metier == 'mage'){
+      trophes.push(await this.setTrophe(joueur,'Poudlard'));
+    }
+    else if(metier == 'chasseur-de-monstres'){
+      trophes.push(await this.setTrophe(joueur,'Monster Hunter'));
+    }
+    else if(metier == 'chasseur-de-tresor'){
+      trophes.push(await this.setTrophe(joueur,'Uncharted'));
+    }
+    else if(metier == 'chasseur-de-primes'){
+      trophes.push(await this.setTrophe(joueur,'Marshal'));
+    }
+    else if(metier == 'gladiateur'){
+      trophes.push(await this.setTrophe(joueur,'Maximus Decimus'));
+    }
+    else if(metier == 'prestidigitateur'){
+      trophes.push(await this.setTrophe(joueur,'David Copperfield'));
+    }
+    else if(metier == 'moine'){
+      trophes.push(await this.setTrophe(joueur,'Dice throne #1'));
+    }
+    else if(metier == 'paladin'){
+      trophes.push(await this.setTrophe(joueur,'Dîme 2'));
+    }
+    else if(metier == 'empoisonneur'){
+      trophes.push(await this.setTrophe(joueur,'Une pomme bien rouge'));
+    }
+    else if(metier == 'rodeur'){
+      trophes.push(await this.setTrophe(joueur,'Grand pas'));
+    }
+    else if(metier == 'forgeron'){
+      trophes.push(await this.setTrophe(joueur,'Promis je casse pas ton armure'));
+    }
+    else if(metier == 'forgeur-de-runes'){
+      trophes.push(await this.setTrophe(joueur,'Forgeur de rêves'));
+    }
+    else if(metier == 'herboriste'){
+      trophes.push(await this.setTrophe(joueur,'Le père du mousse'));
+    }
+    else if(metier == 'artificier'){
+      trophes.push(await this.setTrophe(joueur,'Enzo Santorini'));
+    }
+    else if(metier == 'ingenieur-automate'){
+      trophes.push(await this.setTrophe(joueur,'Le reveil des machines'));
+    }
+    else if(metier == 'inquisiteur'){
+      trophes.push(await this.setTrophe(joueur,'Au bûcher'));
+    }
+    else if(metier == 'soldat'){
+      trophes.push(await this.setTrophe(joueur,'Formation tortue'));
+    }
+    else if(metier == 'berzerk'){
+      trophes.push(await this.setTrophe(joueur,'Tryndamère'));
+    }
+    else if(metier == 'pirate'){
+      trophes.push(await this.setTrophe(joueur,'Sea of thieves'));
+    }
+    else if(metier == 'noble'){
+      trophes.push(await this.setTrophe(joueur,'95%'));
+    }
+    else if(metier == 'barbare'){
+      trophes.push(await this.setTrophe(joueur,'Conan'));
+    }
+    else if(metier == 'barbare'){
+      trophes.push(await this.setTrophe(joueur,'Conan'));
+    }
+    else if(metier == 'barbare'){
+      trophes.push(await this.setTrophe(joueur,'Conan'));
+    }
+    else if(metier == 'barbare'){
+      trophes.push(await this.setTrophe(joueur,'Conan'));
+    }
+    else if(metier == 'barbare'){
+      trophes.push(await this.setTrophe(joueur,'Conan'));
+    }
+
+ 
+ 
+     return trophes
+ 
+     //#endregion
   }
 
   async addMobCombattu(nom:string,mob:string, nombre :number){
@@ -486,6 +786,14 @@ export class HerosService {
       });
     })
     
+  }
+
+  async setTrophe(joueur:string,titre:string):Promise<string>{
+    await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+      trophe : '',
+      joueur:joueur
+    });
+    return titre;
   }
 
 }

@@ -413,14 +413,11 @@ debugger;
     where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
 
    
-    let heroEntropique: Critique[] = [];
     let heroArmes: DocumentData[] = [];
 
 
     for (const hero of heros) {
-      heroEntropique = (await getDocs(query(collection(this.firestore, 'heros_entropiques'), 
-            where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
-      heroArmes = (await getDocs(query(collection(this.firestore, 'heros_armes'), 
+     heroArmes = (await getDocs(query(collection(this.firestore, 'heros_armes'), 
                   where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data());
                 
     }
@@ -456,138 +453,7 @@ debugger;
         description:"Parcourir 100km avec un seul personnage",
         possede:heros.find(x=>x['km'] >= 100) !== undefined,
       },
-      {
-        categorie:3,
-        titre:"Mangeur de salade marque repère",
-        description:"Avoir incarné un Demi-Elfe",
-        possede:heros.find(x=>x['origine'] == 'demi-elfe') !== undefined
-},
-{
-        categorie:3,
-        titre:"Mangeur de salade bio",
-        description:"Avoir incarné un Elfe Sylvain",
-        possede:heros.find(x=>x['origine'] == 'elfe-sylvain') !== undefined
-},
-{
-        categorie:3,
-        titre:"Mangeur de salade aux truffes",
-        description:"Avoir incarné un Haut Elfe",
-        possede:heros.find(x=>x['origine'] == 'haut-elfe') !== undefined
-},
-{
-        categorie:3,
-        titre:"Simple, basique",
-        description:"Avoir incarné un Humain",
-        possede:heros.find(x=>x['origine'] == 'humain') !== undefined
-},
-{
-        categorie:3,
-        titre:"Conan",
-        description:"Avoir incarné un Barbare",
-        possede:heros.find(x=>x['origine'] == 'barbare') !== undefined
-},
-{
-        categorie:3,
-        titre:"Dark Sasuke",
-        description:"Avoir incarné un Elfe Noir",
-        possede:heros.find(x=>x['origine'] == 'elfe-noir') !== undefined
-},
-{
-        categorie:3,
-        titre:"Orque ...",
-        description:"Avoir incarné un Orque",
-        possede:heros.find(x=>x['origine'] == 'orque') !== undefined
-},
-{
-        categorie:3,
-        titre:"1 javelot c'est bien ... 3 c'est mieux",
-        description:"Avoir incarné un Demi-Orque",
-        possede:heros.find(x=>x['origine'] == 'demi-orque') !== undefined
-},
-{
-        categorie:3,
-        titre:"9 Intelligence, 13 Force .. Hum ",
-        description:"Avoir incarné un Ogre",
-        possede:heros.find(x=>x['origine'] == 'ogre') !== undefined
-},
-{
-        categorie:3,
-        titre:"4 pattes et un gros p****",
-        description:"Avoir incarné un Centaure",
-        possede:heros.find(x=>x['origine'] == 'centaure') !== undefined
-},
-{
-        categorie:3,
-        titre:"Atréide",
-        description:"Avoir incarné un Homme des sables",
-        possede:heros.find(x=>x['origine'] == 'homme-des-sables') !== undefined
-},
-{
-        categorie:3,
-        titre:"Un Sam en devenir",
-        description:"Avoir incarné un Hobbit",
-        possede:heros.find(x=>x['origine'] == 'hobbit') !== undefined
-},
-{
-        categorie:3,
-        titre:"BRUT",
-        description:"Avoir incarné un Prêtre",
-        possede:heros.find(x=>x['metier'] == 'pretre') !== undefined
-},
-{
-        categorie:3,
-        titre:"De l'autre coté de la mer",
-        description:"Avoir incarné un Voleur",
-        possede:heros.find(x=>x['metier'] == 'voleur') !== undefined
-},
-{
-        categorie:3,
-        titre:"Picasso",
-        description:"Avoir incarné un Artiste",
-        possede:heros.find(x=>x['metier'] == 'artiste') !== undefined
-},
-{
-        categorie:3,
-        titre:"92%",
-        description:"Avoir incarné un Bourgeois",
-        possede:heros.find(x=>x['metier'] == 'bourgeois') !== undefined
-},
-{
-        categorie:3,
-        titre:"C'est moi qui l'ait fait",
-        description:"Avoir incarné un Artisant",
-        possede:heros.find(x=>x['metier'] == 'artisant') !== undefined
-},
-{
-        categorie:3,
-        titre:"Buzz la foudre",
-        description:"Avoir incarné un Ranger",
-        possede:heros.find(x=>x['metier'] == 'ranger') !== undefined
-},
-{
-        categorie:3,
-        titre:"Il a encore oublié d'enlever l'armure",
-        description:"Avoir incarné un Ingénieur",
-        possede:heros.find(x=>x['metier'] == 'ingenieur') !== undefined
-},
-{
-        categorie:3,
-        titre:"Tes HP ... nos HP",
-        description:"Avoir incarné un Démonologue",
-        possede:heros.find(x=>x['metier'] == 'demonologue') !== undefined
-},
-{
-        categorie:3,
-        titre:"Ma seule stat c'est force",
-        description:"Avoir incarné un Guerrier",
-        possede:heros.find(x=>x['metier'] == 'guerrier') !== undefined
-},
-{
-        categorie:3,
-        titre:"Poudlard",
-        description:"Avoir incarné un Mage",
-        possede:heros.find(x=>x['metier'] == 'mage') !== undefined
-},
+
 // #endregion Categorie 3
 // #region Categorie 2
       {
@@ -604,154 +470,11 @@ debugger;
       },
       {
         categorie:2,
-        titre:"Monster Hunter",
-        description:"Avoir incarné un chasseur de monstres",
-        possede:heros.find(x=>x['metier'] == 'chasseur-de-monstres') !== undefined,
-      },
-      {
-        categorie:2,
-        titre:"Uncharted",
-        description:"Avoir incarné un chasseur de trésors",
-        possede:heros.find(x=>x['metier'] == 'chasseur-de-tresor') !== undefined,
-      },
-      {
-        categorie:2,
-        titre:"Marshal",
-        description:"Avoir incarné un chasseur de primes",
-        possede:heros.find(x=>x['metier'] == 'chasseur-de-primes') !== undefined,
-      },
-      {
-        categorie:2,
-        titre:"Budo",
-        description:"Avoir incarné un Samurai",
-        possede:heros.find(x=>x['origine'] == 'samurai') !== undefined,
-      },
-      {
-        categorie:2,
         titre:"Picsou",
-        description:"Accumuler 5000 PO sans les dépenser",
-        possede:heros.find(x=>x['or'] >= 5000) !== undefined,
+        description:"Accumuler 3000 PO sans les dépenser",
+        possede:heros.find(x=>x['or'] >= 3000) !== undefined,
       },
-      {
-        categorie:2,
-        titre:"Comme un air de supériorité",
-        description:"Avoir incarné une Walkyrie",
-        possede:heros.find(x=>x['origine'] == 'walkyrie') !== undefined,
-      },
-      {
-        categorie:2,
-        titre:"Maximus Decimus",
-        description:"Avoir atteint le rang de Gladiateur",
-        possede:heros.find(x=>x['metier'] == 'gladiateur') !== undefined,
-      },
-      {
-        categorie:2,
-        titre:"David Copperfield",
-        description:"Avoir atteint le rang de prestidigitateur",
-        possede:heros.find(x=>x['metier'] == 'prestidigitateur') !== undefined,
-      },
-{
-        categorie:2,
-        titre:"Dice throne #1",
-        description:"Avoir incarné un Moine",
-        possede:heros.find(x=>x['metier'] == 'moine') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Dîme 2",
-        description:"Avoir incarné un Paladin",
-        possede:heros.find(x=>x['metier'] == 'paladin') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Une pomme bien rouge",
-        description:"Avoir incarné un Empoisonneur",
-        possede:heros.find(x=>x['metier'] == 'empoisonneur') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Grand pas",
-        description:"Avoir incarné metier Rodeur",
-        possede:heros.find(x=>x['metier'] == 'rodeur') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Promis je casse pas ton armure",
-        description:"Avoir incarné un Forgeron",
-        possede:heros.find(x=>x['metier'] == 'forgeron') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Forgeur de rêves",
-        description:"Avoir incarné un Forgeur de rûnes",
-        possede:heros.find(x=>x['metier'] == 'forgeur-de-runes') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Le père du mousse",
-        description:"Avoir incarné un Herboriste",
-        possede:heros.find(x=>x['metier'] == 'herboriste') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Enzo Santorini",
-        description:"Avoir incarné un Artificier",
-        possede:heros.find(x=>x['metier'] == 'artificier') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Le reveil des machines",
-        description:"Avoir incarné un Ingénieur Automate",
-        possede:heros.find(x=>x['metier'] == 'ingenieur-automate') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Au bûcher",
-        description:"Avoir incarné un Inquisiteur",
-        possede:heros.find(x=>x['metier'] == 'inquisiteur') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Formation tortue",
-        description:"Avoir incarné un Soldat",
-        possede:heros.find(x=>x['metier'] == 'soldat') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Tryndamère",
-        description:"Avoir incarné un Berzerk",
-        possede:heros.find(x=>x['metier'] == 'berzerk') !== undefined,
-},
-{
-        categorie:2,
-        titre:"Sea of thieves",
-        description:"Avoir incarné un Pirate",
-        possede:heros.find(x=>x['metier'] == 'pirate') !== undefined,
-},
-{
-        categorie:2,
-        titre:"95%",
-        description:"Avoir incarné un Noble",
-        possede:heros.find(x=>x['metier'] == 'noble') !== undefined,
-},
-{
-        categorie:2,
-        titre:"C'est sur qu'on a pas de swap ?",
-        description:"Avoir incarné un Humain sans métier",
-        possede:heros.find(x=>x['origine'] == 'humain' && x['metier'] == '') !== undefined,
-},
-{
-  categorie:2,
-  titre:"Combattre les stéréotypes",
-  description:"Avoir incarné un Orque Mage",
-  possede:heros.find(x=> x['origine'] == 'orque' &&x['metier'] == 'mage') !== undefined,
-},
-{
-  categorie:2,
-  titre:"Renforcer les stéréotypes",
-  description:"Avoir incarné un Hommes des sables Voleur",
-  possede:heros.find(x=> x['origine'] == 'homme-des-sables' && x['metier'] == 'voleur') !== undefined,
-},
+
 // #endregion Categorie 2
 // #region Categorie 1
       {
@@ -760,12 +483,7 @@ debugger;
         description:"Accumuler 5000 PO sans les dépenser",
         possede:heros.find(x=>x['or'] >= 5000) !== undefined,
       },
-      {
-        categorie:1,
-        titre:"Représentant divin",
-        description:"Avoir débloqué une évolution de Walkyrie",
-        possede:heros.find(x=> ['compagnie-du-crepuscule','gardienne-de-l-aube','legion-celeste'].includes(x['metier'])) !== undefined,
-      },
+      //=============>
       {
         categorie:1,
         titre:"99%",
@@ -847,18 +565,6 @@ debugger;
   description:"Avoir combattu tous les types d'ennemis",
   possede:false
 },
-{
-  categorie:0,
-  titre:"C'est donc possible ...",
-  description:"Avoir atteint le niveau 10",
-  possede:heros.find(x=>x['niveau'] > 10) !== undefined
-},
-      {
-        categorie:0,
-        titre:"La fierté de Thanos",
-        description:"Avoir 25000+ dégats",
-        possede:heros.find(x=>x['degats'] > 25000) !== undefined,
-      },
       {
         categorie:0,
         titre:"Envoyé des dieux",
@@ -978,12 +684,6 @@ debugger;
     && heros.find(x=> x['metier'] == 'chasseur-de-monstres') !== undefined
     && heros.find(x=> x['metier'] == 'chasseur-de-tresor') !== undefined,
 },
-    {
-        categorie:8,
-        titre:"Agent du chaos",
-        description:"Avoir lancé 100 sorts entropiques",
-        possede:false
-    },
     {
         categorie:8,
         titre:"1001 vies",
