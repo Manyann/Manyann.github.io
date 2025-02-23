@@ -65,7 +65,7 @@ export class ItemsService {
     return heroArmures; 
   }
 
-  async equipe(heroCode:string, arme:string){
+  async equipe(heroCode:string, arme:string) : Promise<string[]>{
     let armesHero =  (await getDocs(query(
       collection(this.firestore,'heros_armes')
       ,where('hero_nom','==',heroCode)
@@ -74,6 +74,9 @@ export class ItemsService {
       ,where('supprime',"==",false))));
 
       let firstDealedWith : boolean = false;
+
+      //#region trophes
+      let trophes = [];
 
       armesHero.forEach(async (document) => {
         const docId = document.id; // Get document ID
@@ -85,6 +88,52 @@ export class ItemsService {
           await setDoc(doc(this.firestore,'heros_armes',docId), docData);
         }
       });
+
+      let currentHero = (await getDocs(query(collection(this.firestore,'heros'),
+      where('nom',"==", heroCode)))).docs.map((entries) => entries.data())[0];
+
+      let equipes =  (await getDocs(query(
+        collection(this.firestore,'heros_armes')
+        ,where('hero_nom','==',heroCode)
+        ,where('equipe','==',true)
+        ,where('supprime',"==",false))))
+        .docs.map((entries) => entries.data());
+
+        const nameMap = new Map<string, number>();
+        let hasBriseMonde = false;
+        let heroPlaque: { [hero: string] : number; } = {};
+        let heroDueliste: { [hero: string] : number; } = {};
+        for (const item of equipes) {
+          let armeCode:string = item['arme_code'];
+          if(armeCode == 'le-brise-monde'){
+            hasBriseMonde = true;
+          }else if(armeCode == 'lame-de-dueliste'){
+            heroDueliste[item['hero_nom']]++;
+          }else if(armeCode.indexOf('plaque-travaille')!= -1 && item['equipe'] == true){
+            heroPlaque[item['hero_nom']]++;
+          }
+          if (new Set(["baton-d-elementaliste", "grimoire-universel"]).has(armeCode)) {
+            nameMap.set(item['hero_nom'], (nameMap.get(item['hero_nom']) || 0) + 1);
+          }
+        }
+      
+        let trophesOwned =  await this.getJoueurTrophes(currentHero[0]['code_joueur']);
+        if(nameMap.size > 0){
+          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Elémentaire mon cher",trophesOwned));
+        }
+        if(hasBriseMonde){
+          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Galactus", trophesOwned));
+        }
+        if(heroPlaque){
+          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Indestructible",trophesOwned));
+        }
+        if(heroDueliste){
+          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Go 1v1", trophesOwned));
+        }
+
+      //#endregion trophes
+
+      return trophes;
   }
 
   async desequipe(heroCode:string, arme:string){
@@ -215,6 +264,25 @@ export class ItemsService {
       });
   }
 
+  async setTrophe(joueur:string,titre:string,trophes:string[]):Promise<string>{
+    if(trophes.includes(titre)){
+      return "";
+    }
+    await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
+      titre : titre,
+      code_joueur:joueur
+    });
+    return titre;
+  }
+
+  async getJoueurTrophes(joueur:string):Promise<string[]>{
+
+    //tous les trophés du joueurs
+    let trophesJoueur = (await getDocs(query(collection(this.firestore,'joueurs_trophes'),
+    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+
+    return trophesJoueur.map(x=>x['titre']);
+  }
 
   async bulkInsert(){
     let origines =  CreationHelper.getAllMetier();

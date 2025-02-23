@@ -18,7 +18,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HeroArmes, HeroArmures } from '../model/item';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 
 @Component({
@@ -28,7 +28,7 @@ import { Router } from '@angular/router';
     TableModule, InputSwitchModule, FormsModule, AutoCompleteModule, DropdownModule, ButtonModule,
     ReactiveFormsModule,InputNumberModule, SidebarModule,MultiSelectModule,ConfirmDialogModule, 
     HeroPipe,HeroTypePipe, IsFromSessionPipe, ShouldBeEquipePipe],
-  providers:[ConfirmationService],
+    providers:[ConfirmationService, MessageService],
   templateUrl: './gestion.component.html',
   styleUrl: './gestion.component.css'
 })
@@ -75,6 +75,7 @@ export class GestionComponent {
     herosService:HerosService,
     armesService:ItemsService,
     confirmationService:ConfirmationService,
+    private messageService: MessageService,
     private router: Router
   ){
 
@@ -165,13 +166,17 @@ export class GestionComponent {
   }
 
   valider(){
-    this.herosService.add(this.addJoueur,this.addNom,this.addOrigine.code,this.addMetier.code,this.addOr,this.addDestin,this.addNiveau).then(() => {
+    this.herosService.add(this.addJoueur,this.addNom,this.addOrigine.code,this.addMetier.code,this.addOr,this.addDestin,this.addNiveau).then((trophes) => {
+      this.handleTrophes(trophes);
       this.allHeros$ = this.herosService.getAll();
     });
   }
 
   equipe(hero:string,armeCode:string){
-    this.armesService.equipe(hero,armeCode).then(() => this.handleSelect(hero));
+    this.armesService.equipe(hero,armeCode).then((trophes) => {
+      this.handleTrophes(trophes); 
+      this.handleSelect(hero)
+    });
   }
 
   desequipe(hero:string,armeCode:string){
@@ -221,24 +226,32 @@ export class GestionComponent {
   }
 
   addBonPoint(hero:string){
-    this.herosService.addBonPoint(hero).then(() => this.handleSelect(this.addhero));
-  }
+    this.herosService.addBonPoint(hero).then((trophes) => {
+      this.handleTrophes(trophes); 
+      this.handleSelect(hero)
+    });}
 
   addMauvaisPoint(hero:string){
-    this.herosService.addMauvaisPoint(hero).then(() => this.handleSelect(this.addhero));
-  }
+    this.herosService.addMauvaisPoint(hero).then((trophes) => {
+      this.handleTrophes(trophes); 
+      this.handleSelect(hero)
+    });}
 
   addMort(hero:string){
     this.herosService.addMort(hero).then(() => this.handleSelect(this.addhero));
   }
 
   levelUp(hero:string){
-    this.herosService.addNiveau(hero).then(() => this.handleSelect(this.addhero));
-  }
+    this.herosService.addNiveau(hero).then((trophes) => {
+      this.handleTrophes(trophes); 
+      this.handleSelect(hero)
+    });}
 
   removeDestin(hero:string){
-    this.herosService.removeDestin(hero).then(() => this.handleSelect(this.addhero));
-  }
+    this.herosService.removeDestin(hero).then((trophes) => {
+      this.handleTrophes(trophes); 
+      this.handleSelect(hero)
+    });}
 
   validerStats(){
     this.addStatsHero.forEach(element => { 
@@ -249,6 +262,18 @@ export class GestionComponent {
     this.addKmParcourus = 0 ;
     this.addOrs = 0;
     this.handleSelect(this.addhero);
+  }
+
+  handleTrophes(trophes:string[]){
+    for(let trophe of trophes.filter(x=>x != "")){
+      this.messageService.add({
+        severity:'success',
+        icon:'pi-crown',
+        closable:true,
+        summary:trophe,
+        life:7000
+      });
+    }
   }
 
 }

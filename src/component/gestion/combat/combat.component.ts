@@ -89,49 +89,53 @@ export class CombatComponent {
 
   addCoupCritique(hero:string){
     this.herosService.addCritique(hero,this.addIntensite,this.tour)
-    .then(()=> {
+    .then((trophes)=> {
       this.addIntensite = 0;
       this.messageService.add({
         severity:'info',
         closable:true,
         summary:"Coup critique ajouté"
       });
+      this.handleTrophes(trophes); 
     });
   }
 
   addEchecCritique(hero:string){
     this.herosService.addEchecCritique(hero,this.addIntensite,this.tour)
-    .then(()=> {
+    .then((trophes)=> {
       this.addIntensite = 0;
       this.messageService.add({
         severity:'info',
         closable:true,
         summary:"Echec critique ajouté"
       });
+      this.handleTrophes(trophes); 
     });
   }
 
   addParadeCritique(hero:string){
     this.herosService.addParade(hero,this.addIntensite,this.tour)
-    .then(()=> {
+    .then((trophes)=> {
       this.addIntensite = 0;
       this.messageService.add({
         severity:'info',
         closable:true,
         summary:"Parade critique ajoutée"
       });
+      this.handleTrophes(trophes); 
     });
   }
 
   addEntropique(hero:string){
     this.herosService.addEntropique(hero,this.addIntensite,this.tour)
-    .then(()=> {
+    .then((trophes)=> {
       this.addIntensite = 0;
       this.messageService.add({
         severity:'info',
         closable:true,
         summary:"Entropique ajoutée"
       });
+      this.handleTrophes(trophes); 
     });
   }
 
@@ -186,25 +190,26 @@ export class CombatComponent {
 
   updateDegatsDealt(hero:string){
     this.herosService.updateDegatsDealt(hero,this.addDegats,this.tour)
-    .then(()=> {
+    .then((trophes)=> {
       this.messageService.add({
         severity:'info',
         closable:true,
         summary:`${this.addDegats} ajouté(s)`
       });
+      this.handleTrophes(trophes); 
       this.addDegats = 0;
     });
   }
 
   removeDestin(hero:string){
     this.herosService.removeDestin(hero)
-    .then(()=> {
+    .then((trophes)=> {
       this.messageService.add({
         severity:'info',
         closable:true,
         summary:"Point de destin retiré"
       });
-      
+      this.handleTrophes(trophes); 
     this.heroSession$ = this.herosService.getAllFromSession();
     });
   }
@@ -257,7 +262,9 @@ export class CombatComponent {
   killMob(index:number,mobCode:string,mobLibelle:string){
     let id = mobCode.startsWith("*") ? mobLibelle :mobCode;
     this.herosCode.forEach((hero) =>{
-      this.herosService.addMobCombattu(hero,id.toLowerCase(),1);
+      this.herosService.addMobCombattu(hero,id.toLowerCase(),1).then((trophes) => {
+        this.handleTrophes(trophes); 
+      });
     });
 
     this.mobs =  this.mobs.filter(x=>x.index != index);
@@ -276,6 +283,20 @@ export class CombatComponent {
     }
 
     this.autoCompleteMobs = filtered;
+  }
+
+  handleTrophes(trophes:string[]){
+    console.log(trophes);
+    for(let trophe of trophes.filter(x=>x != "")){
+      console.log(trophe);
+      this.messageService.add({
+        severity:'success',
+        icon:'pi-crown',
+        closable:true,
+        summary:trophe,
+        life:7000
+      });
+    }
   }
 
 }
