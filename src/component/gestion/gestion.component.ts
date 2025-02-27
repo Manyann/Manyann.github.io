@@ -166,6 +166,7 @@ export class GestionComponent {
   }
 
   valider(){
+    this.sidebarVisible = false;
     this.herosService.add(this.addJoueur,this.addNom,this.addOrigine.code,this.addMetier.code,this.addOr,this.addDestin,this.addNiveau).then((trophes) => {
       this.handleTrophes(trophes);
       this.allHeros$ = this.herosService.getAll();
@@ -214,6 +215,7 @@ export class GestionComponent {
   }
 
   validerStuff(){
+    this.sidebarStuffVisible = false;
     this.addArmes.forEach((arme:any) =>{
       this.armesService.addToHero(this.addhero,arme['code'],false);
     });
@@ -254,6 +256,7 @@ export class GestionComponent {
     });}
 
   validerStats(){
+    this.sidebarStatsVisible = false;
     this.addStatsHero.forEach(element => { 
       this.herosService.updateStats(element['nom'],this.addKmParcourus,this.addOrs);
     });
