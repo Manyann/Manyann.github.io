@@ -44,8 +44,8 @@ import { Ville, VilleHelper } from "../../../model/villes";
           let handicap = item.basePourcentage;
           handicap -= ville.handicap
   
-          if(handicap < 2 ){
-            handicap = 2;
+          if(handicap < 1 ){
+            handicap = 1;
           }
           
           return random < handicap;

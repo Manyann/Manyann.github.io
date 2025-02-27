@@ -125,7 +125,7 @@ export class ItemHelper{
     private static getOrigine(armeType:string):string{
         let dico = this.origines[armeType];
         let originesCount = Object.keys(dico).length;
-        let max = originesCount * 10;
+        let max = originesCount * 20;
 
         let random = Math.floor(Math.random() * (max - 0 + 1)) + 0;
         if(random >= originesCount){
