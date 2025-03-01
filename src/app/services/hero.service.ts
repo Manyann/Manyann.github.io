@@ -497,8 +497,8 @@ export class HerosService {
      let trophesOwned =  await this.getJoueurTrophes(joueur);
         
     let trophesOrigine = await this.getTrophesOrigines();
-    if(trophesOrigine[metier]){
-      trophes.push(await this.setTrophe(joueur,trophesOrigine[metier],trophesOwned));
+    if(trophesOrigine[origine]){
+      trophes.push(await this.setTrophe(joueur,trophesOrigine[origine],trophesOwned));
     }
 
     let trophesMetier = await this.getTrophesMetier();

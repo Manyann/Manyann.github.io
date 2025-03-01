@@ -3,14 +3,11 @@ import { CommonModule } from '@angular/common';
 import { HerosService } from '../../../app/services/hero.service';
 import { DocumentData } from '@angular/fire/firestore';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { PanelModule } from 'primeng/panel';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
@@ -45,13 +42,9 @@ export class CombatComponent {
 
   constructor(
     private herosService:HerosService,
-    private mobsService: MobsService,
-    private confirmationService:ConfirmationService,
+    mobsService: MobsService,
     private messageService: MessageService,
-    private router: Router
   ){
-
-    this.confirmationService = confirmationService;
 
     this.sidebarVisible = false;
    

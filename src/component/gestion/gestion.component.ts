@@ -18,13 +18,14 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HeroArmes, HeroArmures } from '../model/item';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService,Message, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-ingame',
   standalone: true,
-  imports: [CommonModule, TabViewModule, SplitterModule , 
+  imports: [CommonModule, ToastModule, TabViewModule, SplitterModule , 
     TableModule, InputSwitchModule, FormsModule, AutoCompleteModule, DropdownModule, ButtonModule,
     ReactiveFormsModule,InputNumberModule, SidebarModule,MultiSelectModule,ConfirmDialogModule, 
     HeroPipe,HeroTypePipe, IsFromSessionPipe, ShouldBeEquipePipe],
@@ -256,9 +257,10 @@ export class GestionComponent {
     });}
 
   validerStats(){
-    this.sidebarStatsVisible = false;
+    this.sidebarStatsVisible = false ;
     this.addStatsHero.forEach(element => { 
-      this.herosService.updateStats(element['nom'],this.addKmParcourus,this.addOrs);
+      this.herosService.updateStats(element['nom'],this.addKmParcourus,this.addOrs).then((trophes) => 
+        this.handleTrophes(trophes));
     });
     
     this.addStatsHero = [];
@@ -268,7 +270,7 @@ export class GestionComponent {
   }
 
   handleTrophes(trophes:string[]){
-    for(let trophe of trophes.filter(x=>x != "")){
+    for(let trophe of trophes.filter(x=>x !== "")){
       this.messageService.add({
         severity:'success',
         icon:'pi-crown',
