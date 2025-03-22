@@ -21,6 +21,23 @@ export class MobsService {
     return mobs;
   }
 
+  async insert(mob:Mob){
+    let code = mob.libelle.replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+      
+    await setDoc(doc(this.firestore, "mobs",code ), {
+      code: code ,
+      libelle: mob.libelle,
+      zone:'autre',
+      attaque:mob.attaque,
+      parade:mob.parade,
+      vie:mob.vie,
+      informations:mob.informations,
+      degats:mob.degats,
+      armure:mob.armure,
+      experience:mob.experience,
+    });
+  }
+
   async bulkInsert(){
 
     let mobs : Mob[] = [];
@@ -34,7 +51,6 @@ export class MobsService {
     ];
 
     mobs.forEach(async (mob) =>{
-
       await setDoc(doc(this.firestore, "mobs",mob.code ), {
               code: mob.code ,
               libelle: mob.libelle,

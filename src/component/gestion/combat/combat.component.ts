@@ -42,7 +42,7 @@ export class CombatComponent {
 
   constructor(
     private herosService:HerosService,
-    mobsService: MobsService,
+    private mobsService: MobsService,
     private messageService: MessageService,
   ){
 
@@ -208,7 +208,6 @@ export class CombatComponent {
   }
 
   generateMob(){
-    debugger;
     let mobCode = this.addMob?.code ?? "";
     for (let i = 0; i < this.addMobNumber; i++) {
       let mob = this.mobsToSearch.find(x=>x.code == mobCode) ?? this.mobsToSearch[0];
@@ -261,6 +260,18 @@ export class CombatComponent {
     });
 
     this.mobs =  this.mobs.filter(x=>x.index != index);
+  }
+
+  saveMob(index:number){
+    let mob = this.mobs.find(x=>x.index == index);
+    if(mob != undefined){
+      this.mobsService.insert(mob).then(()=>{
+        this.allMobs$ = this.mobsService.getAll();
+        this.allMobs$.then((m) =>{
+          this.mobsToSearch = m;
+        })
+      });
+    }
   }
 
   

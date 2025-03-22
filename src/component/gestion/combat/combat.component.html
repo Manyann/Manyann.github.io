@@ -187,7 +187,10 @@
                         </p-cellEditor>
                     </td>
                     <td>
-                        <p-button icon="pi pi-times" label="Mort" (onClick)="killMob(mob.index,mob.code,mob.libelle)"/>
+                        <div class="row-button">
+                            <p-button icon="pi pi-times" label="Mort" (onClick)="killMob(mob.index,mob.code,mob.libelle)"/>
+                            <p-button icon="pi pi-save" label="Save" (onClick)="saveMob(mob.index)"/>
+                        </div>
                     </td>
                 </tr>
             </ng-template>
