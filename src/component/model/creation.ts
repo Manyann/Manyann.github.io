@@ -219,8 +219,8 @@ export class CreationHelper{
             {
             nom:"Ogre",
             courage: {type:"min",nombre:"11+"},
-            intelligence: new Caracteristique(),
-            charisme: new Caracteristique(),
+            intelligence: {type:"max",nombre:"10-"},
+            charisme: {type:"max",nombre:"10-"},
             adresse: {type:"max",nombre:"11-"},
             force: {type:"min",nombre:"13+"},
             chance: new Caracteristique(),
