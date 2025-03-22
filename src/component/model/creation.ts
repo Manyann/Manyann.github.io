@@ -123,7 +123,7 @@ export class CreationHelper{
             restrictions : ["Arc et Arbalètes","Armes à 2 mains non naine","4PR Max"],
             competencesHerites :["Appel du tonneau","Chercher des noises","Méfiance","Instinct du trésor", "Pénible","Radin","Tirer Correctement" , "6 : Arnaque et carambouille"],
             restrictionsMetier : ['Voleur',"Artiste",'Ranger','Démonologue','Mage'],
-            restrictionsMetierShortCode: ['MO','VO','AR','HE','RA','DM','MG','MA','PI','CP','CR','WA'],
+            restrictionsMetierShortCode: ['MO','VO','AR','HE','RA','DM','MG','PS','PI','CP','CR','WA'],
             isForbidden : false
             },
             {
@@ -488,7 +488,7 @@ export class CreationHelper{
             },
             {
             nom:"Prestidigitateur",
-            shortCode:"MA",
+            shortCode:"PS",
             courage: new Caracteristique(),
             intelligence: {type:"min",nombre:"10+"},
             charisme: {type:"min",nombre:"10+"},
@@ -518,7 +518,7 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Chef de groupe","Fariboles"],
             autres : ["Rencontre amicale: Lors d'une rencontre si les ennemis sont des humains il y a 1/4 chance qu'ils soit fan de la célébrité et n'attaque pas",
                 "Julia Roberts : Lors d'une rencontre si les ennemis sont des humains il y a 1/4 chance de détester la célébrité et la focus"],
-            shortCodeParents:["MA","CM","GL"],
+            shortCodeParents:["PS","CM","GL"],
             isForbidden : false, subMetiers : []
             },
             {
@@ -633,7 +633,7 @@ export class CreationHelper{
             restrictions : ["2PR Max"],
             competencesHerites :["Arnaque et carambouille","Erudition","Fariboles","Instinct du trésor"],
             autres : ["Pignon sur rue : Le commerçant peut vendre des items peut importe l'endroit ou il est pour 40% du prix (selon etat) au lieu des 50% classique en ville ( arnaque et carambouille ne s'applique pas)"],
-            shortCodeParents:["AT,BE"],
+            shortCodeParents:["AT","BE"],
             isForbidden : false, subMetiers : []
             },
             {
