@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { Mob } from '../../model/ennemi';
 import { MobsService } from '../../../app/services/mob.service';
+import { app } from '../../../../server';
 
 @Component({
   selector: 'app-combat',
@@ -223,7 +224,8 @@ export class CombatComponent {
           libelle : mob.libelle,
           parade : mob.parade,
           vie : mob.vie,
-          zone : mob.zone
+          zone : mob.zone,
+          apparition:0
         }
       );
     }
@@ -246,7 +248,8 @@ export class CombatComponent {
         libelle : "nom",
         parade : 0,
         vie : 0,
-        zone : "*"
+        zone : "*",
+        apparition:0
       }
     );
   }

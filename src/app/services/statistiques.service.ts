@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, doc, DocumentData, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
+import { collection, deleteDoc, doc, DocumentData, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { EnnemiHelper, Mob } from '../../component/model/ennemi';
 import { CodeValeur } from '../../component/model/code-libelle';
 
@@ -186,17 +186,11 @@ debugger;
   }
   
   async getEnnemis(){
-    let herosmobs = (await getDocs(query(collection(this.firestore,'heros_mobs')))).docs.map((entries) => entries.data());
     let mobs = (await getDocs(query(collection(this.firestore,'mobs')))).docs.map((entries) => entries.data());
 
     let statistiques : CodeValeur[] = [];
     mobs.forEach((mob) => {
-      statistiques.push({code:mob['libelle'],valeur:0})
-      herosmobs.forEach((heromob) =>{
-        if(heromob[mob['code']]!== undefined){
-          statistiques.find(x=>x.code == mob['libelle'])!.valeur +=heromob[mob['code']];
-        }
-      });
+      statistiques.push({code:mob['libelle'],valeur:mob['apparition']})
     });
     return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
   }
@@ -427,6 +421,15 @@ debugger;
     }
 
     return trophesFiltered;
+  }
+
+  async deleteTest(){
+    const q = query(collection(this.firestore, "cities"), where("state", "==", "CA"));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (document) => {
+      await deleteDoc(doc(this.firestore, "cities", document.id));
+    });
   }
 }
 

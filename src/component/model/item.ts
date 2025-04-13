@@ -25,6 +25,12 @@ export class Armure extends Item{
     "armure":string;
 }
 
+export class Potion extends Item{
+    "duree":string;
+    "vie":string;
+    "mana":string;
+}
+
 export class Categorie{
     "code":string;
     "libelle":string;
@@ -4250,5 +4256,1312 @@ export class ItemHelper{
             },
             //#endregion Chapeau
         ];
+    }
+
+    static getDefaultPotion() : Potion {
+        return {
+            "libelle":"Petite potion de vie",
+            "basePourcentage":95,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"soins",
+                "libelle" : "Soins"
+            },
+            "prix":50,
+            "duree":"1",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+            
+        };
+    }
+
+    static getAllPotion() :Array<Potion>{
+        return [
+            //#region Vie
+        {
+            "libelle":"Petite potion de vie",
+            "basePourcentage":95,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"soins",
+                "libelle" : "Soins"
+            },
+            "prix":50,
+            "duree":"1",
+            "vie":"5",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Potion de vie",
+            "basePourcentage":85,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"soins",
+                "libelle" : "Soins"
+            },
+            "prix":120,
+            "duree":"1",
+            "vie":"10",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Élixir de Vitalis",
+            "basePourcentage":80,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"soins",
+                "libelle" : "Soins"
+            },
+            "prix":175,
+            "duree":"3",
+            "vie":"5",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Enorme potion de vie",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"soins",
+                "libelle" : "Soins"
+            },
+            "prix":250,
+            "duree":"1",
+            "vie":"20",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Potion de Résilience Grand-Mère™",
+            "basePourcentage":65,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"soins",
+                "libelle" : "Soins"
+            },
+            "prix":420,
+            "duree":"3",
+            "vie":"10",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Giga potion de vie",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"soins",
+                "libelle" : "Soins"
+            },
+            "prix":600,
+            "duree":"1",
+            "vie":"50",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Bisou Magique en bouteille",
+            "basePourcentage":40,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"soins",
+                "libelle" : "Soins"
+            },
+            "prix":0,
+            "duree":"1",
+            "vie":"*",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"Rend full HP. Prix 1.5 x EV max"
+        },
+        //#endregion Vie
+        //#region Mana
+        {
+            "libelle":"Petite potion de mana",
+            "basePourcentage":95,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mana",
+                "libelle" : "Mana"
+            },
+            "prix":55,
+            "duree":"1",
+            "vie":"",
+            "mana":"5",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Potion de mana",
+            "basePourcentage":80,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mana",
+                "libelle" : "Mana"
+            },
+            "prix":120,
+            "duree":"1",
+            "vie":"",
+            "mana":"10",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Liqueur de l’Essence Bleue",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mana",
+                "libelle" : "Mana"
+            },
+            "prix":160,
+            "duree":"3",
+            "vie":"",
+            "mana":"5",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Café Arcanique Triple Shot",
+            "basePourcentage":65,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mana",
+                "libelle" : "Mana"
+            },
+            "prix":260,
+            "duree":"1",
+            "vie":"",
+            "mana":"20",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Infusion des Deux Mondes",
+            "basePourcentage":40,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mana",
+                "libelle" : "Mana"
+            },
+            "prix":360,
+            "duree":"1",
+            "vie":"10",
+            "mana":"20",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Potion de Recharge Express",
+            "basePourcentage":35,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mana",
+                "libelle" : "Mana"
+            },
+            "prix":0,
+            "duree":"1",
+            "vie":"",
+            "mana":"*",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"Rend full Mana. Prix 1.5 x mana max"
+        },
+        //#endregion Mana
+        //#region Courage
+        {
+            "libelle":"Tisane du Lion Silencieux",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"courage",
+                "libelle" : "Courage"
+            },
+            "prix":100,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"1",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Bravoure en bouteille",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"courage",
+                "libelle" : "Courage"
+            },
+            "prix":190,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"2",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Infusion avec une goutte de sueur de Sam",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"courage",
+                "libelle" : "Courage"
+            },
+            "prix":350,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"4",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        //#endregion Courage
+        //#region Intelligence
+        {
+            "libelle":"Essence de Clairvoyance",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"intelligence",
+                "libelle" : "Intelligence"
+            },
+            "prix":90,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"1",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Distillat du Sphinx",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"intelligence",
+                "libelle" : "Intelligence"
+            },
+            "prix":190,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"1",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Infusion des Savoirs Anciens",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"intelligence",
+                "libelle" : "Intelligence"
+            },
+            "prix":350,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"4",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        //#endregion Intelligence
+        //#region Charisme
+        {
+            "libelle":"Philtre de Voix d’Argent",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"charisme",
+                "libelle" : "Charisme"
+            },
+            "prix":90,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"1",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Élixir des Cours Royales",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"charisme",
+                "libelle" : "Charisme"
+            },
+            "prix":190,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"2",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Nectar de Grâce Divine",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"charisme",
+                "libelle" : "Charisme"
+            },
+            "prix":350,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"4",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        //#endregion Charisme
+        //#region Adresse
+        {
+            "libelle":"Potion du Chat de Minuit",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"adresse",
+                "libelle" : "Adresse"
+            },
+            "prix":90,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"1",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Philtre de Voix d’Argent",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"adresse",
+                "libelle" : "Adresse"
+            },
+            "prix":190,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"2",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Philtre de Voix d’Argent",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"adresse",
+                "libelle" : "Adresse"
+            },
+            "prix":350,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"4",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        //#endregion Adresse
+        //#region Force
+        {
+            "libelle":"Extrait de Poigne de Fer",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"force",
+                "libelle" : "Force"
+            },
+            "prix":90,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"1",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Potion de popeye",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"force",
+                "libelle" : "Force"
+            },
+            "prix":190,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"2",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Essence de Titan",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"force",
+                "libelle" : "Force"
+            },
+            "prix":350,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"4",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        //#endregion Force
+        //#region Chance        
+        {
+            "libelle":"Liqueur du Dé Béni",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"chance",
+                "libelle" : "Chance"
+            },
+            "prix":90,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"1",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"-1 à tous les resultas de jet"
+        },
+        {
+            "libelle":"Potion du Hasard Heureux",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"chance",
+                "libelle" : "Chance"
+            },
+            "prix":190,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"2",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"Peut relancer un dé par tour"
+        },
+        {
+            "libelle":"Essence du Six-Face",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"chance",
+                "libelle" : "Chance"
+            },
+            "prix":350,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"1",
+            "adresse":"",
+            "force":"",
+            "chance":"4",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"Ne peut pas subir de critique"
+        },
+        //#endregion Chance
+        //#region Attaque
+        {
+            "libelle":"Distillat de Sang Guerrier",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"attaque",
+                "libelle" : "Attaque"
+            },
+            "prix":90,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"1",
+            "parade":"",
+            "rupture":"",
+            "informations":"+1 PI"
+        },
+        {
+            "libelle":"Potion de combattant",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"attaque",
+                "libelle" : "Attaque"
+            },
+            "prix":190,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"2",
+            "parade":"",
+            "rupture":"",
+            "informations":"+1 PI"
+        },
+        {
+            "libelle":"Essence de berzerk",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"attaque",
+                "libelle" : "Attaque"
+            },
+            "prix":350,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"4",
+            "parade":"",
+            "rupture":"",
+            "informations":"+2 PI"
+        },
+        //#endregion Attaque
+        //#region Parade
+        {
+            "libelle":"Infusion de Défense Éclair",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"parade",
+                "libelle" : "Parade"
+            },
+            "prix":90,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"1",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Potion de Contre-Parade",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"parade",
+                "libelle" : "Parade"
+            },
+            "prix":190,
+            "duree":"5",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"Peut contre attaquer une contre attaque"
+        },
+        {
+            "libelle":"Élixir de Défense Pure",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"parade",
+                "libelle" : "Parade"
+            },
+            "prix":350,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"3",
+            "rupture":"",
+            "informations":""
+        },
+        //#endregion Parade
+        //#region Armure
+        {
+            "libelle":"Baume de Peau de Fer",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"armure",
+                "libelle" : "Armure"
+            },
+            "prix":90,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"+2 PR"
+        },
+        {
+            "libelle":"Élixir de Carapace Minérale",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"armure",
+                "libelle" : "Armure"
+            },
+            "prix":190,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"+2PR"
+        },
+        {
+            "libelle":"Liquer de Mithril",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"armure",
+                "libelle" : "Armure"
+            },
+            "prix":350,
+            "duree":"5",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"+3PR"
+        },
+        //#endregion Armure
+        //#region Armure magique
+        {
+            "libelle":"Essence de Voile Arcanique",
+            "basePourcentage":90,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"armure-magique",
+                "libelle" : "Armure magique"
+            },
+            "prix":90,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"+1PR Magique"
+        },
+        {
+            "libelle":"Distillat de Bouclier Astral",
+            "basePourcentage":75,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"armure-magique",
+                "libelle" : "Armure magique"
+            },
+            "prix":190,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"+2PR Magique"
+        },
+        {
+            "libelle":"Potion de Mur de Savoir",
+            "basePourcentage":60,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"armure-magique",
+                "libelle" : "Armure magique"
+            },
+            "prix":350,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"+4PR Magique"
+        },
+        //#endregion Armure magique
+        //#region Mixe
+        {
+            "libelle":"Élixir du Héros des Légendes",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mixe",
+                "libelle" : "Mixe"
+            },
+            "prix":300,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"2",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"2",
+            "chance":"",
+            "attaque":"1",
+            "parade":"1",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Distillat des Sphères Jumelles",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mixe",
+                "libelle" : "Mixe"
+            },
+            "prix":300,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"2",
+            "charisme":"",
+            "adresse":"2",
+            "force":"",
+            "chance":"1",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Nectar d’Éloquence",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mixe",
+                "libelle" : "Mixe"
+            },
+            "prix":300,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"2",
+            "charisme":"2",
+            "adresse":"",
+            "force":"",
+            "chance":"1",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Essence de Maximus",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mixe",
+                "libelle" : "Mixe"
+            },
+            "prix":300,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"1",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"1",
+            "force":"1",
+            "chance":"",
+            "attaque":"1",
+            "parade":"1",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Infusion du Corps et de l’Esprit",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mixe",
+                "libelle" : "Mixe"
+            },
+            "prix":300,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"1",
+            "charisme":"",
+            "adresse":"1",
+            "force":"1",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Liqueur de la Fortune",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mixe",
+                "libelle" : "Mixe"
+            },
+            "prix":300,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"2",
+            "attaque":"",
+            "parade":"2",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Potion de Protection Totale",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mixe",
+                "libelle" : "Mixe"
+            },
+            "prix":300,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"1",
+            "intelligence":"",
+            "charisme":"",
+            "adresse":"",
+            "force":"",
+            "chance":"",
+            "attaque":"",
+            "parade":"",
+            "rupture":"",
+            "informations":"+2PR +2PR magique"
+        },
+        {
+            "libelle":"Élixir du Disciple Parfait",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mixe",
+                "libelle" : "Mixe"
+            },
+            "prix":500,
+            "duree":"3",
+            "vie":"",
+            "mana":"",
+            "courage":"1",
+            "intelligence":"1",
+            "charisme":"1",
+            "adresse":"1",
+            "force":"1",
+            "chance":"1",
+            "attaque":"1",
+            "parade":"1",
+            "rupture":"",
+            "informations":""
+        },
+        {
+            "libelle":"Larmes d'Éclipse",
+            "basePourcentage":70,
+            "region":"commun",
+            "origine":"",
+            "categorie":{
+                "code":"mixe",
+                "libelle" : "Mixe"
+            },
+            "prix":800,
+            "duree":"3",
+            "vie":"5",
+            "mana":"5",
+            "courage":"2",
+            "intelligence":"2",
+            "charisme":"2",
+            "adresse":"2",
+            "force":"2",
+            "chance":"",
+            "attaque":"2",
+            "parade":"2",
+            "rupture":"",
+            "informations":""
+        },
+        //#endregion
+    ];
     }
 }

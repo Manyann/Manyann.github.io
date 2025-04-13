@@ -533,6 +533,10 @@ export class HerosService {
         let extinction = false;
         let heroMobs = (await getDocs(query(collection(this.firestore,'heros_mobs'),heros[0]['nom']))).docs.map((entries) => entries.data());
 
+
+        let mobToUpdate = await doc(this.firestore, "mobs", mob)
+        await setDoc(mobToUpdate, { apparition:increment(1)  }, { merge: true });
+
         let trophes = [];
 
         for (const key in heroMobs[0]) {

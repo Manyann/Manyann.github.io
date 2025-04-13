@@ -38,6 +38,7 @@
     display: flex;   
     flex-wrap: wrap;
     gap: 0.5rem;
+    position: relative;
 }
 
 .achivement{
@@ -80,6 +81,14 @@
     color:#C73131;
 }
 
+.color-11{
+    color:#a10ba7;
+}
+
+.color-12{
+    color:#a10ba7;
+}
+
 .bcolor-0{
     border-color:#287233;
 }
@@ -112,8 +121,13 @@
 
 
 
-  .bcolor-5,.bcolor-8,.bcolor-10 {
+  .bcolor-5,.bcolor-8,.bcolor-10{
     background: #1D1F20;
+    position: relative;
+    border-radius: 1px;
+  }
+  .b-color-11,.b-color-12 {
+    background: #d6ecf7;
     position: relative;
     border-radius: 1px;
   }

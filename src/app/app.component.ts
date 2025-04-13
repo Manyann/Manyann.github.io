@@ -6,6 +6,7 @@ import { MenuItem } from 'primeng/api';
 import { MobsService } from './services/mob.service';
 import { ItemsService } from './services/items.service';
 import { HerosService } from './services/hero.service';
+import { StatistiquesService } from './services/statistiques.service';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +17,8 @@ import { HerosService } from './services/hero.service';
 })
 export class AppComponent {
   items: Array<MenuItem>;
-  constructor(itemsService:HerosService){
-    //itemsService.bulkUpdate();
+  constructor(itemsService:MobsService){
+    //  itemsService.clean();
     this.items = [
       {
         label :"Accueil",
