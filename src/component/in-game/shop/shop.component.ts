@@ -13,12 +13,13 @@ import { BonusAdPipe, BonusDegatPipe, BonusForcePipe, BonusInfoPipe, BonusRuptur
 import { ArmeComponent } from "./arme/arme.component";
 import { TabViewModule } from 'primeng/tabview';
 import { ArmureComponent } from "./armure/armure.component";
+import { PotionComponent } from "./potion/potion.component";
 
 @Component({
   selector: 'app-shop',
   standalone: true,
   imports: [CommonModule, FormsModule, TableModule, ButtonModule, TabViewModule,
-    ArmeComponent, ArmureComponent],
+    ArmeComponent, ArmureComponent, PotionComponent],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })
