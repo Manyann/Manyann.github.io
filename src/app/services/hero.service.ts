@@ -166,6 +166,67 @@ export class HerosService {
     //#endregion
   }
 
+  async addFinCombatStats(heroDegats : Record<string,number>):Promise<string[]>{
+    const degats = Object.values(heroDegats);
+    const moyenne = degats.reduce((a, b) => a + b, 0) / degats.length;
+
+    const tousSimilaires = degats.every((val) => {
+        const min = moyenne * 0.9;
+        const max = moyenne * 1.1;
+        return val >= min && val <= max;
+      });
+
+    const herosAvecZeroDegats = Object.entries(heroDegats)
+      .filter(([_, val]) => val === 0)
+      .map(([key, _]) => key);
+
+    const herosAvecDegats = Object.entries(heroDegats)
+      .filter(([_, val]) => val !== 0)
+      .map(([key, _]) => key);
+
+    let hyperCarry = "";
+      for (const [key, value] of Object.entries(heroDegats)) {
+        const otherTotal = Object.entries(heroDegats)
+          .filter(([k]) => k !== key)
+          .reduce((sum, [, v]) => sum + v, 0);
+    
+        if (value > 3 * otherTotal) {
+          hyperCarry = key;
+        }
+      }
+    
+    
+    let trophes = [];
+
+    for(const hero of Object.keys(heroDegats)){
+      if(tousSimilaires 
+        || ( herosAvecDegats.includes(hero) && herosAvecDegats.length === 1)
+        || herosAvecZeroDegats.includes(hero)){
+
+          let heros = (await getDocs(query(collection(this.firestore,'heros'),
+          where('nom',"==", hero)))).docs.map((entries) => entries.data());
+          
+          let joueur = heros[0]['code_joueur'];
+          let trophesOwned = await this.getJoueurTrophes(joueur);
+          
+          if(tousSimilaires){
+            trophes.push(await this.setTrophe(joueur,"Sur un pied d'égalité",trophesOwned));
+          }
+          if(hyperCarry == hero){
+            trophes.push(await this.setTrophe(joueur,'Hyper carry',trophesOwned));
+          }
+          if(herosAvecDegats.includes(hero) && herosAvecDegats.length === 1){
+            trophes.push(await this.setTrophe(joueur,'Solo carry',trophesOwned));
+          }
+          if(herosAvecZeroDegats.includes(hero)){
+            trophes.push(await this.setTrophe(joueur,'Spectateur',trophesOwned));
+          }
+        }
+    }
+
+    return trophes;
+  }
+
   async addParade(nom:string, intensite:number,tour:number) : Promise<string[]>{
     await setDoc(doc(this.firestore, "heros_parades", crypto.randomUUID()), {
       hero_nom:nom,

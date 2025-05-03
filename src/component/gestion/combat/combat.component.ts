@@ -14,11 +14,12 @@ import { TableModule } from 'primeng/table';
 import { Mob } from '../../model/ennemi';
 import { MobsService } from '../../../app/services/mob.service';
 import { app } from '../../../../server';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-combat',
   standalone: true,
-  imports: [PanelModule, ToastModule,TableModule, CommonModule,AutoCompleteModule,ButtonModule,InputNumberModule,FormsModule],
+  imports: [PanelModule, ToastModule,TableModule, CommonModule,AutoCompleteModule,ButtonModule,InputNumberModule,FormsModule,ConfirmDialogModule],
   providers:[ConfirmationService, MessageService],
   templateUrl: './combat.component.html',
   styleUrl: './combat.component.css'
@@ -32,22 +33,28 @@ export class CombatComponent {
   mobs : Mob[] = [];
   mobsToSearch : Mob[] = [];
   autoCompleteMobs:any;
+  totalMobs : number=0;
 
   addIntensite:number=0;
   addDegats:number=0;
   addMob:Mob | undefined;
   addMobNumber:number=1;
   tour:number=1;
+  heroDegats : Record<string,number> = {};
   
   sidebarVisible : boolean;
+  confirmationService:ConfirmationService;
 
   constructor(
     private herosService:HerosService,
     private mobsService: MobsService,
     private messageService: MessageService,
+    confirmationService:ConfirmationService,
+    private router: Router
   ){
 
     this.sidebarVisible = false;
+    this.confirmationService = confirmationService;
    
     this.heroSession$ = herosService.getAllFromSession();
     this.heroSession$.then(
@@ -55,6 +62,7 @@ export class CombatComponent {
         heros.forEach((hero) =>{
           let code :string  = hero['nom'];
           this.herosCode.push(code);
+          this.heroDegats[code] = 0;
         });
       }
     );
@@ -66,8 +74,27 @@ export class CombatComponent {
     })
   }
 
-  nextTour(){
+ 
+  endFirstTurn(){
     this.tour++;
+  }
+
+  endCombat(){
+    this.confirmationService.confirm(
+      {
+        message:"Fin ?",
+        header: 'Fin du combat ?',
+        icon: 'pi pi-question',
+        accept: () => {
+          if(this.totalMobs > 3){
+            this.herosService.addFinCombatStats(this.heroDegats).then((trophes)=>{
+              this.handleTrophes(trophes);
+            })
+          }
+          this.router.navigate(["/gestion"]);
+        },
+      }
+    )
   }
 
   addMort(hero:string){
@@ -183,6 +210,7 @@ export class CombatComponent {
   }
 
   updateDegatsDealt(hero:string){
+    this.heroDegats[hero] += this.addDegats;
     this.herosService.updateDegatsDealt(hero,this.addDegats,this.tour)
     .then((trophes)=> {
       this.messageService.add({
@@ -211,6 +239,7 @@ export class CombatComponent {
   generateMob(){
     let mobCode = this.addMob?.code ?? "";
     for (let i = 0; i < this.addMobNumber; i++) {
+      this.totalMobs++;
       let mob = this.mobsToSearch.find(x=>x.code == mobCode) ?? this.mobsToSearch[0];
       this.mobs.push(
         {
@@ -252,6 +281,7 @@ export class CombatComponent {
         apparition:0
       }
     );
+    this.totalMobs++;
   }
 
   killMob(index:number,mobCode:string,mobLibelle:string){
@@ -265,10 +295,21 @@ export class CombatComponent {
     this.mobs =  this.mobs.filter(x=>x.index != index);
   }
 
+  revertMob(index:number){
+    this.mobs =  this.mobs.filter(x=>x.index != index);
+  }
+
   saveMob(index:number){
     let mob = this.mobs.find(x=>x.index == index);
     if(mob != undefined){
       this.mobsService.insert(mob).then(()=>{
+        this.messageService.add({
+          severity:'success',
+          icon:'pi-plus',
+          closable:true,
+          summary:`${mob.libelle} enregistré.`,
+          life:1000
+        });
         this.allMobs$ = this.mobsService.getAll();
         this.allMobs$.then((m) =>{
           this.mobsToSearch = m;
