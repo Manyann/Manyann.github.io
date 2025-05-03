@@ -28,8 +28,8 @@ export class StatistiqueComponent {
   dataEchecCrits : {} = {};
   dataDegatsTotal : {} = {};
   dataDegatsMax : {} = {};
-  dataOrs : {} = {};
-  dataKms : {} = {};
+  // dataOrs : {} = {};
+  // dataKms : {} = {};
   dataEnnemis : {} = {};
 
   //#region Options
@@ -137,32 +137,32 @@ export class StatistiqueComponent {
       },
     }
   }
-  optionsBardataOrs : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"PO dépensés",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-  optionsBardataKms : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Km parcourus",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
+  // optionsBardataOrs : {} =  { 
+  //     indexAxis: 'y', 
+  //     plugins: {
+  //     title: {
+  //       text:"PO dépensés",
+  //       display: true,
+  //       fontSize: 16,
+  //     },
+  //     legend: {
+  //       display: false, 
+  //     },
+  //   }
+  // }
+  // optionsBardataKms : {} =  { 
+  //     indexAxis: 'y', 
+  //     plugins: {
+  //     title: {
+  //       text:"Km parcourus",
+  //       display: true,
+  //       fontSize: 16,
+  //     },
+  //     legend: {
+  //       display: false, 
+  //     },
+  //   }
+  // }
   optionsBardataEnnemis : {} =  { 
       indexAxis: 'y', 
       plugins: {
@@ -301,32 +301,32 @@ export class StatistiqueComponent {
         ], 
       };
     });
-    statistiquesService.getOrs().then(snap =>{
-      this.dataOrs = { 
-        labels: snap.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap.map(x=>Math.abs(x.valeur)), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
-      };
-    });
-    statistiquesService.getKms().then(snap =>{
-      this.dataKms = { 
-        labels: snap.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
-      };
-    });
+    // statistiquesService.getOrs().then(snap =>{
+    //   this.dataOrs = { 
+    //     labels: snap.map(x=>x.code), 
+    //     datasets: [ 
+    //       { 
+    //         data: snap.map(x=>Math.abs(x.valeur)), 
+    //         backgroundColor: ["#FFD700",  
+    //                           "#C0C0C0",  
+    //                           "#cd7f32"], 
+    //       }, 
+    //     ], 
+    //   };
+    // });
+    // statistiquesService.getKms().then(snap =>{
+    //   this.dataKms = { 
+    //     labels: snap.map(x=>x.code), 
+    //     datasets: [ 
+    //       { 
+    //         data: snap.map(x=>x.valeur), 
+    //         backgroundColor: ["#FFD700",  
+    //                           "#C0C0C0",  
+    //                           "#cd7f32"], 
+    //       }, 
+    //     ], 
+    //   };
+    // });
     statistiquesService.getEnnemis().then(snap =>{
       this.dataEnnemis = { 
         labels: snap.map(x=>x.code), 
@@ -341,11 +341,6 @@ export class StatistiqueComponent {
       };
     });
   }
-
-  // async updateStats(joueur:string){
-  //   console.log(joueur + "aaa");
-  //   this.statistiquesJoueur = await this.statistiquesService.getJoueurStatistique(joueur);
-  // }
 
   onTabChange(event: any) {
     const index = (event as { index: number }).index; // Cast $event to the correct type

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, deleteDoc, doc, DocumentData, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
+import { collection, deleteDoc, doc, DocumentData, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { EnnemiHelper, Mob } from '../../component/model/ennemi';
 import { CodeValeur } from '../../component/model/code-libelle';
 
@@ -153,37 +153,37 @@ debugger;
     return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
   }
 
-  async getOrs(){
-    let transactions = (await getDocs(query(collection(this.firestore,'heros_transactions')))).docs.map((entries) => entries.data());
+  // async getOrs(){
+  //   let transactions = (await getDocs(query(collection(this.firestore,'heros_transactions')))).docs.map((entries) => entries.data());
     
-    let statistiques : CodeValeur[] = [];
+  //   let statistiques : CodeValeur[] = [];
 
-    transactions.forEach((transaction) =>{
-      if(statistiques.find(x=>x.code == transaction['hero_nom']) === undefined){
-        statistiques.push({code:transaction['hero_nom'],valeur:0});
-      }
-      if(transaction['or'] < 0){
-        statistiques.find(x=>x.code == transaction['hero_nom'])!.valeur +=transaction['or'];
-      }
-    });
+  //   transactions.forEach((transaction) =>{
+  //     if(statistiques.find(x=>x.code == transaction['hero_nom']) === undefined){
+  //       statistiques.push({code:transaction['hero_nom'],valeur:0});
+  //     }
+  //     if(transaction['or'] < 0){
+  //       statistiques.find(x=>x.code == transaction['hero_nom'])!.valeur +=transaction['or'];
+  //     }
+  //   });
 
-    return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-  }
+  //   return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+  // }
 
-  async getKms(){
-    let heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
+  // async getKms(){
+  //   let heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
     
-    let statistiques : CodeValeur[] = [];
+  //   let statistiques : CodeValeur[] = [];
 
-    heros.forEach((hero) =>{
-      if(statistiques.find(x=>x.code == hero['nom']) === undefined){
-        statistiques.push({code:hero['nom'],valeur:0});
-      }
-      statistiques.find(x=>x.code == hero['nom'])!.valeur +=hero['km'];
+  //   heros.forEach((hero) =>{
+  //     if(statistiques.find(x=>x.code == hero['nom']) === undefined){
+  //       statistiques.push({code:hero['nom'],valeur:0});
+  //     }
+  //     statistiques.find(x=>x.code == hero['nom'])!.valeur +=hero['km'];
       
-    });
-    return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-  }
+  //   });
+  //   return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+  // }
   
   async getEnnemis(){
     let mobs = (await getDocs(query(collection(this.firestore,'mobs')))).docs.map((entries) => entries.data());
@@ -391,10 +391,15 @@ debugger;
     let total = 0;
 
     for (const hero of heros) {
-      let mobs = (await getDocs(query(collection(this.firestore,'heros_mobs'),hero['nom']))).docs.map((entries) => entries.data());
-      total += mobs.reduce((acc, obj) => {
-        return acc + Object.values(obj).reduce((sum, num) => sum + num, 0);
-    }, 0);
+      console.log(hero);
+      //  let mobs = (await getDocs(query(collection(this.firestore,'heros_mobs'),hero['nom']))).docs.map((entries) => entries.data());
+      const docRef = doc(this.firestore, 'heros_mobs', hero['nom']);
+      const docSnap = await getDoc(docRef);
+
+      const mobs = docSnap.exists() ? docSnap.data() : null;
+      
+      console.log(mobs);
+      total += mobs ? Object.values(mobs).reduce((sum, val) => sum + val, 0) : 0;
     }
 
     return ""+total;
