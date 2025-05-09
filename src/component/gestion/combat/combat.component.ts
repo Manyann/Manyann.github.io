@@ -109,7 +109,7 @@ export class CombatComponent {
   }
 
   addCoupCritique(hero:string){
-    this.herosService.addCritique(hero,this.addIntensite,this.tour)
+    this.herosService.addCritique(hero,this.addIntensite,this.getFakeTour(hero))
     .then((trophes)=> {
       this.addIntensite = 0;
       this.messageService.add({
@@ -122,7 +122,7 @@ export class CombatComponent {
   }
 
   addEchecCritique(hero:string){
-    this.herosService.addEchecCritique(hero,this.addIntensite,this.tour)
+    this.herosService.addEchecCritique(hero,this.addIntensite,this.getFakeTour(hero))
     .then((trophes)=> {
       this.addIntensite = 0;
       this.messageService.add({
@@ -135,7 +135,7 @@ export class CombatComponent {
   }
 
   addParadeCritique(hero:string){
-    this.herosService.addParade(hero,this.addIntensite,this.tour)
+    this.herosService.addParade(hero,this.addIntensite,this.getFakeTour(hero))
     .then((trophes)=> {
       this.addIntensite = 0;
       this.messageService.add({
@@ -148,7 +148,7 @@ export class CombatComponent {
   }
 
   addEntropique(hero:string){
-    this.herosService.addEntropique(hero,this.addIntensite,this.tour)
+    this.herosService.addEntropique(hero,this.addIntensite,this.getFakeTour(hero))
     .then((trophes)=> {
       this.addIntensite = 0;
       this.messageService.add({
@@ -161,7 +161,7 @@ export class CombatComponent {
   }
 
   addEntropiqueMJ(){
-    this.herosService.addEntropiqueMJ(this.addIntensite,this.tour)
+    this.herosService.addEntropiqueMJ(this.addIntensite)
     .then(()=> {
       this.addIntensite = 0;
       this.messageService.add({
@@ -210,8 +210,7 @@ export class CombatComponent {
   }
 
   updateDegatsDealt(hero:string){
-    this.heroDegats[hero] += this.addDegats;
-    this.herosService.updateDegatsDealt(hero,this.addDegats,this.tour)
+    this.herosService.updateDegatsDealt(hero,this.addDegats,this.getFakeTour(hero))
     .then((trophes)=> {
       this.messageService.add({
         severity:'info',
@@ -221,6 +220,10 @@ export class CombatComponent {
       this.handleTrophes(trophes); 
       this.addDegats = 0;
     });
+  }
+
+  private getFakeTour(hero:string){
+    return  this.heroDegats[hero] !== undefined && this.heroDegats[hero] !== 0 ? 2:1;
   }
 
   removeDestin(hero:string){

@@ -52,13 +52,13 @@ export class HerosService {
    let trophes = [];
    let trophesOwned = await this.getJoueurTrophes(joueur);
 
-    if(heros[0]['bon_point'] == 5){
+    if(heros[0]['bon_point'] >= 5){
       trophes.push(await this.setTrophe(joueur,'Gentilhomme',trophesOwned));
     }
-    if(heros[0]['bon_point'] == 10){
+    if(heros[0]['bon_point'] >= 10){
       trophes.push(await this.setTrophe(joueur,'Un saint parmi les saints',trophesOwned));
     }
-    if(heros[0]['bon_point'] == 15){
+    if(heros[0]['bon_point'] >= 15){
       trophes.push(await this.setTrophe(joueur,'Gros lèche botte là',trophesOwned));
     }
 
@@ -358,12 +358,11 @@ export class HerosService {
      //#endregion
   }
 
-  async addEntropiqueMJ(intensite:number,tour:number){
+  async addEntropiqueMJ(intensite:number){
     await setDoc(doc(this.firestore, "heros_entropiques", crypto.randomUUID()), {
       hero_nom:'MJ',
       intensite:intensite,
       date:new Date(),
-      tour:tour
     });
   }
 
@@ -452,6 +451,7 @@ export class HerosService {
   async removeDestin(nom:string):Promise<string[]>{
     const hero = doc(this.firestore, 'heros', nom);
     await setDoc(hero, { destin: increment(-1)  }, { merge: true });
+    await setDoc(hero, { destin_utilise: increment(1)  }, { merge: true });
 
     
     //#region trophes
