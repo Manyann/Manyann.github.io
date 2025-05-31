@@ -52,9 +52,19 @@ private buildCardList():Array<Card>{
       url:"assets/img/pdfs/autre/tableau-sortsentropiques-naheulbeuk-jdr.pdf"
     },
     {
-      image:"assets/img/pdfs/autre/fangh_13.png",
-      titre:"Carte Fangh",
-      url:"assets/img/pdfs/autre/fangh_13.png"
+      image:"assets/img/pdfs/autre/carte_monde.jpg",
+      titre:"Carte du monde",
+      url:"assets/img/pdfs/autre/carte_monde.jpg"
+    },
+    {
+      image:"assets/img/pdfs/autre/carte_octavalis.jpg",
+      titre:"Carte Octavalis",
+      url:"assets/img/pdfs/autre/carte_octavalis.jpg"
+    },
+    {
+      image:"assets/img/card/autre/meteo.jpg",
+      titre:"Météo",
+      url:"assets/img/pdfs/autre/meteo.pdf"
     },
   ]
 
