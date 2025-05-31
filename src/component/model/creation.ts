@@ -344,7 +344,8 @@ export class CreationHelper{
             competencesHerites :["Comprendre les animaux","Déplacement silencieux","Récupération","Tête vide"],
             autres : ["Purification : 3EA, purge les effets d'un poison","Frappe d'énergie : A main nue le moine critique de 1 à 5"],
             shortCodeParents:["PR"],
-            isForbidden : false, subMetiers : []
+            isForbidden : false, 
+            subMetiers : []
             },
             {
             nom:"Paladin",
@@ -360,7 +361,8 @@ export class CreationHelper{
             competencesHerites :["Armes de bourrin","Bourre Pif","Chevaucher","Intimider"],
             autres : [],
             shortCodeParents:["PR"],
-            isForbidden : false, subMetiers : []
+            isForbidden : false, 
+            subMetiers : []
             },
             {
             nom:"Templier",
@@ -371,14 +373,15 @@ export class CreationHelper{
             adresse: new Caracteristique(),
             force: {type:"min",nombre:"11+"},
             chance: new Caracteristique(),
-            caracteristiques : ["+5EV"],
+            caracteristiques : ["+5EV","Banissement des infidèles : les adversaires du templier avec un alignement différent du sien tombent hors combat à 10hp au lieu de 3",
+                "Conviction inébranlable : si une épreuve demande un test de courage ou de force que le templier reussit les autres membres ne sont pas obligé de réussir"],
             restrictions : [],
             competencesHerites :["Ambidextrie","Chef de groupe","Truc de mauviette"],
-            autres : ["Bouclier de Foi, crée un bouclier avec 2*EA de puissance. Les attaques enlève de la puissance au bouclier avant de toucher la cible du templier. Un critique détruit le bouclier",
-                "Banissement des infidèles, les adversaires du templier avec un alignement différent du sien tombe hors combat à 10hp au lieu de 3",
-                "Conviction inébranlable, si une épreuve demande un test de courage ou de force que le templier reussit les autres membres ne sont pas obligé de réussir"],
+            autres : ["Bouclier de Foi, crée un bouclier avec 2*EA de puissance. Les attaques enlèvent de la puissance au bouclier avant de toucher la cible du templier. Un critique détruit le bouclier",
+                ],
             shortCodeParents:["PL"],
-            isForbidden : false, subMetiers : []
+            isForbidden : false, 
+            subMetiers : []
             },
             {
             nom:"Voleur",
@@ -389,12 +392,13 @@ export class CreationHelper{
             adresse:{type:"min",nombre:"11+"},
             force: new Caracteristique(),
             chance: {type:"min",nombre:"10+"},
-            caracteristiques : [],
+            caracteristiques : ["Larcin : Le voleur gagne 5PO par ennemie humain affronté"],
             restrictions : ["3PR Max"],
             competencesHerites :["Chouraver","Déplacement silencieux","Détection","Serrurier"],
             autres : [],
             shortCodeParents:[],
-            isForbidden : false, subMetiers : []
+            isForbidden : false, 
+            subMetiers : []
             },
             {
             nom:"Empoisoneur",
@@ -405,16 +409,20 @@ export class CreationHelper{
             adresse:{type:"min",nombre:"11+"},
             force: new Caracteristique(),
             chance: new Caracteristique(),
-            caracteristiques : ["Immunisé : L'empoisonneur a 1/2 chance de ne pas subir les effets d'un poison"],
+            caracteristiques : [
+                "Immunisé : L'empoisonneur a 1/2 chance de ne pas subir les effets d'un poison",
+                "Dague empoisonnée : La première attaque de l'empoisonneur induit 1D4 de blessure à la cible"
+            ],
             restrictions : ["3PR Max"],
             competencesHerites :["Cuistot","Erudition","Méfiance","Rûnes bizarres"],
-            autres : ["Dague empoisonnée : La première attaque de l'empoisonneur induit 1D4 de blessure à la cible",
-                "Fiole de poison : Sur un test AD l'empoisonneur peut verser du poison dans un plat, verre, etc. Ou en combat mais efficacité /2. Test AS/INT pour fabrication",
+            autres : [
+                "Fiole de poison : Sur un test AD l'empoisonneur peut verser du poison dans un plat, verre, etc. Ou en combat mais efficacité /2. Test AD/INT pour fabrication",
                 "Paralysie : -2AT/PRD => 1 feuille de Boulorne, 1 Herbe de Nilla, 1 dose poudre malachite",
                 "Embrumement : -2 stats => 1 Ecorce de boulorne, 1 essence jujuba, 1 poivre noir"
             ],
             shortCodeParents:["VO","HE"],
-            isForbidden : false, subMetiers : []
+            isForbidden : false, 
+            subMetiers : []
             },
             {
             nom:"Assassin",
@@ -428,7 +436,7 @@ export class CreationHelper{
             caracteristiques : ["Coup mortel : Le premier coup de l'assassin critique de 1 à 4","Précision mortelle : Les dagues de l'assassin ignore l'armure"],
             restrictions : ["3PR Max"],
             competencesHerites :["Ambidextrie","Déplacement silencieux","Intimider","Pister","Chevaucher"],
-            autres : ["Fiole : Sur un test AD l'empoisonneur peut verser du poison dans un plat, verre, etc. Ou en combat mais efficacité /2. Test AS/INT pour fabrication",
+            autres : ["Fiole : Sur un test AD l'empoisonneur peut verser du poison dans un plat, verre, etc. Ou en combat mais efficacité /2. Test AD/INT pour fabrication",
                 "Potion de frappe fantome: 3 attaques imparables => 3 doses poudre graddik, 2 Cimelweiss,10 orties du Chaos",
                 "La mort en bouteille (Hors combat uniquement): mort de la cible => 1 dose sang démon majeu, 3 cheveux de vierge, 1 poisson noyé"
             ],
@@ -464,7 +472,7 @@ export class CreationHelper{
             caracteristiques : ["Maître du Tai-Jutsu : Les attaques à main nue du ninja sont considéré comme tranchante","Frappe des ombres : Le ninja à dégats * 2 dans le dos peut importe l'arme"],
             restrictions : ["2PR Max"],
             competencesHerites :["Ambdiextrie","Désamorcer","Déplacement silencieux","Pister","Ressemble à rien","Serrurier"],
-            autres : ["Maitre des ombres : invisible quand dans les ombres", "Permutation : Le ninja peut echanger de place avec un allié"],
+            autres : ["Maitre des ombres : invisible quand dans les ombres", "Permutation : Le ninja peut échanger de place avec un allié"],
             shortCodeParents:["RO"],
             isForbidden : false, 
             subMetiers : []
@@ -600,7 +608,7 @@ export class CreationHelper{
             caracteristiques : ["+5EV","18EA","1D6EV level up","1DEA level up"],
             restrictions : [],
             competencesHerites :["Forgeron","Serrurier","Truc de mauviette"],
-            autres : ["Renforcement : Peut enelever 1 de rupture sur test FO (si raté ajoute 1)"],
+            autres : ["Renforcement : Peut enlever 1 de rupture sur test FO (si raté ajoute 1)"],
             shortCodeParents:["AT"],
             isForbidden : false, subMetiers : []
             },
@@ -718,7 +726,7 @@ export class CreationHelper{
             adresse: {type:"min",nombre:"10+"},
             force: new Caracteristique(),
             chance: {type:"min",nombre:"10+"},
-            caracteristiques : ["15EA","Une journée de plus sur le terrain : Familier des ruines, tombeau, etc, l'archéologue a +1AD dans ces environnement",
+            caracteristiques : ["15EA","Une journée de plus sur le terrain : Familier des ruines, tombeau, etc, l'archéologue a +1AD dans ces environnements",
                 "Ca m'a l'air ancien tout ça. Avant de rentrer dans une ruine, tombeau, etc, sur 1-2-3-4 au dé 20 l'archéologue est sûr de trouver un item précieux"
             ],
             restrictions : ["3PR Max"],
