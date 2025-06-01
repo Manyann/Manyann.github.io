@@ -32,7 +32,7 @@ private buildCardList():Array<Card>{
     {
       image:"assets/img/card/sort/pretre.PNG",
       titre:"Prêtres",
-      url:"assets/img/pdfs/sort/pretre-sort.pdf"
+      url:"assets/img/pdfs/sort/pretre.pdf"
     },
     {
       image:"assets/img/card/sort/ingenieur.PNG",
