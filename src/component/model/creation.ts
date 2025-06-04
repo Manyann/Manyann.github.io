@@ -505,7 +505,7 @@ export class CreationHelper{
             chance: new Caracteristique(),
             caracteristiques : ["Sens du détails : +2 aux épreuves de détection","Maquillage : il peut se faire passer pour quelqu'un d'autre sur un test INT / CHA"],
             restrictions : [],
-            competencesHerites :["Appel des renforst","Bricolo du dimanche","Chef de groupe","Détecter","Méfiance"],
+            competencesHerites :["Appel des renforts","Bricolo du dimanche","Chef de groupe","Détecter","Méfiance"],
             autres : ["Peinture de guerre : +1Cou +1Fo *lvl aux alliés si test Cou réussit"],
             isForbidden : false,
             shortCodeParents:["AR"],
