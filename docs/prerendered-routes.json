@@ -14,6 +14,7 @@
     "/in-game/loot",
     "/in-game/shop",
     "/in-game/teleportation",
+    "/loot",
     "/statistique"
   ]
 }
