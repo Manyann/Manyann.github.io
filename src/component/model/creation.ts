@@ -495,6 +495,23 @@ export class CreationHelper{
             subMetiers : []
             },
             {
+            nom:"Peintre",
+            shortCode:"PE",
+            courage:new Caracteristique(),
+            intelligence: {type:"min",nombre:"11+"},
+            charisme: {type:"min",nombre:"10+"},
+            adresse: {type:"min",nombre:"10+"},
+            force: {type:"max",nombre:"11-"},
+            chance: new Caracteristique(),
+            caracteristiques : ["Sens du détails : +2 aux épreuves de détection","Maquillage : il peut se faire passer pour quelqu'un d'autre sur un test INT / CHA"],
+            restrictions : [],
+            competencesHerites :["Appel des renforst","Bricolo du dimanche","Chef de groupe","Détecter","Méfiance"],
+            autres : ["Peinture de guerre : +1Cou +1Fo *lvl aux alliés si test Cou réussit"],
+            isForbidden : false,
+            shortCodeParents:["AR"],
+            subMetiers : []
+            },
+            {
             nom:"Prestidigitateur",
             shortCode:"PS",
             courage: new Caracteristique(),
@@ -506,7 +523,7 @@ export class CreationHelper{
             caracteristiques : ["Pièce derrière l'oreille : Le magicien entourloupe toujours sa cible, il récupère 10% des PO de la transaction",
                 "Réalité distordue : Les critiques sur le magicien sont réduit de 1"],
             restrictions : ["3PR Max"],
-            competencesHerites :["Ambidextrie","Méfiance","Mendier et pleurnichier","Rûnes bizarres","Tirer correctement","Tête vide"],
+            competencesHerites :["Ambidextrie","Méfiance","Rûnes bizarres","Tirer correctement","Tête vide"],
             autres : ["Substitution : Test INT => Le magicien peut altérer 2 de ses statistiques pour 2 tours dans un maximum de +4 / -4"],
             shortCodeParents:["AR"],
             isForbidden : false, subMetiers : []
@@ -526,7 +543,7 @@ export class CreationHelper{
             competencesHerites :["Arnaque et carambouille","Chef de groupe","Fariboles"],
             autres : ["Rencontre amicale: Lors d'une rencontre si les ennemis sont des humains il y a 1/4 chance qu'ils soit fan de la célébrité et n'attaque pas",
                 "Julia Roberts : Lors d'une rencontre si les ennemis sont des humains il y a 1/4 chance de détester la célébrité et la focus"],
-            shortCodeParents:["PS","CM","GL"],
+            shortCodeParents:["PS","CM","GL","PE"],
             isForbidden : false, subMetiers : []
             },
             {
