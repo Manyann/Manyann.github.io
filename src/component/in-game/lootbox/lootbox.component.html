@@ -1,0 +1,43 @@
+<div class="loot-container">
+
+      <!-- Modal d'ouverture -->
+      <div class="opening-modal" [class.active]="showModal" (click)="onModalClick($event)">
+
+
+        <!-- Roulette -->
+        <div class="roulette-container" [class.active]="showRoulette" #rouletteContainer>
+          <div class="selector-line"></div>
+          <div 
+            class="roulette" 
+            #roulette
+            [style.transform]="'translateX(' + rouletteOffset + 'px)'"
+          >
+            <div 
+              *ngFor="let item of rouletteItems; trackBy: trackByFn" 
+              class="roulette-item"
+              [ngClass]="getRarityClass(item.rarity)"
+            >
+              <div class="item-icon">{{ item.icon }}</div>
+              <div class="item-name">{{ item.name }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Résultat -->
+        <div class="result-container" [class.active]="showResult">
+          <div class="result-item" [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''">
+            <div class="result-icon">{{ wonItem?.icon }}</div>
+            <div class="result-name">{{ wonItem?.name }}</div>
+            <div class="result-rarity" [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''">
+              {{ formatRarity(wonItem?.rarity) }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="buttons" [class.active]="showResult">
+          <button class="btn btn-primary" (click)="openAnotherCase()" [disabled]="isOpening">
+            Lancer
+          </button>
+        </div>
+      </div>

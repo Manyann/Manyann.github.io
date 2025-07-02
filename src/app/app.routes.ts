@@ -17,6 +17,7 @@ import { CreationComponent } from '../component/in-game/creation/creation.compon
 import { GestionComponent } from '../component/gestion/gestion.component';
 import { CombatComponent } from '../component/gestion/combat/combat.component';
 import { StatistiqueComponent } from '../component/statistique/statistique.component';
+import { LootboxComponent } from '../component/in-game/lootbox/lootbox.component';
 
 export const routes: Routes = [
     { path: '',component: HomeComponent,title: 'Home page'},
@@ -50,6 +51,7 @@ export const routes: Routes = [
         pathMatch:"full",
         component:StatistiqueComponent
     },
+    {path:"loot", component:LootboxComponent},
 ];
 
 

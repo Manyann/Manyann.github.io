@@ -55,6 +55,11 @@ export class AppComponent {
         url:"/gestion",
         icon:"pi pi-cog"
       },
+      {
+        label :"Loot",
+        url:"/loot",
+        icon:"pi pi-cog"
+      },
     ]
   }
 }
