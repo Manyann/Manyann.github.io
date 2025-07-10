@@ -1,7 +1,8 @@
 import { OnInit, OnDestroy, ViewChild, ElementRef, Component } from "@angular/core";
-import { ItemRarity, LootItem, LootService } from "./lootbox.service";
 import { CommonModule } from "@angular/common";
 import { animate, state, style, transition, trigger } from "@angular/animations";
+import { LootService } from "./lootbox.service";
+import { ItemRarity, LootItem } from "../../model/item";
 
 @Component({
   selector: 'app-loot-system',
@@ -66,7 +67,7 @@ export class LootboxComponent implements OnInit, OnDestroy {
   private startRoulette(): void {
     this.isOpening = true;
     this.isLoading = true;
-    this.rouletteItems = this.lootService.generateRouletteItems(50);
+    this.rouletteItems = this.lootService.generateRouletteItems(100);
     
     // Sélectionner l'objet gagnant (entre les positions 20-30 pour l'effet visuel)
     const winningIndex = Math.floor(Math.random() * 10) + 20;

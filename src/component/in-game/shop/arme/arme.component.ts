@@ -18,6 +18,8 @@ import { ItemsService } from "../../../../app/services/items.service";
     templateUrl: './arme.component.html',
     styleUrl: './arme.component.css'
   })
+
+
   export class ArmeComponent {
 
     @Input() selectedVilleType:string = "capitale";

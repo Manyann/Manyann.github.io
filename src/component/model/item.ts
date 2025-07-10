@@ -1,3 +1,5 @@
+import { get } from "node:http";
+
 export class Item{
     "libelle":string;
     "region":string;
@@ -52,6 +54,17 @@ export class ItemShort{
     "libelle":string;
     "equipe":boolean;
 }
+
+
+export type ItemRarity = 'perave' | 'qualite' | 'artisant' | 'mythique' | 'legendaire';
+
+  // Interfaces
+export interface LootItem {
+  id?: number;
+  name: string;
+  rarity: ItemRarity;
+};
+
 
 export class ItemHelper{
 
@@ -2525,6 +2538,39 @@ export class ItemHelper{
     
         ];
     }
+
+    static getAllForLoot():Record<ItemRarity, LootItem[]>{
+        return this.getAll().map((item) => ({
+                name : item.libelle,
+                rarity : this.getQualiteFromBaseChance(item.basePourcentage) as ItemRarity
+            })
+        ).reduce(
+        (acc, item) => {
+            const key = item.rarity as ItemRarity;
+            if (!acc[key]) {
+            acc[key] = [];
+            }
+            acc[key].push(item);
+            return acc;
+        },
+        {} as Record<ItemRarity, LootItem[]>
+        );
+    }
+
+    static getQualiteFromBaseChance(chance:number){
+        if (chance <= 42) {
+            return "legendaire";
+        } else if (chance <=55) {
+            return "mythique";
+        } else if (chance <= 70) {
+            return "artisant";
+        } else if (chance <= 90) {
+            return "qualite";
+        } else {
+            return "perave";
+        }
+    }
+    
 
     static getAllArmure():Array<Armure>{
         return [
