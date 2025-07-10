@@ -6,15 +6,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 export interface LootItem {
   id?: number;
   name: string;
-  icon: string;
   rarity: ItemRarity;
-}
-
-export interface LootCase {
-  name: string;
-  price: number;
-  icon: string;
-  items: LootItem[];
 }
 
 export type ItemRarity = 'perave' | 'qualite' | 'artisant' | 'mythique' | 'legendaire';
@@ -25,27 +17,27 @@ export class LootService {
   
   private readonly items: Record<ItemRarity, LootItem[]> = {
     perave: [
-      { name: 'Pistolet', icon: '🔫', rarity: 'perave' },
-      { name: 'Arc', icon: '🎯', rarity: 'perave' },
-      { name: 'Epée', icon: '🔷', rarity: 'perave' }
+      { name: 'Pistolet', rarity: 'perave' },
+      { name: 'Arc',rarity: 'perave' },
+      { name: 'Epée', rarity: 'perave' }
     ],
     qualite: [
-      { name: 'Pistolet de qualité correcte', icon: '🔫', rarity: 'qualite' },
-      { name: 'Arc de qualité correcte', icon: '🎯', rarity: 'qualite' },
-      { name: 'Epée de qualité correcte', icon: '🔷', rarity: 'qualite' }
+      { name: 'Pistolet de qualité correcte', rarity: 'qualite' },
+      { name: 'Arc de qualité correcte', rarity: 'qualite' },
+      { name: 'Epée de qualité correcte',rarity: 'qualite' }
     ],
     artisant: [
-      { name: 'Pistolet d artisant renommé', icon: '🔫', rarity: 'artisant' },
-      { name: 'Arc d artisant renommé', icon: '🎯', rarity: 'artisant' },
-      { name: 'Epée d artisant renommé', icon: '🔷', rarity: 'artisant' }
+      { name: 'Pistolet d artisant renommé',rarity: 'artisant' },
+      { name: 'Arc d artisant renommé',rarity: 'artisant' },
+      { name: 'Epée d artisant renommé', rarity: 'artisant' }
     ],
     mythique: [
-      { name: 'Pistolet perforant', icon: '🔫', rarity: 'mythique' },
-      { name: 'Arc d ygdrasil', icon: '🎯', rarity: 'mythique' },
-      { name: 'Epée de dueliste', icon: '🔷', rarity: 'mythique' }
+      { name: 'Pistolet perforant',rarity: 'mythique' },
+      { name: 'Arc d ygdrasil',rarity: 'mythique' },
+      { name: 'Epée de dueliste',  rarity: 'mythique' }
     ],
     legendaire: [
-      { name: '???', icon: '🕷️', rarity: 'legendaire' },
+      { name: '???', rarity: 'legendaire' },
     ]
   };
 

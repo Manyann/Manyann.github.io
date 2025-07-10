@@ -17,7 +17,6 @@
               class="roulette-item"
               [ngClass]="getRarityClass(item.rarity)"
             >
-              <div class="item-icon">{{ item.icon }}</div>
               <div class="item-name">{{ item.name }}</div>
             </div>
           </div>
@@ -26,9 +25,8 @@
         <!-- Résultat -->
         <div class="result-container" [class.active]="showResult">
           <div class="result-item" [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''">
-            <div class="result-icon">{{ wonItem?.icon }}</div>
-            <div class="result-name">{{ wonItem?.name }}</div>
-            <div class="result-rarity" [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''">
+            <div class="result-name ">{{ wonItem?.name }}</div>
+            <div class="result-rarity c-{{wonItem ? getRarityClass(wonItem.rarity) : ''}}" [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''">
               {{ formatRarity(wonItem?.rarity) }}
             </div>
           </div>

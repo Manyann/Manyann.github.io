@@ -1,5 +1,5 @@
 import { OnInit, OnDestroy, ViewChild, ElementRef, Component } from "@angular/core";
-import { ItemRarity, LootCase, LootItem, LootService } from "./lootbox.service";
+import { ItemRarity, LootItem, LootService } from "./lootbox.service";
 import { CommonModule } from "@angular/common";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
@@ -32,8 +32,6 @@ export class LootboxComponent implements OnInit, OnDestroy {
 
   // État du composant
   inventory: LootItem[] = [];
-  cases: LootCase[] = [];
-  selectedCase: LootCase | null = null;
   
   // État de l'ouverture
   showModal = false;
@@ -50,35 +48,10 @@ export class LootboxComponent implements OnInit, OnDestroy {
   constructor(private lootService: LootService) {}
 
   ngOnInit(): void {
-    this.initializeCases();
   }
 
   ngOnDestroy(): void {
   }
-
-  private initializeCases(): void {
-    this.cases = [
-      {
-        name: 'Operation Phoenix',
-        price: 2.49,
-        icon: '📦',
-        items: []
-      },
-      {
-        name: 'Chroma Case',
-        price: 1.99,
-        icon: '🎨',
-        items: []
-      },
-      {
-        name: 'Weapon Case',
-        price: 2.99,
-        icon: '⚔️',
-        items: []
-      }
-    ];
-  }
-
 
 
   private resetModalState(): void {
@@ -162,7 +135,6 @@ export class LootboxComponent implements OnInit, OnDestroy {
 
   closeModal(): void {
     this.showModal = false;
-    this.selectedCase = null;
     this.resetModalState();
     this.isOpening = false;
   }
@@ -185,6 +157,22 @@ export class LootboxComponent implements OnInit, OnDestroy {
 
   trackByFn(index: number, item: LootItem): any {
     return item.id || index;
+  }
+
+  getColor(rarity:string){
+    if(rarity==="perave"){
+      return "gray"
+    }
+    if(rarity==="qualite"){
+      return "cornflowerblue"
+    }
+    if(rarity==="artisant"){
+      return "lime"
+    }
+    if(rarity==="mythique"){
+      return "purple"
+    }
+    return "gold";
   }
 }
 

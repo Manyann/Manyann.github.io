@@ -242,13 +242,19 @@
             letter-spacing: 1px;
         }
 
-        .consumer { color: #95a5a6; }
-        .industrial { color: #3498db; }
-        .mil-spec { color: #9b59b6; }
-        .restricted { color: #e74c3c; }
-        .classified { color: #e91e63; }
-        .covert { color: #ff5722; }
-        .extraordinary { color: #ffd700; }
+        .rarity-perave { color: #95a5a6; }
+        .rarity-qualite { color: #3498db; }
+        .rarity-artisant { color: #9b59b6; }
+        .rarity-mythique { color: #e91e63; }
+        .rarity-legendaire { color: #ffd700; }
+
+        
+        .roulette-item.rarity-perave { background: rgba(149, 165, 166, 0.6); }
+        .roulette-item.rarity-qualite { background: rgba(52, 152, 219, 0.6); }
+        .roulette-item.rarity-artisant { background: rgba(155, 89, 182, 0.6); }
+        .roulette-item.rarity-mythique {  background: rgba(233, 30, 99, 0.6);}
+        .roulette-item.rarity-legendaire {  background: rgba(255, 215, 0, 0.6); }
+        
 
         .buttons {
             display: flex;
