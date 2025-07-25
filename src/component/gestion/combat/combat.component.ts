@@ -337,9 +337,7 @@ export class CombatComponent {
   }
 
   handleTrophes(trophes:string[]){
-    console.log(trophes);
     for(let trophe of trophes.filter(x=>x != "")){
-      console.log(trophe);
       this.messageService.add({
         severity:'success',
         icon:'pi-crown',

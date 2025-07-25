@@ -391,14 +391,12 @@ debugger;
     let total = 0;
 
     for (const hero of heros) {
-      console.log(hero);
       //  let mobs = (await getDocs(query(collection(this.firestore,'heros_mobs'),hero['nom']))).docs.map((entries) => entries.data());
       const docRef = doc(this.firestore, 'heros_mobs', hero['nom']);
       const docSnap = await getDoc(docRef);
 
       const mobs = docSnap.exists() ? docSnap.data() : null;
       
-      console.log(mobs);
       total += mobs ? Object.values(mobs).reduce((sum, val) => sum + val, 0) : 0;
     }
 

@@ -46,7 +46,6 @@ export class ItemsService {
     const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armures')
     ,where('hero_nom','==',hero)
     ,where('supprime','==',false)))).docs.map((items) => items.data());
-    console.log(itemsLinked);
 
     let armes =  (await getDocs(query(collection(this.firestore,'armures')
     ,where('code','in',itemsLinked.map(x=>x['armure_code']))))).docs.map((items) => items.data());

@@ -29,7 +29,6 @@ export class ShopComponent {
   selectedZone : string;
 
   constructor(){
-    console.log('in');
     this.villes =  VilleHelper.getAll().sort((a,b)=> a.libelle.localeCompare(b.libelle));
     this.targets = this.buildTargets();
     this.zones = this.buildZones();
