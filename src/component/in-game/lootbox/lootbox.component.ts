@@ -3,11 +3,14 @@ import { CommonModule } from "@angular/common";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { LootService } from "./lootbox.service";
 import { ItemRarity, LootItem } from "../../model/item";
+import { InputNumberModule } from "primeng/inputnumber";
+import { FormsModule } from "@angular/forms";
+import { InputSwitchModule } from "primeng/inputswitch";
 
 @Component({
   selector: 'app-loot-system',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, InputNumberModule,FormsModule, InputSwitchModule  ],
   providers:[LootService],
   templateUrl: './lootbox.component.html',
   styleUrl: './lootbox.component.css',
@@ -40,6 +43,10 @@ export class LootboxComponent implements OnInit, OnDestroy {
   isOpening = false;
   showRoulette = false;
   showResult = false;
+  chance = 10;
+  includeArmes = false;
+  includeArmures = false;
+  includePotions = false;
   
   // Roulette
   rouletteItems: LootItem[] = [];
@@ -49,6 +56,7 @@ export class LootboxComponent implements OnInit, OnDestroy {
   constructor(private lootService: LootService) {}
 
   ngOnInit(): void {
+    this.lootService.interpolateWeights(2);
   }
 
   ngOnDestroy(): void {
@@ -67,7 +75,7 @@ export class LootboxComponent implements OnInit, OnDestroy {
   private startRoulette(): void {
     this.isOpening = true;
     this.isLoading = true;
-    this.rouletteItems = this.lootService.generateRouletteItems(100);
+    this.rouletteItems = this.lootService.generateRouletteItems(this.chance,100,this.includeArmes,this.includeArmures,this.includePotions);
     
     // Sélectionner l'objet gagnant (entre les positions 20-30 pour l'effet visuel)
     const winningIndex = Math.floor(Math.random() * 10) + 20;
@@ -160,21 +168,6 @@ export class LootboxComponent implements OnInit, OnDestroy {
     return item.id || index;
   }
 
-  getColor(rarity:string){
-    if(rarity==="perave"){
-      return "gray"
-    }
-    if(rarity==="qualite"){
-      return "cornflowerblue"
-    }
-    if(rarity==="artisant"){
-      return "lime"
-    }
-    if(rarity==="mythique"){
-      return "purple"
-    }
-    return "gold";
-  }
 }
 
 // Fournir le service

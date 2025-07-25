@@ -1,4 +1,3 @@
-import { get } from "node:http";
 
 export class Item{
     "libelle":string;
@@ -56,7 +55,7 @@ export class ItemShort{
 }
 
 
-export type ItemRarity = 'perave' | 'qualite' | 'artisant' | 'mythique' | 'legendaire';
+export type ItemRarity = 'perave' | 'qualite' | 'artisant'| 'excellence' | 'legendaire'| 'mythique' ;
 
   // Interfaces
 export interface LootItem {
@@ -2540,7 +2539,7 @@ export class ItemHelper{
     }
 
     static getAllForLoot():Record<ItemRarity, LootItem[]>{
-        return this.getAll().map((item) => ({
+        let items = this.getAll().map((item) => ({
                 name : item.libelle,
                 rarity : this.getQualiteFromBaseChance(item.basePourcentage) as ItemRarity
             })
@@ -2555,13 +2554,17 @@ export class ItemHelper{
         },
         {} as Record<ItemRarity, LootItem[]>
         );
+
+         //items['mythique'].push({name:'???', rarity:'mythique'});
+
+         return items;
     }
 
     static getQualiteFromBaseChance(chance:number){
-        if (chance <= 42) {
+        if (chance <=42) {
             return "legendaire";
         } else if (chance <=55) {
-            return "mythique";
+            return "excellence";
         } else if (chance <= 70) {
             return "artisant";
         } else if (chance <= 90) {
@@ -4304,6 +4307,28 @@ export class ItemHelper{
         ];
     }
 
+    static getAllArmureForLoot():Record<ItemRarity, LootItem[]>{
+        let items = this.getAllArmure().map((item) => ({
+                name : item.libelle,
+                rarity : this.getQualiteFromBaseChance(item.basePourcentage) as ItemRarity
+            })
+        ).reduce(
+        (acc, item) => {
+            const key = item.rarity as ItemRarity;
+            if (!acc[key]) {
+            acc[key] = [];
+            }
+            acc[key].push(item);
+            return acc;
+        },
+        {} as Record<ItemRarity, LootItem[]>
+        );
+
+         //items['mythique'].push({name:'???', rarity:'mythique'});
+
+         return items;
+    }
+
     static getDefaultPotion() : Potion {
         return {
             "libelle":"Petite potion de vie",
@@ -5609,5 +5634,27 @@ export class ItemHelper{
         },
         //#endregion
     ];
+    }
+    
+    static getAllPotionForLoot():Record<ItemRarity, LootItem[]>{
+        let items = this.getAllPotion().map((item) => ({
+                name : item.libelle,
+                rarity : this.getQualiteFromBaseChance(item.basePourcentage) as ItemRarity
+            })
+        ).reduce(
+        (acc, item) => {
+            const key = item.rarity as ItemRarity;
+            if (!acc[key]) {
+            acc[key] = [];
+            }
+            acc[key].push(item);
+            return acc;
+        },
+        {} as Record<ItemRarity, LootItem[]>
+        );
+
+         //items['mythique'].push({name:'???', rarity:'mythique'});
+
+         return items;
     }
 }

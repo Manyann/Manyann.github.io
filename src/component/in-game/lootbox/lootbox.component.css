@@ -9,6 +9,21 @@
             overflow-x: hidden;
         }
 
+        #chance-container{
+            text-align: center;
+            margin:1rem;
+        }
+        #options-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+                gap: 1rem;
+                > div{
+                    display: flex;
+                    align-items: center;
+                }
+        }
+
         .container {
             width: 100%;
             max-width: 1200px;
@@ -243,17 +258,19 @@
         }
 
         .rarity-perave { color: #95a5a6; }
-        .rarity-qualite { color: #3498db; }
-        .rarity-artisant { color: #9b59b6; }
-        .rarity-mythique { color: #e91e63; }
-        .rarity-legendaire { color: #ffd700; }
+        .rarity-qualite { color: #3CB371; }
+        .rarity-artisant { color: #3498db; }
+        .rarity-excellence { color: #9b59b6; }
+        .rarity-legendaire { color: #e91e63; }
+        .rarity-mythique { color: #ffd700; }
 
         
         .roulette-item.rarity-perave { background: rgba(149, 165, 166, 0.6); }
-        .roulette-item.rarity-qualite { background: rgba(52, 152, 219, 0.6); }
-        .roulette-item.rarity-artisant { background: rgba(155, 89, 182, 0.6); }
-        .roulette-item.rarity-mythique {  background: rgba(233, 30, 99, 0.6);}
-        .roulette-item.rarity-legendaire {  background: rgba(255, 215, 0, 0.6); }
+        .roulette-item.rarity-qualite { background: rgba(60, 179, 113, 0.6); }
+        .roulette-item.rarity-artisant { background: rgba(52, 152, 219, 0.6);}
+        .roulette-item.rarity-excellence { background:rgba(155, 89, 182, 0.6);  }
+        .roulette-item.rarity-legendaire {  background: rgba(233, 30, 99, 0.6);}
+        .roulette-item.rarity-mythique {  background: rgba(255, 215, 0, 0.6); }
         
 
         .buttons {
