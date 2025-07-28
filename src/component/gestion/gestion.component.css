@@ -1,77 +1,122 @@
-.c-green{
-    color:#0B6623;
+
+/* --- P-SPLITTER --- */
+.p-splitter {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border);
 }
 
-.c-red{
-    color:#BA0021;
+.p-splitter-gutter {
+  background-color: var(--border);
 }
 
-.mt-2{
-    margin-top: 2rem;
+/* --- P-TABLE --- */
+.p-table,
+.p-datatable {
+  background-color: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+.p-datatable-thead > tr > th {
+  background-color: var(--bg-secondary);
+  color: var(--accent);
+  border-color: var(--border);
+}
+
+.p-datatable-tbody > tr > td {
+  background-color: var(--bg-main);
+  border-color: var(--border);
+  color: var(--text-main);
+  transition: background-color 0.2s ease;
+}
+
+.p-datatable-tbody > tr:hover > td {
+  background-color: var(--hover);
+  cursor: pointer;
+}
+
+::ng-deep.p-datatable-tbody > tr > td,
+.p-datatable-thead > tr > th {
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border); /* ✅ Bordure entre lignes */
+  padding: 0.75rem;
+}
+
+/* Rendre la ligne du splitter bien visible */
+::ng-deep.p-splitter-gutter {
+  background-color: var(--accent); /* ou une couleur de contraste */
+  width: 6px;
+  min-width: 6px;
+  cursor: col-resize;
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.8);
+}
+
+/* Supprimer les bordures doubles (évite surcouches visuelles) */
+.p-datatable .p-datatable-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+/* Couleur personnalisée pour vivants/morts */
+.c-green {
+  color: var(--success);
+  font-weight: bold;
+}
+
+.c-red {
+  color: var(--error);
+  font-weight: bold;
+}
+
+/* --- P-BUTTON --- */
+
+.stats-handler{
     display: flex;
-    margin-right: 1rem;
-    justify-content: space-between;    
-    flex-direction: column;
-    span{
-        margin-bottom: 0.5rem;
-    }
-}
-
-.add-panel{
-    display: flex;
-    flex-direction: column;
-}
-.m-2{
-    margin: 2rem;    
-}
-.ml-2{
-    margin-left:2rem;
-}
-
-input{
-    background-color : rgb(4, 13, 25);
-    border : 1px solid rgb(11, 33, 63);
-    border-radius: 6px;
-    font-size : 16px;
-    height: 2.5rem;
-}
-
-
-.text-center{
-    text-align: center;
-}
-
-.mw-20{
-    min-width: 20rem;
-}
-
-.div-flex{
-    display: flex;
+    align-items: center;
     justify-content: space-between;
-    min-width: 30rem;
-    > div > div{
-        display: flex;
-        align-items: center;
-        > p-button > button{
-            width: 1.5rem;
-            height: 1.5rem;
-        }
+    > span{
+        width: 8rem;
     }
 }
 
-.text-bold{
-    font-weight: 400;
+.bt-sm {
+  padding: 0.2rem 0.4rem;
+  font-size: 0.8rem;
 }
-.bt-sm{
-    margin-left:0.5rem;
-    margin-right:0.5rem;
-    margin-bottom: 0.5rem;
-}
-::ng-deep.bt-sm > button{
-    width: 1.5rem;
-    height: 1.5rem;
-    }
 
-::ng-deep.p-sidebar-left {
-        width: 30rem;
-    }
+/* Couleurs d'action */
+.red-dot {
+  background-color: #8c2f39;
+  border-color: #8c2f39;
+}
+
+.blue-dot {
+  background-color: #3b5b9b;
+  border-color: #3b5b9b;
+}
+
+/* --- MISC --- */
+.text-center {
+  text-align: center;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.m-2 {
+  margin: 0.5rem;
+}
+
+.ml-2 {
+  margin-left: 1rem;
+}
+
+.div-flex {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.mw-20 {
+  max-width: 20rem;
+}

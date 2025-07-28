@@ -2,11 +2,16 @@ import { Injectable } from '@angular/core';
 import { collection, doc, Firestore, getDocs, increment, query, setDoc, where } from '@angular/fire/firestore';
 import { EnnemiHelper, Mob } from '../../component/model/ennemi';
 
+type CacheStore<T> = {
+  [key: string]: T;
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class MobsService {
 
+  private cache: CacheStore<any> = {};
   constructor(public firestore: Firestore) { }
 
   async clean(){
@@ -41,7 +46,15 @@ propertiesSnapshot.forEach(async (doc) => {
 }
 
   async getAll(){
+
+     // Si la donnée est dans le cache, on la retourne
+    if (this.cache['mobs']) {
+      return this.cache['mobs'] as Mob[];
+    }
+
     const mobs = (await getDocs(query(collection(this.firestore,'mobs')))).docs.map((entries) => entries.data() as Mob);
+    
+    this.cache['mobs'] = mobs; // Mise en cache
     return mobs;
   }
 

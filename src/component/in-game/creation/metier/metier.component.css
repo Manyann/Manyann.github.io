@@ -1,33 +1,119 @@
+/* === TREE TABLE STYLING === */
 
-
-.max{
-  color: red;
+.p-treetable {
+  background-color: var(--bg-secondary);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  font-size: 0.95rem;
+  border-radius: 6px;
 }
 
-.min{
-  color:green;
+/* En-tête sombre */
+.p-treetable-thead > tr > th {
+  background-color: var(--bg-secondary);
+  color: var(--accent);
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem;
 }
 
-.parts{
-  display:flex;
-  flex-direction:column;
-  .list-item-details-items{
-      margin-top:0.5rem;
-    display:flex;
-    gap: 0.5rem;
-    flex-wrap:wrap;
-  }
-  .title{
-      font-weight: bold;
-  }
-  margin-bottom: 1rem;
+/* Corps du tableau */
+.p-treetable-tbody > tr > td {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.6rem 0.5rem;
+  transition: background-color 0.2s ease;
 }
 
-.list-autres{
-  .list-item-details-items{
-    flex-direction: column;
-  }
+.p-treetable-tbody > tr:hover > td {
+  background-color: var(--hover);
+  cursor: pointer;
 }
+
+/* Toggler (icône d’expansion) */
+.p-treetable-toggler {
+  color: var(--accent);
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* Icône dans bouton */
+.p-button .pi {
+  color: var(--text-main);
+}
+
+/* === SIDEBAR STYLING === */
+
+::ng-deep .p-sidebar {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-left: 1px solid var(--border);
+  padding: 2rem;
+}
+
+.parts .title {
+  color: var(--accent);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.parts .list-item-details-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.list-autres .list-item-details-items {
+  flex-direction: column;
+}
+
+/* === SPÉCIFIQUE === */
+.forbidden {
+  background-color: #4b0000 !important;
+  opacity: 0.35;
+}
+
+.level {
+  color: cornflowerblue;
+  font-weight: bold;
+}
+
+.max {
+  color: #c0392b;
+  font-weight: bold;
+}
+
+/* Style général du toggler */
+::ng-deep.p-treetable-toggler {
+  color: var(--accent);
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 0.3rem;
+  transition: transform 0.2s ease;
+}
+
+/* Icône spécifique (chevron) */
+::ng-deep.p-treetable-toggler-icon {
+  color: var(--accent);
+}
+
+/* Animation si tu veux faire tourner l'icône à l'ouverture */
+::ng-deep.p-treetable-toggler-icon.pi-chevron-down {
+  transform: rotate(0deg);
+}
+::ng-deep.p-treetable-toggler-icon.pi-chevron-right {
+  transform: rotate(0deg);
+}
+
+/* Ajout d'un effet de survol */
+::ng-deep.p-treetable-toggler:hover {
+  color: var(--text-main);
+  transform: scale(1.1);
+}
+
 
 ::ng-deep.p-sidebar-left {
   width:50%;

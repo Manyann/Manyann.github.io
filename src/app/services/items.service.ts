@@ -3,11 +3,17 @@ import { collection, doc, DocumentData, Firestore, getDocs, query, setDoc, where
 import { HeroArmes, HeroArmures, ItemHelper } from '../../component/model/item';
 import { CreationHelper } from '../../component/model/creation';
 
+type CacheStore<T> = {
+  [key: string]: T;
+};
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class ItemsService {
 
+  private cache: CacheStore<any> = {};
   constructor(public firestore: Firestore) { }
 
   async getAllArmes(){
@@ -271,15 +277,23 @@ export class ItemsService {
       titre : titre,
       code_joueur:joueur
     });
+    if(!this.cache['trophe_'+joueur]){
+      this.cache['trophe_'+joueur] = [];
+    }
+    this.cache['trophe_'+joueur].push(titre);
     return titre;
   }
 
   async getJoueurTrophes(joueur:string):Promise<string[]>{
+    if (this.cache['trophe_'+joueur]) {
+      return this.cache['trophe_'+joueur] as string[];
+    }
 
     //tous les trophés du joueurs
     let trophesJoueur = (await getDocs(query(collection(this.firestore,'joueurs_trophes'),
     where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
 
+    this.cache['trophe_'+joueur] = trophesJoueur.map(x=>x['titre']);
     return trophesJoueur.map(x=>x['titre']);
   }
 

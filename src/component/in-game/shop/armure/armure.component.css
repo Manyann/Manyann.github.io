@@ -1,22 +1,25 @@
-
-select{
-    height: 2.5em;
-    margin-right:2rem;
-  }
-
-.pi.pi-angle-double-down{
-  color: green;
+.boutique-table .p-datatable {
+  background-color: var(--bg-secondary);
+  color: var(--text-main);
+  border: 1px solid var(--border);
 }
 
-.pi.pi-angle-double-up{
-  color:red;
+.boutique-table .p-datatable-thead > tr > th {
+  background-color: var(--bg-secondary);
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
 }
 
-.expanded-row-fixer{
-  display: flex;
-  align-items: center;
+.boutique-table .p-datatable-tbody > tr > td {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-color: var(--border);
 }
 
-::ng-deep.p-datatable .p-datatable-tbody > tr > td {
-  padding:1rem 0rem;
- }
+.group-header {
+  background-color: var(--hover);
+  color: var(--accent);
+  font-weight: bold;
+  text-align: left;
+  font-size: 1.1rem;
+}

@@ -33,12 +33,7 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/gestion.PNG",
-      titre:"In Game",
-      url:"in-game"
-    },
-    {
-      image:"assets/img/card/gestion.PNG",
-      titre:"Maitre du jeu",
+      titre:"Gestion MJ",
       url:"gestion"
     },
   ]

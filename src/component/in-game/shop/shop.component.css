@@ -1,18 +1,35 @@
-
-  select{
-    height: 2.5em;
-    margin-right:2rem;
-  }
-
-.pi.pi-angle-double-down{
-  color: green;
+.boutique-tabs {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  padding: 2rem;
 }
 
-.pi.pi-angle-double-up{
-  color:red;
+.p-tabview-nav {
+  background-color: var(--bg-secondary);
+  border: none;
 }
 
-.expanded-row-fixer{
+.p-table {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border: 1px solid #333;
+}
+
+.p-datatable-thead > tr > th {
+  background-color: #1e1e1e;
+  color: #c8aa6e;
+  border-bottom: 1px solid #333;
+}
+
+.p-datatable-tbody > tr > td {
+  background-color: #121212;
+  color: #e0e0e0;
+  border-color: #333;
+}
+
+.select-container {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
 }
+

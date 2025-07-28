@@ -1,10 +1,14 @@
-
-<select (change)="onChangedVille($event)">
+<div class="select-container">
+  <select (change)="onChangedVille($event)">
     <option value="" disabled selected>Choisissez un type ...</option>
-    <option *ngFor="let type of villesType" [value]="type.code">{{type.libelle}}</option>
-</select>
+    <option *ngFor="let type of villesType" [value]="type.code">
+      {{ type.libelle }}
+    </option>
+  </select>
+</div>
 
-<p-tabView>
+
+<p-tabView class="custom-tabs">
     <p-tabPanel header="Armes">
         <app-shop-arme [selectedVilleType]="selectedVilleType"></app-shop-arme>
     </p-tabPanel>

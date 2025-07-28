@@ -1,9 +1,12 @@
-
-    <div class="card-list">
-    <p-card  *ngFor="let card of cards" header="{{card.titre}}" (click)="onClick(card.url)">
-      <ng-template pTemplate="header">
-          <img alt="Card" src="{{card.image}}" />
-      </ng-template>
-    </p-card>
-    </div>
-  
+<div class="card-container">
+  <p-card
+    class="custom-card"
+    *ngFor="let card of cards"
+    (click)="onClick(card.url)"
+  >
+    <ng-template pTemplate="header">
+      <img [src]="card.image" [alt]="card.titre" />
+    </ng-template>
+    <div class="card-title">{{ card.titre }}</div>
+  </p-card>
+</div>

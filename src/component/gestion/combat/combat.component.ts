@@ -281,7 +281,7 @@ export class CombatComponent {
         parade : 0,
         vie : 0,
         zone : "*",
-        apparition:0
+        apparition:0,
       }
     );
     this.totalMobs++;

@@ -1,10 +1,36 @@
+<!-- BOUTON BURGER VISIBLE SEULEMENT EN MOBILE -->
+<button class="burger-button" (click)="menuVisible = true">
+  <i class="pi pi-bars"></i>
+</button>
 
-<p-menubar [model]="items">
-    <ng-template pTemplate="item" let-item>
-        <a [href]="item.url" class="p-menuitem-link">
-            <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-        </a>
-    </ng-template>  
+<!-- MENU DESKTOP -->
+<p-menubar class="dark-menubar desktop-menu" [model]="items">
+  <ng-template pTemplate="item" let-item>
+    <a [routerLink]="item.routerLink"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{ exact: true }"
+       class="p-menuitem-link">
+      <i [class]="item.icon"></i>
+      <span class="ml-2">{{ item.label }}</span>
+    </a>
+  </ng-template>
 </p-menubar>
-<router-outlet></router-outlet>
+
+<!-- MENU MOBILE SIDEBAR -->
+ @if(menuVisible){
+<p-sidebar [(visible)]="menuVisible" class="mobile-menu" position="left">
+  <ul class="mobile-menu-list">
+    <li *ngFor="let item of items">
+      <a [routerLink]="item.routerLink"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }"
+         (click)="menuVisible = false">
+        <i [class]="item.icon"></i> {{ item.label }}
+      </a>
+    </li>
+  </ul>
+</p-sidebar>
+ }
+<main [@fadeAnimation]>
+  <router-outlet></router-outlet>
+</main>

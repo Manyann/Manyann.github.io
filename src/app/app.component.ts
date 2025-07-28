@@ -3,62 +3,69 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
-import { MobsService } from './services/mob.service';
-import { ItemsService } from './services/items.service';
-import { HerosService } from './services/hero.service';
-import { StatistiquesService } from './services/statistiques.service';
+import { SidebarModule } from 'primeng/sidebar';
+import {
+  trigger,
+  transition,
+  style,
+  animate
+} from '@angular/animations';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   standalone:true,
-  imports: [HomeComponent,RouterModule,MenubarModule],
+  imports: [HomeComponent,CommonModule ,RouterModule,MenubarModule,SidebarModule],
+  animations: [
+    trigger('fadeAnimation', [
+      transition('* <=> *', [
+        style({ opacity: 0 }),
+        animate('300ms ease-in-out', style({ opacity: 1 }))
+      ])
+    ])
+  ]
 })
 export class AppComponent {
+  menuVisible = false;
   items: Array<MenuItem>;
-  constructor(itemsService:MobsService){
-    //  itemsService.clean();
+  constructor(){
     this.items = [
       {
         label :"Accueil",
-        url:"/",
+        routerLink:"/",
         icon:"pi pi-home"
       },
       {
-        label :"Shop",
-        url:"/in-game/shop",
+        label :"Boutique",
+        routerLink:"/in-game/shop",
         icon:"pi pi-shopping-cart"
       },
       {
         label :"Documentation",
-        url:"/documentation",
+        routerLink:"/documentation",
         icon:"pi pi-file-o"
       },
       {
-        label :"Bestiaire",
-        url:"/documentation/bestiaires",
-        icon:"pi pi-bullseye"
-      },
-      {
         label :"Création",
-        url:"/in-game/creer",
+        routerLink:"/in-game/creer",
         icon:"pi pi-user"
       },
       {
-        label :"Statistiques",
-        url:"/statistique",
-        icon:"pi pi-chart-pie"
-      },
-      {
         label :"Gestion",
-        url:"/gestion",
+        routerLink:"/gestion",
         icon:"pi pi-cog"
       },
       {
-        label :"Loot",
-        url:"/loot",
-        icon:"pi pi-cog"
+        label :"Butin",
+        routerLink:"/loot",
+        icon:"pi pi-gift"
+      },
+      {
+        label :"Statistiques",
+        routerLink:"/statistique",
+        icon:"pi pi-chart-pie"
       },
     ]
   }
