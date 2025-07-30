@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-metier',
   standalone: true,
-  imports: [RouterOutlet, InputSwitchModule, FormsModule , CommonModule, TreeTableModule,SidebarModule, ButtonModule],
+  imports: [InputSwitchModule, FormsModule , CommonModule, TreeTableModule,SidebarModule, ButtonModule],
   templateUrl: './metier.component.html',
   styleUrl: './metier.component.css'
 })
@@ -71,5 +71,19 @@ setAll():void{
   ngOnChanges(changes: SimpleChanges) {
     this.setAll();
   }
+
+handleSidebarHide() {
+  console.log('sidebar hidden');
+  this.sidebarVisible = false;
+
+  // Délai pour laisser le DOM se stabiliser
+  setTimeout(() => this.removeSidebarOverlayManually(), 100);
+}
+removeSidebarOverlayManually() {
+  const overlay = document.querySelector('.p-sidebar-mask');
+  if (overlay) {
+    overlay.remove(); 
+  }
+}
 
 }

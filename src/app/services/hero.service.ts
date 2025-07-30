@@ -1,43 +1,197 @@
 import { Injectable } from '@angular/core';
-import { collection, doc, Firestore, getDocs, increment, query, setDoc, where } from '@angular/fire/firestore';
+import { collection, doc, DocumentData, Firestore, getDocs, increment, query, setDoc, where } from '@angular/fire/firestore';
 import { Critique } from './statistiques.service';
+import { StorageKeys, StorageService } from './storage.service';
+import { TrophesService } from './trophes.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HerosService {
 
-  constructor(public firestore: Firestore) { }
+  constructor(public firestore: Firestore,
+    private storage: StorageService,
+    private trophesService : TrophesService
+  ) { }
+
+  //#region All
 
   async getAll(){
-    const heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
-    return heros;
+    if(!this.storage.get(StorageKeys.HEROS)){
+          const heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.HEROS,heros);
+    }
+    
+    return this.storage.get<DocumentData[]>(StorageKeys.HEROS) ?? [];
   }
 
   async getAllFromSession(){
-    const heros = (await getDocs(query(collection(this.firestore,'heros'),where('actif','==',true)))).docs.map((entries) => entries.data());
-    return heros;
+    if(!this.storage.get<DocumentData[]>(StorageKeys.HEROS)){
+        await this.getAll();
+    }
+    
+    return this.storage
+      .get<DocumentData[]>(StorageKeys.HEROS)
+      ?.filter(x=>x['actif']) ?? [];
   }
 
   async getByName(name: string){
-    const heros = (await getDocs(query(collection(this.firestore,'heros'),where('nom','==',name)))).docs.map((entries) => entries.data());
-    return heros;
+    
+    return (await this.getAll())?.filter(x=>x['nom'] == name) ?? [];
   }
 
   async getAllOrigine(){
-    const herosTypes = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
-    return herosTypes;
+     if(!this.storage.get(StorageKeys.HERO_ORIGINES)){
+          const herosTypes = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.HERO_ORIGINES,herosTypes);
+    }
+    
+    return  this.storage.get<DocumentData[]>(StorageKeys.HERO_ORIGINES)?? [];
   }
 
   async getAllMetier(){
-    const herosTypes = (await getDocs(query(collection(this.firestore,'metiers')))).docs.map((entries) => entries.data());
-    return herosTypes;
+     if(!this.storage.get(StorageKeys.HERO_ORIGINES)){
+          const herosTypes = (await getDocs(query(collection(this.firestore,'metier')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.HERO_ORIGINES,herosTypes);
+    }
+    
+    return  this.storage.get<DocumentData[]>(StorageKeys.HERO_ORIGINES)?? [];
+  }
+
+  async getAllHerosCritique(){
+    if(!this.storage.get(StorageKeys.HERO_CRITIQUES)){
+          const heros = (await getDocs(query(collection(this.firestore,'heros_critiques')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.HERO_CRITIQUES,heros);
+    }
+    
+    return this.storage.get<DocumentData[]>(StorageKeys.HERO_CRITIQUES) ?? [];
+  }
+
+  async getAllHerosParade(){
+    if(!this.storage.get(StorageKeys.HERO_PARADES)){
+          const heros = (await getDocs(query(collection(this.firestore,'heros_parades')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.HERO_PARADES,heros);
+    }
+    
+    return this.storage.get<DocumentData[]>(StorageKeys.HERO_PARADES) ?? [];
+  }
+
+  async getAllHeroOfJoueur(joueur:string){
+    return (await this.getAll())?.filter(x=>x['code_joueur'] == joueur);
+  }
+
+  async getAllHerosEchec(){
+    if(!this.storage.get(StorageKeys.HERO_ECHECS)){
+          const heros = (await getDocs(query(collection(this.firestore,'heros_echecs')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.HERO_ECHECS,heros);
+    }
+    
+    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ECHECS) ?? [];
+  }
+
+  async getAllHerosEntropique(){
+    if(!this.storage.get(StorageKeys.HERO_ENTROPIQUES)){
+          const heros = (await getDocs(query(collection(this.firestore,'heros_entropiques')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.HERO_ENTROPIQUES,heros);
+    }
+    
+    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ECHECS) ?? [];
+  }
+
+  async getAllHerosDegat(){
+    if(!this.storage.get(StorageKeys.HERO_DEGATS)){
+          const heros = (await getDocs(query(collection(this.firestore,'heros_degats')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.HERO_DEGATS,heros);
+    }
+    
+    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ECHECS) ?? [];
+  }
+  
+  async getAllHerosMob(){
+    if(!this.storage.get(StorageKeys.HERO_MOBS)){
+          const heros = (await getDocs(query(collection(this.firestore,'heros_mobs')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.HERO_MOBS,heros);
+    }
+    
+    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ECHECS) ?? [];
   }
 
   async updateSession(nom:string, isActif:boolean){
     const hero = doc(this.firestore, 'heros', nom);
     await setDoc(hero, { actif: isActif }, { merge: true });
+
+    await this.storage.updatePropertyInStorage<DocumentData,boolean>(StorageKeys.HEROS,'nom',nom,'actif',isActif);
   }
+  
+  async add(joueur:string, nom:string, origine:string, 
+    metier:string, or : number, 
+    destin : number, niveau : number) : Promise<string[]>{
+
+    let document : DocumentData = {
+      code_joueur: joueur,
+      nom: nom.toLowerCase(),
+      origine:origine,
+      metier:metier,
+      or:or,
+      destin:destin,
+      niveau:niveau,
+      actif:false,
+      vivant:true,
+      km:0,
+      bon_point:0,
+      mauvais_point:0,
+      mana:0,
+      morts:0,
+      vie:0,
+      destin_utilise:0
+    }
+
+    await setDoc(doc(this.firestore, "heros", nom.toLowerCase()),document );
+    await this.storage.addElementInStorageGroup(StorageKeys.HEROS, document);
+
+     //#region trophes
+     
+    let allHeros = await this.getAllHeroOfJoueur(joueur);
+
+     let originesJouees = await this.trophesService.getOriginesJouees();
+     let metiersJoues = await this.trophesService.getMetiersJouees();
+     for(let hero of allHeros){
+      originesJouees[hero['origine']] ++;
+      metiersJoues[hero['metier']] ++;
+     }
+ 
+     let trophes = [];
+        
+    let trophesOrigine = await this.trophesService.getTrophesOrigines();
+    if(trophesOrigine[origine]){
+      trophes.push(await this.trophesService.setTrophe(joueur,trophesOrigine[origine]));
+    }
+
+    let trophesMetier = await this.trophesService.getTrophesMetier();
+    if(trophesMetier[metier]){
+      trophes.push(await this.trophesService.setTrophe(joueur,trophesMetier[metier]));
+    }
+
+    let trophesOrigineMetier = await this.trophesService.getTrophesOriginesMetier();
+    if(trophesOrigineMetier[origine] && trophesOrigineMetier[origine][metier]){
+      trophes.push(await this.trophesService.setTrophe(joueur,trophesOrigineMetier[origine][metier]));
+    }
+
+    let trophesComplexe = await this.trophesService.getTrophesComplexeClasse(originesJouees,metiersJoues);
+    for(let trophe of trophesComplexe){
+      trophes.push(await this.trophesService.setTrophe(joueur,trophe));
+    }
+
+     return trophes;
+ 
+     //#endregion
+  }
+
+  //#endregion All
+  
+  //#region Joueurs
+
+  //#region Statistiques
 
   async addBonPoint(nom:string) : Promise<string[]>{
     const hero = doc(this.firestore, 'heros', nom);
@@ -45,21 +199,19 @@ export class HerosService {
 
     //#region trophes
     
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('nom',"==", nom)))).docs.map((entries) => entries.data());
+    let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
     
    let trophes = [];
-   let trophesOwned = await this.getJoueurTrophes(joueur);
 
     if(heros[0]['bon_point'] >= 5){
-      trophes.push(await this.setTrophe(joueur,'Gentilhomme',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Gentilhomme'));
     }
     if(heros[0]['bon_point'] >= 10){
-      trophes.push(await this.setTrophe(joueur,'Un saint parmi les saints',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Un saint parmi les saints'));
     }
     if(heros[0]['bon_point'] >= 15){
-      trophes.push(await this.setTrophe(joueur,'Gros lèche botte là',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Gros lèche botte là'));
     }
 
     return trophes
@@ -73,21 +225,19 @@ export class HerosService {
 
     //#region trophes
     
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('nom',"==", nom)))).docs.map((entries) => entries.data());
+    let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
     
    let trophes = [];
-   let trophesOwned = await this.getJoueurTrophes(joueur);
 
     if(heros[0]['mauvais_point'] == 5){
-      trophes.push(await this.setTrophe(joueur,'Filer du mauvais coton',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Filer du mauvais coton'));
     }
     if(heros[0]['mauvais_point'] == 10){
-      trophes.push(await this.setTrophe(joueur,"L'incarnation du mal",trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,"L'incarnation du mal"));
     }
     if(heros[0]['mauvais_point'] == 15){
-      trophes.push(await this.setTrophe(joueur,'Là tu cherches',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Là tu cherches'));
     }
 
     return trophes
@@ -106,59 +256,13 @@ export class HerosService {
 
     //#region trophes
     
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('nom',"==", nom)))).docs.map((entries) => entries.data());
+    let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
     
    let trophes = [];
-   let trophesOwned = await this.getJoueurTrophes(joueur);
 
     if(heros[0]['niveau'] == 10){
-      trophes.push(await this.setTrophe(joueur,"C'est donc possible ...",trophesOwned));
-    }
-
-    return trophes
-
-    //#endregion
-  }
-
-  async addCritique(nom:string, intensite:number,tour:number):Promise<string[]>{
-    await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()), {
-      hero_nom:nom,
-      intensite:intensite,
-      date:new Date(),
-      tour:tour
-    });
-
-    //#region trophes
-    
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('nom',"==", nom)))).docs.map((entries) => entries.data());
-    let joueur = heros[0]['code_joueur'];
-    
-    let allHeros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
-
-    let trophes = [];
-    let trophesOwned = await this.getJoueurTrophes(joueur);
-    let heroCritiques: Critique[] = [];
-
-    for (const hero of allHeros) {
-      heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_critiques'), 
-              where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
-    }
-
-    if([19,20].some(e => heroCritiques.map(x=>x.intensite).includes(e))){
-      trophes.push(await this.setTrophe(joueur,'Mort instantané',trophesOwned));
-    }
-    if(heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 10){
-      trophes.push(await this.setTrophe(joueur,'Highlander',trophesOwned));
-    }
-    if(heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 100){
-      trophes.push(await this.setTrophe(joueur,'One punch man',trophesOwned));
-    }
-    if([19,20].some(e => heroCritiques.filter(x=>x.tour == 1).map(x=>x.intensite).includes(e))){
-      trophes.push(await this.setTrophe(joueur,'Pas de temps à perdre',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,"C'est donc possible ..."));
     }
 
     return trophes
@@ -203,23 +307,21 @@ export class HerosService {
         || ( herosAvecDegats.includes(hero) && herosAvecDegats.length === 1)
         || herosAvecZeroDegats.includes(hero)){
 
-          let heros = (await getDocs(query(collection(this.firestore,'heros'),
-          where('nom',"==", hero)))).docs.map((entries) => entries.data());
+          let heros = await this.getByName(hero);
           
           let joueur = heros[0]['code_joueur'];
-          let trophesOwned = await this.getJoueurTrophes(joueur);
           
           if(tousSimilaires){
-            trophes.push(await this.setTrophe(joueur,"Sur un pied d'égalité",trophesOwned));
+            trophes.push(await this.trophesService.setTrophe(joueur,"Sur un pied d'égalité"));
           }
           if(hyperCarry == hero){
-            trophes.push(await this.setTrophe(joueur,'Hyper carry',trophesOwned));
+            trophes.push(await this.trophesService.setTrophe(joueur,'Hyper carry'));
           }
           if(herosAvecDegats.includes(hero) && herosAvecDegats.length === 1){
-            trophes.push(await this.setTrophe(joueur,'Solo carry',trophesOwned));
+            trophes.push(await this.trophesService.setTrophe(joueur,'Solo carry'));
           }
           if(herosAvecZeroDegats.includes(hero)){
-            trophes.push(await this.setTrophe(joueur,'Spectateur',trophesOwned));
+            trophes.push(await this.trophesService.setTrophe(joueur,'Spectateur'));
           }
         }
     }
@@ -227,220 +329,59 @@ export class HerosService {
     return trophes;
   }
 
-  async addParade(nom:string, intensite:number,tour:number) : Promise<string[]>{
-    await setDoc(doc(this.firestore, "heros_parades", crypto.randomUUID()), {
-      hero_nom:nom,
-      intensite:intensite,
-      date:new Date(),
-      tour:tour
-    });
-
-     //#region trophes
-    
-     let heros = (await getDocs(query(collection(this.firestore,'heros'),
-     where('nom',"==", nom)))).docs.map((entries) => entries.data());
-     let joueur = heros[0]['code_joueur'];
-     
-     let allHeros = (await getDocs(query(collection(this.firestore,'heros'),
-     where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
- 
-     let trophes = [];
-     let trophesOwned = await this.getJoueurTrophes(joueur);
-     let heroParades: Critique[] = [];
- 
-     for (const hero of allHeros) {
-      heroParades = (await getDocs(query(collection(this.firestore, 'heros_parades'), 
-          where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
-      }
- 
-     if(heroParades.length > 0){
-       trophes.push(await this.setTrophe(joueur,'The Hail Mary',trophesOwned));
-     }
-     if([19,20].some(e => heroParades.map(x=>x.intensite).includes(e))){
-       trophes.push(await this.setTrophe(joueur,'La chatasse ultime',trophesOwned));
-     }
- 
-     return trophes
- 
-     //#endregion
-  }
-
-  async addEchecCritique(nom:string, intensite:number,tour:number) : Promise<string[]>{
-    await setDoc(doc(this.firestore, "heros_echecs", crypto.randomUUID()), {
-      hero_nom:nom,
-      intensite:intensite,
-      date:new Date(),
-      tour:tour
-    });
-
-    //#region trophes
-    
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('nom',"==", nom)))).docs.map((entries) => entries.data());
-    
-    let joueur = heros[0]['code_joueur'];
-
-    let allHeros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
-
-    let trophes = [];
-    let trophesOwned = await this.getJoueurTrophes(joueur);
-    let heroEchecs: number[] = [];
-
-    for (const hero of allHeros) {
-      heroEchecs = (await getDocs(query(collection(this.firestore, 'heros_echecs'), 
-      where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data()['intensite']);
-    }
-
-    if(heroEchecs.includes(19)){
-      trophes.push(await this.setTrophe(joueur,'Pourquoi moi ?!',trophesOwned));
-    }
-    if([10,11,12].some(e => heroEchecs.includes(e))){
-      trophes.push(await this.setTrophe(joueur,'Expelliarmus',trophesOwned));
-    }
-    if([8,9].some(e => heroEchecs.includes(e))){
-      trophes.push(await this.setTrophe(joueur,'Mon fidèle bras droit',trophesOwned));
-    }
-    if([6,7].some(e => heroEchecs.includes(e))){
-      trophes.push(await this.setTrophe(joueur,'Mon fidèle bras gauche',trophesOwned));
-    }
-    if(heroEchecs.includes(11)){
-      trophes.push(await this.setTrophe(joueur,'Façon elle était moche cette armure',trophesOwned));
-    }
-    if([16,17,18].some(e => heroEchecs.includes(e))){
-      trophes.push(await this.setTrophe(joueur,'Sacrieur',trophesOwned));
-    }
-    if([3,5].some(e => heroEchecs.includes(e))){
-      trophes.push(await this.setTrophe(joueur,'Petite sieste reposante',trophesOwned));
-    }
-    if(heroEchecs.length > 0){
-      trophes.push(await this.setTrophe(joueur,"C'est un échec",trophesOwned));
-    }
-
-    return trophes
-
-    //#endregion
-  }
-
-  async addEntropique(nom:string, intensite:number,tour:number) : Promise<string[]>{
-    await setDoc(doc(this.firestore, "heros_entropiques", crypto.randomUUID()), {
-      hero_nom:nom,
-      intensite:intensite,
-      date:new Date(),
-      tour:tour
-    });
-
-     //#region trophes
-    
-     let heros = (await getDocs(query(collection(this.firestore,'heros'),
-     where('nom',"==", nom)))).docs.map((entries) => entries.data());
-
-     let joueur = heros[0]['code_joueur'];
-     
-     let allHeros = (await getDocs(query(collection(this.firestore,'heros'),
-     where('code_joueur',"==",joueur )))).docs.map((entries) => entries.data());
- 
-     let trophes = [];
-     let trophesOwned = await this.getJoueurTrophes(joueur);
-     let heroEntropique: Critique[] = [];
- 
-     for (const hero of allHeros) {
-      heroEntropique = (await getDocs(query(collection(this.firestore, 'heros_entropiques'), 
-          where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data() as Critique);
-      }
- 
-     if(heroEntropique.length > 100){
-       trophes.push(await this.setTrophe(joueur,'Agent du chaos',trophesOwned));
-     }
- 
-     return trophes
- 
-     //#endregion
-  }
-
-  async addEntropiqueMJ(intensite:number){
-    await setDoc(doc(this.firestore, "heros_entropiques", crypto.randomUUID()), {
-      hero_nom:'MJ',
-      intensite:intensite,
-      date:new Date(),
-    });
-  }
-
-  async addCritiqueMJ(intensite:number){
-    await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()), {
-      hero_nom:"MJ",
-      intensite:intensite,
-      date:new Date()
-    });
-  }
-
-  async addParadeMJ(intensite:number){
-    await setDoc(doc(this.firestore, "heros_parades", crypto.randomUUID()), {
-      hero_nom:"MJ",
-      intensite:intensite,
-      date:new Date()
-    });
-  }
-
-  async addEchecCritiqueMJ(intensite:number){
-    await setDoc(doc(this.firestore, "heros_echecs", crypto.randomUUID()), {
-      hero_nom:'MJ',
-      intensite:intensite,
-      date:new Date()
-    });
-  }
-
   async updateDegatsDealt(nom:string,degats:number,tour:number):Promise<string[]>{
-    await setDoc(doc(this.firestore, "heros_degats", crypto.randomUUID()), {
+
+    let document : DocumentData = {
       hero_nom:nom,
       intensite:degats,
       date:new Date(),
       tour:tour
-    });
+    };
+
+    await setDoc(doc(this.firestore, "heros_degats", crypto.randomUUID()), document);
+
+    await this.storage.addElementInStorageGroup(StorageKeys.HERO_DEGATS, document);
 
     //#region trophes
     
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('nom',"==", nom)))).docs.map((entries) => entries.data());
+    let heros = await this.getByName(nom);
 
     let joueur =  heros[0]['code_joueur'];
 
-    let allHeros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==",joueur)))).docs.map((entries) => entries.data());
+    let allHeros = await this.getAllHeroOfJoueur(joueur);
 
     let trophes = [];
-    let trophesOwned = await this.getJoueurTrophes(joueur);
     if(degats >= 10){
-      trophes.push(await this.setTrophe(joueur,'Sacré torgnole',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Sacré torgnole'));
     }
     
     if(degats >= 20){
-      trophes.push(await this.setTrophe(joueur,'Patate de forain',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Patate de forain'));
     }
     
     if(degats >= 30){
-      trophes.push(await this.setTrophe(joueur,'Coup de pied au cul du Daron',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Coup de pied au cul du Daron'));
     }
 
     let totalDegat=0;
     for (const hero of allHeros) {
-      let allDegats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      let allDegats = ( await this.getAllHerosDegat())?.filter(x=>x['hero_nom'] == hero['nom']);
       allDegats.forEach(element => {
         totalDegat += element['intensite'];
       });
     }
     
     if(totalDegat > 1000){
-      trophes.push(await this.setTrophe(joueur,'Premiers pas... dans leur tronche',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Premiers pas... dans leur tronche'));
     }
     if(totalDegat > 3000){
-      trophes.push(await this.setTrophe(joueur,'I hate you 3 thousands',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'I hate you 3 thousands'));
     }
     if(totalDegat > 9000){
-      trophes.push(await this.setTrophe(joueur,'Over 9000 !',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Over 9000 !'));
     }
     if(totalDegat > 25000){
-      trophes.push(await this.setTrophe(joueur,'La fierté de Thanos',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'La fierté de Thanos'));
     }
     
     //#endregion trophes
@@ -450,18 +391,15 @@ export class HerosService {
 
   async removeDestin(nom:string):Promise<string[]>{
     const hero = doc(this.firestore, 'heros', nom);
-    await setDoc(hero, { destin: increment(-1)  }, { merge: true });
-    await setDoc(hero, { destin_utilise: increment(1)  }, { merge: true });
+    await setDoc(hero, { destin: increment(-1), destin_utilise: increment(1)  }, { merge: true });
 
-    
     //#region trophes
     
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('nom',"==", nom)))).docs.map((entries) => entries.data());
-    
-    let allHeros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", heros[0]['code_joueur'])))).docs.map((entries) => entries.data());
+    let heros = await this.getByName(nom);
 
+    let joueur =  heros[0]['code_joueur'];
+
+    let allHeros = await this.getAllHeroOfJoueur(joueur);
     let trophes = [];
     let herosDestinUtilise = 0;
 
@@ -469,19 +407,17 @@ export class HerosService {
       herosDestinUtilise += hero['destin_utilise'];
     }
 
-    let joueur = heros[0]['code_joueur'];
-    let trophesOwned = await this.getJoueurTrophes(joueur);
-    trophes.push(await this.setTrophe(joueur,'Try Again',trophesOwned));
+    trophes.push(await this.trophesService.setTrophe(joueur,'Try Again'));
 
     if(heros[0]['destin'] == 0 ){
-      trophes.push(await this.setTrophe(joueur,'Un destin tout tracé',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Un destin tout tracé'));
     }
 
     if(herosDestinUtilise > 8){
-      trophes.push(await this.setTrophe(joueur,'El Gato',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'El Gato'));
     }
     if(herosDestinUtilise > 99){
-      trophes.push(await this.setTrophe(joueur,'I can do this all day',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'I can do this all day'));
     }
 
     return trophes;
@@ -507,79 +443,16 @@ export class HerosService {
     let joueur = currentHero['code_joueur'];
 
     let trophes = [];
-    let trophesOwned =  await this.getJoueurTrophes(currentHero[0]['code_joueur']);
     if(currentHero['or'] >= 5000){
-      trophes.push(await this.setTrophe(joueur,'Smaug',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Smaug'));
     }
     else if(currentHero['or'] >= 3000){
-      trophes.push(await this.setTrophe(joueur,'Picsou',trophesOwned));
+      trophes.push(await this.trophesService.setTrophe(joueur,'Picsou'));
     }
     if(currentHero['km'] >= 1000){
-      trophes.push(await this.setTrophe(joueur,'One does not simply walk 1000km',trophesOwned)); 
+      trophes.push(await this.trophesService.setTrophe(joueur,'One does not simply walk 1000km')); 
     }
     return trophes;
-  }
-  
-  async add(joueur:string, nom:string, origine:string, 
-    metier:string, or : number, 
-    destin : number, niveau : number) : Promise<string[]>{
-    await setDoc(doc(this.firestore, "heros", nom.toLowerCase()), {
-      code_joueur: joueur,
-      nom: nom.toLowerCase(),
-      origine:origine,
-      metier:metier,
-      or:or,
-      destin:destin,
-      niveau:niveau,
-      actif:false,
-      vivant:true,
-      km:0,
-      bon_point:0,
-      mauvais_point:0,
-      mana:0,
-      morts:0,
-      vie:0,
-      destin_utilise:0
-    });
-
-     //#region trophes
-     
-     let allHeros = (await getDocs(query(collection(this.firestore,'heros'),
-     where('code_joueur',"==",joueur)))).docs.map((entries) => entries.data());
-
-     let originesJouees = await this.getOriginesJouees();
-     let metiersJoues = await this.getMetiersJouees();
-     for(let hero of allHeros){
-      originesJouees[hero['origine']] ++;
-      metiersJoues[hero['metier']] ++;
-     }
- 
-     let trophes = [];
-     let trophesOwned =  await this.getJoueurTrophes(joueur);
-        
-    let trophesOrigine = await this.getTrophesOrigines();
-    if(trophesOrigine[origine]){
-      trophes.push(await this.setTrophe(joueur,trophesOrigine[origine],trophesOwned));
-    }
-
-    let trophesMetier = await this.getTrophesMetier();
-    if(trophesMetier[metier]){
-      trophes.push(await this.setTrophe(joueur,trophesMetier[metier],trophesOwned));
-    }
-
-    let trophesOrigineMetier = await this.getTrophesOriginesMetier();
-    if(trophesOrigineMetier[origine] && trophesOrigineMetier[origine][metier]){
-      trophes.push(await this.setTrophe(joueur,trophesOrigineMetier[origine][metier],trophesOwned));
-    }
-
-    let trophesComplexe = await this.getTrophesComplexeClasse(originesJouees,metiersJoues);
-    for(let trophe of trophesComplexe){
-      trophes.push(await this.setTrophe(joueur,trophe,trophesOwned));
-    }
-
-     return trophes;
- 
-     //#endregion
   }
 
   async addMobCombattu(nom:string,mob:string, nombre :number) : Promise<string[]>{
@@ -588,317 +461,290 @@ export class HerosService {
 
         //#region trophes
     
-        let heros = (await getDocs(query(collection(this.firestore,'heros'),
-        where('nom',"==", nom)))).docs.map((entries) => entries.data());
+    
+    let heros = await this.getByName(nom);
+    let joueur = heros[0]['code_joueur'];
+    
+    let allHeros = await this.getAllHeroOfJoueur(joueur);
         
-        let extinction = false;
-        let heroMobs = (await getDocs(query(collection(this.firestore,'heros_mobs'),heros[0]['nom']))).docs.map((entries) => entries.data());
+    let extinction = false;
+    let heroMobs = (await this.getAllHerosMob())
+    ?.filter(x=>x['nom'] == nom);
 
 
-        let mobToUpdate = await doc(this.firestore, "mobs", mob)
-        await setDoc(mobToUpdate, { apparition:increment(1)  }, { merge: true });
+    let mobToUpdate = await doc(this.firestore, "mobs", mob)
+    await setDoc(mobToUpdate, { apparition:increment(1)  }, { merge: true });
 
-        let trophes = [];
+    let storageMob = this.storage.get<DocumentData[]>(StorageKeys.MOBS)?.find(x=>x['code'] == mob);
+    let apparition = storageMob !== undefined ? storageMob['apparition'] : 0;
+    await this.storage.updatePropertyInStorage<DocumentData,number>(StorageKeys.MOBS,'code',mob,'apparition',apparition+1)
 
-        for (const key in heroMobs[0]) {
+    let trophes = [];
+
+    for (const key in heroMobs[0]) {
           if (heroMobs[0][key] >= 50) {  // Vérifie que la clé est propre à l'objet (et non héritée)
             extinction = true;
           }
         }
-        let trophesOwned =  await this.getJoueurTrophes(heros[0]['code_joueur']);
         if(extinction){
-          trophes.push(await this.setTrophe(heros[0]['code_joueur'],"En voie d'extinction",trophesOwned));
+          trophes.push(await this.trophesService.setTrophe(joueur,"En voie d'extinction"));
         }
         if(Object.keys(heroMobs).length >= 50){
-          trophes.push(await this.setTrophe(heros[0]['code_joueur'],"Charles Darwin",trophesOwned));
-        }
+          trophes.push(await this.trophesService.setTrophe(joueur,"Charles Darwin"));
+    }
 
         //#endregion
 
-        return trophes;
+    return trophes;
   }
 
-  async bulkUpdate(){
-    const heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
-    
-    heros.forEach(async (hero) => {
-      await setDoc(doc(this.firestore, "heros", hero['nom']), {
-        actif:hero['actif'],
-        bon_point:hero['bon_point'],
-        code_joueur: hero['code_joueur'],
-        destin:hero['destin'],
-        km:hero['km'],
-        mana:hero['mana'],
-        mauvais_point:hero['mauvais_point'],
-        metier:hero['metier'],
-        morts:hero['morts'],
-        niveau:hero['niveau'],
-        nom: hero['nom'],
-        or:hero['or'],
-        origine:hero['origine'],
-        vie:hero['vie'],
-        vivant:hero['vivant'],
-      });
-    })
-    
-  }
+  //#endregion Statistiques
 
-  async setTrophe(joueur:string,titre:string,trophes:string[]):Promise<string>{
-    if(trophes.includes(titre)){
-      return "";
+  //#region Critiques
+
+  async addCritique(nom:string, intensite:number,tour:number):Promise<string[]>{
+    
+    let document :DocumentData = {
+      hero_nom:nom,
+      intensite:intensite,
+      date:new Date(),
+      tour:tour
     }
-    await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
-      titre : titre,
-      code_joueur:joueur
-    });
-    return titre;
-  }
 
-  async getJoueurTrophes(joueur:string):Promise<string[]>{
+    await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()), document);
 
-    //tous les trophés du joueurs
-    let trophesJoueur = (await getDocs(query(collection(this.firestore,'joueurs_trophes'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_CRITIQUES,document);
 
-    return trophesJoueur.map(x=>x['titre']);
-  }
+    //#region trophes
+    
+    let heros = await this.getByName(nom);
+    let joueur = heros[0]['code_joueur'];
+    
+    let allHeros = await this.getAllHeroOfJoueur(joueur);
 
-  async getTrophesMetier() : Promise<Record<string,string>>{
-    return {
-      'pretre': 'BRUT',
-      'voleur': "De l'autre coté de la mer",
-      'artiste': 'Picasso',
-      'bourgeois': '92%',
-      'artisant': "C'est moi qui l'ait fait",
-      'ranger': 'Buzz la foudre',
-      'ingenieur': "Il a encore oublié d'enlever l'armure",
-      'demonologue': 'Tes HP ... nos HP',
-      'guerrier': "Ma seule stat c'est force",
-      'mage': 'Poudlard',
-      'walkyrie': 'Comme un air de supériorité',
-      'chasseur-de-monstres': 'Monster Hunter',
-      'chasseur-de-tresor': 'Uncharted',
-      'chasseur-de-primes': 'Marshal',
-      'gladiateur': 'Maximus Decimus',
-      'prestidigitateur': 'David Copperfield',
-      'moine': 'Dice throne #1',
-      'paladin': 'Dîme 2',
-      'empoisonneur': 'Une pomme bien rouge',
-      'rodeur': 'Grand pas',
-      'forgeron': 'Promis je casse pas ton armure',
-      'forgeur-de-runes': 'Forgeur de rêves',
-      'herboriste': 'Le père du mousse',
-      'artificier': 'Enzo Santorini',
-      'ingenieur-automate': 'Le reveil des machines',
-      'inquisiteur': 'Au bûcher',
-      'soldat': 'Formation tortue',
-      'berzerk': 'Tryndamère',
-      'pirate': 'Sea of thieves',
-      'noble': '95%',
-      'seigneur': '99%',
-      'templier': 'Richard coeur de lion',
-      'ninja': 'Naruto sans les pouvoirs',
-      'assassin': 'Ezio Auditore da Firenze',
-      'corsaire': 'Piraterie réglementée',
-      'conservateur': 'La nuit au musée',
-      'maitre-d-armes': "Edwin til' Ilan",
-      'archange': 'Envoyé des dieux',
-      'celebrite': 'The YOU show',
-  };
-  }
+    let trophes = [];
+    let heroCritiques: Critique[] = [];
 
-  async getTrophesMetierBase() : Promise<Record<string,string>>{
-    return {
-      'pretre': 'BRUT',
-      'voleur': "De l'autre coté de la mer",
-      'artiste': 'Picasso',
-      'bourgeois': '92%',
-      'artisant': "C'est moi qui l'ait fait",
-      'ranger': 'Buzz la foudre',
-      'ingenieur': "Il a encore oublié d'enlever l'armure",
-      'demonologue': 'Tes HP ... nos HP',
-      'guerrier': "Ma seule stat c'est force",
-      'mage': 'Poudlard',
-      'walkyrie': 'Comme un air de supériorité'
-  };
+    for (const hero of allHeros) {
+      heroCritiques = (await this.getAllHerosCritique())
+              ?.filter(x=>x['hero_nom'] == hero['nom'])
+              .map(x => x as Critique);
+    }
+
+    if([19,20].some(e => heroCritiques.map(x=>x.intensite).includes(e))){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Mort instantané'));
+    }
+    if(heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 10){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Highlander'));
+    }
+    if(heroCritiques.filter(x=>x.intensite == 19 || x.intensite == 20).length >= 100){
+      trophes.push(await this.trophesService.setTrophe(joueur,'One punch man'));
+    }
+    if([19,20].some(e => heroCritiques.filter(x=>x.tour == 1).map(x=>x.intensite).includes(e))){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Pas de temps à perdre'));
+    }
+
+    return trophes
+
+    //#endregion
   }
   
-  async getTrophesOrigines() : Promise<Record<string,string>>{
-    return {
-    'demi-elfe': 'Mangeur de salade marque repère',
-    'elfe-sylvain': 'Mangeur de salade bio',
-    'haut-elfe': 'Mangeur de salade aux truffes',
-    'humain': 'Simple, basique',
-    'barbare': 'Conan',
-    'elfe-noir': 'Dark Sasuke',
-    'orque': "Orque ...",
-    'demi-orque': "1 javelot c'est bien ... 3 c'est mieux",
-    'ogre': '9 Intelligence, 13 Force .. Hum',
-    'centaure': '4 pattes et un gros p****',
-    'homme-des-sables': 'Atréide',
-    'hobbit': 'Un Sam en devenir',
-    'samurai': 'Budo',
-    'walkyrie': 'Comme un air de supériorité'
-  };
-  }
+  async addParade(nom:string, intensite:number,tour:number) : Promise<string[]>{
+    
+    let document :DocumentData = {
+      hero_nom:nom,
+      intensite:intensite,
+      date:new Date(),
+      tour:tour
+    }
 
-  async getTrophesOriginesMetier(): Promise<Record<string,Record<string, string>>>{
-    return {
-      'humain': {
-        '': "C'est sur qu'on a pas de swap ?"
-      },
-      'orque': {
-        'mage': "Combattre les stéréotypes"
-      },
-      'homme-des-sables': {
-        'voleur': "Renforcer les stéréotypes"
-      },
-      'elfe-noir': {
-        'demologue': "Le vrai Dark Sasuke"
-      },
-      'walkyrie': {
-        'compagnie-du-crepuscule': "Représentant divin",
-        'gardienne-de-l-aube': "Représentant divin",
-        'legion-celeste': "Représentant divin"
+    await setDoc(doc(this.firestore, "heros_parades", crypto.randomUUID()),document);
+
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_PARADES,document);
+
+     //#region trophes
+    
+    let heros = await this.getByName(nom);
+    let joueur = heros[0]['code_joueur'];
+    
+    let allHeros = await this.getAllHeroOfJoueur(joueur);
+ 
+     let trophes = [];
+     let heroParades: Critique[] = [];
+ 
+     for (const hero of allHeros) {
+      heroParades = (await this.getAllHerosParade())
+              ?.filter(x=>x['hero_nom'] == hero['nom'])
+              .map(x => x as Critique);
       }
-  };
+ 
+     if(heroParades.length > 0){
+       trophes.push(await this.trophesService.setTrophe(joueur,'The Hail Mary'));
+     }
+     if([19,20].some(e => heroParades.map(x=>x.intensite).includes(e))){
+       trophes.push(await this.trophesService.setTrophe(joueur,'La chatasse ultime'));
+     }
+ 
+     return trophes
+ 
+     //#endregion
   }
 
-  async getOriginesJouees() : Promise<Record<string,number>>{
-    return {
-    'barbare': 0,
-    'centaure': 0,
-    'demi-elfe': 0,
-    'demi-orque': 0,
-    'elfe-sylvain': 0,
-    'elfe-noir': 0,
-    'haut-elfe': 0,
-    'hobbit': 0,
-    'homme-des-sables':0,
-    'humain': 0,
-    'nain': 0,
-    'orque': 0,
-    'ogre': 0,
-    'samurai': 0,
-    'walkyrie': 0
-  };
-  }
-
-  async getMetiersJouees() : Promise<Record<string,number>>{
-    return {
-    'archange': 0,
-    'archeologue': 0,
-    'artificier': 0,
-    'artisant': 0,
-    'artiste': 0,
-    'assassin': 0,
-    'barbare': 0,
-    'berzerk': 0,
-    'bourgeois': 0,
-    'celebrite': 0,
-    'chasseur-de-monstres': 0,
-    'chasseur-de-primes': 0,
-    'chasseur-de-tresor': 0,
-    'commercant': 0,
-    'compagnie-du-crepuscule': 0,
-    'conservateur': 0,
-    'corsaire': 0,
-    'demonologue': 0,
-    'empoisoneur': 0,
-    'forgeron': 0,
-    'forgeur-de-runes': 0,
-    'gardienne-de-l-aube': 0,
-    'gladiateur': 0,
-    'guerrier': 0,
-    'herboriste': 0,
-    'ingenieur': 0,
-    'ingenieur-automate': 0,
-    'inquisiteur': 0,
-    'legion-celeste': 0,
-    'mage': 0,
-    'maitre-d-armes': 0,
-    'moine': 0,
-    'ninja': 0,
-    'noble': 0,
-    'paladin': 0,
-    'pirate': 0,
-    'prestidigitateur': 0,
-    'pretre': 0,
-    'ranger': 0,
-    'rodeur': 0,
-    'seigneur': 0,
-    'soldat': 0,
-    'templier': 0,
-    'voleur': 0,
-    'walkyrie': 0,
-  };
-  }
-
-  async getTrophesComplexeClasse(
-    originesJouees:Record<string,number>,
-    metierJoues:Record<string,number>): Promise<string[]>{
-    let trophes = [];
-
-    if(originesJouees['orque'] > 0 && originesJouees['demi-orque']  > 0
-      && originesJouees['ogre'] > 0){
-      trophes.push('Peau verte');
-    }
-    if(originesJouees['elfe-sylvain'] > 0 && originesJouees['demi-elfe'] > 0
-       && originesJouees['elfe-noir'] > 0 && originesJouees['haut-elfe'] > 0){
-      trophes.push('Batavia, Iceberg, Roquette, Mache');
-    }
-    if(originesJouees['nain']  > 0 && originesJouees['hobbit'] > 0){
-      trophes.push('Voir les choses en Grand');
-    }
-    if(metierJoues['voleur'] > 0 && metierJoues['artisant'] > 0
-       && metierJoues['artiste'] > 0 && metierJoues['ingenieur'] > 0){
-      trophes.push('Manuel');
-    }
-    if(metierJoues['mage'] > 0 && metierJoues['prestidigitateur'] > 0){
-      trophes.push('La Magie sous toutes ses formes');
-    }
-    if(metierJoues['voleur'] > 0 && originesJouees['hobbit'] > 0){
-      trophes.push('La chute dans les escaliers');
-    }
-    if(metierJoues['mage'] > 0 && metierJoues['pretre'] > 0
-       && metierJoues['demonologue'] > 0){
-      trophes.push("Un homme d'énergie");
-    }
-    if(metierJoues['forgeron'] > 0 && metierJoues['forgeur-de-runes'] > 0){
-      trophes.push("C'est un forgeant qu'on devient forgeron");
-    }
-    if(originesJouees['centaure'] > 0 && originesJouees['hommes-des-sables'] > 0
-       && originesJouees['samurai'] > 0 && originesJouees['walkyrie'] > 0){
-      trophes.push('Contrées lointaines');
-    }
-    if(metierJoues['chasseur-de-primes'] > 0 && metierJoues['chasseur-de-monstres'] > 0
-       && metierJoues['chasseur-de-tresor'] > 0){
-      trophes.push("Apex Predator");
-    }
-    if(metierJoues['templier'] > 0 && metierJoues['demonologue'] > 0
-       && metierJoues['inquisiteur'] > 0 && metierJoues['compagnie-du-crepuscule'] > 0){
-      trophes.push('Purificateur');
+  async addEchecCritique(nom:string, intensite:number,tour:number) : Promise<string[]>{
+     
+    let document :DocumentData = {
+      hero_nom:nom,
+      intensite:intensite,
+      date:new Date(),
+      tour:tour
     }
 
-    if((await this.getAllOrigine()).length == Object.values(originesJouees).filter(value => value > 0).length){
-      trophes.push('Joueur du monde');
-    }
-    if(Object.keys(await this.getTrophesMetierBase()).length == Object.values(metierJoues).filter(value => value > 0).length){
-      trophes.push('Polyvalent');
-    }
-    if(Object.values(originesJouees).filter(value => value >= 10).length > 0){
-      trophes.push('Le fidèle');
-    }
-    if(Object.values(metierJoues).filter(value => value >= 10).length > 0){
-      trophes.push("L'Alpha et l'Oméga");
-    }
-    if((await this.getAllOrigine()).length == Object.values(originesJouees).filter(value => value > 0).length &&
-    (await this.getAllMetier()).length == Object.values(metierJoues).filter(value => value > 0).length){
-      trophes.push('1001 vies');
-    }
+    await setDoc(doc(this.firestore, "heros_echecs", crypto.randomUUID()),document);
+
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_ECHECS,document);
+
+     //#region trophes
     
+    let heros = await this.getByName(nom);
+    let joueur = heros[0]['code_joueur'];
     
-    return [];
+    let allHeros = await this.getAllHeroOfJoueur(joueur);
+
+    let trophes = [];;
+    let heroEchecs: number[] = [];
+
+    for (const hero of allHeros) {
+      heroEchecs = (await this.getAllHerosParade())
+              ?.filter(x=>x['hero_nom'] == hero['nom'])
+              .map(x => x['intensite']);
+    }
+
+    if(heroEchecs.includes(19)){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Pourquoi moi ?!'));
+    }
+    if([10,11,12].some(e => heroEchecs.includes(e))){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Expelliarmus'));
+    }
+    if([8,9].some(e => heroEchecs.includes(e))){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Mon fidèle bras droit'));
+    }
+    if([6,7].some(e => heroEchecs.includes(e))){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Mon fidèle bras gauche'));
+    }
+    if(heroEchecs.includes(11)){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Façon elle était moche cette armure'));
+    }
+    if([16,17,18].some(e => heroEchecs.includes(e))){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Sacrieur'));
+    }
+    if([3,5].some(e => heroEchecs.includes(e))){
+      trophes.push(await this.trophesService.setTrophe(joueur,'Petite sieste reposante'));
+    }
+    if(heroEchecs.length > 0){
+      trophes.push(await this.trophesService.setTrophe(joueur,"C'est un échec"));
+    }
+
+    return trophes
+
+    //#endregion
   }
+
+  async addEntropique(nom:string, intensite:number,tour:number) : Promise<string[]>{
+      
+    let document :DocumentData = {
+      hero_nom:nom,
+      intensite:intensite,
+      date:new Date(),
+      tour:tour
+    }
+
+    await setDoc(doc(this.firestore, "heros_entropiques", crypto.randomUUID()),document);
+
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_ENTROPIQUES,document);
+
+     //#region trophes
+    
+    let heros = await this.getByName(nom);
+    let joueur = heros[0]['code_joueur'];
+    
+    let allHeros = await this.getAllHeroOfJoueur(joueur);
+ 
+     let trophes = [];
+     let heroEntropique: Critique[] = [];
+ 
+     for (const hero of allHeros) {
+      heroEntropique = (await this.getAllHerosParade())
+              ?.filter(x=>x['hero_nom'] == hero['nom'])
+              .map(x => x as Critique);
+      }
+ 
+     if(heroEntropique.length > 100){
+       trophes.push(await this.trophesService.setTrophe(joueur,'Agent du chaos'));
+     }
+ 
+     return trophes
+ 
+     //#endregion
+  }
+
+  //#endregion Critiques
+
+  //#endregion Joueurs
+
+  //#region MJ
+
+  //#region Critiques
+
+  async addCritiqueMJ(intensite:number){
+    let document : DocumentData = {
+      hero_nom:'MJ',
+      intensite:intensite,
+      date:new Date(),
+    };
+
+    await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()),document );
+  
+    await this.storage.addElementInStorageGroup(StorageKeys.HERO_CRITIQUES,document);
+  }
+
+  async addParadeMJ(intensite:number){
+    let document : DocumentData = {
+      hero_nom:'MJ',
+      intensite:intensite,
+      date:new Date(),
+    };
+
+    await setDoc(doc(this.firestore, "heros_parades", crypto.randomUUID()),document );
+  
+    await this.storage.addElementInStorageGroup(StorageKeys.HERO_PARADES,document);
+  }
+
+  async addEchecCritiqueMJ(intensite:number){
+    let document : DocumentData = {
+      hero_nom:'MJ',
+      intensite:intensite,
+      date:new Date(),
+    };
+
+    await setDoc(doc(this.firestore, "heros_echecs", crypto.randomUUID()),document );
+  
+    await this.storage.addElementInStorageGroup(StorageKeys.HERO_ECHECS,document);
+  }
+
+  async addEntropiqueMJ(intensite:number){
+    let document : DocumentData = {
+      hero_nom:'MJ',
+      intensite:intensite,
+      date:new Date(),
+    };
+
+    await setDoc(doc(this.firestore, "heros_entropiques", crypto.randomUUID()),document );
+  
+    await this.storage.addElementInStorageGroup(StorageKeys.HERO_ENTROPIQUES,document);
+  }
+
+  //#endregion Critiques
+
+  //#endregion MJ
 
 }

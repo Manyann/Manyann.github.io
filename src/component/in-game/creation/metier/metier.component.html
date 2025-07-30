@@ -33,7 +33,7 @@
 </p-treeTable>
 
 
-<p-sidebar [(visible)]="sidebarVisible">
+<p-sidebar [(visible)]="sidebarVisible"  (onHide)="handleSidebarHide()">
     <div class="list-bonus parts" *ngIf="metierToSee.caracteristiques.length > 0">
         <div class="title">Characteristiques</div>
         <div class="list-item-details-items">

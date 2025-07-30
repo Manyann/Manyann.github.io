@@ -1,31 +1,67 @@
 import { Injectable } from '@angular/core';
 import { collection, deleteDoc, doc, DocumentData, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { CodeValeur } from '../../component/model/code-libelle';
-
-type CacheStore<T> = {
-  [key: string]: T;
-};
-
+import { StorageKeys, StorageService } from './storage.service';
+import { TrophesService } from './trophes.service';
+import { HerosService } from './hero.service';
+import { ItemsService } from './items.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatistiquesService {
 
-  private cache: CacheStore<any> = {};
-  constructor(public firestore: Firestore) { }
+  constructor(
+    public firestore: Firestore,
+    private herosService : HerosService,
+    private itemsService : ItemsService,
+    private storage : StorageService,
+    private trophesService : TrophesService
+  ) { }
 
+  async getAllOrines(){
+    if(!this.storage.get(StorageKeys.ORIGINES)){
+      const origines = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.ORIGINES,origines);
+    }
+            
+    return this.storage.get<DocumentData[]>(StorageKeys.ORIGINES) ?? [];
+  }
 
+  async getAllMetiers(){
+    if(!this.storage.get(StorageKeys.METIERS)){
+      const metiers = (await getDocs(query(collection(this.firestore,'metiers')))).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.METIERS,metiers);
+    }
+            
+    return this.storage.get<DocumentData[]>(StorageKeys.METIERS) ?? [];
+  }
+
+  async getAllArmes(){
+    if(!this.storage.get(StorageKeys.HERO_ARMES)){
+      const armes = (await getDocs(query(collection(this.firestore,'heros_armes')))).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.HERO_ARMES,armes);
+    }
+            
+    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ARMES) ?? [];
+  }
+  
+  async getAllArmures(){
+    if(!this.storage.get(StorageKeys.HERO_ARMURES)){
+      const armures = (await getDocs(query(collection(this.firestore,'heros_armures')))).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.HERO_ARMURES,armures);
+    }
+            
+    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ARMURES) ?? [];
+  }
 
   async getOrigines(joueur:string){
 
-     if (this.cache['origine_'+joueur]) {
-      return (this.cache['origine_'+joueur] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-    }
+    let key : string = StorageKeys.JOUEURS_METIERS+"_"+joueur;
+    if(!this.storage.getFromString(key)){
 
-    let heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
-    let origines = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAll();
+    let origines = await this.getAllOrines();
 
     let statistiques : CodeValeur[] = [];
     let libelle = "";
@@ -42,20 +78,18 @@ export class StatistiquesService {
       statistiques.find(x=>x.code == libelle)!.valeur ++;
     });
 
-    this.cache['origine_'+joueur] = statistiques;
+    this.storage.setFromString<CodeValeur[]>(key,statistiques);
+   }
 
-      return (this.cache['origine_'+joueur] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+    return this.storage.getFromString<CodeValeur[]>(key)??[];
   }
 
   async getMetier(joueur:string){
-     if (this.cache['metier'+joueur]) {
-      return (this.cache['metier'+joueur] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-    }
+    let key : string = StorageKeys.JOUEURS_METIERS+"_"+joueur;
+    if(!this.storage.getFromString(key)){
 
-    let heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
-    let metiers = (await getDocs(query(collection(this.firestore,'metiers')))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAll();
+    let metiers = await this.getAllMetiers();
 
     let statistiques : CodeValeur[] = [];
     let libelle = "";
@@ -71,18 +105,17 @@ export class StatistiquesService {
       }
       statistiques.find(x=>x.code == libelle)!.valeur ++;
     });
-    this.cache['metier'+joueur] = statistiques;
-      return (this.cache['metier'+joueur] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);;
+
+    this.storage.setFromString<CodeValeur[]>(key,statistiques);
+   }
+    
+    return this.storage.getFromString<CodeValeur[]>(key)??[];
   }
 
   async getArmes(){
-     if (this.cache['armes']) {
-      return (this.cache['armes'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-    }
-    let herosArmes = (await getDocs(query(collection(this.firestore,'heros_armes')))).docs.map((entries) => entries.data());
-    let armes = (await getDocs(query(collection(this.firestore,'armes')))).docs.map((entries) => entries.data());
+    if(!this.storage.get(StorageKeys.STATS_ARMES)){
+    let herosArmes = await this.getAllArmes();
+    let armes = await this.itemsService.getAllArmes();
 
     let statistiques : CodeValeur[] = [];
     let libelle = "";
@@ -95,24 +128,21 @@ export class StatistiquesService {
       statistiques.find(x=>x.code == libelle)!.valeur ++;
     });
 
-    this.cache['armes'] = statistiques;
+    this.storage.set<CodeValeur[]>(StorageKeys.STATS_ARMES,statistiques);
+    }
 
-      return (this.cache['armes'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_ARMES);
   }
 
   async getArmures(){
-     if (this.cache['armures']) {
-      return (this.cache['armures'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-    }
-    let herosArmes = (await getDocs(query(collection(this.firestore,'heros_armures')))).docs.map((entries) => entries.data());
-    let armures = (await getDocs(query(collection(this.firestore,'armures')))).docs.map((entries) => entries.data());
+    if(!this.storage.get(StorageKeys.STATS_ARMURES)){
+    let herosArmures = await this.getAllArmures();
+    let armures = await this.itemsService.getAllArmures();
 
     let statistiques : CodeValeur[] = [];
     let libelle = "";
 
-    herosArmes.forEach((heroArme) =>{
+    herosArmures.forEach((heroArme) =>{
       libelle = armures.find(x=>x['code'] == heroArme['armure_code'])!['libelle'] ?? heroArme['armure_code'];
 
       if(statistiques.find(x=>x.code == libelle) === undefined){
@@ -121,17 +151,14 @@ export class StatistiquesService {
       statistiques.find(x=>x.code == libelle)!.valeur ++;
     });
 
-    this.cache['armures'] = statistiques;
-    
-      return (this.cache['armures'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+    this.storage.set<CodeValeur[]>(StorageKeys.STATS_ARMURES,statistiques);
+    }
+
+    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_ARMURES);
   }
 
   async getCrits(){
-     if (this.cache['critique']) {
-      return (this.cache['critique'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-    }
+    if(!this.storage.get(StorageKeys.STATS_CRITS)){
     let critiques = (await getDocs(query(collection(this.firestore,'heros_critiques')))).docs.map((entries) => entries.data());
     
     let statistiques : CodeValeur[] = [];
@@ -143,17 +170,14 @@ export class StatistiquesService {
       statistiques.find(x=>x.code == critique['hero_nom'])!.valeur ++;
     });
 
-    this.cache['critique'] = statistiques;
+    this.storage.set<CodeValeur[]>(StorageKeys.STATS_CRITS,statistiques);
+    }
 
-      return (this.cache['critique'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_CRITS);
   }
 
   async getEchecCrits(){
-     if (this.cache['echec']) {
-      return (this.cache['echec'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-    }
+    if(!this.storage.get(StorageKeys.STATS_ECHECS)){
     let echecs = (await getDocs(query(collection(this.firestore,'heros_echecs')))).docs.map((entries) => entries.data());
     let statistiques : CodeValeur[] = [];
 
@@ -164,17 +188,14 @@ export class StatistiquesService {
       statistiques.find(x=>x.code == critique['hero_nom'])!.valeur ++;
     });
 
-    this.cache['echec'] = statistiques;
+    this.storage.set<CodeValeur[]>(StorageKeys.STATS_ECHECS,statistiques);
+    }
 
-      return (this.cache['echec'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_ECHECS);
   }
 
   async getDegatsTotaux(){
-     if (this.cache['degats']) {
-      return (this.cache['degats'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-    }
+    if(!this.storage.get(StorageKeys.STATS_DEGATS)){
     let degats = (await getDocs(query(collection(this.firestore,'heros_degats')))).docs.map((entries) => entries.data());
     
     let statistiques : CodeValeur[] = [];
@@ -186,17 +207,14 @@ export class StatistiquesService {
       statistiques.find(x=>x.code == degat['hero_nom'])!.valeur +=degat['intensite'];
     });
 
-    this.cache['degats'] = statistiques;
+    this.storage.set<CodeValeur[]>(StorageKeys.STATS_DEGATS,statistiques);
+    }
 
-      return (this.cache['degats'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS);
   }
 
   async getDegatsMax(){
-     if (this.cache['degats_max']) {
-      return (this.cache['degats_max'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-    }
+    if(!this.storage.get(StorageKeys.STATS_DEGATS_MAX)){
     let degats = (await getDocs(query(collection(this.firestore,'heros_degats')))).docs.map((entries) => entries.data());
     
     let statistiques : CodeValeur[] = [];
@@ -210,10 +228,10 @@ export class StatistiquesService {
       }
     });
 
-    this.cache['degats_max'] = statistiques;
+    this.storage.set<CodeValeur[]>(StorageKeys.STATS_DEGATS_MAX,statistiques);
+    }
 
-      return (this.cache['degats_max'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS_MAX);
   }
 
   // async getOrs(){
@@ -249,26 +267,24 @@ export class StatistiquesService {
   // }
   
   async getEnnemis(){
-     if (this.cache['ennemi']) {
-      return (this.cache['ennemi'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-    }
+    if(!this.storage.get(StorageKeys.STATS_MOBS)){
     let mobs = (await getDocs(query(collection(this.firestore,'mobs')))).docs.map((entries) => entries.data());
 
     let statistiques : CodeValeur[] = [];
     mobs.forEach((mob) => {
       statistiques.push({code:mob['libelle'],valeur:mob['apparition']})
     });
-    this.cache['ennemi'] = statistiques;
 
-      return (this.cache['ennemi'] as CodeValeur[])
-      .sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
+    this.storage.set<CodeValeur[]>(StorageKeys.STATS_MOBS,statistiques);
+    }
+
+    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_MOBS);
   }
 
   async getJoueurStatistique(joueur:string){
-     if (this.cache['statistique_'+joueur]) {
-      return this.cache['statistique_'+joueur] as JoueurStatistique;
-    }
+
+    let key : string = StorageKeys.STATS+"_"+joueur;
+    if(!this.storage.getFromString(key)){
     let statistiques : JoueurStatistique = {
       origine: await this.getOrigineJoueur(joueur),
       metier: await this.getMetierJoueur(joueur),
@@ -281,15 +297,16 @@ export class StatistiquesService {
       totalDegats : await this.getTotalDegatsJoueur(joueur),
       totalEnnemis : await this.getTotalEnnemisJoueur(joueur),
     };
-    this.cache['statistique_'+joueur] = statistiques;
-    return this.cache['statistique_'+joueur] as JoueurStatistique;
+
+    this.storage.setFromString<JoueurStatistique>(key,statistiques);
+    }
+
+    return this.storage.getFromString<JoueurStatistique>(key);
   }
 
   async getOrigineJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
-    let origines = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
-
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    let origines = await this.getAllOrines();
     let libelle = "";
     let originesCount : { [key: string]: number } = {};
 
@@ -314,15 +331,14 @@ export class StatistiquesService {
   }
 
   async getMetierJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
-    let origines = (await getDocs(query(collection(this.firestore,'metiers')))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    let metiers = await this.getAllMetiers();
 
     let libelle = "";
     let originesCount : { [key: string]: number } = {};
 
     for (const hero of heros) {
-      libelle = origines.find(x=>x['code'] == hero['metier'])!['libelle'] ?? hero['metier'];
+      libelle = metiers.find(x=>x['code'] == hero['metier'])!['libelle'] ?? hero['metier'];
       if(originesCount[libelle] === undefined){
         originesCount[libelle] = 0;
       }
@@ -342,8 +358,7 @@ export class StatistiquesService {
   }
 
   async getHeroCritiqueJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     let heroNom = "";
     let critiqueCount = 0;
@@ -364,8 +379,7 @@ export class StatistiquesService {
   }
 
   async getHeroEchecsJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     let heroNom = "";
     let critiqueCount = 0;
@@ -386,8 +400,7 @@ export class StatistiquesService {
   }
 
   async getMaxLevelJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     let heroNom = "";
     let maxLevel = 0;
@@ -407,15 +420,13 @@ export class StatistiquesService {
   }
 
   async getPersoCountJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
 
     return ""+heros.length;
   }
   
   async getTotalCritiquesJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     let total = 0;
     for (const hero of heros) {
@@ -428,8 +439,7 @@ export class StatistiquesService {
   }
 
   async getTotalEchecsJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     let total = 0;
 
@@ -442,8 +452,7 @@ export class StatistiquesService {
   }
 
   async getTotalDegatsJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     let total = 0;
 
@@ -458,8 +467,7 @@ export class StatistiquesService {
   }
 
   async getTotalEnnemisJoueur(joueur:string){
-    let heros = (await getDocs(query(collection(this.firestore,'heros'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     let total = 0;
 
@@ -477,21 +485,17 @@ export class StatistiquesService {
   }
 
   async getJoueurTrophes(joueur:string){
-
-     if (this.cache['owned'+joueur]) {
-      return this.cache['owned'+joueur] as Trophe[];
-    }
+    let key : string = StorageKeys.TROPHES+"_"+joueur;
+    if(!this.storage.getFromString(key)){
     //tous les trophés du joueurs
-    let trophesJoueur = (await getDocs(query(collection(this.firestore,'joueurs_trophes'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
-    let codes = trophesJoueur.map(x=>x['titre']);
+    let trophesJoueur = await this.trophesService.getJoueurTrophes(joueur);
 
     //tous les trophés
     const trophes =  (await getDocs(query(collection(this.firestore,'trophes')))).docs.map((entries) => entries.data() as Trophe);
 
     let trophesFiltered = [];
     for(let troph of trophes){
-      if(codes.includes(troph['titre'])){
+      if(trophesJoueur.includes(troph['titre'])){
         troph.possede =true;
       }else{
         troph.possede =false;
@@ -499,9 +503,11 @@ export class StatistiquesService {
       trophesFiltered.push(troph);
     }
 
-    this.cache['owned'+joueur] = trophesFiltered;
-    return this.cache['owned'+joueur] as Trophe[];
-  }
+    this.storage.setFromString<Trophe[]>(key,trophesFiltered);
+    }
+
+    return this.storage.getFromString<Trophe[]>(key) ?? undefined;
+  };
 
   async deleteTest(){
     const q = query(collection(this.firestore, "cities"), where("state", "==", "CA"));

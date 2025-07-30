@@ -222,10 +222,10 @@ export class StatistiqueComponent {
     statistiquesService.getArmes().then(snap =>{
       this.dataArmes = { 
         title:"Armes",
-        labels: snap.map(x=>x.code), 
+        labels: snap?.map(x=>x.code), 
         datasets: [ 
           { 
-            data: snap.map(x=>x.valeur), 
+            data: snap?.map(x=>x.valeur), 
             backgroundColor: ["#FFD700",  
                               "#C0C0C0",  
                               "#cd7f32"], 
@@ -236,10 +236,10 @@ export class StatistiqueComponent {
     statistiquesService.getArmures().then(snap =>{
       this.dataArmures = { 
         title:"Armures",
-        labels: snap.map(x=>x.code), 
+        labels: snap?.map(x=>x.code), 
         datasets: [ 
           { 
-            data: snap.map(x=>x.valeur), 
+            data: snap?.map(x=>x.valeur), 
             backgroundColor: ["#FFD700",  
                               "#C0C0C0",  
                               "#cd7f32"], 
@@ -250,10 +250,10 @@ export class StatistiqueComponent {
     statistiquesService.getCrits().then(snap =>{
       this.dataCrits = { 
         title:"Critiques",
-        labels: snap.map(x=>x.code), 
+        labels: snap?.map(x=>x.code), 
         datasets: [ 
           { 
-            data: snap.map(x=>x.valeur), 
+            data: snap?.map(x=>x.valeur), 
             backgroundColor: ["#FFD700",  
                               "#C0C0C0",  
                               "#cd7f32"], 
@@ -264,10 +264,10 @@ export class StatistiqueComponent {
     statistiquesService.getEchecCrits().then(snap =>{
       this.dataEchecCrits = { 
         title:"Echecs Critiques",
-        labels: snap.map(x=>x.code), 
+        labels: snap?.map(x=>x.code), 
         datasets: [ 
           { 
-            data: snap.map(x=>x.valeur), 
+            data: snap?.map(x=>x.valeur), 
             backgroundColor: ["#FFD700",  
                               "#C0C0C0",  
                               "#cd7f32"], 
@@ -277,10 +277,10 @@ export class StatistiqueComponent {
     });
     statistiquesService.getDegatsTotaux().then(snap =>{
       this.dataDegatsTotal = { 
-        labels: snap.map(x=>x.code), 
+        labels: snap?.map(x=>x.code), 
         datasets: [ 
           { 
-            data: snap.map(x=>x.valeur), 
+            data: snap?.map(x=>x.valeur), 
             backgroundColor: ["#FFD700",  
                               "#C0C0C0",  
                               "#cd7f32"], 
@@ -290,10 +290,10 @@ export class StatistiqueComponent {
     });
     statistiquesService.getDegatsMax().then(snap =>{
       this.dataDegatsMax = { 
-        labels: snap.map(x=>x.code), 
+        labels: snap?.map(x=>x.code), 
         datasets: [ 
           { 
-            data: snap.map(x=>x.valeur), 
+            data: snap?.map(x=>x.valeur), 
             backgroundColor: ["#FFD700",  
                               "#C0C0C0",  
                               "#cd7f32"], 
@@ -329,10 +329,10 @@ export class StatistiqueComponent {
     // });
     statistiquesService.getEnnemis().then(snap =>{
       this.dataEnnemis = { 
-        labels: snap.map(x=>x.code), 
+        labels: snap?.map(x=>x.code), 
         datasets: [ 
           { 
-            data: snap.map(x=>x.valeur), 
+            data: snap?.map(x=>x.valeur), 
             backgroundColor: ["#FFD700",  
                               "#C0C0C0",  
                               "#cd7f32"], 
@@ -352,7 +352,7 @@ export class StatistiqueComponent {
   }
   
   async updateStats(joueurCode: string) {
-    this.statistiquesJoueur = await this.statistiquesService.getJoueurStatistique(joueurCode);
+    this.statistiquesJoueur = await this.statistiquesService.getJoueurStatistique(joueurCode) ?? undefined;
   }
 
   async updateTrophes(joueurCode:string){

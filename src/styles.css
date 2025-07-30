@@ -261,3 +261,8 @@ p-inputswitch {
   cursor: not-allowed;
   box-shadow: none;
 }
+
+.p-menuitem-link:visited {
+  color: inherit;         /* hérite la couleur normale */
+}
+

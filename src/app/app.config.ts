@@ -10,6 +10,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideClientHydration(), provideAnimations(),
-    provideFirestore(() => getFirestore()),
-    provideFirebaseApp(() => initializeApp(environment))]
+    provideFirebaseApp(() => initializeApp(environment)),  // 👈 doit venir AVANT
+    provideFirestore(() => getFirestore())                 // 👈 dépend de l'initialisation
+  ]
 };

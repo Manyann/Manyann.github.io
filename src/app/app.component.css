@@ -9,11 +9,12 @@
 }
 
 
-::ng-deep.p-menubar-root-list {
-    gap:1.5rem;
+
+::ng-deep.p-menubar .p-menuitem {
+    margin-left: 2rem;
 }
 
-.p-menuitem-link {
+::ng-deep.p-menuitem-link {
   display: flex;
   align-items: center;
   color: var(--text-main);
@@ -22,6 +23,7 @@
   transition: 0.3s;
   padding: 0.5rem;
   border-radius: 4px;
+    gap:1rem;
 }
 
 .p-menuitem-link:hover {

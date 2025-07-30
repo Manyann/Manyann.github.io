@@ -2,28 +2,36 @@ import { Injectable } from '@angular/core';
 import { collection, doc, DocumentData, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { HeroArmes, HeroArmures, ItemHelper } from '../../component/model/item';
 import { CreationHelper } from '../../component/model/creation';
-
-type CacheStore<T> = {
-  [key: string]: T;
-};
-
+import { StorageKeys, StorageService } from './storage.service';
+import { TrophesService } from './trophes.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemsService {
 
-  private cache: CacheStore<any> = {};
-  constructor(public firestore: Firestore) { }
+  constructor(
+    public firestore: Firestore,
+    private storage : StorageService,
+    private trophesService : TrophesService
+  ) { }
 
   async getAllArmes(){
-    const items = (await getDocs(query(collection(this.firestore,'armes')))).docs.map((items) => items.data());
-    return items;
+    if(!this.storage.get(StorageKeys.ARMES)){
+      const armes = (await getDocs(query(collection(this.firestore,'armes')))).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.ARMES,armes);
+    }
+          
+    return this.storage.get<DocumentData[]>(StorageKeys.ARMES) ?? [];
   }
   
   async getAllArmures(){
-    const items = (await getDocs(query(collection(this.firestore,'armures')))).docs.map((items) => items.data());
-    return items;
+    if(!this.storage.get(StorageKeys.ARMURES)){
+      const armures = (await getDocs(query(collection(this.firestore,'armures')))).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.ARMURES,armures);
+    }
+          
+    return this.storage.get<DocumentData[]>(StorageKeys.ARMURES) ?? [];
   }
 
   async getArmesByHero(hero:string){
@@ -122,18 +130,17 @@ export class ItemsService {
           }
         }
       
-        let trophesOwned =  await this.getJoueurTrophes(currentHero[0]['code_joueur']);
         if(nameMap.size > 0){
-          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Elémentaire mon cher",trophesOwned));
+          trophes.push(await this.trophesService.setTrophe(currentHero[0]['code_joueur'],"Elémentaire mon cher"));
         }
         if(hasBriseMonde){
-          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Galactus", trophesOwned));
+          trophes.push(await this.trophesService.setTrophe(currentHero[0]['code_joueur'],"Galactus"));
         }
         if(heroPlaque){
-          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Indestructible",trophesOwned));
+          trophes.push(await this.trophesService.setTrophe(currentHero[0]['code_joueur'],"Indestructible"));
         }
         if(heroDueliste){
-          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Go 1v1", trophesOwned));
+          trophes.push(await this.trophesService.setTrophe(currentHero[0]['code_joueur'],"Go 1v1"));
         }
 
       //#endregion trophes
@@ -207,7 +214,6 @@ export class ItemsService {
       });
   }
 
-
   async addToHero(heroCode:string, arme:string, equipe:boolean){
     await setDoc(doc(this.firestore, "heros_armes", crypto.randomUUID()), {
       hero_nom: heroCode,
@@ -267,34 +273,6 @@ export class ItemsService {
           await setDoc(doc(this.firestore,'heros_armures',docId), docData);
         }
       });
-  }
-
-  async setTrophe(joueur:string,titre:string,trophes:string[]):Promise<string>{
-    if(trophes.includes(titre)){
-      return "";
-    }
-    await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),{
-      titre : titre,
-      code_joueur:joueur
-    });
-    if(!this.cache['trophe_'+joueur]){
-      this.cache['trophe_'+joueur] = [];
-    }
-    this.cache['trophe_'+joueur].push(titre);
-    return titre;
-  }
-
-  async getJoueurTrophes(joueur:string):Promise<string[]>{
-    if (this.cache['trophe_'+joueur]) {
-      return this.cache['trophe_'+joueur] as string[];
-    }
-
-    //tous les trophés du joueurs
-    let trophesJoueur = (await getDocs(query(collection(this.firestore,'joueurs_trophes'),
-    where('code_joueur',"==", joueur)))).docs.map((entries) => entries.data());
-
-    this.cache['trophe_'+joueur] = trophesJoueur.map(x=>x['titre']);
-    return trophesJoueur.map(x=>x['titre']);
   }
 
   async bulkInsert(){

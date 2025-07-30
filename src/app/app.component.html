@@ -4,17 +4,8 @@
 </button>
 
 <!-- MENU DESKTOP -->
-<p-menubar class="dark-menubar desktop-menu" [model]="items">
-  <ng-template pTemplate="item" let-item>
-    <a [routerLink]="item.routerLink"
-       routerLinkActive="active"
-       [routerLinkActiveOptions]="{ exact: true }"
-       class="p-menuitem-link">
-      <i [class]="item.icon"></i>
-      <span class="ml-2">{{ item.label }}</span>
-    </a>
-  </ng-template>
-</p-menubar>
+<p-menubar class="dark-menubar desktop-menu" [model]="items"></p-menubar>
+
 
 <!-- MENU MOBILE SIDEBAR -->
  @if(menuVisible){
@@ -31,6 +22,6 @@
   </ul>
 </p-sidebar>
  }
-<main [@fadeAnimation]>
+<main>
   <router-outlet></router-outlet>
 </main>

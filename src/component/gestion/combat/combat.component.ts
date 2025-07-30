@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { Mob } from '../../model/ennemi';
 import { MobsService } from '../../../app/services/mob.service';
-import { app } from '../../../../server';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({

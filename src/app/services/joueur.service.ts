@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
-import { collection, Firestore, getDocs, query } from '@angular/fire/firestore';
-import { getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { collection, DocumentData, Firestore, getDocs, query } from '@angular/fire/firestore';
+import { StorageKeys, StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JoueursService {
 
-  constructor(public firestore: Firestore) { }
+  constructor(
+    public firestore: Firestore,
+    private storage: StorageService
+  ) { }
 
   async getAll(){
-    const joueurs = (await getDocs(query(collection(this.firestore,'joueurs')))).docs.map((entries) => entries.data());
-    return joueurs;
+    if(!this.storage.get(StorageKeys.JOUEURS)){
+      const heros = (await getDocs(query(collection(this.firestore,'joueurs')))).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.JOUEURS,heros);
+    }
+        
+    return this.storage.get<DocumentData[]>(StorageKeys.JOUEURS) ?? [];
   }
 
 

@@ -27,7 +27,7 @@
     width:50%;
   }
 
-  @media (max-width: 900px) { 
+@media (max-width: 900px) { 
     ::ng-deep.p-button.p-button-icon-only{
         width: 2rem;
         height: 2rem;
@@ -35,7 +35,7 @@
     }
 }
 
-    @media (min-width: 900px) { 
+@media (min-width: 900px) { 
         .ml-2{
           margin-left:2rem;
         }
