@@ -8,11 +8,12 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { InputSwitchModule  } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
+import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-metier',
   standalone: true,
-  imports: [InputSwitchModule, FormsModule , CommonModule, TreeTableModule,SidebarModule, ButtonModule],
+  imports: [InputSwitchModule, FormsModule , CommonModule, TreeTableModule,SidebarComponent, ButtonModule],
   templateUrl: './metier.component.html',
   styleUrl: './metier.component.css'
 })
@@ -63,7 +64,8 @@ setAll():void{
     return nodes;
   }
 
-  openInformations(shortCode:string){
+  openInformations(event:MouseEvent,shortCode:string){
+    event.stopPropagation();
     this.metierToSee = this.metiersBase.find(x=>x.shortCode == shortCode)??CreationHelper.getDefaultMetier();
     this.sidebarVisible = true;
   }

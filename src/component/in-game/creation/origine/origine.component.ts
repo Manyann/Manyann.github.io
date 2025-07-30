@@ -6,11 +6,12 @@ import { CreationHelper, Origine } from '../../../model/creation';
 import { TreeNode } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
+import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-origine',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, TreeTableModule,SidebarModule, ButtonModule],
+  imports: [RouterOutlet, CommonModule, TreeTableModule,SidebarComponent, ButtonModule],
   templateUrl: './origine.component.html',
   styleUrl: './origine.component.css'
 })
@@ -19,14 +20,13 @@ export class OrigineComponent {
   originesBase: Array<Origine>;
   treeNodes : Array<TreeNode>;
   origineToSee : Origine;
-  sidebarVisible : boolean;
+  sidebarVisible = false;
   @Output() openMetier:EventEmitter<Array<string>> = new EventEmitter<Array<string>>();
 
   constructor(){
     this.originesBase = CreationHelper.getAllOrigine();
     this.treeNodes = this.metierToTreeNode();
     this.origineToSee = CreationHelper.getDefaultOrigine();
-    this.sidebarVisible=false;
 }
 
   metierToTreeNode():Array<TreeNode>
@@ -41,7 +41,8 @@ export class OrigineComponent {
     return nodes;
   }
 
-  openInformations(nomOrigine:string){
+  openInformations(event:MouseEvent,nomOrigine:string){
+    event.stopPropagation();
     this.origineToSee = this.originesBase.find(x=>x.nom == nomOrigine)??CreationHelper.getDefaultOrigine();
     this.sidebarVisible = true;
   }

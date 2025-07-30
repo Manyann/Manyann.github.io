@@ -23,9 +23,21 @@
     margin-bottom: 1rem;
   }
 
-  ::ng-deep.p-sidebar-left {
-    width:50%;
-  }
+.parts .title {
+  color: var(--accent);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.parts .list-item-details-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.list-autres .list-item-details-items {
+  flex-direction: column;
+}
 
 @media (max-width: 900px) { 
     ::ng-deep.p-button.p-button-icon-only{

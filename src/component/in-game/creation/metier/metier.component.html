@@ -26,14 +26,14 @@
             <td class="{{rowData.force.type}}">{{ rowData.force.nombre }}</td>
             <td class="{{rowData.chance.type}}">{{ rowData.chance.nombre }}</td>
             <td>
-                <p-button (onClick)="openInformations(rowData.shortCode)" icon="pi pi-question" />
+                <p-button (onClick)="openInformations($event,rowData.shortCode)" icon="pi pi-question" />
             </td>
         </tr>
     </ng-template>
 </p-treeTable>
 
 
-<p-sidebar [(visible)]="sidebarVisible"  (onHide)="handleSidebarHide()">
+<app-sidebar [(visible)]="sidebarVisible">
     <div class="list-bonus parts" *ngIf="metierToSee.caracteristiques.length > 0">
         <div class="title">Characteristiques</div>
         <div class="list-item-details-items">
@@ -58,4 +58,4 @@
             <span  *ngFor="let restrictionMetier of metierToSee.autres">{{restrictionMetier}}</span>  
         </div>
     </div>
-</p-sidebar>
+</app-sidebar>
