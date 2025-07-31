@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { collection, doc, DocumentData, Firestore, getDocs, query, setDoc } from 'firebase/firestore';
 import { StorageKeys, StorageService } from './storage.service';
 
@@ -7,10 +7,12 @@ import { StorageKeys, StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class TrophesService {
-  
-  constructor(public firestore: Firestore,
-    private storage: StorageService
-  ) { }
+  private firestore = inject(Firestore);
+  private storage = inject(StorageService);
+
+  constructor() {
+    console.log('Firestore trophe instance:', this.firestore); 
+  }
 
   async setTrophe(joueur:string,titre:string):Promise<string>{
     

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { collection, doc, DocumentData, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { HeroArmes, HeroArmures, ItemHelper } from '../../component/model/item';
 import { CreationHelper } from '../../component/model/creation';
@@ -8,13 +8,19 @@ import { TrophesService } from './trophes.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ItemsService {
-
-  constructor(
-    public firestore: Firestore,
-    private storage : StorageService,
-    private trophesService : TrophesService
-  ) { }
+export class ItemsService { 
+   private firestore = inject(Firestore);
+   private storage = inject(StorageService);
+   private _trophesService?: TrophesService;
+ 
+   constructor() {}
+ 
+   private get trophesService() {
+     if (!this._trophesService) {
+       this._trophesService = inject(TrophesService);
+     }
+     return this._trophesService;
+   }
 
   async getAllArmes(){
     if(!this.storage.get(StorageKeys.ARMES)){
@@ -39,6 +45,10 @@ export class ItemsService {
     ,where('hero_nom','==',hero)
     ,where('supprime','==',false)))).docs.map((items) => items.data());
 
+    if(itemsLinked.length = 0){
+      return {hero_nom:hero,armes:[]};
+    }
+
     let armes =  (await getDocs(query(collection(this.firestore,'armes')
     ,where('code','in',itemsLinked.map(x=>x['arme_code']))))).docs.map((items) => items.data());
   
@@ -60,6 +70,10 @@ export class ItemsService {
     const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armures')
     ,where('hero_nom','==',hero)
     ,where('supprime','==',false)))).docs.map((items) => items.data());
+
+    if(itemsLinked.length = 0){
+      return {hero_nom:hero,armures:[]};
+    }
 
     let armes =  (await getDocs(query(collection(this.firestore,'armures')
     ,where('code','in',itemsLinked.map(x=>x['armure_code']))))).docs.map((items) => items.data());

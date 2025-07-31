@@ -10,7 +10,7 @@ export class MobsService {
 
   constructor(
     public firestore: Firestore,
-    private storage : StorageService
+    public storage : StorageService
   ) { }
 
 

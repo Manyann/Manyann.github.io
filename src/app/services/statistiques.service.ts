@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { collection, deleteDoc, doc, DocumentData, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { CodeValeur } from '../../component/model/code-libelle';
 import { StorageKeys, StorageService } from './storage.service';
@@ -11,13 +11,32 @@ import { ItemsService } from './items.service';
 })
 export class StatistiquesService {
 
-  constructor(
-    public firestore: Firestore,
-    private herosService : HerosService,
-    private itemsService : ItemsService,
-    private storage : StorageService,
-    private trophesService : TrophesService
-  ) { }
+    private firestore = inject(Firestore);
+    private storage = inject(StorageService);
+    private _trophesService?: TrophesService;
+    public _itemsService? : ItemsService;
+    public _herosService? : HerosService;
+
+    constructor() {}
+  
+    private get trophesService() {
+      if (!this._trophesService) {
+        this._trophesService = inject(TrophesService);
+      }
+      return this._trophesService;
+    }
+    private get itemsService() {
+      if (!this._itemsService) {
+        this._itemsService = inject(ItemsService);
+      }
+      return this._itemsService;
+    }
+    private get herosService() {
+      if (!this._herosService) {
+        this._herosService = inject(HerosService);
+      }
+      return this._herosService;
+    }
 
   async getAllOrines(){
     if(!this.storage.get(StorageKeys.ORIGINES)){

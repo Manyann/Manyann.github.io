@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { collection, doc, DocumentData, Firestore, getDocs, increment, query, setDoc, where } from '@angular/fire/firestore';
 import { Critique } from './statistiques.service';
 import { StorageKeys, StorageService } from './storage.service';
@@ -9,11 +9,19 @@ import { TrophesService } from './trophes.service';
 })
 export class HerosService {
 
-  constructor(public firestore: Firestore,
-    private storage: StorageService,
-    private trophesService : TrophesService
-  ) { }
+  private firestore = inject(Firestore);
+  private storage = inject(StorageService);
+  private _trophesService?: TrophesService;
 
+  constructor() {}
+
+  private get trophesService() {
+    if (!this._trophesService) {
+      this._trophesService = inject(TrophesService);
+    }
+    return this._trophesService;
+  }
+  
   //#region All
 
   async getAll(){

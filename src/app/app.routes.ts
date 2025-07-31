@@ -53,18 +53,3 @@ export const routes: Routes = [
     },
     {path:"loot", component:LootboxComponent},
 ];
-
-
-@NgModule({
-    declarations: [],
-    imports: [
-      BrowserModule,
-      RouterModule ,
-      RouterModule.forRoot(routes),
-      AppComponent
-    ],
-    providers: [Router],
-    exports: [RouterModule]
-  })
-  export class AppModule { }
-  

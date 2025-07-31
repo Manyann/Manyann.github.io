@@ -9,7 +9,7 @@ export class JoueursService {
 
   constructor(
     public firestore: Firestore,
-    private storage: StorageService
+    public storage: StorageService
   ) { }
 
   async getAll(){

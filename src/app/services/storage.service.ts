@@ -46,6 +46,7 @@ export class StorageService {
 
   get<T>(key: StorageKeys): T | null {
     const value = localStorage.getItem(key);
+    debugger;
     return value ? JSON.parse(value) as T : null;
   }
 
