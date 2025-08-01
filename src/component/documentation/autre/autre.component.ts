@@ -34,12 +34,12 @@ private buildCardList():Array<Card>{
     {
       image:"assets/img/card/autre/bienfait.PNG",
       titre:"Bienfait",
-      url:"assets/img/pdfs/autre/tableau-bienfaits-naheulbeuk-jdr.pdf"
+      url:"assets/img/pdfs/autre/Bienfais.pdf"
     },
     {
       image:"assets/img/card/autre/calamite.PNG",
       titre:"Calamité",
-      url:"assets/img/pdfs/autre/tableau-calamites-naheulbeuk-jdr.pdf"
+      url:"assets/img/pdfs/autre/Calamites.pdf"
     },
     {
       image:"assets/img/card/autre/mutation.PNG",
