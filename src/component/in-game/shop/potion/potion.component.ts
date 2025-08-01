@@ -3,10 +3,8 @@ import { Component, Input } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
-import { BonusAdPipe, BonusDegatPipe, BonusForcePipe, BonusInfoPipe, BonusRupturePipe } from "../bonus.pipe";
-import { OriginePipe, OriginePrixPipe } from "../origine.pipe";
 import { PromotionPipe } from "../promotion.pipe";
-import { Armure, Item, ItemHelper, Potion } from "../../../model/item";
+import { Item, ItemHelper, Potion } from "../../../model/item";
 import { Ville, VilleHelper } from "../../../model/villes";
 
 @Component({
