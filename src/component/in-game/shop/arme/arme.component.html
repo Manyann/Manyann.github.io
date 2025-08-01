@@ -36,8 +36,8 @@
                 <td pFrozenColumn>{{item.libelle}} <span [innerHTML]="item.origine | origine"></span></td>
                 <td pFrozenColumn [innerHTML]="item.prix | originePrix : item.origine |  promotion"></td>
                 <th [innerHTML]="item.degats | bonusDegat : item.origine"></th>
-                <th>{{item.attaque}} / {{item.parade}}</th>
-                <th [innerHTML]="item.rupture | bonusRupture : item.origine"></th>
+                <th><span [innerHTML]="item.attaque | bonusAttaque : item.origine"></span>/ {{item.parade}}</th>
+                <th>{{item.rupture}}</th>
                 <th>{{item.courage}}</th>
                 <th>{{item.intelligence}}</th>
                 <th>{{item.charisme}}</th>

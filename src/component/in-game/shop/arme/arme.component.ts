@@ -3,7 +3,7 @@ import { Component, Input, SimpleChanges } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
-import { BonusAdPipe, BonusDegatPipe, BonusForcePipe, BonusInfoPipe, BonusRupturePipe } from "../bonus.pipe";
+import { BonusAdPipe, BonusDegatPipe, BonusForcePipe, BonusInfoPipe, BonusAttaquePipe } from "../bonus.pipe";
 import { OriginePipe, OriginePrixPipe } from "../origine.pipe";
 import { PromotionPipe } from "../promotion.pipe";
 import { Ville, VilleHelper } from "../../../model/villes";
@@ -14,7 +14,7 @@ import { ItemsService } from "../../../../app/services/items.service";
     selector: 'app-shop-arme',
     standalone: true,
     imports: [CommonModule,FormsModule,TableModule,ButtonModule,
-      PromotionPipe,OriginePipe,OriginePrixPipe, BonusAdPipe, BonusForcePipe, BonusDegatPipe, BonusRupturePipe, BonusInfoPipe  ],
+      PromotionPipe,OriginePipe,OriginePrixPipe, BonusAdPipe, BonusForcePipe, BonusDegatPipe, BonusAttaquePipe, BonusInfoPipe  ],
     templateUrl: './arme.component.html',
     styleUrl: './arme.component.css'
   })

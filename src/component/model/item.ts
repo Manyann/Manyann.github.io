@@ -70,10 +70,12 @@ export class ItemHelper{
     private static origines: { [outerKey: string]: { [innerKey: number]: string } } = {
         "dague" : {
             0:"elfe",
+            1:'samurai'
         },
         "epee" : {
             0:"elfe",
             1:"pirate",
+            2:'samurai'
         },
         "hache" : {
             0:"nain",
@@ -90,15 +92,18 @@ export class ItemHelper{
         },
         "lance" : {
             0:"orc",
+            1:'samurai'
         },
         "arc" : {
             0:"elfe",
+            1:'samurai'
         },
         "arbalete" : {
             0:"homme-sable",
         },
         "javelot" : {
             0:"orc",
+            1:'samurai'
         },
         "pistolet" : {
             0:"homme-sable",
@@ -2554,8 +2559,6 @@ export class ItemHelper{
         },
         {} as Record<ItemRarity, LootItem[]>
         );
-
-         //items['mythique'].push({name:'???', rarity:'mythique'});
 
          return items;
     }

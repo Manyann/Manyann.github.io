@@ -34,16 +34,16 @@ export class BonusForcePipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'bonusRupture',
+  name: 'bonusArmure',
   standalone: true
 })
-export class BonusRupturePipe implements PipeTransform {
+export class BonusArmurePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(value: string, origine : string): SafeHtml  {
 
-    if(origine === "nain" && value != "*"){
-      return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:orange>(-1)</span>');
+    if(origine === "nain"){
+      return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:orange>(+1)</span>');
     }
     return this.sanitizer.bypassSecurityTrustHtml(value);
   }
@@ -60,6 +60,22 @@ export class BonusDegatPipe implements PipeTransform {
 
     if(origine === "homme-sable"){
       return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:cyan>(+1)</span>');
+    }
+    return this.sanitizer.bypassSecurityTrustHtml(value);
+  }
+}
+
+@Pipe({
+  name: 'bonusAttaque',
+  standalone: true
+})
+export class BonusAttaquePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+
+  transform(value: string, origine : string): SafeHtml  {
+
+    if(origine === "samurai"){
+      return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:purple>(+1)</span>');
     }
     return this.sanitizer.bypassSecurityTrustHtml(value);
   }

@@ -31,6 +31,9 @@ export class OriginePipe implements PipeTransform {
       case "homme-sable" :
           color = "cyan";
             break;
+      case "samurai" :
+          color = "purple";
+            break;
     }
     
     return this.sanitizer.bypassSecurityTrustHtml('<span style=color:'+color+'>('+value+')</span>');
@@ -47,7 +50,11 @@ export class OriginePrixPipe implements PipeTransform {
   transform(value: number, origine : string): number  {
     if(origine === "commun")
       return value;
+    else if(origine == "samurai" || origine == "nain")
+      return value * 1.4;
+    else if(origine == "pirate")
+      return value *0.8;
     else
-      return value * 1.25;
+      return value * 1.2;
   }
 }

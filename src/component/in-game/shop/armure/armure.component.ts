@@ -3,7 +3,7 @@ import { Component, Input } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
-import { BonusAdPipe, BonusDegatPipe, BonusForcePipe, BonusInfoPipe, BonusRupturePipe } from "../bonus.pipe";
+import { BonusAdPipe, BonusArmurePipe, BonusForcePipe, BonusInfoPipe } from "../bonus.pipe";
 import { OriginePipe, OriginePrixPipe } from "../origine.pipe";
 import { PromotionPipe } from "../promotion.pipe";
 import { Armure, Item, ItemHelper } from "../../../model/item";
@@ -13,7 +13,7 @@ import { Ville, VilleHelper } from "../../../model/villes";
     selector: 'app-shop-armure',
     standalone: true,
     imports: [CommonModule,FormsModule,TableModule,ButtonModule,
-      PromotionPipe,OriginePipe,OriginePrixPipe, BonusAdPipe, BonusForcePipe, BonusDegatPipe, BonusRupturePipe, BonusInfoPipe  ],
+      PromotionPipe,OriginePipe,OriginePrixPipe, BonusAdPipe, BonusForcePipe, BonusArmurePipe, BonusInfoPipe  ],
     templateUrl: './armure.component.html',
     styleUrl: './armure.component.css'
   })
