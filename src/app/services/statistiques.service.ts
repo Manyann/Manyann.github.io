@@ -388,7 +388,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
   async getJoueurStatistique(joueur:string){
 
     let key : string = StorageKeys.STATS+"_"+joueur;
-    if(!this.storage.getFromString(key)){
+    if(!this.storage.hasFromString(key)){
 
       let totalCritiques  =  await this.getTotalCritiquesJoueur(joueur);
       let totalEchecs  =  await this.getTotalEchecsJoueur(joueur);
@@ -432,7 +432,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       ]
     };
 
-    this.storage.setFromString<JoueurStatistique>(key,statistiques);
+    this.storage.setFromString<JoueurStatistique>(key,statistiques,10);
     }
 
     return this.storage.getFromString<JoueurStatistique>(key);
@@ -884,7 +884,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
 
   async getJoueurTrophes(joueur:string){
     let key : string = StorageKeys.TROPHES+"_"+joueur;
-    if(!this.storage.getFromString(key)){
+    if(!this.storage.hasFromString(key)){
     //tous les trophés du joueurs
     let trophesJoueur = await this.getInnerJoueurTrophes(joueur);
 
@@ -907,22 +907,12 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
     return this.storage.getFromString<Trophe[]>(key) ?? undefined;
   };
 
-  async deleteTest(){
-    const q = query(collection(this.firestore, "cities"), where("state", "==", "CA"));
-
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async (document) => {
-      await deleteDoc(doc(this.firestore, "cities", document.id));
-    });
-  }
-
 
   //#region Trophes
 
  async getInnerJoueurTrophes(joueur:string):Promise<string[]>{
 
     let trophes  : DocumentData[] = await this.getAllTrophes();
-
     return trophes
       ?.filter(x=>x['code_joueur'] == joueur)
       .map(x=>x['titre']);
@@ -930,11 +920,10 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
 
   async getAllTrophes():Promise<DocumentData[]>{
 
-    if(!this.storage.get(StorageKeys.TROPHES)){
-          const trophes = (await getDocs(query(collection(this.firestore,'heros_trophes')))).docs.map((entries) => entries.data());
+    if(!this.storage.has(StorageKeys.TROPHES)){
+          const trophes = (await getDocs(query(collection(this.firestore,'joueurs_trophes')))).docs.map((entries) => entries.data());
           this.storage.set<DocumentData[]>(StorageKeys.TROPHES,trophes);
     }
-    
     return this.storage.get<DocumentData[]>(StorageKeys.TROPHES) ?? [];
   }
 

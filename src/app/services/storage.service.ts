@@ -38,12 +38,18 @@ export enum StorageKeys {
 })
 export class StorageService {
 
-  set<T>(key: StorageKeys, value: T): void {
+  private groupExpirations : Record<string, Date>= {};
+
+  set<T>(key: StorageKeys, value: T, expirationMinutes : number = 120): void {
     localStorage.setItem(key, JSON.stringify(value));
+    const now = new Date();
+    this.groupExpirations['key'] = new Date(now.getTime() + expirationMinutes * 60 * 1000);
   }
 
-  setFromString<T>(key: string, value: T): void {
+  setFromString<T>(key: string, value: T, expirationMinutes : number = 120): void {
     localStorage.setItem(key, JSON.stringify(value));
+    const now = new Date();
+    this.groupExpirations['key'] = new Date(now.getTime() + expirationMinutes * 60 * 1000);
   }
 
   get<T>(key: StorageKeys): T | null {
@@ -65,7 +71,19 @@ export class StorageService {
   }
 
   has(key: StorageKeys): boolean {
-    return localStorage.getItem(key) !== null;
+    console.log(key,this.groupExpirations['key'] );
+    return localStorage.getItem(key) !== null 
+    && this.groupExpirations['key'] !== undefined
+    && this.groupExpirations['key'] !== null
+    && this.groupExpirations['key'] > new Date();
+  }
+
+  
+  hasFromString(key: string): boolean {
+    return localStorage.getItem(key) !== null 
+    && this.groupExpirations['key'] !== undefined
+    && this.groupExpirations['key'] !== null
+    && this.groupExpirations['key'] > new Date();
   }
 
     
