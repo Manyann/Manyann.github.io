@@ -136,18 +136,33 @@
   <div class="stat-section">
     <div class="stat-card">
       <h2 class="stat-header">Critique</h2>
-      <div class="stat-line" *ngFor="let stat of statistiquesJoueur?.critique">{{stat.libelle}} : <span>{{stat.valeur}}</span></div>
+      @if(isLoadingPlayerStatsCrit){
+        Chargement ...
+      }
+      @else{
+      <div class="stat-line" *ngFor="let stat of statistiquesJoueurCritiques?.details">{{stat.libelle}} : <span>{{stat.valeur}}</span></div>
+      }
     </div>
 
     <div class="stat-card">
       <h2 class="stat-header">Combat</h2>
-      <div class="stat-line" *ngFor="let stat of statistiquesJoueur?.combat">{{stat.libelle}} : <span>{{stat.valeur}}</span></div>
+      @if(isLoadingPlayerStatsCombat){
+        Chargement ...
+      }
+      @else{
+      <div class="stat-line" *ngFor="let stat of statistiquesJoueurCombat?.details">{{stat.libelle}} : <span>{{stat.valeur}}</span></div>
+      }
     </div>
 
     <div class="stat-card">
       <h2 class="stat-header">Trivia</h2>
-      <div class="stat-line" *ngFor="let stat of statistiquesJoueur?.trivia">{{stat.libelle}} : <span>{{stat.valeur}}</span></div>
-    </div>
+      @if(isLoadingPlayerStatsTrivia){
+        Chargement ...
+      }
+      @else{
+      <div class="stat-line" *ngFor="let stat of statistiquesJoueurTrivia?.details">{{stat.libelle}} : <span>{{stat.valeur}}</span></div>
+        }
+      </div>
   </div>
 </div>
 

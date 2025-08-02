@@ -385,9 +385,9 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
   };
 }
 
-  async getJoueurStatistique(joueur:string){
+  async getJoueurStatistiqueCritique(joueur:string){
 
-    let key : string = StorageKeys.STATS+"_"+joueur;
+    let key : string = StorageKeys.STATS_JOUEUR_CRIT+"_"+joueur;
     if(!this.storage.hasFromString(key)){
 
       let totalCritiques  =  await this.getTotalCritiquesJoueur(joueur);
@@ -398,10 +398,47 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       let heroEchecs =  await this.getHeroEchecsJoueur(joueur);
       let heroEntropiques = await this.getHeroEntropiquesJoueur(joueur);
       let heroParades =  await this.getHeroParadesJoueur(joueur);
+
+    let statistiques : JoueurStatistique = {
+      details : [
+        totalCritiques,heroCritiques,
+        totalEchecs,heroEchecs,
+        totalEntropiques,heroEntropiques,
+        totalParades, heroParades
+      ],
+    };
+
+    this.storage.setFromString<JoueurStatistique>(key,statistiques,10);
+    }
+
+    return this.storage.getFromString<JoueurStatistique>(key);
+  }
+  async getJoueurStatistiqueCombat(joueur:string){
+
+    let key : string = StorageKeys.STATS_JOUEUR_COMBAT+"_"+joueur;
+    if(!this.storage.hasFromString(key)){
+
       let totalDegats  =  await this.getTotalDegatsJoueur(joueur);
       let maxDegat  =  await this.getMaxDegatsJoueur(joueur);
       let totalEnnemis  =  await this.getTotalEnnemisJoueur(joueur);
       let maxEnnemis  =  await this.getMaxEnnemisJoueur(joueur);
+
+    let statistiques : JoueurStatistique = {
+      details: [
+        totalDegats,maxDegat,totalEnnemis,maxEnnemis
+      ],
+    };
+
+    this.storage.setFromString<JoueurStatistique>(key,statistiques,10);
+    }
+
+    return this.storage.getFromString<JoueurStatistique>(key);
+  }
+  async getJoueurStatistiqueTrivia(joueur:string){
+
+    let key : string = StorageKeys.STATS_JOUEUR_TRIVIA+"_"+joueur;
+    if(!this.storage.hasFromString(key)){
+
       let level = await this.getMaxLevelJoueur(joueur);
       let nombrePersonnage  =  await this.getPersoCountJoueur(joueur);
       let origine =  await this.getOrigineJoueur(joueur);
@@ -414,16 +451,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       let heroMauvaisPoint =  await this.getHeroMauvaisPointsJoueur(joueur);
 
     let statistiques : JoueurStatistique = {
-      critique : [
-        totalCritiques,heroCritiques,
-        totalEchecs,heroEchecs,
-        totalEntropiques,heroEntropiques,
-        totalParades, heroParades
-      ],
-      combat: [
-        totalDegats,maxDegat,totalEnnemis,maxEnnemis
-      ],
-      trivia:[
+      details:[
         nombrePersonnage, level,
         origine, metier,
         totalDestins, heroDetins,
@@ -931,9 +959,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
 }
 
 export class JoueurStatistique{
-  "critique":JoueurStatistiqueDetails[];
-  "combat":JoueurStatistiqueDetails[];
-  "trivia":JoueurStatistiqueDetails[];
+  'details':JoueurStatistiqueDetails[];
 };
 
 export class JoueurStatistiqueDetails{

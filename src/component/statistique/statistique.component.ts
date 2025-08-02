@@ -21,6 +21,9 @@ export class StatistiqueComponent {
   
   // État de chargement
   isLoading = true;
+  isLoadingPlayerStatsCrit = true;
+  isLoadingPlayerStatsCombat = true;
+  isLoadingPlayerStatsTrivia = true;
   chartsReady = false;
 
   dataOrigines: { title: string, labels: string[], datasets: any[] } = { title: "", labels: [], datasets: [] };
@@ -43,7 +46,9 @@ export class StatistiqueComponent {
   optionsBardataRapports: {} = {};
   //#endregion Options
 
-  statistiquesJoueur: JoueurStatistique | undefined;
+  statistiquesJoueurCritiques: JoueurStatistique | undefined;
+  statistiquesJoueurCombat: JoueurStatistique | undefined;
+  statistiquesJoueurTrivia: JoueurStatistique | undefined;
   trophesJoueur: Trophe[] | undefined;
 
   expandedChart: string | null = null;
@@ -292,7 +297,15 @@ getChartOptionsMiroir(title: string): any {
   }
 
   async updateStats(joueurCode: string) {
-    this.statistiquesJoueur = await this.statistiquesService.getJoueurStatistique(joueurCode) ?? undefined;
+    this.isLoadingPlayerStatsCrit = true;
+    this.isLoadingPlayerStatsCombat = true;
+    this.isLoadingPlayerStatsTrivia = true;
+    this.statistiquesJoueurCritiques = await this.statistiquesService.getJoueurStatistiqueCritique(joueurCode) ?? undefined;
+    this.isLoadingPlayerStatsCrit = false;
+    this.statistiquesJoueurCombat = await this.statistiquesService.getJoueurStatistiqueCombat(joueurCode) ?? undefined;
+    this.isLoadingPlayerStatsCombat = false;
+    this.statistiquesJoueurTrivia = await this.statistiquesService.getJoueurStatistiqueTrivia(joueurCode) ?? undefined;
+    this.isLoadingPlayerStatsTrivia = false;
   }
 
   async updateTrophes(joueurCode: string) {
