@@ -7,52 +7,11 @@ import { StorageKeys, StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class TrophesService {
-  private firestore = inject(Firestore);
-  private storage = inject(StorageService);
 
-  constructor() {
-    console.log('Firestore trophe instance:', this.firestore); 
+  constructor(
+    private storage : StorageService
+) {
   }
-
-  async setTrophe(joueur:string,titre:string):Promise<string>{
-    
-    let trophesOwned = await this.getJoueurTrophes(joueur);
-
-    if(trophesOwned.includes(titre)){
-      return "";
-    }
-
-    let document : DocumentData = {
-      titre : titre,
-      code_joueur:joueur
-    };
-
-    await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),document);
-
-    await this.storage.addElementInStorageGroup(StorageKeys.TROPHES, document);
-
-    return titre;
-  }
-
-  async getAllTrophes():Promise<DocumentData[]>{
-
-    if(!this.storage.get(StorageKeys.TROPHES)){
-          const trophes = (await getDocs(query(collection(this.firestore,'heros_trophes')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.TROPHES,trophes);
-    }
-    
-    return this.storage.get<DocumentData[]>(StorageKeys.TROPHES) ?? [];
-  }
-
-  async getJoueurTrophes(joueur:string):Promise<string[]>{
-
-    let trophes  : DocumentData[] = await this.getAllTrophes();
-
-    return trophes
-      ?.filter(x=>x['code_joueur'] == joueur)
-      .map(x=>x['titre']);
-  }
-
   async getTrophesMetier() : Promise<Record<string,string>>{
     return {
       'pretre': 'BRUT',
@@ -226,7 +185,10 @@ export class TrophesService {
 
   async getTrophesComplexeClasse(
     originesJouees:Record<string,number>,
-    metierJoues:Record<string,number>): Promise<string[]>{
+    metierJoues:Record<string,number>,
+    allOrigines : DocumentData[],
+    allMetiers : DocumentData[],
+  ): Promise<string[]>{
     let trophes = [];
 
     if(originesJouees['orque'] > 0 && originesJouees['demi-orque']  > 0
@@ -270,7 +232,7 @@ export class TrophesService {
       trophes.push('Purificateur');
     }
 
-    if((await this.getAllOrigine()).length == Object.values(originesJouees).filter(value => value > 0).length){
+    if(allOrigines.length == Object.values(originesJouees).filter(value => value > 0).length){
       trophes.push('Joueur du monde');
     }
     if(Object.keys(await this.getTrophesMetierBase()).length == Object.values(metierJoues).filter(value => value > 0).length){
@@ -282,36 +244,13 @@ export class TrophesService {
     if(Object.values(metierJoues).filter(value => value >= 10).length > 0){
       trophes.push("L'Alpha et l'Oméga");
     }
-    if((await this.getAllOrigine()).length == Object.values(originesJouees).filter(value => value > 0).length &&
-    (await this.getAllMetier()).length == Object.values(metierJoues).filter(value => value > 0).length){
+    if(allOrigines.length == Object.values(originesJouees).filter(value => value > 0).length &&
+    allMetiers.length == Object.values(metierJoues).filter(value => value > 0).length){
       trophes.push('1001 vies');
     }
     
     
     return [];
   }
-
-  //#region Private
-
-  async getAllOrigine(){
-     if(!this.storage.get(StorageKeys.HERO_ORIGINES)){
-          const herosTypes = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_ORIGINES,herosTypes);
-    }
-    
-    return  this.storage.get<DocumentData[]>(StorageKeys.HERO_ORIGINES)?? [];
-  }
-
-  async getAllMetier(){
-     if(!this.storage.get(StorageKeys.HERO_ORIGINES)){
-          const herosTypes = (await getDocs(query(collection(this.firestore,'metier')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_ORIGINES,herosTypes);
-    }
-    
-    return  this.storage.get<DocumentData[]>(StorageKeys.HERO_ORIGINES)?? [];
-  }
-
-
-  //#endregion Private
 
 }

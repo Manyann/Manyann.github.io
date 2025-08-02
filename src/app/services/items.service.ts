@@ -8,19 +8,13 @@ import { TrophesService } from './trophes.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ItemsService { 
-   private firestore = inject(Firestore);
-   private storage = inject(StorageService);
-   private _trophesService?: TrophesService;
- 
-   constructor() {}
- 
-   private get trophesService() {
-     if (!this._trophesService) {
-       this._trophesService = inject(TrophesService);
+export class ItemsService {  
+   constructor(
+    private firestore:Firestore,
+    private storage : StorageService,
+  ) {
+       console.log('Firestore items instance:', this.firestore); 
      }
-     return this._trophesService;
-   }
 
   async getAllArmes(){
     if(!this.storage.get(StorageKeys.ARMES)){
@@ -145,16 +139,16 @@ export class ItemsService {
         }
       
         if(nameMap.size > 0){
-          trophes.push(await this.trophesService.setTrophe(currentHero[0]['code_joueur'],"Elémentaire mon cher"));
+          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Elémentaire mon cher"));
         }
         if(hasBriseMonde){
-          trophes.push(await this.trophesService.setTrophe(currentHero[0]['code_joueur'],"Galactus"));
+          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Galactus"));
         }
         if(heroPlaque){
-          trophes.push(await this.trophesService.setTrophe(currentHero[0]['code_joueur'],"Indestructible"));
+          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Indestructible"));
         }
         if(heroDueliste){
-          trophes.push(await this.trophesService.setTrophe(currentHero[0]['code_joueur'],"Go 1v1"));
+          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Go 1v1"));
         }
 
       //#endregion trophes
@@ -300,5 +294,49 @@ export class ItemsService {
       });
     });
   }
+
+  //#region Trophes
+
+async setTrophe(joueur:string,titre:string):Promise<string>{
+    
+    let trophesOwned = await this.getInnerJoueurTrophes(joueur);
+
+    if(trophesOwned.includes(titre)){
+      return "";
+    }
+
+    let document : DocumentData = {
+      titre : titre,
+      code_joueur:joueur
+    };
+
+    await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),document);
+
+    await this.storage.addElementInStorageGroup(StorageKeys.TROPHES, document);
+
+    return titre;
+  }
+
+   async getInnerJoueurTrophes(joueur:string):Promise<string[]>{
+
+    let trophes  : DocumentData[] = await this.getAllTrophes();
+
+    return trophes
+      ?.filter(x=>x['code_joueur'] == joueur)
+      .map(x=>x['titre']);
+  }
+
+  async getAllTrophes():Promise<DocumentData[]>{
+
+    if(!this.storage.get(StorageKeys.TROPHES)){
+          const trophes = (await getDocs(query(collection(this.firestore,'heros_trophes')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.TROPHES,trophes);
+    }
+    
+    return this.storage.get<DocumentData[]>(StorageKeys.TROPHES) ?? [];
+  }
+
+
+  //#endregion
 
 }

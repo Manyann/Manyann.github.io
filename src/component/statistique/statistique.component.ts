@@ -1,364 +1,301 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabViewModule } from 'primeng/tabview';
 import { JoueursService } from '../../app/services/joueur.service';
-import { CodeValeur } from '../model/code-libelle';
 import { JoueurStatistique, StatistiquesService, Trophe } from '../../app/services/statistiques.service';
 import { ChartModule } from 'primeng/chart';
 import { PanelModule } from 'primeng/panel';
 import { TrophesPipe } from './trophe.pipe';
+import { UIChart } from 'primeng/chart'
 
 @Component({
   selector: 'app-statistique',
   standalone: true,
-  imports: [CommonModule,TabViewModule,ChartModule,PanelModule,TrophesPipe],
+  imports: [CommonModule, TabViewModule, ChartModule, PanelModule, TrophesPipe],
   templateUrl: './statistique.component.html',
-  styleUrl: './statistique.component.css'
+  styleUrl: './statistique.component.css',
 })
 export class StatistiqueComponent {
   title = 'nhbk';
   joueurs: any[] = [];
+  
+  // État de chargement
+  isLoading = true;
+  chartsReady = false;
 
-  dataOrigines : {} = {};
-  dataMetiers : {} = {};
-  dataArmes : {} = {};
-  dataArmures : {} = {};
-  dataCrits : {} = {};
-  dataEchecCrits : {} = {};
-  dataDegatsTotal : {} = {};
-  dataDegatsMax : {} = {};
-  // dataOrs : {} = {};
-  // dataKms : {} = {};
-  dataEnnemis : {} = {};
+  dataOrigines: { title: string, labels: string[], datasets: any[] } = { title: "", labels: [], datasets: [] };
+  dataMetiers: { title: string, labels: string[], datasets: any[] } = { title: "", labels: [], datasets: [] };
+  dataCrits: { title: string, labels: string[], datasets: any[] } = { title: "", labels: [], datasets: [] };
+  dataEchecCrits: { title: string, labels: string[], datasets: any[] } = { title: "", labels: [], datasets: [] };
+  dataDegatsTotal: { title: string, labels: string[], datasets: any[] } = { title: "", labels: [], datasets: [] };
+  dataDegatsMax: { title: string, labels: string[], datasets: any[] } = { title: "", labels: [], datasets: [] };
+  dataEnnemis: { title: string, labels: string[], datasets: any[] } = { title: "", labels: [], datasets: [] };
+  dataRapports: { title: string, labels: string[], datasets: any[] } = { title: "", labels: [], datasets: [] };
 
   //#region Options
-  optionsBardataOrigines : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Origines",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-  optionsBardataMetiers : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Metiers",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-  optionsBardataArmes : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Armes",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-  optionsBardataArmures : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Armures",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-  optionsBardataCrits : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Coups Critiques",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-  optionsBardataCritsdataEchecCrits : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Echecs Critiques",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-  optionsBardataDegatsTotal : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Dégats Totals",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-  optionsBardataDegatsMax : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Dégats Max",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-  // optionsBardataOrs : {} =  { 
-  //     indexAxis: 'y', 
-  //     plugins: {
-  //     title: {
-  //       text:"PO dépensés",
-  //       display: true,
-  //       fontSize: 16,
-  //     },
-  //     legend: {
-  //       display: false, 
-  //     },
-  //   }
-  // }
-  // optionsBardataKms : {} =  { 
-  //     indexAxis: 'y', 
-  //     plugins: {
-  //     title: {
-  //       text:"Km parcourus",
-  //       display: true,
-  //       fontSize: 16,
-  //     },
-  //     legend: {
-  //       display: false, 
-  //     },
-  //   }
-  // }
-  optionsBardataEnnemis : {} =  { 
-      indexAxis: 'y', 
-      plugins: {
-      title: {
-        text:"Ennemis rencontrés",
-        display: true,
-        fontSize: 16,
-      },
-      legend: {
-        display: false, 
-      },
-    }
-  }
-
+  optionsBardataOrigines: {} = {};
+  optionsBardataMetiers: {} = {};
+  optionsBardataCrits: {} = {};
+  optionsBardataCritsdataEchecCrits: {} = {};
+  optionsBardataDegatsTotal: {} = {};
+  optionsBardataDegatsMax: {} = {};
+  optionsBardataEnnemis: {} = {};
+  optionsBardataRapports: {} = {};
   //#endregion Options
 
-  statistiquesJoueur : JoueurStatistique | undefined;
-  trophesJoueur : Trophe[] | undefined;
+  statistiquesJoueur: JoueurStatistique | undefined;
+  trophesJoueur: Trophe[] | undefined;
+
+  expandedChart: string | null = null;
+
+  @ViewChildren('chart') chartsRef!: QueryList<UIChart>;
 
   constructor(
-    joueursService:JoueursService,
-    private statistiquesService:StatistiquesService
-  ){
-      
-     joueursService.getAll().then(snap =>{
-      this.joueurs = snap
-    });
+    private joueursService: JoueursService,
+    private statistiquesService: StatistiquesService
+  ) {
+    this.initializeComponent();
+  }
 
-    statistiquesService.getOrigines("").then(snap =>{
-      this.dataOrigines = { 
-        title:"Origines",
-        labels: snap.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
+  async initializeComponent() {
+    try {
+      this.isLoading = true;
+      
+      // Charger les joueurs
+      this.joueurs = await this.joueursService.getAll();
+      
+      // Obtenir les options des charts
+      this.getOptions();
+      
+      // Charger toutes les données de manière séquentielle
+      await this.getDatas(true, 3);
+      
+      // Attendre un peu pour s'assurer que tout est prêt
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      // Marquer comme prêt
+      this.chartsReady = true;
+      this.isLoading = false;
+      
+    } catch (error) {
+      console.error('Erreur lors de l\'initialisation:', error);
+      this.isLoading = false;
+      this.chartsReady = false;
+    }
+  }
+
+  getBackgroundColorChart(onlyTop: boolean = false) {
+    return onlyTop
+      ? ["#FFD700", "#C0C0C0", "#cd7f32"]
+      : ["#FFFFFF"];
+  }
+
+  getDataSet(values: number[], onlyTop: boolean) {
+    return [
+      {
+        data: values,
+        backgroundColor: this.getBackgroundColorChart(onlyTop),
+      },
+    ];
+  }
+
+  async getDatas(onlyTop: boolean = false, slice: number | null = null) {
+    try {
+      // Utiliser Promise.all pour charger toutes les données en parallèle
+      const [
+        originesData,
+        metiersData,
+        critsData,
+        echecCritsData,
+        degatsTotalData,
+        degatsMaxData,
+        ennemisData
+      ] = await Promise.all([
+        this.statistiquesService.getOrigines("", slice),
+        this.statistiquesService.getMetier("", slice),
+        this.statistiquesService.getCrits(slice),
+        this.statistiquesService.getEchecCrits(slice),
+        this.statistiquesService.getDegatsTotaux(slice),
+        this.statistiquesService.getDegatsMax(slice),
+        this.statistiquesService.getEnnemis(slice),
+      ]);
+
+      // Assigner les données
+      this.dataOrigines = {
+        title: "Origines",
+        labels: originesData.map(x => x.code),
+        datasets: this.getDataSet(originesData.map(x => x.valeur), onlyTop)
       };
-    });
-    statistiquesService.getMetier("").then(snap =>{
-      this.dataMetiers = { 
-        title:"Metiers",
-        labels: snap.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"],  
-          }, 
-        ], 
+
+      this.dataMetiers = {
+        title: "Metiers",
+        labels: metiersData.map(x => x.code),
+        datasets: this.getDataSet(metiersData.map(x => x.valeur), onlyTop)
       };
-    });
-    statistiquesService.getArmes().then(snap =>{
-      this.dataArmes = { 
-        title:"Armes",
-        labels: snap?.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap?.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
+
+      this.dataCrits = {
+        title: "Critiques",
+        labels: critsData?.map(x => x.code) ?? [],
+        datasets: this.getDataSet(critsData.map(x => x.valeur), onlyTop)
       };
-    });
-    statistiquesService.getArmures().then(snap =>{
-      this.dataArmures = { 
-        title:"Armures",
-        labels: snap?.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap?.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
+
+      this.dataEchecCrits = {
+        title: "Echecs Critiques / Entropiques",
+        labels: echecCritsData?.map(x => x.code) ?? [],
+        datasets: this.getDataSet(echecCritsData.map(x => x.valeur), onlyTop)
       };
-    });
-    statistiquesService.getCrits().then(snap =>{
-      this.dataCrits = { 
-        title:"Critiques",
-        labels: snap?.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap?.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
+
+      this.dataDegatsTotal = {
+        title: "Degats totaux",
+        labels: degatsTotalData?.map(x => x.code) ?? [],
+        datasets: this.getDataSet(degatsTotalData.map(x => x.valeur), onlyTop)
       };
-    });
-    statistiquesService.getEchecCrits().then(snap =>{
-      this.dataEchecCrits = { 
-        title:"Echecs Critiques",
-        labels: snap?.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap?.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
+
+      this.dataDegatsMax = {
+        title: "Dégats Max",
+        labels: degatsMaxData?.map(x => x.code) ?? [],
+        datasets: this.getDataSet(degatsMaxData.map(x => x.valeur), onlyTop)
       };
-    });
-    statistiquesService.getDegatsTotaux().then(snap =>{
-      this.dataDegatsTotal = { 
-        labels: snap?.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap?.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
+
+      this.dataEnnemis = {
+        title: "Ennemis",
+        labels: ennemisData?.map(x => x.code) ?? [],
+        datasets: this.getDataSet(ennemisData.map(x => x.valeur), onlyTop)
       };
-    });
-    statistiquesService.getDegatsMax().then(snap =>{
-      this.dataDegatsMax = { 
-        labels: snap?.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap?.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
-      };
-    });
-    // statistiquesService.getOrs().then(snap =>{
-    //   this.dataOrs = { 
-    //     labels: snap.map(x=>x.code), 
-    //     datasets: [ 
-    //       { 
-    //         data: snap.map(x=>Math.abs(x.valeur)), 
-    //         backgroundColor: ["#FFD700",  
-    //                           "#C0C0C0",  
-    //                           "#cd7f32"], 
-    //       }, 
-    //     ], 
-    //   };
-    // });
-    // statistiquesService.getKms().then(snap =>{
-    //   this.dataKms = { 
-    //     labels: snap.map(x=>x.code), 
-    //     datasets: [ 
-    //       { 
-    //         data: snap.map(x=>x.valeur), 
-    //         backgroundColor: ["#FFD700",  
-    //                           "#C0C0C0",  
-    //                           "#cd7f32"], 
-    //       }, 
-    //     ], 
-    //   };
-    // });
-    statistiquesService.getEnnemis().then(snap =>{
-      this.dataEnnemis = { 
-        labels: snap?.map(x=>x.code), 
-        datasets: [ 
-          { 
-            data: snap?.map(x=>x.valeur), 
-            backgroundColor: ["#FFD700",  
-                              "#C0C0C0",  
-                              "#cd7f32"], 
-          }, 
-        ], 
-      };
-    });
+
+     
+  // Chart miroir
+  const echecsMiroirData = await this.statistiquesService.getRapportCritiquesEchecs(slice);
+  this.dataRapports = echecsMiroirData;
+  this.optionsBardataRapports = this.getChartOptionsMiroir('Échecs vs Critiques');
+
+      // Les charts se mettront à jour automatiquement grâce au data binding
+
+    } catch (error) {
+      console.error('Erreur lors du chargement des données:', error);
+    }
+  }
+
+  updateChartsDisplay() {
+    if (this.chartsRef) {
+      this.chartsRef.forEach(chart => {
+        if (chart.chart) {
+          chart.chart.update();
+        }
+      });
+    }
+  }
+
+  getOptions() {
+    this.optionsBardataOrigines = this.getChartOptions('Origines');
+    this.optionsBardataMetiers = this.getChartOptions('Métiers');
+    this.optionsBardataCrits = this.getChartOptions('Coups Critiques');
+    this.optionsBardataCritsdataEchecCrits = this.getChartOptions('Échecs Critiques');
+    this.optionsBardataDegatsTotal = this.getChartOptions('Dégâts Totaux');
+    this.optionsBardataDegatsMax = this.getChartOptions('Dégâts Max');
+    this.optionsBardataEnnemis = this.getChartOptions('Ennemis rencontrés');
+    this.optionsBardataRapports = this.getChartOptions('Rapport Critiques / Echecs');
+  }
+
+  getChartOptions(title: string): any {
+    return {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          text: title,
+          display: true,
+          font: {
+            size: 16
+          }
+        },
+        legend: {
+          display: false
+        },
+        tooltip: {
+          enabled: true
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#e0e0e0' },
+          grid: { color: '#333' }
+        },
+        y: {
+          ticks: { color: '#e0e0e0' },
+          grid: { color: '#333' }
+        }
+      }
+    };
+  }
+
+  // Options spéciales pour le chart miroir
+getChartOptionsMiroir(title: string): any {
+  return {
+  indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+  plugins: {
+    tooltip: {
+        title: {
+          text: title,
+          display: true,
+          font: {
+            size: 16
+          }
+        },
+        legend: {
+          display: false
+        },
+      callbacks: {
+        label: (c: { raw: any; dataset: { label: any; }; }) => {          
+          const value = Number(c.raw);
+          return `${c.dataset.label}: ${Math.abs(value)}`;
+        },
+      },
+    },
+  },
+      scales: {
+        x: {
+          ticks: { color: '#e0e0e0' },
+          grid: { color: '#333' }
+        },
+        y: {
+          ticks: { color: '#e0e0e0' },
+          grid: { color: '#333' }
+        }
+      }
+};
+}
+
+  async toggleChart(chartKey: string): Promise<void> {
+    let isToggleOff = this.expandedChart === chartKey;
+    await this.getDatas(isToggleOff, isToggleOff ? 3 : null);
+    this.expandedChart = isToggleOff ? null : chartKey;
+    
+    setTimeout(() => {
+      const chartToResize = this.chartsRef.find((chart) =>
+        chart.el.nativeElement.closest('.chart')?.classList.contains('expanded')
+      );
+      chartToResize?.chart?.resize();
+    }, 300);
   }
 
   onTabChange(event: any) {
-    const index = (event as { index: number }).index; // Cast $event to the correct type
-    const joueur = this.joueurs[index-1];
+    const index = (event as { index: number }).index;
+    const joueur = this.joueurs[index - 1];
     if (joueur) {
       this.updateStats(joueur.code);
       this.updateTrophes(joueur.code);
     }
   }
-  
+
   async updateStats(joueurCode: string) {
     this.statistiquesJoueur = await this.statistiquesService.getJoueurStatistique(joueurCode) ?? undefined;
   }
 
-  async updateTrophes(joueurCode:string){
+  async updateTrophes(joueurCode: string) {
     this.trophesJoueur = await this.statistiquesService.getJoueurTrophes(joueurCode);
   }
-  
-  
-
 }

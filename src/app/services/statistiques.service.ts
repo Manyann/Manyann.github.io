@@ -10,32 +10,12 @@ import { ItemsService } from './items.service';
   providedIn: 'root'
 })
 export class StatistiquesService {
-
-    private firestore = inject(Firestore);
-    private storage = inject(StorageService);
-    private _trophesService?: TrophesService;
-    public _itemsService? : ItemsService;
-    public _herosService? : HerosService;
-
-    constructor() {}
-  
-    private get trophesService() {
-      if (!this._trophesService) {
-        this._trophesService = inject(TrophesService);
-      }
-      return this._trophesService;
-    }
-    private get itemsService() {
-      if (!this._itemsService) {
-        this._itemsService = inject(ItemsService);
-      }
-      return this._itemsService;
-    }
-    private get herosService() {
-      if (!this._herosService) {
-        this._herosService = inject(HerosService);
-      }
-      return this._herosService;
+    constructor(
+       private firestore : Firestore,
+       private storage : StorageService,
+       private itemsService : ItemsService,
+       private herosService : HerosService
+    ) {
     }
 
   async getAllOrines(){
@@ -74,9 +54,9 @@ export class StatistiquesService {
     return this.storage.get<DocumentData[]>(StorageKeys.HERO_ARMURES) ?? [];
   }
 
-  async getOrigines(joueur:string){
+  async getOrigines(joueur:string, slice : number | null = null){
 
-    let key : string = StorageKeys.JOUEURS_METIERS+"_"+joueur;
+    let key : string = StorageKeys.JOUEURS_ORIGINES+"_"+joueur;
     if(!this.storage.getFromString(key)){
 
     let heros = await this.herosService.getAll();
@@ -100,10 +80,16 @@ export class StatistiquesService {
     this.storage.setFromString<CodeValeur[]>(key,statistiques);
    }
 
-    return this.storage.getFromString<CodeValeur[]>(key)??[];
+    let values : CodeValeur[] = this.storage.getFromString<CodeValeur[]>(key) ??[];
+
+    if(slice !== null){
+      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+    }
+
+    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
   }
 
-  async getMetier(joueur:string){
+  async getMetier(joueur:string, slice : number | null = null){    
     let key : string = StorageKeys.JOUEURS_METIERS+"_"+joueur;
     if(!this.storage.getFromString(key)){
 
@@ -124,11 +110,14 @@ export class StatistiquesService {
       }
       statistiques.find(x=>x.code == libelle)!.valeur ++;
     });
-
-    this.storage.setFromString<CodeValeur[]>(key,statistiques);
    }
-    
-    return this.storage.getFromString<CodeValeur[]>(key)??[];
+    let values : CodeValeur[] = this.storage.getFromString<CodeValeur[]>(key) ??[];
+
+    if(slice !== null){
+      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+    }
+
+    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
   }
 
   async getArmes(){
@@ -176,7 +165,7 @@ export class StatistiquesService {
     return this.storage.get<CodeValeur[]>(StorageKeys.STATS_ARMURES);
   }
 
-  async getCrits(){
+  async getCrits(slice : number | null = null){
     if(!this.storage.get(StorageKeys.STATS_CRITS)){
     let critiques = (await getDocs(query(collection(this.firestore,'heros_critiques')))).docs.map((entries) => entries.data());
     
@@ -192,28 +181,68 @@ export class StatistiquesService {
     this.storage.set<CodeValeur[]>(StorageKeys.STATS_CRITS,statistiques);
     }
 
-    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_CRITS);
-  }
+    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_CRITS) ??[];
 
-  async getEchecCrits(){
-    if(!this.storage.get(StorageKeys.STATS_ECHECS)){
-    let echecs = (await getDocs(query(collection(this.firestore,'heros_echecs')))).docs.map((entries) => entries.data());
-    let statistiques : CodeValeur[] = [];
-
-    echecs.forEach((critique) =>{
-      if(statistiques.find(x=>x.code == critique['hero_nom']) === undefined){
-        statistiques.push({code:critique['hero_nom'],valeur:0});
-      }
-      statistiques.find(x=>x.code == critique['hero_nom'])!.valeur ++;
-    });
-
-    this.storage.set<CodeValeur[]>(StorageKeys.STATS_ECHECS,statistiques);
+    if(slice !== null){
+      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
     }
 
-    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_ECHECS);
+    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
   }
 
-  async getDegatsTotaux(){
+  async getEchecCrits(slice : number | null = null){
+    if(!this.storage.get(StorageKeys.STATS_ECHECS)){
+      let echecs = (await getDocs(query(collection(this.firestore,'heros_echecs')))).docs.map((entries) => entries.data());
+      let statistiques : CodeValeur[] = [];
+
+      echecs.forEach((critique) =>{
+        if(statistiques.find(x=>x.code == critique['hero_nom']) === undefined){
+          statistiques.push({code:critique['hero_nom'],valeur:0});
+        }
+        statistiques.find(x=>x.code == critique['hero_nom'])!.valeur ++;
+      });
+
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_ECHECS,statistiques);
+    }
+    if(!this.storage.get(StorageKeys.STATS_ENTROPIQUES)){
+      let echecs = (await getDocs(query(collection(this.firestore,'heros_entropiques')))).docs.map((entries) => entries.data());
+      let statistiques : CodeValeur[] = [];
+
+      echecs.forEach((critique) =>{
+        if(statistiques.find(x=>x.code == critique['hero_nom']) === undefined){
+          statistiques.push({code:critique['hero_nom'],valeur:0});
+        }
+        statistiques.find(x=>x.code == critique['hero_nom'])!.valeur ++;
+      });
+
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_ENTROPIQUES,statistiques);
+    }
+
+    let valuesEchecs : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_ECHECS) ??[];
+    let valuesEntropiques : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_ENTROPIQUES) ??[];
+
+      const resultMap = new Map<string, number>();
+  
+    // Combiner les deux listes
+    [...valuesEchecs, ...valuesEntropiques].forEach(item => {
+      resultMap.set(item.code, (resultMap.get(item.code) || 0) + item.valeur);
+    });
+    
+    // Convertir en tableau et trier
+    let result = Array.from(resultMap.entries()).map(([code, valeur]) => ({ code, valeur }));
+    
+    // Trier par valeur décroissante
+    result.sort((a, b) => b.valeur - a.valeur);
+    
+    // Appliquer le slice si nécessaire
+    if (slice !== null) {
+      result = result.slice(0, slice);
+    }
+    
+    return result;
+  }
+
+  async getDegatsTotaux(slice : number | null = null){
     if(!this.storage.get(StorageKeys.STATS_DEGATS)){
     let degats = (await getDocs(query(collection(this.firestore,'heros_degats')))).docs.map((entries) => entries.data());
     
@@ -229,10 +258,16 @@ export class StatistiquesService {
     this.storage.set<CodeValeur[]>(StorageKeys.STATS_DEGATS,statistiques);
     }
 
-    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS);
+    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS) ??[];
+
+    if(slice !== null){
+      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+    }
+
+    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
   }
 
-  async getDegatsMax(){
+  async getDegatsMax(slice : number | null = null){
     if(!this.storage.get(StorageKeys.STATS_DEGATS_MAX)){
     let degats = (await getDocs(query(collection(this.firestore,'heros_degats')))).docs.map((entries) => entries.data());
     
@@ -250,42 +285,16 @@ export class StatistiquesService {
     this.storage.set<CodeValeur[]>(StorageKeys.STATS_DEGATS_MAX,statistiques);
     }
 
-    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS_MAX);
+    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS_MAX) ??[];
+
+    if(slice !== null){
+      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+    }
+
+    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
   }
 
-  // async getOrs(){
-  //   let transactions = (await getDocs(query(collection(this.firestore,'heros_transactions')))).docs.map((entries) => entries.data());
-    
-  //   let statistiques : CodeValeur[] = [];
-
-  //   transactions.forEach((transaction) =>{
-  //     if(statistiques.find(x=>x.code == transaction['hero_nom']) === undefined){
-  //       statistiques.push({code:transaction['hero_nom'],valeur:0});
-  //     }
-  //     if(transaction['or'] < 0){
-  //       statistiques.find(x=>x.code == transaction['hero_nom'])!.valeur +=transaction['or'];
-  //     }
-  //   });
-
-  //   return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-  // }
-
-  // async getKms(){
-  //   let heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
-    
-  //   let statistiques : CodeValeur[] = [];
-
-  //   heros.forEach((hero) =>{
-  //     if(statistiques.find(x=>x.code == hero['nom']) === undefined){
-  //       statistiques.push({code:hero['nom'],valeur:0});
-  //     }
-  //     statistiques.find(x=>x.code == hero['nom'])!.valeur +=hero['km'];
-      
-  //   });
-  //   return statistiques.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,3);
-  // }
-  
-  async getEnnemis(){
+  async getEnnemis(slice : number | null = null){
     if(!this.storage.get(StorageKeys.STATS_MOBS)){
     let mobs = (await getDocs(query(collection(this.firestore,'mobs')))).docs.map((entries) => entries.data());
 
@@ -297,8 +306,84 @@ export class StatistiquesService {
     this.storage.set<CodeValeur[]>(StorageKeys.STATS_MOBS,statistiques);
     }
 
-    return this.storage.get<CodeValeur[]>(StorageKeys.STATS_MOBS);
+    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_MOBS) ??[];
+
+    if(slice !== null){
+      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+    }
+
+    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
   }
+
+async getRapportCritiquesEchecs(slice: number | null = null) {
+  let valuesEchecs: CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_ECHECS) ?? [];
+  let valuesCritiques: CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_CRITS) ?? [];
+  let valuesEntropiques: CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_ENTROPIQUES) ?? [];
+
+  const allEchecs = new Map<string, number>();
+  
+  // Combiner échecs et entropiques
+  [...valuesEchecs, ...valuesEntropiques].forEach(item => {
+    allEchecs.set(item.code, (allEchecs.get(item.code) || 0) + item.valeur);
+  });
+  
+  // Convertir en tableau
+  let totalEchecs = Array.from(allEchecs.entries()).map(([code, valeur]) => ({ code, valeur }));
+  
+  // Récupérer tous les codes uniques
+  const tousLesCodes = [...new Set([
+    ...totalEchecs.map(v => v.code),
+    ...valuesCritiques.map(v => v.code)
+  ])];
+  
+  // Créer des maps pour un accès rapide
+  const mapEchecs = new Map(totalEchecs.map(v => [v.code, v.valeur]));
+  const mapCritiques = new Map(valuesCritiques.map(v => [v.code, v.valeur]));
+  
+  // Filtrer et trier les codes par total
+  const codesAvecTotaux = tousLesCodes
+    .map(code => ({
+      code,
+      echecs: mapEchecs.get(code) || 0,
+      critiques: mapCritiques.get(code) || 0,
+      total: (mapEchecs.get(code) || 0) + (mapCritiques.get(code) || 0)
+    }))
+    .filter(item => item.total > 0 && item.code !== 'MJ' && item.code !== 'yyyyy')
+    .sort((a, b) => b.total - a.total);
+  debugger;
+  // Appliquer le slice
+  const codesFiltres = slice ? codesAvecTotaux.slice(0, slice) : codesAvecTotaux.slice(0,20);
+  
+  // SOLUTION : Utiliser deux datasets séparés au lieu d'un seul
+  const labels: string[] = codesFiltres.map(item => item.code);
+  
+  return {
+    title: "Échecs vs Critiques",
+    labels: labels,
+    datasets: [
+      {
+        label: 'Échecs',
+        stack: "Stack 0",
+        data: codesFiltres.map(item => -item.echecs), // Négatifs pour aller à gauche
+        backgroundColor: '#FF6B6B',
+        borderColor: '#FF5252',
+        borderWidth: 1,
+        barThickness: 18,
+        maxBarThickness: 25
+      },
+      {
+        label: 'Critiques',
+        stack: "Stack 0",
+        data: codesFiltres.map(item => item.critiques), // Positifs pour aller à droite
+        backgroundColor: '#4ECDC4',
+        borderColor: '#26A69A',
+        borderWidth: 1,
+        barThickness: 18,
+        maxBarThickness: 25
+      }
+    ]
+  };
+}
 
   async getJoueurStatistique(joueur:string){
 
@@ -507,7 +592,7 @@ export class StatistiquesService {
     let key : string = StorageKeys.TROPHES+"_"+joueur;
     if(!this.storage.getFromString(key)){
     //tous les trophés du joueurs
-    let trophesJoueur = await this.trophesService.getJoueurTrophes(joueur);
+    let trophesJoueur = await this.getInnerJoueurTrophes(joueur);
 
     //tous les trophés
     const trophes =  (await getDocs(query(collection(this.firestore,'trophes')))).docs.map((entries) => entries.data() as Trophe);
@@ -536,6 +621,30 @@ export class StatistiquesService {
       await deleteDoc(doc(this.firestore, "cities", document.id));
     });
   }
+
+
+  //#region Trophes
+
+ async getInnerJoueurTrophes(joueur:string):Promise<string[]>{
+
+    let trophes  : DocumentData[] = await this.getAllTrophes();
+
+    return trophes
+      ?.filter(x=>x['code_joueur'] == joueur)
+      .map(x=>x['titre']);
+  }
+
+  async getAllTrophes():Promise<DocumentData[]>{
+
+    if(!this.storage.get(StorageKeys.TROPHES)){
+          const trophes = (await getDocs(query(collection(this.firestore,'heros_trophes')))).docs.map((entries) => entries.data());
+          this.storage.set<DocumentData[]>(StorageKeys.TROPHES,trophes);
+    }
+    
+    return this.storage.get<DocumentData[]>(StorageKeys.TROPHES) ?? [];
+  }
+
+  //#endregion Trophes
 }
 
 export class JoueurStatistique{

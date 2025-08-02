@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export enum StorageKeys {
   HEROS = 'heros',
   HERO_ORIGINES = 'hero_origines',
+  HERO_METIERS = 'hero_metiers',
   HERO_CRITIQUES = 'hero_critiques',
   HERO_PARADES= 'hero_parades',
   HERO_ECHECS= 'hero_echecs',
@@ -23,6 +24,7 @@ export enum StorageKeys {
   STATS_ARMURES = 'statistiques_armures',
   STATS_CRITS= 'statistiques_critiques',
   STATS_ECHECS= 'statistiques_echecs',
+  STATS_ENTROPIQUES= 'statistiques_entropique',
   STATS_DEGATS= 'statistiques_degats',
   STATS_DEGATS_MAX= 'statistiques_degats_max',
   STATS_MOBS= 'statistiques_mobs',
@@ -46,7 +48,6 @@ export class StorageService {
 
   get<T>(key: StorageKeys): T | null {
     const value = localStorage.getItem(key);
-    debugger;
     return value ? JSON.parse(value) as T : null;
   }
 

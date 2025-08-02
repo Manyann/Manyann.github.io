@@ -1,67 +1,130 @@
 <br>
 <p-tabView  (onChange)="onTabChange($event)"> 
     <p-tabPanel header="Global" >
-        <div  class="infos-container">
-            <div class="info-group">
-                <div class="info-group-header">
-                    Orines et métiers
-                </div>
-                <div class="info-group-body">
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataOrigines" [options]="optionsBardataOrigines" />
-                    </div>
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataMetiers" [options]="optionsBardataMetiers"/>
-                    </div>
-                </div>
+        <div class="chart-grid">
+                    <div class="chart" 
+                    [class.expanded]="expandedChart === 'dataOrigines'" 
+                    *ngIf="expandedChart === null || expandedChart === 'dataOrigines'">
+                         <p-chart type="bar"
+                         #chart 
+                        [data]="dataOrigines"
+                        [options]="optionsBardataOrigines" />
+                    <i
+                    class="pi"
+                    [ngClass]="{
+                    'pi-arrow-up-right-and-arrow-down-left-from-center': expandedChart !== 'dataOrigines',
+                    'pi-arrow-down-left-and-arrow-up-right-to-center': expandedChart === 'dataOrigines'
+                    }"
+                    (click)="toggleChart('dataOrigines')"
+                    style="cursor:pointer"
+                ></i>
             </div>
-            <div class="info-group">
-                <div class="info-group-header">
-                    Equipements
-                </div>
-                <div class="info-group-body">
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataArmes" [options]="optionsBardataArmes"/>
-                    </div>
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataArmures" [options]="optionsBardataArmures"/>
-                    </div>
-                </div>
+                    <div class="chart" 
+                    [class.expanded]="expandedChart === 'dataMetiers'" 
+                    *ngIf="expandedChart === null || expandedChart === 'dataMetiers'">
+                        <p-chart
+                         #chart  type="bar" [data]="dataMetiers" [options]="optionsBardataMetiers"/>        
+                    <i
+                    class="pi"
+                    [ngClass]="{
+                    'pi-arrow-up-right-and-arrow-down-left-from-center': expandedChart !== 'dataMetiers',
+                    'pi-arrow-down-left-and-arrow-up-right-to-center': expandedChart === 'dataMetiers'
+                    }"
+                    (click)="toggleChart('dataMetiers')"
+                    style="cursor:pointer"
+                ></i>
             </div>
-            <div class="info-group">
-                <div class="info-group-header">
-                    Combats
-                </div>
-                <div class="info-group-body">
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataCrits" [options]="optionsBardataCrits"/>
-                    </div>
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataEchecCrits" [options]="optionsBardataCritsdataEchecCrits"/>
-                    </div>
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataDegatsTotal" [options]="optionsBardataDegatsTotal"/>
-                    </div>
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataDegatsMax" [options]="optionsBardataDegatsMax"/>
-                    </div>
-                </div>
+                    <div class="chart" 
+                    [class.expanded]="expandedChart === 'dataCrits'" 
+                    *ngIf="expandedChart === null || expandedChart === 'dataCrits'">
+                        <p-chart 
+                         #chart type="bar" [data]="dataCrits" [options]="optionsBardataCrits"/>
+                    <i
+                    class="pi"
+                    [ngClass]="{
+                    'pi-arrow-up-right-and-arrow-down-left-from-center': expandedChart !== 'dataCrits',
+                    'pi-arrow-down-left-and-arrow-up-right-to-center': expandedChart === 'dataCrits'
+                    }"
+                    (click)="toggleChart('dataCrits')"
+                    style="cursor:pointer"
+                ></i>
             </div>
-            <div class="info-group">
-                <div class="info-group-header">
-                    Trivia
-                </div>
-                <div class="info-group-body">
-                    <!-- <div class="chart">
-                        <p-chart type="bar" [data]="dataOrs" [options]="optionsBardataOrs"/>
-                    </div>
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataKms" [options]="optionsBardataKms"/>
-                    </div> -->
-                    <div class="chart">
-                        <p-chart type="bar" [data]="dataEnnemis" [options]="optionsBardataEnnemis"/>
-                    </div>
-                </div>
+                    <div class="chart"
+                    [class.expanded]="expandedChart === 'dataEchecCrits'" 
+                    *ngIf="expandedChart === null || expandedChart === 'dataEchecCrits'">
+                        <p-chart 
+                         #chart type="bar" [data]="dataEchecCrits" [options]="optionsBardataCritsdataEchecCrits"/>
+                    <i
+                    class="pi"
+                    [ngClass]="{
+                    'pi-arrow-up-right-and-arrow-down-left-from-center': expandedChart !== 'dataEchecCrits',
+                    'pi-arrow-down-left-and-arrow-up-right-to-center': expandedChart === 'dataEchecCrits'
+                    }"
+                    (click)="toggleChart('dataEchecCrits')"
+                    style="cursor:pointer"
+                ></i>
+            </div>
+                    <div class="chart" 
+                    [class.expanded]="expandedChart === 'dataDegatsTotal'" 
+                    *ngIf="expandedChart === null || expandedChart === 'dataDegatsTotal'">
+                        <p-chart 
+                         #chart type="bar" [data]="dataDegatsTotal" [options]="optionsBardataDegatsTotal"/>
+                    <i
+                    class="pi"
+                    [ngClass]="{
+                    'pi-arrow-up-right-and-arrow-down-left-from-center': expandedChart !== 'dataDegatsTotal',
+                    'pi-arrow-down-left-and-arrow-up-right-to-center': expandedChart === 'dataDegatsTotal'
+                    }"
+                    (click)="toggleChart('dataDegatsTotal')"
+                    style="cursor:pointer"
+                ></i>
+            </div>
+                    <div class="chart" 
+                    [class.expanded]="expandedChart === 'dataDegatsMax'" 
+                    *ngIf="expandedChart === null || expandedChart === 'dataDegatsMax'">
+                        <p-chart 
+                         #chart type="bar" [data]="dataDegatsMax" [options]="optionsBardataDegatsMax"/>
+                    <i
+                    class="pi"
+                    [ngClass]="{
+                    'pi-arrow-up-right-and-arrow-down-left-from-center': expandedChart !== 'dataDegatsMax',
+                    'pi-arrow-down-left-and-arrow-up-right-to-center': expandedChart === 'dataDegatsMax'
+                    }"
+                    (click)="toggleChart('dataDegatsMax')"
+                    style="cursor:pointer"
+                ></i>
+            </div>
+            <div class="chart" 
+                    [class.expanded]="expandedChart === 'dataEnnemis'" 
+                    *ngIf="expandedChart === null || expandedChart === 'dataEnnemis'">
+                        <p-chart 
+                         #chart type="bar" [data]="dataEnnemis" [options]="optionsBardataEnnemis"/>
+                    <i
+                    class="pi"
+                    [ngClass]="{
+                    'pi-arrow-up-right-and-arrow-down-left-from-center': expandedChart !== 'dataEnnemis',
+                    'pi-arrow-down-left-and-arrow-up-right-to-center': expandedChart === 'dataEnnemis'
+                    }"
+                    (click)="toggleChart('dataEnnemis')"
+                    style="cursor:pointer"
+                ></i>
+            </div>
+            <div class="chart" 
+                [class.expanded]="expandedChart === 'dataRapports'" 
+                *ngIf="(expandedChart === null || expandedChart === 'dataRapports') && dataRapports.labels.length > 0"
+                >
+                <p-chart type="bar"
+                        #chart 
+                        [data]="dataRapports"
+                        [options]="optionsBardataRapports" />
+                <i class="pi"
+                [ngClass]="{
+                    'pi-arrow-up-right-and-arrow-down-left-from-center': expandedChart !== 'dataRapports',
+                    'pi-arrow-down-left-and-arrow-up-right-to-center': expandedChart === 'dataRapports'
+                }"
+                (click)="toggleChart('dataRapports')"
+                style="cursor:pointer">
+                </i>
             </div>
         </div>
     </p-tabPanel>

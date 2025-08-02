@@ -1,9 +1,6 @@
-import { Router, RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { DocumentationComponent } from '../component/documentation/documentation.component';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { BestiaireComponent } from '../component/documentation/bestiaire/bestiaire.component';
 import { AutreComponent } from '../component/documentation/autre/autre.component';
 import { HeroComponent } from '../component/documentation/hero/hero.component';
