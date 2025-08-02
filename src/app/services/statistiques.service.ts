@@ -389,17 +389,47 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
 
     let key : string = StorageKeys.STATS+"_"+joueur;
     if(!this.storage.getFromString(key)){
+
+      let totalCritiques  =  await this.getTotalCritiquesJoueur(joueur);
+      let totalEchecs  =  await this.getTotalEchecsJoueur(joueur);
+      let totalEntropiques  =  await this.getTotalEntropiquesJoueur(joueur);
+      let totalParades  =  await this.getTotalParadesJoueur(joueur);
+      let heroCritiques = await this.getHeroCritiqueJoueur(joueur);
+      let heroEchecs =  await this.getHeroEchecsJoueur(joueur);
+      let heroEntropiques = await this.getHeroEntropiquesJoueur(joueur);
+      let heroParades =  await this.getHeroParadesJoueur(joueur);
+      let totalDegats  =  await this.getTotalDegatsJoueur(joueur);
+      let maxDegat  =  await this.getMaxDegatsJoueur(joueur);
+      let totalEnnemis  =  await this.getTotalEnnemisJoueur(joueur);
+      let maxEnnemis  =  await this.getMaxEnnemisJoueur(joueur);
+      let level = await this.getMaxLevelJoueur(joueur);
+      let nombrePersonnage  =  await this.getPersoCountJoueur(joueur);
+      let origine =  await this.getOrigineJoueur(joueur);
+      let metier =  await this.getMetierJoueur(joueur);
+      let totalDestins =  await this.getTotalDestinJoueur(joueur);
+      let heroDetins =  await this.getHeroDestinJoueur(joueur);
+      let totalBonPoints =  await this.getTotalBonPointsJoueur(joueur);
+      let heroBonPoints =  await this.getHeroBonPointsJoueur(joueur);
+      let totalMauvaisPoints =  await this.getTotalMauvaisPointsJoueur(joueur);
+      let heroMauvaisPoint =  await this.getHeroMauvaisPointsJoueur(joueur);
+
     let statistiques : JoueurStatistique = {
-      origine: await this.getOrigineJoueur(joueur),
-      metier: await this.getMetierJoueur(joueur),
-      heroCritiques: await this.getHeroCritiqueJoueur(joueur),
-      heroEchecs : await this.getHeroEchecsJoueur(joueur),
-      level: await this.getMaxLevelJoueur(joueur),
-      nombrePersonnage : await this.getPersoCountJoueur(joueur),
-      totalCritiques : await this.getTotalCritiquesJoueur(joueur),
-      totalEchecs : await this.getTotalEchecsJoueur(joueur),
-      totalDegats : await this.getTotalDegatsJoueur(joueur),
-      totalEnnemis : await this.getTotalEnnemisJoueur(joueur),
+      critique : [
+        totalCritiques,heroCritiques,
+        totalEchecs,heroEchecs,
+        totalEntropiques,heroEntropiques,
+        totalParades, heroParades
+      ],
+      combat: [
+        totalDegats,maxDegat,totalEnnemis,maxEnnemis
+      ],
+      trivia:[
+        nombrePersonnage, level,
+        origine, metier,
+        totalDestins, heroDetins,
+        totalBonPoints, heroBonPoints,
+        totalMauvaisPoints, heroMauvaisPoint
+      ]
     };
 
     this.storage.setFromString<JoueurStatistique>(key,statistiques);
@@ -430,8 +460,12 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
         maxKey = key;
       }
     }
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Origine la plus jouée',
+      'valeur': maxKey + " ( " + maxValue + " )" 
+    };
 
-    return maxKey + " ( " + maxValue + " )" ;
+    return details;
   }
 
   async getMetierJoueur(joueur:string){
@@ -457,8 +491,12 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
         maxKey = key;
       }
     }
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Métier le plus joué',
+      'valeur': maxKey + " ( " + maxValue + " )" 
+    };
 
-    return maxKey + " ( " + maxValue + " )" ;
+    return details;
   }
 
   async getHeroCritiqueJoueur(joueur:string){
@@ -479,7 +517,12 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       }
     }
 
-    return heroNom + " ( " + critiqueCount + " )";
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Héros avec le plus de critiques',
+      'valeur': heroNom + " ( " + critiqueCount + " )"
+    };
+
+    return details;
   }
 
   async getHeroEchecsJoueur(joueur:string){
@@ -500,7 +543,64 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       }
     }
 
-    return heroNom + " ( " + critiqueCount + " )";
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Héros avec le plus d\'échecs critiques',
+      'valeur': heroNom + " ( " + critiqueCount + " )"
+    };
+
+    return details;
+  }
+  
+  async getHeroEntropiquesJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    let heroNom = "";
+    let critiqueCount = 0;
+    let currentHeroNom = "";
+    let currentCritiqueCount = 0;
+
+    for (const hero of heros) {
+      currentHeroNom = hero['nom'];
+      let heroCritiques = (await getDocs(query(collection(this.firestore,'heros_entropiques'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      currentCritiqueCount = heroCritiques.length;
+      if(currentCritiqueCount > critiqueCount){
+        critiqueCount = currentCritiqueCount;
+        heroNom = currentHeroNom;
+      }
+    }
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Héros avec le plus d\'entropiques',
+      'valeur': heroNom + " ( " + critiqueCount + " )"
+    };
+
+    return details;
+  }
+  
+  async getHeroParadesJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    let heroNom = "";
+    let critiqueCount = 0;
+    let currentHeroNom = "";
+    let currentCritiqueCount = 0;
+
+    for (const hero of heros) {
+      currentHeroNom = hero['nom'];
+      let heroCritiques = (await getDocs(query(collection(this.firestore,'heros_parades'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      currentCritiqueCount = heroCritiques.length;
+      if(currentCritiqueCount > critiqueCount){
+        critiqueCount = currentCritiqueCount;
+        heroNom = currentHeroNom;
+      }
+    }
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Héros avec le plus de parades exceptionnelles',
+      'valeur': heroNom + " ( " + critiqueCount + " )"
+    };
+
+    return details;
   }
 
   async getMaxLevelJoueur(joueur:string){
@@ -520,15 +620,154 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       }
     });
 
-    return maxLevel + " ( " + heroNom + " )";
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Plus haut niveau atteint',
+      'valeur': maxLevel + " ( " + heroNom + " )"
+    };
+
+    return details;
+  }
+
+  async getMaxEnnemisJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    let heroNom = "";
+    let maxEnnemie = 0;
+    let currentEnnemiNom = "";
+    let currentEnnemi = 0;
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Ennemi le plus rencontré',
+      'valeur': maxEnnemie + " ( " + heroNom + " )"
+    };
+
+    return details;
+  }
+
+  
+  async getMaxDegatsJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    let heroNom = "";
+    let maxDegat = 0;
+    let currentHeroNom = "";
+    let currentDegat = 0;
+
+    for (const hero of heros) {
+      let degats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      degats.forEach(async (degat) =>{
+        currentHeroNom = degat['hero_nom'];
+        currentDegat = degat['intensite'];
+        if(currentDegat > maxDegat){
+          maxDegat = currentDegat;
+          heroNom = currentHeroNom;
+        }
+      });
+    }
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Plus gros dégats infligés',
+      'valeur': maxDegat + " ( " + heroNom + " )"
+    };
+
+    return details;
   }
 
   async getPersoCountJoueur(joueur:string){
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
 
-    return ""+heros.length;
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Personnages créés',
+      'valeur': heros.length.toString()
+    };
+
+    return details;
+  }
+
+   async getTotalDestinJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    const totalDestin = heros.reduce((sum, hero) => sum + hero['destin_utilise'], 0);
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Total de destins utilisés',
+      'valeur': totalDestin.toString()
+    };
+
+    return details;
+  }
+
+  async getHeroDestinJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    const maxDestinHero = heros.reduce((prev, curr) =>
+      curr['destin_utilise'] > prev['destin_utilise'] ? curr : prev
+    );
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Total de critiques',
+      'valeur': maxDestinHero['destin_utilise'] + ' ( ' + maxDestinHero['nom'] + ' )'
+    };
+
+    return details;
+  }
+
+  async getTotalBonPointsJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    const totalDestin = heros.reduce((sum, hero) => sum + hero['bon_point'], 0);
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Total de bon points',
+      'valeur': totalDestin.toString()
+    };
+
+    return details;
+  }
+
+  async getHeroBonPointsJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    const maxDestinHero = heros.reduce((prev, curr) =>
+      curr['bon_point'] > prev['bon_point'] ? curr : prev
+    );
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Héro avec le plus de bon points',
+      'valeur': maxDestinHero['bon_point'] + ' ( ' + maxDestinHero['nom'] + ' )'
+    };
+
+    return details;
   }
   
+  async getTotalMauvaisPointsJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    const totalDestin = heros.reduce((sum, hero) => sum + hero['mauvais_point'], 0);
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Total de mauvais points',
+      'valeur': totalDestin.toString()
+    };
+
+    return details;
+  }
+
+  async getHeroMauvaisPointsJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    const maxDestinHero = heros.reduce((prev, curr) =>
+      curr['mauvais_point'] > prev['mauvais_point'] ? curr : prev
+    );
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Héro avec le plus de mauvais points',
+      'valeur': maxDestinHero['mauvais_point'] + ' ( ' + maxDestinHero['nom'] + ' )'
+    };
+
+    return details;
+  }
+
   async getTotalCritiquesJoueur(joueur:string){
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
@@ -539,7 +778,48 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       total += heroCritiques.length;
     }
 
-    return ""+total;
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Total de critiques',
+      'valeur': total.toString()
+    };
+
+    return details;
+  }
+
+  async getTotalEntropiquesJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    let total = 0;
+    for (const hero of heros) {
+      let heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_entropiques'), 
+        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data());
+      total += heroCritiques.length;
+    }
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Total d\entropiques',
+      'valeur': total.toString()
+    };
+
+    return details;
+  }
+
+  async getTotalParadesJoueur(joueur:string){
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    
+    let total = 0;
+    for (const hero of heros) {
+      let heroCritiques = (await getDocs(query(collection(this.firestore, 'heros_parades'), 
+        where('hero_nom', '==', hero['nom'])))).docs.map((entries) => entries.data());
+      total += heroCritiques.length;
+    }
+
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Total de parades exceptionnelle',
+      'valeur': total.toString()
+    };
+
+    return details;
   }
 
   async getTotalEchecsJoueur(joueur:string){
@@ -552,7 +832,12 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       total += heroCritiques.length;
     }
 
-    return ""+total;
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Total de d\'échecs critiques',
+      'valeur': total.toString()
+    };
+
+    return details;
   }
 
   async getTotalDegatsJoueur(joueur:string){
@@ -567,7 +852,12 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       });
     }
 
-    return ""+total;
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Dégâts totaux infligés',
+      'valeur': total.toString()
+    };
+
+    return details;
   }
 
   async getTotalEnnemisJoueur(joueur:string){
@@ -576,7 +866,6 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
     let total = 0;
 
     for (const hero of heros) {
-      //  let mobs = (await getDocs(query(collection(this.firestore,'heros_mobs'),hero['nom']))).docs.map((entries) => entries.data());
       const docRef = doc(this.firestore, 'heros_mobs', hero['nom']);
       const docSnap = await getDoc(docRef);
 
@@ -585,7 +874,12 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       total += mobs ? Object.values(mobs).reduce((sum, val) => sum + val, 0) : 0;
     }
 
-    return ""+total;
+    let details: JoueurStatistiqueDetails = {
+      'libelle' : 'Nombre total d’ennemis rencontrés',
+      'valeur': total.toString()
+    };
+
+    return details;
   }
 
   async getJoueurTrophes(joueur:string){
@@ -648,17 +942,15 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
 }
 
 export class JoueurStatistique{
-  "origine":string;
-  "metier":string;
-  "nombrePersonnage":string;
-  "totalCritiques":string;
-  "totalEchecs":string;
-  "totalDegats":string;
-  "level":string;
-  "heroCritiques":string;
-  "heroEchecs":string;
-  "totalEnnemis":string;
+  "critique":JoueurStatistiqueDetails[];
+  "combat":JoueurStatistiqueDetails[];
+  "trivia":JoueurStatistiqueDetails[];
 };
+
+export class JoueurStatistiqueDetails{
+  "libelle" : string;
+  "valeur" : string;
+}
 
 export class Trophe{
   "categorie":number;

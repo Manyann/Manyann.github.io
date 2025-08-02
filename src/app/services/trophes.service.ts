@@ -1,6 +1,6 @@
-import { inject, Injectable } from '@angular/core';
-import { collection, doc, DocumentData, Firestore, getDocs, query, setDoc } from 'firebase/firestore';
-import { StorageKeys, StorageService } from './storage.service';
+import { Injectable } from '@angular/core';
+import { DocumentData } from 'firebase/firestore';
+
 
 
 @Injectable({
@@ -8,10 +8,6 @@ import { StorageKeys, StorageService } from './storage.service';
 })
 export class TrophesService {
 
-  constructor(
-    private storage : StorageService
-) {
-  }
   async getTrophesMetier() : Promise<Record<string,string>>{
     return {
       'pretre': 'BRUT',

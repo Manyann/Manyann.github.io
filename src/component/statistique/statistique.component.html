@@ -132,50 +132,25 @@
     <p-tabPanel *ngFor="let joueur of (joueurs ?? [])" [header]="joueur.code" (onAfterToggle)="updateStats(joueur.code)" >
         <div class="top-container">
         <p-panel header="Statistiques"  class="stats-panel">
-        <div  class="infos-container">
-            <div class="info-stats">
-                <div class="info-group-row">
-                    <div>Nombre de personnage : </div>
-                    <div>{{statistiquesJoueur?.nombrePersonnage}}</div>
-                </div>
-                <div class="info-group-row">
-                    <div>Origine la plus jouée : </div>
-                    <div>{{statistiquesJoueur?.origine}}</div>
-                </div>
-                <div class="info-group-row">
-                    <div>Métier le plus joué : </div>
-                    <div>{{statistiquesJoueur?.metier}}</div>
-                </div>
-                <div class="info-group-row">
-                    <div>Plus haut niveau : </div>
-                    <div>{{statistiquesJoueur?.level}}</div>
-                </div>
-                <div class="info-group-row">
-                    <div>Total de critiques : </div>
-                    <div>{{statistiquesJoueur?.totalCritiques}}</div>
-                </div>
-                <div class="info-group-row">
-                    <div>Héro avec le plus de critiques : </div>
-                    <div>{{statistiquesJoueur?.heroCritiques}}</div>
-                </div>
-                <div class="info-group-row">
-                    <div>Total d'échecs critiques : </div>
-                    <div>{{statistiquesJoueur?.totalEchecs}}</div>
-                </div>
-                <div class="info-group-row">
-                    <div>Héro avec le plus d'échec critiques : </div>
-                    <div>{{statistiquesJoueur?.heroEchecs}}</div>
-                </div>
-                <div class="info-group-row">
-                    <div>Total des dégats infligés : </div>
-                    <div>{{statistiquesJoueur?.totalDegats}}</div>
-                </div>
-                <div class="info-group-row">
-                    <div>Nombre d'énnemis rencontrés : </div>
-                    <div>{{statistiquesJoueur?.totalEnnemis}}</div>
-                </div>
-            </div>
-        </div>
+        <div class="player-details-container">
+  <div class="stat-section">
+    <div class="stat-card">
+      <h2 class="stat-header">Critique</h2>
+      <div class="stat-line" *ngFor="let stat of statistiquesJoueur?.critique">{{stat.libelle}} : <span>{{stat.valeur}}</span></div>
+    </div>
+
+    <div class="stat-card">
+      <h2 class="stat-header">Combat</h2>
+      <div class="stat-line" *ngFor="let stat of statistiquesJoueur?.combat">{{stat.libelle}} : <span>{{stat.valeur}}</span></div>
+    </div>
+
+    <div class="stat-card">
+      <h2 class="stat-header">Trivia</h2>
+      <div class="stat-line" *ngFor="let stat of statistiquesJoueur?.trivia">{{stat.libelle}} : <span>{{stat.valeur}}</span></div>
+    </div>
+  </div>
+</div>
+
     </p-panel>
     <p-panel header="{{trophesJoueur ?? [] | trophes}}"  class="stats-panel">
             <div >
