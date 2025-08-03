@@ -145,38 +145,43 @@ export class ItemHelper{
 
     };
 
-    private static getOrigine(zone: string,armeType: string): string {
+    private static getOrigine(zone: string, armeType: string): string {
     const dico = this.origines[armeType];
     if (!dico) return "commun";
 
-    const origineList = Object.values(dico); // liste des origines disponibles
-    const proba: { [origine: string]: number } = {};
-    let totalProba = 0;
+    const origineList = Object.values(dico);
+    const zoneProba = 12;      // % pour l'origine correspondant à la zone
+    const autreProba = 2.5;    // % pour chaque autre origine
+
+    let totalPourOrigines = 0;
+    const probaExacte: { [origine: string]: number } = {};
 
     for (const origine of origineList) {
         if (origine === zone) {
-            proba[origine] = 12;
+            probaExacte[origine] = zoneProba;
         } else {
-            proba[origine] = 2.5;
+            probaExacte[origine] = autreProba;
         }
-        totalProba += proba[origine];
+        totalPourOrigines += probaExacte[origine];
     }
 
-    // Ajouter la probabilité de "commun"
-    proba["commun"] = Math.max(0, 100 - totalProba);
-    totalProba += proba["commun"]; // Devrait faire 100, sauf arrondis
+    // Probabilité de "commun" pour compléter à 100 %
+    probaExacte["commun"] = Math.max(0, 100 - totalPourOrigines);
 
-    // Création d'une table pondérée d’occurrences
-    const table: string[] = [];
-    for (const [origine, pourcent] of Object.entries(proba)) {
-        const count = Math.round(pourcent); // ou Math.floor si tu veux être strict
-        table.push(...Array(count).fill(origine));
+    // Création d'une échelle de tirage entre 0 et 100 (non arrondie)
+    const tirage = Math.random() * 100;
+    let cumulative = 0;
+
+    for (const [origine, prob] of Object.entries(probaExacte)) {
+        cumulative += prob;
+        if (tirage <= cumulative) {
+            return origine;
+        }
     }
 
-    // Tirage aléatoire
-    const tirage = Math.floor(Math.random() * table.length);
-    return table[tirage];
+    return "commun"; // fallback en cas d'arrondi étrange
 }
+
 
 
     static getDefaultArme() : Arme{
