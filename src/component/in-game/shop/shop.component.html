@@ -1,7 +1,14 @@
 <div class="select-container">
   <select (change)="onChangedVille($event)">
-    <option value="" disabled selected>Choisissez un type ...</option>
+    <option value="" disabled selected>Choisissez une taille de ville...</option>
     <option *ngFor="let type of villesType" [value]="type.code">
+      {{ type.libelle }}
+    </option>
+  </select>
+  
+  <select (change)="onChangedRegion($event)">
+    <option value="" disabled selected>Choisissez une région...</option>
+    <option *ngFor="let type of zones" [value]="type.code">
       {{ type.libelle }}
     </option>
   </select>
@@ -10,10 +17,10 @@
 
 <p-tabView class="custom-tabs">
     <p-tabPanel header="Armes">
-        <app-shop-arme [selectedVilleType]="selectedVilleType"></app-shop-arme>
+        <app-shop-arme [selectedVilleType]="selectedVilleType" [selectedRegion]="selectedZone"></app-shop-arme>
     </p-tabPanel>
     <p-tabPanel header="Armures">
-        <app-shop-armure [selectedVilleType]="selectedVilleType"></app-shop-armure>
+        <app-shop-armure [selectedVilleType]="selectedVilleType" [selectedRegion]="selectedZone"></app-shop-armure>
     </p-tabPanel>
     <p-tabPanel header="Potions">
         <app-shop-potion [selectedVilleType]="selectedVilleType"></app-shop-potion>

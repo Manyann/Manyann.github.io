@@ -66,20 +66,28 @@ export class ShopComponent {
         libelle:"Commun"
       },
       {
-        code:"nord",
-        libelle:"Grand Nord"
+        code:"nain",
+        libelle:"Montagne naine"
       },
       {
-        code:"desert",
+        code:"elfe",
+        libelle:"Foret elfique"
+      },
+      {
+        code:"pirate",
+        libelle:"Iles pirate"
+      },
+      {
+        code:"homme-sable",
         libelle:"Désert"
       },
       {
-        code:"sud",
-        libelle:"Iles du sud"
+        code:"samurai",
+        libelle:"Ile samurai"
       },
       {
-        code:"est",
-        libelle:"Est"
+        code:"orque",
+        libelle:"Plaines orque"
       },
     ];
   }

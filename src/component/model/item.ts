@@ -145,18 +145,39 @@ export class ItemHelper{
 
     };
 
-    private static getOrigine(armeType:string):string{
-        let dico = this.origines[armeType];
-        let originesCount = Object.keys(dico).length;
-        let max = originesCount * 20;
+    private static getOrigine(zone: string,armeType: string): string {
+    const dico = this.origines[armeType];
+    if (!dico) return "commun";
 
-        let random = Math.floor(Math.random() * (max - 0 + 1)) + 0;
-        if(random >= originesCount){
-            return "commun";
+    const origineList = Object.values(dico); // liste des origines disponibles
+    const proba: { [origine: string]: number } = {};
+    let totalProba = 0;
+
+    for (const origine of origineList) {
+        if (origine === zone) {
+            proba[origine] = 12;
+        } else {
+            proba[origine] = 2.5;
         }
-
-        return dico[random];
+        totalProba += proba[origine];
     }
+
+    // Ajouter la probabilité de "commun"
+    proba["commun"] = Math.max(0, 100 - totalProba);
+    totalProba += proba["commun"]; // Devrait faire 100, sauf arrondis
+
+    // Création d'une table pondérée d’occurrences
+    const table: string[] = [];
+    for (const [origine, pourcent] of Object.entries(proba)) {
+        const count = Math.round(pourcent); // ou Math.floor si tu veux être strict
+        table.push(...Array(count).fill(origine));
+    }
+
+    // Tirage aléatoire
+    const tirage = Math.floor(Math.random() * table.length);
+    return table[tirage];
+}
+
 
     static getDefaultArme() : Arme{
         return {
@@ -210,14 +231,14 @@ export class ItemHelper{
         };
     }
     
-    static getAll():Array<Arme>{
+    static getAll(zone:string="commun"):Array<Arme>{
         return [
             //#region  Dagues
             {
                 "libelle":"Dague pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("dague"),
+                "origine":this.getOrigine(zone,"dague"),
                 "categorie":{
                     "code":"dague",
                     "libelle" : "Dagues"
@@ -240,7 +261,7 @@ export class ItemHelper{
                 "libelle":"Dague de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("dague"),
+                "origine":this.getOrigine(zone,"dague"),
                 "categorie":{
                     "code":"dague",
                     "libelle" : "Dagues"
@@ -262,7 +283,7 @@ export class ItemHelper{
                 "libelle":"Dague de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("dague"),
+                "origine":this.getOrigine(zone,"dague"),
                 "categorie":{
                     "code":"dague",
                     "libelle" : "Dagues"
@@ -284,7 +305,7 @@ export class ItemHelper{
                 "libelle":"Dague d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("dague"),
+                "origine":this.getOrigine(zone,"dague"),
                 "categorie":{
                     "code":"dague",
                     "libelle" : "Dagues"
@@ -306,7 +327,7 @@ export class ItemHelper{
                 "libelle":"Dague Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("dague"),
+                "origine":this.getOrigine(zone,"dague"),
                 "categorie":{
                     "code":"dague",
                     "libelle" : "Dagues"
@@ -328,7 +349,7 @@ export class ItemHelper{
                 "libelle":"Dague d'excellence",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("dague"),
+                "origine":this.getOrigine(zone,"dague"),
                 "categorie":{
                     "code":"dague",
                     "libelle" : "Dagues"
@@ -350,7 +371,7 @@ export class ItemHelper{
                 "libelle":"Dague de combat",
                 "basePourcentage":45,
                 "region":"commun",
-                "origine":this.getOrigine("dague"),
+                "origine":this.getOrigine(zone,"dague"),
                 "categorie":{
                     "code":"dague",
                     "libelle" : "Dagues"
@@ -372,7 +393,7 @@ export class ItemHelper{
                 "libelle":"Dague éthérée",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("dague"),
+                "origine":this.getOrigine(zone,"dague"),
                 "categorie":{
                     "code":"dague",
                     "libelle" : "Dagues"
@@ -396,7 +417,7 @@ export class ItemHelper{
                 "libelle":"Epée pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("epee"),
+                "origine":this.getOrigine(zone,"epee"),
                 "categorie":{
                     "code":"epee",
                     "libelle" : "Epées 1 main"
@@ -419,7 +440,7 @@ export class ItemHelper{
                 "libelle":"Epée de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("epee"),
+                "origine":this.getOrigine(zone,"epee"),
                 "categorie":{
                     "code":"epee",
                     "libelle" : "Epées 1 main"
@@ -441,7 +462,7 @@ export class ItemHelper{
                 "libelle":"Epée de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("epee"),
+                "origine":this.getOrigine(zone,"epee"),
                 "categorie":{
                     "code":"epee",
                     "libelle" : "Epées 1 main"
@@ -463,7 +484,7 @@ export class ItemHelper{
                 "libelle":"Epée d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("epee"),
+                "origine":this.getOrigine(zone,"epee"),
                 "categorie":{
                     "code":"epee",
                     "libelle" : "Epées 1 main"
@@ -485,7 +506,7 @@ export class ItemHelper{
                 "libelle":"Rapière de Noble",
                 "basePourcentage":65,
                 "region":"commun",
-                "origine":this.getOrigine("epee"),
+                "origine":this.getOrigine(zone,"epee"),
                 "categorie":{
                     "code":"epee",
                     "libelle" : "Epées 1 main"
@@ -507,7 +528,7 @@ export class ItemHelper{
                 "libelle":"Epée Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("epee"),
+                "origine":this.getOrigine(zone,"epee"),
                 "categorie":{
                     "code":"epee",
                     "libelle" : "Epées 1 main"
@@ -529,7 +550,7 @@ export class ItemHelper{
                 "libelle":"Lame d'excellence",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("epee"),
+                "origine":this.getOrigine(zone,"epee"),
                 "categorie":{
                     "code":"epee",
                     "libelle" : "Epées 1 main"
@@ -551,7 +572,7 @@ export class ItemHelper{
                 "libelle":"Lame de combat",
                 "basePourcentage":45,
                 "region":"commun",
-                "origine":this.getOrigine("epee"),
+                "origine":this.getOrigine(zone,"epee"),
                 "categorie":{
                     "code":"epee",
                     "libelle" : "Epées 1 main"
@@ -573,7 +594,7 @@ export class ItemHelper{
                 "libelle":"Lame de dueliste",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("epee"),
+                "origine":this.getOrigine(zone,"epee"),
                 "categorie":{
                     "code":"epee",
                     "libelle" : "Epées 1 main"
@@ -597,7 +618,7 @@ export class ItemHelper{
                 "libelle":"Hache pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("hache"),
+                "origine":this.getOrigine(zone,"hache"),
                 "categorie":{
                     "code":"hache",
                     "libelle" : "Haches 1 main"
@@ -620,7 +641,7 @@ export class ItemHelper{
                 "libelle":"Hache de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("hache"),
+                "origine":this.getOrigine(zone,"hache"),
                 "categorie":{
                     "code":"hache",
                     "libelle" : "Haches 1 main"
@@ -642,7 +663,7 @@ export class ItemHelper{
                 "libelle":"Hache de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("hache"),
+                "origine":this.getOrigine(zone,"hache"),
                 "categorie":{
                     "code":"hache",
                     "libelle" : "Haches 1 main"
@@ -664,7 +685,7 @@ export class ItemHelper{
                 "libelle":"Hache d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("hache"),
+                "origine":this.getOrigine(zone,"hache"),
                 "categorie":{
                     "code":"hache",
                     "libelle" : "Haches 1 main"
@@ -686,7 +707,7 @@ export class ItemHelper{
                 "libelle":"Hache Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("hache"),
+                "origine":this.getOrigine(zone,"hache"),
                 "categorie":{
                     "code":"hache",
                     "libelle" : "Haches 1 main"
@@ -708,7 +729,7 @@ export class ItemHelper{
                 "libelle":"Hache d'excellence",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("hache"),
+                "origine":this.getOrigine(zone,"hache"),
                 "categorie":{
                     "code":"hache",
                     "libelle" : "Haches 1 main"
@@ -730,7 +751,7 @@ export class ItemHelper{
                 "libelle":"Hache de combat",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("hache"),
+                "origine":this.getOrigine(zone,"hache"),
                 "categorie":{
                     "code":"hache",
                     "libelle" : "Haches 1 main"
@@ -754,7 +775,7 @@ export class ItemHelper{
                 "libelle":"Masse pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("masse"),
+                "origine":this.getOrigine(zone,"masse"),
                 "categorie":{
                     "code":"masse",
                     "libelle" : "Masses"
@@ -777,7 +798,7 @@ export class ItemHelper{
                 "libelle":"Masse de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("masse"),
+                "origine":this.getOrigine(zone,"masse"),
                 "categorie":{
                     "code":"masse",
                     "libelle" : "Masses"
@@ -799,7 +820,7 @@ export class ItemHelper{
                 "libelle":"Masse de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("masse"),
+                "origine":this.getOrigine(zone,"masse"),
                 "categorie":{
                     "code":"masse",
                     "libelle" : "Masses"
@@ -821,7 +842,7 @@ export class ItemHelper{
                 "libelle":"Masse d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("masse"),
+                "origine":this.getOrigine(zone,"masse"),
                 "categorie":{
                     "code":"masse",
                     "libelle" : "Masses"
@@ -843,7 +864,7 @@ export class ItemHelper{
                 "libelle":"Masse Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("masse"),
+                "origine":this.getOrigine(zone,"masse"),
                 "categorie":{
                     "code":"masse",
                     "libelle" : "Masses"
@@ -865,7 +886,7 @@ export class ItemHelper{
                 "libelle":"Masse de combat",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("masse"),
+                "origine":this.getOrigine(zone,"masse"),
                 "categorie":{
                     "code":"masse",
                     "libelle" : "Masses"
@@ -887,7 +908,7 @@ export class ItemHelper{
                 "libelle":"Masse d'Angmar",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("masse"),
+                "origine":this.getOrigine(zone,"masse"),
                 "categorie":{
                     "code":"masse",
                     "libelle" : "Masses"
@@ -911,7 +932,7 @@ export class ItemHelper{
                 "libelle":"Hache pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("hache-deux"),
+                "origine":this.getOrigine(zone,"hache-deux"),
                 "categorie":{
                     "code":"hache-deux",
                     "libelle" : "Haches à 2 mains"
@@ -934,7 +955,7 @@ export class ItemHelper{
                 "libelle":"Hache de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("hache-deux"),
+                "origine":this.getOrigine(zone,"hache-deux"),
                 "categorie":{
                     "code":"hache-deux",
                     "libelle" : "Haches à 2 mains"
@@ -956,7 +977,7 @@ export class ItemHelper{
                 "libelle":"Hache de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("hache-deux"),
+                "origine":this.getOrigine(zone,"hache-deux"),
                 "categorie":{
                     "code":"hache-deux",
                     "libelle" : "Haches à 2 mains"
@@ -978,7 +999,7 @@ export class ItemHelper{
                 "libelle":"Hache d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("hache-deux"),
+                "origine":this.getOrigine(zone,"hache-deux"),
                 "categorie":{
                     "code":"hache-deux",
                     "libelle" : "Haches à 2 mains"
@@ -1000,7 +1021,7 @@ export class ItemHelper{
                 "libelle":"Hache Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("hache-deux"),
+                "origine":this.getOrigine(zone,"hache-deux"),
                 "categorie":{
                     "code":"hache-deux",
                     "libelle" : "Haches à 2 mains"
@@ -1022,7 +1043,7 @@ export class ItemHelper{
                 "libelle":"Hache de combat",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("hache-deux"),
+                "origine":this.getOrigine(zone,"hache-deux"),
                 "categorie":{
                     "code":"hache-deux",
                     "libelle" : "Haches à 2 mains"
@@ -1044,7 +1065,7 @@ export class ItemHelper{
                 "libelle":"Hache double",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("hache-deux"),
+                "origine":this.getOrigine(zone,"hache-deux"),
                 "categorie":{
                     "code":"hache-deux",
                     "libelle" : "Haches à 2 mains"
@@ -1068,7 +1089,7 @@ export class ItemHelper{
                 "libelle":"Marteau pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("marteau"),
+                "origine":this.getOrigine(zone,"marteau"),
                 "categorie":{
                     "code":"marteau",
                     "libelle" : "Marteaux à 2 mains"
@@ -1091,7 +1112,7 @@ export class ItemHelper{
                 "libelle":"Marteau de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("marteau"),
+                "origine":this.getOrigine(zone,"marteau"),
                 "categorie":{
                     "code":"marteau",
                     "libelle" : "Marteaux à 2 mains"
@@ -1113,7 +1134,7 @@ export class ItemHelper{
                 "libelle":"Marteau de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("marteau"),
+                "origine":this.getOrigine(zone,"marteau"),
                 "categorie":{
                     "code":"marteau",
                     "libelle" : "Marteaux à 2 mains"
@@ -1135,7 +1156,7 @@ export class ItemHelper{
                 "libelle":"Marteau d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("marteau"),
+                "origine":this.getOrigine(zone,"marteau"),
                 "categorie":{
                     "code":"marteau",
                     "libelle" : "Marteaux à 2 mains"
@@ -1157,7 +1178,7 @@ export class ItemHelper{
                 "libelle":"Marteau Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("marteau"),
+                "origine":this.getOrigine(zone,"marteau"),
                 "categorie":{
                     "code":"marteau",
                     "libelle" : "Marteaux à 2 mains"
@@ -1179,7 +1200,7 @@ export class ItemHelper{
                 "libelle":"Marteau de combat",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("marteau"),
+                "origine":this.getOrigine(zone,"marteau"),
                 "categorie":{
                     "code":"marteau",
                     "libelle" : "Marteaux à 2 mains"
@@ -1201,7 +1222,7 @@ export class ItemHelper{
                 "libelle":"Marteau de destruction",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("marteau"),
+                "origine":this.getOrigine(zone,"marteau"),
                 "categorie":{
                     "code":"marteau",
                     "libelle" : "Marteaux à 2 mains"
@@ -1226,7 +1247,7 @@ export class ItemHelper{
                 "libelle":"Lance pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("lance"),
+                "origine":this.getOrigine(zone,"lance"),
                 "categorie":{
                     "code":"lance",
                     "libelle" : "Lances"
@@ -1249,7 +1270,7 @@ export class ItemHelper{
                 "libelle":"lance de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("lance"),
+                "origine":this.getOrigine(zone,"lance"),
                 "categorie":{
                     "code":"lance",
                     "libelle" : "Lances"
@@ -1271,7 +1292,7 @@ export class ItemHelper{
                 "libelle":"Lance de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("lance"),
+                "origine":this.getOrigine(zone,"lance"),
                 "categorie":{
                     "code":"lance",
                     "libelle" : "Lances"
@@ -1293,7 +1314,7 @@ export class ItemHelper{
                 "libelle":"Lance d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("lance"),
+                "origine":this.getOrigine(zone,"lance"),
                 "categorie":{
                     "code":"lance",
                     "libelle" : "Lances"
@@ -1315,7 +1336,7 @@ export class ItemHelper{
                 "libelle":"Lance Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("lance"),
+                "origine":this.getOrigine(zone,"lance"),
                 "categorie":{
                     "code":"lance",
                     "libelle" : "Lances"
@@ -1337,7 +1358,7 @@ export class ItemHelper{
                 "libelle":"Lance de combat",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("lance"),
+                "origine":this.getOrigine(zone,"lance"),
                 "categorie":{
                     "code":"lance",
                     "libelle" : "Lances"
@@ -1359,7 +1380,7 @@ export class ItemHelper{
                 "libelle":"Lance de précision",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("lance"),
+                "origine":this.getOrigine(zone,"lance"),
                 "categorie":{
                     "code":"lance",
                     "libelle" : "Lances"
@@ -1383,7 +1404,7 @@ export class ItemHelper{
                 "libelle":"Arc pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("arc"),
+                "origine":this.getOrigine(zone,"arc"),
                 "categorie":{
                     "code":"arc",
                     "libelle" : "Arcs"
@@ -1406,7 +1427,7 @@ export class ItemHelper{
                 "libelle":"Arc de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("arc"),
+                "origine":this.getOrigine(zone,"arc"),
                 "categorie":{
                     "code":"arc",
                     "libelle" : "Arcs"
@@ -1428,7 +1449,7 @@ export class ItemHelper{
                 "libelle":"Arc de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("arc"),
+                "origine":this.getOrigine(zone,"arc"),
                 "categorie":{
                     "code":"arc",
                     "libelle" : "Arcs"
@@ -1450,7 +1471,7 @@ export class ItemHelper{
                 "libelle":"Arc d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("arc"),
+                "origine":this.getOrigine(zone,"arc"),
                 "categorie":{
                     "code":"arc",
                     "libelle" : "Arcs"
@@ -1472,7 +1493,7 @@ export class ItemHelper{
                 "libelle":"Arc Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("arc"),
+                "origine":this.getOrigine(zone,"arc"),
                 "categorie":{
                     "code":"arc",
                     "libelle" : "Arcs"
@@ -1494,7 +1515,7 @@ export class ItemHelper{
                 "libelle":"Arc d'excellence",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("arc"),
+                "origine":this.getOrigine(zone,"arc"),
                 "categorie":{
                     "code":"arc",
                     "libelle" : "Arcs"
@@ -1516,7 +1537,7 @@ export class ItemHelper{
                 "libelle":"Arc de précision",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("arc"),
+                "origine":this.getOrigine(zone,"arc"),
                 "categorie":{
                     "code":"arc",
                     "libelle" : "Arcs"
@@ -1538,7 +1559,7 @@ export class ItemHelper{
                 "libelle":"Arc d'yggdrasil",
                 "basePourcentage":35,
                 "region":"commun",
-                "origine":this.getOrigine("arc"),
+                "origine":this.getOrigine(zone,"arc"),
                 "categorie":{
                     "code":"arc",
                     "libelle" : "Arcs"
@@ -1562,7 +1583,7 @@ export class ItemHelper{
                 "libelle":"Arbalète pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("arbalete"),
+                "origine":this.getOrigine(zone,"arbalete"),
                 "categorie":{
                     "code":"arbalete",
                     "libelle" : "Arbalètes"
@@ -1585,7 +1606,7 @@ export class ItemHelper{
                 "libelle":"Arbalète de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("arbalete"),
+                "origine":this.getOrigine(zone,"arbalete"),
                 "categorie":{
                     "code":"arbalete",
                     "libelle" : "Arbalètes"
@@ -1607,7 +1628,7 @@ export class ItemHelper{
                 "libelle":"Arbalète de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("arbalete"),
+                "origine":this.getOrigine(zone,"arbalete"),
                 "categorie":{
                     "code":"arbalete",
                     "libelle" : "Arbalètes"
@@ -1629,7 +1650,7 @@ export class ItemHelper{
                 "libelle":"Arbalète d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("arbalete"),
+                "origine":this.getOrigine(zone,"arbalete"),
                 "categorie":{
                     "code":"arbalete",
                     "libelle" : "Arbalètes"
@@ -1651,7 +1672,7 @@ export class ItemHelper{
                 "libelle":"Arbalète Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("arbalete"),
+                "origine":this.getOrigine(zone,"arbalete"),
                 "categorie":{
                     "code":"arbalete",
                     "libelle" : "Arbalètes"
@@ -1673,7 +1694,7 @@ export class ItemHelper{
                 "libelle":"Arbalète d'excellence",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("arbalete"),
+                "origine":this.getOrigine(zone,"arbalete"),
                 "categorie":{
                     "code":"arbalete",
                     "libelle" : "Arbalètes"
@@ -1695,7 +1716,7 @@ export class ItemHelper{
                 "libelle":"Arbalète de combat",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("arbalete"),
+                "origine":this.getOrigine(zone,"arbalete"),
                 "categorie":{
                     "code":"arbalete",
                     "libelle" : "Arbalètes"
@@ -1717,7 +1738,7 @@ export class ItemHelper{
                 "libelle":"Arbalète d'immobilisation",
                 "basePourcentage":35,
                 "region":"commun",
-                "origine":this.getOrigine("arbalete"),
+                "origine":this.getOrigine(zone,"arbalete"),
                 "categorie":{
                     "code":"arbalete",
                     "libelle" : "Arbalètes"
@@ -1741,7 +1762,7 @@ export class ItemHelper{
                 "libelle":"Javelot pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("javelot"),
+                "origine":this.getOrigine(zone,"javelot"),
                 "categorie":{
                     "code":"javelot",
                     "libelle" : "Javelots"
@@ -1764,7 +1785,7 @@ export class ItemHelper{
                 "libelle":"Javelot de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("javelot"),
+                "origine":this.getOrigine(zone,"javelot"),
                 "categorie":{
                     "code":"javelot",
                     "libelle" : "Javelots"
@@ -1786,7 +1807,7 @@ export class ItemHelper{
                 "libelle":"Javelot de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("javelot"),
+                "origine":this.getOrigine(zone,"javelot"),
                 "categorie":{
                     "code":"javelot",
                     "libelle" : "Javelots"
@@ -1808,7 +1829,7 @@ export class ItemHelper{
                 "libelle":"Javelot d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("javelot"),
+                "origine":this.getOrigine(zone,"javelot"),
                 "categorie":{
                     "code":"javelot",
                     "libelle" : "Javelots"
@@ -1830,7 +1851,7 @@ export class ItemHelper{
                 "libelle":"Javelot Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("javelot"),
+                "origine":this.getOrigine(zone,"javelot"),
                 "categorie":{
                     "code":"javelot",
                     "libelle" : "Javelots"
@@ -1852,7 +1873,7 @@ export class ItemHelper{
                 "libelle":"Javelot d'excellence",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("javelot"),
+                "origine":this.getOrigine(zone,"javelot"),
                 "categorie":{
                     "code":"javelot",
                     "libelle" : "Javelots"
@@ -1874,7 +1895,7 @@ export class ItemHelper{
                 "libelle":"Javelot de combat",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("javelot"),
+                "origine":this.getOrigine(zone,"javelot"),
                 "categorie":{
                     "code":"javelot",
                     "libelle" : "Javelots"
@@ -1898,7 +1919,7 @@ export class ItemHelper{
                 "libelle":"Pistolet pérave",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("pistolet"),
+                "origine":this.getOrigine(zone,"pistolet"),
                 "categorie":{
                     "code":"pistolet",
                     "libelle" : "Armes à feu"
@@ -1921,7 +1942,7 @@ export class ItemHelper{
                 "libelle":"Pistolet de qualité correcte",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("pistolet"),
+                "origine":this.getOrigine(zone,"pistolet"),
                 "categorie":{
                     "code":"pistolet",
                     "libelle" : "Armes à feu"
@@ -1943,7 +1964,7 @@ export class ItemHelper{
                 "libelle":"Pistolet de bonne qualité",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("pistolet"),
+                "origine":this.getOrigine(zone,"pistolet"),
                 "categorie":{
                     "code":"pistolet",
                     "libelle" : "Armes à feu"
@@ -1965,7 +1986,7 @@ export class ItemHelper{
                 "libelle":"Pistolet d'artisant renommé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("pistolet"),
+                "origine":this.getOrigine(zone,"pistolet"),
                 "categorie":{
                     "code":"pistolet",
                     "libelle" : "Armes à feu"
@@ -1987,7 +2008,7 @@ export class ItemHelper{
                 "libelle":"Pistolet Durandil",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("pistolet"),
+                "origine":this.getOrigine(zone,"pistolet"),
                 "categorie":{
                     "code":"pistolet",
                     "libelle" : "Armes à feu"
@@ -2009,7 +2030,7 @@ export class ItemHelper{
                 "libelle":"Pistolet à bayonette",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("pistolet"),
+                "origine":this.getOrigine(zone,"pistolet"),
                 "categorie":{
                     "code":"pistolet",
                     "libelle" : "Armes à feu"
@@ -2031,7 +2052,7 @@ export class ItemHelper{
                 "libelle":"Pistolet perforant",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("pistolet"),
+                "origine":this.getOrigine(zone,"pistolet"),
                 "categorie":{
                     "code":"pistolet",
                     "libelle" : "Armes à feu"
@@ -2055,7 +2076,7 @@ export class ItemHelper{
                 "libelle":"Canne de Bois Mort",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("baton"),
+                "origine":this.getOrigine(zone,"baton"),
                 "categorie":{
                     "code":"baton",
                     "libelle" : "Bâtons"
@@ -2078,7 +2099,7 @@ export class ItemHelper{
                 "libelle":"Bâton du Bois Mouillé",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("baton"),
+                "origine":this.getOrigine(zone,"baton"),
                 "categorie":{
                     "code":"baton",
                     "libelle" : "Bâtons"
@@ -2100,7 +2121,7 @@ export class ItemHelper{
                 "libelle":"Bâton de Saule",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("baton"),
+                "origine":this.getOrigine(zone,"baton"),
                 "categorie":{
                     "code":"baton",
                     "libelle" : "Bâtons"
@@ -2122,7 +2143,7 @@ export class ItemHelper{
                 "libelle":"Bâton d'Elémentaliste",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("baton"),
+                "origine":this.getOrigine(zone,"baton"),
                 "categorie":{
                     "code":"baton",
                     "libelle" : "Bâtons"
@@ -2144,7 +2165,7 @@ export class ItemHelper{
                 "libelle":"Bâton Arcanique",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("baton"),
+                "origine":this.getOrigine(zone,"baton"),
                 "categorie":{
                     "code":"baton",
                     "libelle" : "Bâtons"
@@ -2166,7 +2187,7 @@ export class ItemHelper{
                 "libelle":"Le Bâton de l’Éclipse",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("baton"),
+                "origine":this.getOrigine(zone,"baton"),
                 "categorie":{
                     "code":"baton",
                     "libelle" : "Bâtons"
@@ -2188,7 +2209,7 @@ export class ItemHelper{
                 "libelle":"Le Brise-Monde",
                 "basePourcentage":40,
                 "region":"commun",
-                "origine":this.getOrigine("baton"),
+                "origine":this.getOrigine(zone,"baton"),
                 "categorie":{
                     "code":"baton",
                     "libelle" : "Bâtons"
@@ -2212,7 +2233,7 @@ export class ItemHelper{
                 "libelle":"Grimoire élémentaire basique (feu)",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2234,7 +2255,7 @@ export class ItemHelper{
                "libelle":"Grimoire élémentaire basique (eau)",
                "basePourcentage":95,
                "region":"commun",
-               "origine":this.getOrigine("grimoire"),
+               "origine":this.getOrigine(zone,"grimoire"),
                "categorie":{
                    "code":"grimoire",
                    "libelle" : "Grimoires"
@@ -2256,7 +2277,7 @@ export class ItemHelper{
               "libelle":"Grimoire élémentaire basique (terre)",
               "basePourcentage":95,
               "region":"commun",
-              "origine":this.getOrigine("grimoire"),
+              "origine":this.getOrigine(zone,"grimoire"),
               "categorie":{
                   "code":"grimoire",
                   "libelle" : "Grimoires"
@@ -2278,7 +2299,7 @@ export class ItemHelper{
              "libelle":"Grimoire élémentaire basique (air)",
              "basePourcentage":95,
              "region":"commun",
-             "origine":this.getOrigine("grimoire"),
+             "origine":this.getOrigine(zone,"grimoire"),
              "categorie":{
                  "code":"grimoire",
                  "libelle" : "Grimoires"
@@ -2300,7 +2321,7 @@ export class ItemHelper{
                 "libelle":"Grimoire élémentaire avancé (feu)",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2322,7 +2343,7 @@ export class ItemHelper{
                 "libelle":"Grimoire élémentaire avancé (eau)",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2344,7 +2365,7 @@ export class ItemHelper{
                 "libelle":"Grimoire élémentaire avancé (terre)",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2366,7 +2387,7 @@ export class ItemHelper{
                 "libelle":"Grimoire élémentaire avancé (air)",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2388,7 +2409,7 @@ export class ItemHelper{
                 "libelle":"Grimoire élémentaire expert (feu)",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2410,7 +2431,7 @@ export class ItemHelper{
                 "libelle":"Grimoire élémentaire expert (eau)",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2432,7 +2453,7 @@ export class ItemHelper{
                 "libelle":"Grimoire élémentaire expert (terre)",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2454,7 +2475,7 @@ export class ItemHelper{
                 "libelle":"Grimoire élémentaire expert (air)",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2476,7 +2497,7 @@ export class ItemHelper{
                 "libelle":"Grimoire universel",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2498,7 +2519,7 @@ export class ItemHelper{
                 "libelle":"Grimoire des Sables du Temps",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2520,7 +2541,7 @@ export class ItemHelper{
                 "libelle":"Codex de l'infini",
                 "basePourcentage":10,
                 "region":"commun",
-                "origine":this.getOrigine("grimoire"),
+                "origine":this.getOrigine(zone,"grimoire"),
                 "categorie":{
                     "code":"grimoire",
                     "libelle" : "Grimoires"
@@ -2578,14 +2599,14 @@ export class ItemHelper{
     }
     
 
-    static getAllArmure():Array<Armure>{
+    static getAllArmure(zone:string="commun"):Array<Armure>{
         return [
             //#region Bouclier
             {
                 "libelle":"Bouclier de base",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("bouclier"),
+                "origine":this.getOrigine(zone,"bouclier"),
                 "categorie":{
                     "code":"bouclier",
                     "libelle" : "Bouclier"
@@ -2608,7 +2629,7 @@ export class ItemHelper{
                 "libelle":"Grand bouclier",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("bouclier"),
+                "origine":this.getOrigine(zone,"bouclier"),
                 "categorie":{
                     "code":"bouclier",
                     "libelle" : "Bouclier"
@@ -2630,7 +2651,7 @@ export class ItemHelper{
                 "libelle":"Bouclier de luxe",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("bouclier"),
+                "origine":this.getOrigine(zone,"bouclier"),
                 "categorie":{
                     "code":"bouclier",
                     "libelle" : "Bouclier"
@@ -2652,7 +2673,7 @@ export class ItemHelper{
                 "libelle":"Grand bouclier de luxe",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("bouclier"),
+                "origine":this.getOrigine(zone,"bouclier"),
                 "categorie":{
                     "code":"bouclier",
                     "libelle" : "Bouclier"
@@ -2674,7 +2695,7 @@ export class ItemHelper{
                 "libelle":"Bouclier ultra-léger",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("bouclier"),
+                "origine":this.getOrigine(zone,"bouclier"),
                 "categorie":{
                     "code":"bouclier",
                     "libelle" : "Bouclier"
@@ -2696,7 +2717,7 @@ export class ItemHelper{
                 "libelle":"Bouclier de champion",
                 "basePourcentage":50,
                 "region":"commun",
-                "origine":this.getOrigine("bouclier"),
+                "origine":this.getOrigine(zone,"bouclier"),
                 "categorie":{
                     "code":"bouclier",
                     "libelle" : "Bouclier"
@@ -2720,7 +2741,7 @@ export class ItemHelper{
                 "libelle":"Casque",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir",
                     "libelle" : "Cuir"
@@ -2743,7 +2764,7 @@ export class ItemHelper{
                 "libelle":"Jambières",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir",
                     "libelle" : "Cuir"
@@ -2765,7 +2786,7 @@ export class ItemHelper{
                 "libelle":"Brassards",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir",
                     "libelle" : "Cuir"
@@ -2787,7 +2808,7 @@ export class ItemHelper{
                 "libelle":"Plastron",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir",
                     "libelle" : "Cuir"
@@ -2809,7 +2830,7 @@ export class ItemHelper{
                 "libelle":"Bottes",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir",
                     "libelle" : "Cuir"
@@ -2831,7 +2852,7 @@ export class ItemHelper{
                 "libelle":"Ensemble",
                 "basePourcentage":200,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir",
                     "libelle" : "Cuir"
@@ -2855,7 +2876,7 @@ export class ItemHelper{
                 "libelle":"Casque renforcé",
                 "basePourcentage":85,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-renforcé",
                     "libelle" : "Cuir Renforcé"
@@ -2878,7 +2899,7 @@ export class ItemHelper{
                 "libelle":"Jambières renforcées",
                 "basePourcentage":85,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-renforcé",
                     "libelle" : "Cuir Renforcé"
@@ -2901,7 +2922,7 @@ export class ItemHelper{
                 "libelle":"Brassards renforcés",
                 "basePourcentage":85,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-renforcé",
                     "libelle" : "Cuir Renforcé"
@@ -2924,7 +2945,7 @@ export class ItemHelper{
                 "libelle":"Plastron renforcé",
                 "basePourcentage":85,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-renforcé",
                     "libelle" : "Cuir Renforcé"
@@ -2947,7 +2968,7 @@ export class ItemHelper{
                 "libelle":"Bottes renforcées",
                 "basePourcentage":85,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-renforcé",
                     "libelle" : "Cuir Renforcé"
@@ -2970,7 +2991,7 @@ export class ItemHelper{
                 "libelle":"Ensemble renforcé",
                 "basePourcentage":250,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-renforcé",
                     "libelle" : "Cuir Renforcé"
@@ -2995,7 +3016,7 @@ export class ItemHelper{
                 "libelle":"Casque travaillé",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-travaille",
                     "libelle" : "Cuir Travaillé"
@@ -3017,7 +3038,7 @@ export class ItemHelper{
                 "libelle":"Jambières travaillées",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-travaille",
                     "libelle" : "Cuir Travaillé"
@@ -3039,7 +3060,7 @@ export class ItemHelper{
                 "libelle":"Brassards travaillés",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-travaille",
                     "libelle" : "Cuir Travaillé"
@@ -3061,7 +3082,7 @@ export class ItemHelper{
                 "libelle":"Plastron travaillé",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-travaille",
                     "libelle" : "Cuir Travaillé"
@@ -3083,7 +3104,7 @@ export class ItemHelper{
                 "libelle":"Bottes travaillées",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-travaille",
                     "libelle" : "Cuir Travaillé"
@@ -3105,7 +3126,7 @@ export class ItemHelper{
                 "libelle":"Ensemble travaillé",
                 "basePourcentage":250,
                 "region":"commun",
-                "origine":this.getOrigine("armure-cuir"),
+                "origine":this.getOrigine(zone,"armure-cuir"),
                 "categorie":{
                     "code":"armure-cuir-travaille",
                     "libelle" : "Cuir Travaillé"
@@ -3129,7 +3150,7 @@ export class ItemHelper{
                 "libelle":"Casque de mailles",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille",
                     "libelle" : "Mailles"
@@ -3151,7 +3172,7 @@ export class ItemHelper{
                 "libelle":"Jambières de mailles",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille",
                     "libelle" : "Mailles"
@@ -3173,7 +3194,7 @@ export class ItemHelper{
                 "libelle":"Brassards de mailles",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille",
                     "libelle" : "Mailles"
@@ -3195,7 +3216,7 @@ export class ItemHelper{
                 "libelle":"Plastron de mailles",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille",
                     "libelle" : "Mailles"
@@ -3217,7 +3238,7 @@ export class ItemHelper{
                 "libelle":"Bottes de mailles",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille",
                     "libelle" : "Mailles"
@@ -3239,7 +3260,7 @@ export class ItemHelper{
                 "libelle":"Ensemble de mailles",
                 "basePourcentage":250,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille",
                     "libelle" : "Mailles"
@@ -3263,7 +3284,7 @@ export class ItemHelper{
                 "libelle":"Casque de mailles renforcé",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-renforcee",
                     "libelle" : "Mailles renforcées"
@@ -3285,7 +3306,7 @@ export class ItemHelper{
                 "libelle":"Jambières de mailles renforcées",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-renforcee",
                     "libelle" : "Mailles renforcées"
@@ -3307,7 +3328,7 @@ export class ItemHelper{
                 "libelle":"Brassards de mailles renforcés",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-renforcee",
                     "libelle" : "Mailles renforcées"
@@ -3329,7 +3350,7 @@ export class ItemHelper{
                 "libelle":"Plastron de mailles renforcé",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-renforcee",
                     "libelle" : "Mailles renforcées"
@@ -3351,7 +3372,7 @@ export class ItemHelper{
                 "libelle":"Bottes de mailles renforcées",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-renforcee",
                     "libelle" : "Mailles renforcées"
@@ -3373,7 +3394,7 @@ export class ItemHelper{
                 "libelle":"Ensemble de mailles renforcé",
                 "basePourcentage":250,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-renforcee",
                     "libelle" : "Mailles renforcées"
@@ -3397,7 +3418,7 @@ export class ItemHelper{
                 "libelle":"Casque de mailles travaillé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-travaillees",
                     "libelle" : "Mailles Travaillées"
@@ -3419,7 +3440,7 @@ export class ItemHelper{
                 "libelle":"Jambières de mailles travaillées",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-travaillees",
                     "libelle" : "Mailles Travaillées"
@@ -3441,7 +3462,7 @@ export class ItemHelper{
                 "libelle":"Brassards de mailles travaillés",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-travaillees",
                     "libelle" : "Mailles Travaillées"
@@ -3463,7 +3484,7 @@ export class ItemHelper{
                 "libelle":"Plastron de mailles travaillé",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-travaillees",
                     "libelle" : "Mailles Travaillées"
@@ -3485,7 +3506,7 @@ export class ItemHelper{
                 "libelle":"Bottes de mailles travaillées",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-travaillees",
                     "libelle" : "Mailles Travaillées"
@@ -3507,7 +3528,7 @@ export class ItemHelper{
                 "libelle":"Ensemble de mailles travaillé",
                 "basePourcentage":250,
                 "region":"commun",
-                "origine":this.getOrigine("armure-maille"),
+                "origine":this.getOrigine(zone,"armure-maille"),
                 "categorie":{
                     "code":"armure-maille-travaillees",
                     "libelle" : "Mailles Travaillées"
@@ -3531,7 +3552,7 @@ export class ItemHelper{
                 "libelle":"Casque de plaque",
                 "basePourcentage":65,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque",
                     "libelle" : "Plaque"
@@ -3553,7 +3574,7 @@ export class ItemHelper{
                 "libelle":"Jambières de plaque",
                 "basePourcentage":65,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque",
                     "libelle" : "Plaque"
@@ -3575,7 +3596,7 @@ export class ItemHelper{
                 "libelle":"Brassards de plaque",
                 "basePourcentage":65,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque",
                     "libelle" : "Plaque"
@@ -3597,7 +3618,7 @@ export class ItemHelper{
                 "libelle":"Plastron de plaque",
                 "basePourcentage":65,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque",
                     "libelle" : "Plaque"
@@ -3619,7 +3640,7 @@ export class ItemHelper{
                 "libelle":"Bottes de plaque",
                 "basePourcentage":65,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque",
                     "libelle" : "Plaque"
@@ -3641,7 +3662,7 @@ export class ItemHelper{
                 "libelle":"Ensemble de plaque",
                 "basePourcentage":65,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque",
                     "libelle" : "Plaque"
@@ -3665,7 +3686,7 @@ export class ItemHelper{
                 "libelle":"Casque de plaque renforcé",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-renforcee",
                     "libelle" : "Plaque Renforcée"
@@ -3687,7 +3708,7 @@ export class ItemHelper{
                 "libelle":"Jambières de plaque renforcées",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-renforcee",
                     "libelle" : "Plaque Renforcée"
@@ -3709,7 +3730,7 @@ export class ItemHelper{
                 "libelle":"Brasssards de plaque renforcées",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-renforcee",
                     "libelle" : "Plaque Renforcée"
@@ -3731,7 +3752,7 @@ export class ItemHelper{
                 "libelle":"Plastron de plaque renforcé",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-renforcee",
                     "libelle" : "Plaque Renforcée"
@@ -3753,7 +3774,7 @@ export class ItemHelper{
                 "libelle":"Bottes de plaque renforcées",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-renforcee",
                     "libelle" : "Plaque Renforcée"
@@ -3775,7 +3796,7 @@ export class ItemHelper{
                 "libelle":"Ensemble de plaque renforcé",
                 "basePourcentage":60,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-renforcee",
                     "libelle" : "Plaque Renforcée"
@@ -3799,7 +3820,7 @@ export class ItemHelper{
                 "libelle":"Casque de plaque travaillé",
                 "basePourcentage":55,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-travaillee",
                     "libelle" : "Plaque Travaillée"
@@ -3821,7 +3842,7 @@ export class ItemHelper{
                 "libelle":"Jambières de plaque travaillées",
                 "basePourcentage":55,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-travaillee",
                     "libelle" : "Plaque Travaillée"
@@ -3843,7 +3864,7 @@ export class ItemHelper{
                 "libelle":"Brassards de plaque travaillés",
                 "basePourcentage":55,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-travaillee",
                     "libelle" : "Plaque Travaillée"
@@ -3865,7 +3886,7 @@ export class ItemHelper{
                 "libelle":"Plastron de plaque travaillé",
                 "basePourcentage":55,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-travaillee",
                     "libelle" : "Plaque Travaillée"
@@ -3887,7 +3908,7 @@ export class ItemHelper{
                 "libelle":"Bottes de plaque travaillées",
                 "basePourcentage":55,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-travaillee",
                     "libelle" : "Plaque Travaillée"
@@ -3909,7 +3930,7 @@ export class ItemHelper{
                 "libelle":"Ensemble de plaque travaillé",
                 "basePourcentage":55,
                 "region":"commun",
-                "origine":this.getOrigine("armure-plaque"),
+                "origine":this.getOrigine(zone,"armure-plaque"),
                 "categorie":{
                     "code":"armure-plaque-travaillee",
                     "libelle" : "Plaque Travaillée"
@@ -3933,7 +3954,7 @@ export class ItemHelper{
                 "libelle":"Robe trouée",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -3955,7 +3976,7 @@ export class ItemHelper{
                 "libelle":"Robe d'apprenti",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -3977,7 +3998,7 @@ export class ItemHelper{
                 "libelle":"Robe de l'enchanteur",
                 "basePourcentage":85,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -3999,7 +4020,7 @@ export class ItemHelper{
                 "libelle":"Robe d'archimage",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -4021,7 +4042,7 @@ export class ItemHelper{
                 "libelle":"Robe du Seigneur des Arcanes (feu)",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -4043,7 +4064,7 @@ export class ItemHelper{
                 "libelle":"Robe du Seigneur des Arcanes (eau)",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -4065,7 +4086,7 @@ export class ItemHelper{
                 "libelle":"Robe du Seigneur des Arcanes (terre)",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -4087,7 +4108,7 @@ export class ItemHelper{
                 "libelle":"Robe du Seigneur des Arcanes (air)",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -4109,7 +4130,7 @@ export class ItemHelper{
                 "libelle":"Robe du Crépuscule",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -4131,7 +4152,7 @@ export class ItemHelper{
                 "libelle":"Robe du Tisseur de Réalités",
                 "basePourcentage":65,
                 "region":"commun",
-                "origine":this.getOrigine("robe"),
+                "origine":this.getOrigine(zone,"robe"),
                 "categorie":{
                     "code":"robe",
                     "libelle" : "Robes"
@@ -4155,7 +4176,7 @@ export class ItemHelper{
                 "libelle":"Chapeau Fripé de l Initié",
                 "basePourcentage":95,
                 "region":"commun",
-                "origine":this.getOrigine("chapeau"),
+                "origine":this.getOrigine(zone,"chapeau"),
                 "categorie":{
                     "code":"chapeau",
                     "libelle" : "Chapeau"
@@ -4178,7 +4199,7 @@ export class ItemHelper{
                 "libelle":"Chapeau d'apprenti",
                 "basePourcentage":90,
                 "region":"commun",
-                "origine":this.getOrigine("chapeau"),
+                "origine":this.getOrigine(zone,"chapeau"),
                 "categorie":{
                     "code":"chapeau",
                     "libelle" : "Chapeau"
@@ -4200,7 +4221,7 @@ export class ItemHelper{
                 "libelle":"Chapeau de l’Invocateur",
                 "basePourcentage":85,
                 "region":"commun",
-                "origine":this.getOrigine("chapeau"),
+                "origine":this.getOrigine(zone,"chapeau"),
                 "categorie":{
                     "code":"chapeau",
                     "libelle" : "Chapeau"
@@ -4222,7 +4243,7 @@ export class ItemHelper{
                 "libelle":"Chapeau du Magicien Crépusculaire",
                 "basePourcentage":80,
                 "region":"commun",
-                "origine":this.getOrigine("chapeau"),
+                "origine":this.getOrigine(zone,"chapeau"),
                 "categorie":{
                     "code":"chapeau",
                     "libelle" : "Chapeau"
@@ -4244,7 +4265,7 @@ export class ItemHelper{
                 "libelle":"Chapeau des Sphères Célestes",
                 "basePourcentage":75,
                 "region":"commun",
-                "origine":this.getOrigine("chapeau"),
+                "origine":this.getOrigine(zone,"chapeau"),
                 "categorie":{
                     "code":"chapeau",
                     "libelle" : "Chapeau"
@@ -4266,7 +4287,7 @@ export class ItemHelper{
                 "libelle":"Chapeau de l’Astral Infini",
                 "basePourcentage":70,
                 "region":"commun",
-                "origine":this.getOrigine("chapeau"),
+                "origine":this.getOrigine(zone,"chapeau"),
                 "categorie":{
                     "code":"chapeau",
                     "libelle" : "Chapeau"
@@ -4288,7 +4309,7 @@ export class ItemHelper{
                 "libelle":"Chapeau du Maître des Dimensions",
                 "basePourcentage":65,
                 "region":"commun",
-                "origine":this.getOrigine("chapeau"),
+                "origine":this.getOrigine(zone,"chapeau"),
                 "categorie":{
                     "code":"chapeau",
                     "libelle" : "Chapeau"

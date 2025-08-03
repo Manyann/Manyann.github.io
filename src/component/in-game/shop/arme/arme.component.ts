@@ -23,13 +23,14 @@ import { ItemsService } from "../../../../app/services/items.service";
   export class ArmeComponent {
 
     @Input() selectedVilleType:string = "capitale";
+    @Input() selectedRegion:string = "commun";
     
   villes: Array<Ville>;  
   items : Array<Arme>;
   
   constructor(itemsService:ItemsService){
     this.villes =  VilleHelper.getAll().sort((a,b)=> a.libelle.localeCompare(b.libelle));
-    this.items = ItemHelper.getAll(); 
+    this.items = ItemHelper.getAll(this.selectedRegion); 
     }
 
     public filterItems(){
@@ -56,6 +57,7 @@ import { ItemsService } from "../../../../app/services/items.service";
       }
 
       ngOnChanges() {
+        this.items = ItemHelper.getAll(this.selectedRegion);  
         this.filterItems();
       }
 }  

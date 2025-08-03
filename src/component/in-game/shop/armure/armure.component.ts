@@ -19,13 +19,14 @@ import { Ville, VilleHelper } from "../../../model/villes";
   })
   export class ArmureComponent {
     @Input() selectedVilleType:string = "capitale";
+    @Input() selectedRegion:string = "commun";
     
     villes: Array<Ville>;  
     items : Array<Armure>;
     
     constructor(){
       this.villes =  VilleHelper.getAll().sort((a,b)=> a.libelle.localeCompare(b.libelle));
-      this.items = ItemHelper.getAllArmure();  
+      this.items = ItemHelper.getAllArmure(this.selectedRegion);  
       }
   
       public filterItems(){
@@ -53,6 +54,7 @@ import { Ville, VilleHelper } from "../../../model/villes";
         
 
       ngOnChanges() {
+        this.items = ItemHelper.getAllArmure(this.selectedRegion);  
         this.filterItems();
       }
 }  
