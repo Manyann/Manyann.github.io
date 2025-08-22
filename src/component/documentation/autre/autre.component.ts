@@ -52,6 +52,11 @@ private buildCardList():Array<Card>{
       url:"assets/img/pdfs/autre/tableau-sortsentropiques-naheulbeuk-jdr.pdf"
     },
     {
+      image:"assets/img/card/autre/familier.PNG",
+      titre:"Sort entropique",
+      url:"assets/img/pdfs/autre/familier.pdf"
+    },
+    {
       image:"assets/img/pdfs/autre/carte_monde.jpg",
       titre:"Carte du monde",
       url:"assets/img/pdfs/autre/carte_monde.jpg"
