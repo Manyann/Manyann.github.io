@@ -53,7 +53,7 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/autre/familier.PNG",
-      titre:"Sort entropique",
+      titre:"Familier",
       url:"assets/img/pdfs/autre/familier.pdf"
     },
     {
