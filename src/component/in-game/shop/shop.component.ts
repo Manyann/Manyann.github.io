@@ -9,12 +9,13 @@ import { ArmeComponent } from "./arme/arme.component";
 import { TabViewModule } from 'primeng/tabview';
 import { ArmureComponent } from "./armure/armure.component";
 import { PotionComponent } from "./potion/potion.component";
+import { GemmeComponent } from './gemme/gemme.component';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
   imports: [CommonModule, FormsModule, TableModule, ButtonModule, TabViewModule,
-    ArmeComponent, ArmureComponent, PotionComponent],
+    ArmeComponent, ArmureComponent, PotionComponent, GemmeComponent],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css'
 })

@@ -59,13 +59,14 @@ private readonly rarityWeightsHigh: Record<ItemRarity, number> = {
     return { ...this.items.perave[0], id: Date.now() };
   }
 
-  generateRouletteItems(chance:number,count: number = 50, includeArmes : boolean, includeArmures : boolean, includePotions : boolean): LootItem[] { 
+  generateRouletteItems(chance:number,count: number = 50, includeArmes : boolean, includeArmures : boolean, includePotions : boolean, includeGemmes : boolean): LootItem[] { 
     
     const armes = includeArmes ? ItemHelper.getAllForLoot() : this.emptyLootTable();
     const armures = includeArmures ? ItemHelper.getAllArmureForLoot() : this.emptyLootTable();
     const potions = includePotions ? ItemHelper.getAllPotionForLoot() : this.emptyLootTable();
+    const gemmes = includeGemmes ? ItemHelper.getAllGemmeForLoot() : this.emptyLootTable();
 
-    this.items = this.mergeLootTables(armes, armures, potions);
+    this.items = this.mergeLootTables(armes, armures, potions,gemmes);
     return Array.from({ length: count }, () => this.getRandomItem(chance));
   }
 

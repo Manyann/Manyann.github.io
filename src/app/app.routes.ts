@@ -9,7 +9,6 @@ import { SortComponent } from '../component/documentation/hero/sort/sort.compone
 import { InGameComponent } from '../component/in-game/in-game.component';
 import { TeleportationComponent } from '../component/in-game/teleportation/teleportation.component';
 import { ShopComponent } from '../component/in-game/shop/shop.component';
-import { LootComponent } from '../component/in-game/loot/loot.component';
 import { CreationComponent } from '../component/in-game/creation/creation.component';
 import { GestionComponent } from '../component/gestion/gestion.component';
 import { CombatComponent } from '../component/gestion/combat/combat.component';
@@ -35,7 +34,6 @@ export const routes: Routes = [
     },
     {path:"in-game/teleportation", component:TeleportationComponent},
     {path:"in-game/shop", component:ShopComponent},
-    {path:"in-game/loot", component:LootComponent},
     {path:"in-game/creer", component:CreationComponent},
     { 
         path: 'gestion',

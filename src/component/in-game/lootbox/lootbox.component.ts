@@ -47,6 +47,7 @@ export class LootboxComponent implements OnInit, OnDestroy {
   includeArmes = false;
   includeArmures = false;
   includePotions = false;
+  includeGemmes = false;
   
   // Roulette
   rouletteItems: LootItem[] = [];
@@ -75,15 +76,15 @@ export class LootboxComponent implements OnInit, OnDestroy {
   private startRoulette(): void {
     this.isOpening = true;
     this.isLoading = true;
-    this.rouletteItems = this.lootService.generateRouletteItems(this.chance,100,this.includeArmes,this.includeArmures,this.includePotions);
+    this.rouletteItems = this.lootService.generateRouletteItems(this.chance,100,this.includeArmes,this.includeArmures,this.includePotions, this.includeGemmes);
     
     // Sélectionner l'objet gagnant (entre les positions 20-30 pour l'effet visuel)
     const winningIndex = Math.floor(Math.random() * 10) + 20;
     this.wonItem = this.rouletteItems[winningIndex];
     
     // Calculer la distance de déplacement
-    const itemWidth = 140;
-    const containerCenter = 400;
+    const itemWidth = 250;
+    const containerCenter = 250;
     this.rouletteOffset = -(winningIndex * itemWidth - containerCenter);
     
     // Attendre la fin de l'animation

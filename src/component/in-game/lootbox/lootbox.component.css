@@ -142,8 +142,7 @@
         }
 
         .roulette-container {
-            width: 90%;
-            max-width: 800px;
+            width: 800px;
             height: 150px;
             background: linear-gradient(90deg, transparent, rgba(255, 165, 0, 0.2), transparent);
             border: 2px solid #ffa500;
@@ -161,7 +160,8 @@
         }
 
         .roulette-item {
-            min-width: 140px;
+            min-width: 250px;
+            max-width: 250px;
             height: 100%;
             display: flex;
             flex-direction: column;

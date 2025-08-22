@@ -37,11 +37,6 @@ private buildCardList():Array<Card>{
       url:"shop"
     },
     {
-      image:"assets/img/card/ingame/loot.jpg",
-      titre:"Loot",
-      url:"loot"
-    },
-    {
       image:"assets/img/card/ingame/guilde.PNG",
       titre:"Création",
       url:"creer"

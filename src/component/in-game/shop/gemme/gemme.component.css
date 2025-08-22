@@ -1,0 +1,11 @@
+::ng-deep.boutique-table-gemmes {
+  width: 50%;
+}
+
+.td-prix{
+  text-align: center;
+}
+
+.td-infos{
+  padding-left: 12rem;
+}

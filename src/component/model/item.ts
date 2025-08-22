@@ -32,6 +32,13 @@ export class Potion extends Item{
     "mana":string;
 }
 
+export class Gemme {
+    "libelle":string;
+    "prix":number;
+    "basePourcentage":number;
+    "informations":string="";
+}
+
 export class Categorie{
     "code":string;
     "libelle":string;
@@ -5683,6 +5690,160 @@ export class ItemHelper{
         );
 
          //items['mythique'].push({name:'???', rarity:'mythique'});
+
+         return items;
+    }
+    
+    static getDefaultGemme() : Gemme {
+        return {
+            "libelle":"Gemme",
+            "basePourcentage":95,
+            "prix":50,
+            "informations":""
+        };
+    }
+
+    static getAllGemmes() :Array<Gemme>{
+        return [
+            {
+                "libelle": "Fer brut",
+                "prix": 2,
+                "basePourcentage": 100,
+                "informations": "Métal basique pour la forge"
+            },
+            {
+                "libelle": "Cuivre",
+                "prix": 5,
+                "basePourcentage": 98,
+                "informations": "Utilisé pour alliages et petits objets"
+            },
+            {
+                "libelle": "Étain",
+                "prix": 8,
+                "basePourcentage": 96,
+                "informations": "Entre souvent dans la composition du bronze"
+            },
+            {
+                "libelle": "Bronze",
+                "prix": 12,
+                "basePourcentage": 94,
+                "informations": "Alliage résistant, prisé des soldats"
+            },
+            {
+                "libelle": "Acier simple",
+                "prix": 20,
+                "basePourcentage": 90,
+                "informations": "Base de la majorité des armes"
+            },
+            {
+                "libelle": "Argent brut",
+                "prix": 30,
+                "basePourcentage": 87,
+                "informations": "Souvent travaillé en bijoux et vaisselle"
+            },
+            {
+                "libelle": "Or brut",
+                "prix": 50,
+                "basePourcentage": 84,
+                "informations": "Métal précieux, sert en forge et orfèvrerie"
+            },
+            {
+                "libelle": "Quartz taillé",
+                "prix": 70,
+                "basePourcentage": 81,
+                "informations": "Pierre décorative courante"
+            },
+            {
+                "libelle": "Améthyste",
+                "prix": 100,
+                "basePourcentage": 70,
+                "informations": "Gemmes violettes recherchées"
+            },
+            {
+                "libelle": "Émeraude",
+                "prix": 150,
+                "basePourcentage": 67,
+                "informations": "Pierre verte très appréciée des nobles"
+            },
+            {
+                "libelle": "Saphir",
+                "prix": 200,
+                "basePourcentage": 64,
+                "informations": "Gemmes bleues rares"
+            },
+            {
+                "libelle": "Rubis",
+                "prix": 300,
+                "basePourcentage": 61,
+                "informations": "Très prisé dans les bijoux royaux"
+            },
+            {
+                "libelle": "Perle blanche",
+                "prix": 400,
+                "basePourcentage": 55,
+                "informations": "Symbole de pureté, tirée des coquillages"
+            },
+            {
+                "libelle": "Opale",
+                "prix": 500,
+                "basePourcentage": 52,
+                "informations": "Pierre précieuse aux reflets changeants"
+            },
+            {
+                "libelle": "Topaze dorée",
+                "prix": 600,
+                "basePourcentage": 49,
+                "informations": "Pierre jaune étincelante"
+            },
+            {
+                "libelle": "Diamant brut",
+                "prix": 700,
+                "basePourcentage": 46,
+                "informations": "Très recherché, difficile à tailler"
+            },
+            {
+                "libelle": "Platine",
+                "prix": 800,
+                "basePourcentage": 43,
+                "informations": "Métal blanc dense et précieux"
+            },
+            {
+                "libelle": "Diamant taillé",
+                "prix": 900,
+                "basePourcentage": 40,
+                "informations": "Symbole ultime de richesse"
+            },
+            {
+                "libelle": "Or pur raffiné",
+                "prix": 950,
+                "basePourcentage": 38,
+                "informations": "Or travaillé à la perfection"
+            },
+            {
+                "libelle": "Adamantite",
+                "prix": 1000,
+                "basePourcentage": 35,
+                "informations": "Métal quasi indestructible, très rare"
+            }
+        ]
+    }
+    
+    static getAllGemmeForLoot():Record<ItemRarity, LootItem[]>{
+        let items = this.getAllGemmes().map((item) => ({
+                name : item.libelle,
+                rarity : this.getQualiteFromBaseChance(item.basePourcentage) as ItemRarity
+            })
+        ).reduce(
+        (acc, item) => {
+            const key = item.rarity as ItemRarity;
+            if (!acc[key]) {
+            acc[key] = [];
+            }
+            acc[key].push(item);
+            return acc;
+        },
+        {} as Record<ItemRarity, LootItem[]>
+        );
 
          return items;
     }
