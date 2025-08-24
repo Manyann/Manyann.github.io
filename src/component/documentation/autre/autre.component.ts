@@ -49,7 +49,7 @@ private buildCardList():Array<Card>{
     {
       image:"assets/img/card/autre/sort-entropique.PNG",
       titre:"Sort entropique",
-      url:"assets/img/pdfs/autre/tableau-sortsentropiques-naheulbeuk-jdr.pdf"
+      url:"assets/img/pdfs/autre/entropiques.pdf"
     },
     {
       image:"assets/img/card/autre/familier.PNG",
