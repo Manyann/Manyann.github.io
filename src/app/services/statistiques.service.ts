@@ -110,6 +110,7 @@ export class StatistiquesService {
       }
       statistiques.find(x=>x.code == libelle)!.valeur ++;
     });
+    this.storage.setFromString(key,statistiques);
    }
     let values : CodeValeur[] = this.storage.getFromString<CodeValeur[]>(key) ??[];
 
