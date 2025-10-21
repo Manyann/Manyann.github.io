@@ -39,7 +39,7 @@ private buildCardList():Array<Card>{
     {
       image:"assets/img/card/equipement/gemme.PNG",
       titre:"Gemmes",
-      url:"assets/img/pdfs/equipement/gemmes-pierres-naheulbeuk-jdr.pdf"
+      url:"assets/img/pdfs/equipement/gemmes-mythique.pdf"
     },
     {
       image:"assets/img/card/equipement/ingredient.PNG",
