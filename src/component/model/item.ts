@@ -5689,8 +5689,6 @@ export class ItemHelper{
         {} as Record<ItemRarity, LootItem[]>
         );
 
-         //items['mythique'].push({name:'???', rarity:'mythique'});
-
          return items;
     }
     
@@ -5720,43 +5718,43 @@ export class ItemHelper{
             {
                 "libelle": "Étain",
                 "prix": 8,
-                "basePourcentage": 96,
+                "basePourcentage": 97,
                 "informations": "Entre souvent dans la composition du bronze"
             },
             {
                 "libelle": "Bronze",
                 "prix": 12,
-                "basePourcentage": 94,
+                "basePourcentage": 95,
                 "informations": "Alliage résistant, prisé des soldats"
             },
             {
                 "libelle": "Acier simple",
                 "prix": 20,
-                "basePourcentage": 90,
+                "basePourcentage": 92,
                 "informations": "Base de la majorité des armes"
             },
             {
                 "libelle": "Argent brut",
                 "prix": 30,
-                "basePourcentage": 87,
+                "basePourcentage": 91,
                 "informations": "Souvent travaillé en bijoux et vaisselle"
             },
             {
                 "libelle": "Or brut",
                 "prix": 50,
-                "basePourcentage": 84,
+                "basePourcentage": 85,
                 "informations": "Métal précieux, sert en forge et orfèvrerie"
             },
             {
                 "libelle": "Quartz taillé",
                 "prix": 70,
-                "basePourcentage": 81,
+                "basePourcentage": 78,
                 "informations": "Pierre décorative courante"
             },
             {
                 "libelle": "Améthyste",
                 "prix": 100,
-                "basePourcentage": 70,
+                "basePourcentage": 71,
                 "informations": "Gemmes violettes recherchées"
             },
             {
@@ -5774,56 +5772,62 @@ export class ItemHelper{
             {
                 "libelle": "Rubis",
                 "prix": 300,
-                "basePourcentage": 61,
+                "basePourcentage": 62,
                 "informations": "Très prisé dans les bijoux royaux"
             },
             {
                 "libelle": "Perle blanche",
                 "prix": 400,
-                "basePourcentage": 55,
+                "basePourcentage": 60,
                 "informations": "Symbole de pureté, tirée des coquillages"
             },
             {
                 "libelle": "Opale",
                 "prix": 500,
-                "basePourcentage": 52,
+                "basePourcentage": 58,
                 "informations": "Pierre précieuse aux reflets changeants"
             },
             {
                 "libelle": "Topaze dorée",
                 "prix": 600,
-                "basePourcentage": 49,
+                "basePourcentage": 56,
                 "informations": "Pierre jaune étincelante"
             },
             {
                 "libelle": "Diamant brut",
                 "prix": 700,
-                "basePourcentage": 46,
+                "basePourcentage": 54,
                 "informations": "Très recherché, difficile à tailler"
             },
             {
                 "libelle": "Platine",
                 "prix": 800,
-                "basePourcentage": 43,
+                "basePourcentage": 50,
                 "informations": "Métal blanc dense et précieux"
             },
             {
                 "libelle": "Diamant taillé",
                 "prix": 900,
-                "basePourcentage": 40,
+                "basePourcentage": 48,
                 "informations": "Symbole ultime de richesse"
             },
             {
                 "libelle": "Or pur raffiné",
                 "prix": 950,
-                "basePourcentage": 38,
+                "basePourcentage": 46,
                 "informations": "Or travaillé à la perfection"
             },
             {
-                "libelle": "Adamantite",
+                "libelle": "Mithril",
                 "prix": 1000,
-                "basePourcentage": 35,
+                "basePourcentage": 44,
                 "informations": "Métal quasi indestructible, très rare"
+            },
+            {
+                "libelle": "Gemme Légendaire",
+                "prix": 0,
+                "basePourcentage": 40,
+                "informations": "Effet au choix du MJ"
             }
         ]
     }
