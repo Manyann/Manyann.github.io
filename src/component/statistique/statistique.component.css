@@ -337,7 +337,7 @@
 
   .stat-card {
     flex: 1 1 30%;
-    min-width: 300px;
+    min-width: 30rem;
   }
 }
 
