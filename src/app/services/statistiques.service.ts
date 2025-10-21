@@ -659,14 +659,36 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
   async getMaxEnnemisJoueur(joueur:string){
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
-    let heroNom = "";
     let maxEnnemie = 0;
-    let currentEnnemiNom = "";
-    let currentEnnemi = 0;
+
+    let totalMobByName = [];
+
+    for (const hero of heros) {
+      const docRef = doc(this.firestore, 'heros_mobs', hero['nom']);
+      const docSnap = await getDoc(docRef);
+
+      const mobs = docSnap.exists() ? docSnap.data() : null;
+      if (!mobs) continue;
+
+      for (const [mobName, count] of Object.entries(mobs)) {
+        totalMobByName[mobName] = (totalMobByName[mobName] || 0) + (count as number);
+      }
+
+      let topMobName = null;
+      let topMobCount = 0;
+
+      for (const [mobName, total] of Object.entries(countMobByName)) {
+        if (total > topMobCount) {
+          topMobName = mobName;
+          topMobCount = total;
+        }
+      }
+      
+    }
 
     let details: JoueurStatistiqueDetails = {
       'libelle' : 'Ennemi le plus rencontré',
-      'valeur': maxEnnemie + " ( " + heroNom + " )"
+      'valeur': topMobName+" ( " + topMobCount + " ) ";
     };
 
     return details;
