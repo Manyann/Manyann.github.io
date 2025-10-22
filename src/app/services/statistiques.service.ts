@@ -351,7 +351,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
     }))
     .filter(item => item.total > 0 && item.code !== 'MJ' && item.code !== 'yyyyy')
     .sort((a, b) => b.total - a.total);
-  debugger;
+
   // Appliquer le slice
   const codesFiltres = slice ? codesAvecTotaux.slice(0, slice) : codesAvecTotaux.slice(0,20);
   
@@ -658,11 +658,13 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
   }
 
   async getMaxEnnemisJoueur(joueur:string){
+    debugger;
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
-    let maxEnnemie = 0;
+    let totalMobByName: Record<string, number> = {};
 
-    let totalMobByName = [];
+    let topMobName = null;
+    let topMobCount = 0;
 
     for (const hero of heros) {
       const docRef = doc(this.firestore, 'heros_mobs', hero['nom']);
@@ -674,22 +676,18 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       for (const [mobName, count] of Object.entries(mobs)) {
         totalMobByName[mobName] = (totalMobByName[mobName] || 0) + (count as number);
       }
+    }
 
-      let topMobName = null;
-      let topMobCount = 0;
-
-      for (const [mobName, total] of Object.entries(countMobByName)) {
+      for (const [mobName, total] of Object.entries(totalMobByName)) {
         if (total > topMobCount) {
           topMobName = mobName;
-          topMobCount = total;
+          topMobCount = total ?? 0;
         }
       }
-      
-    }
 
     let details: JoueurStatistiqueDetails = {
       'libelle' : 'Ennemi le plus rencontré',
-      'valeur': topMobName+" ( " + topMobCount + " ) ";
+      'valeur': topMobName+" ( " + topMobCount + " ) "
     };
 
     return details;
@@ -848,7 +846,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
     }
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Total d\entropiques',
+      'libelle' : 'Total de sorts entropiques',
       'valeur': total.toString()
     };
 

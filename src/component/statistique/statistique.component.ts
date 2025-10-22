@@ -92,7 +92,7 @@ export class StatistiqueComponent {
   getBackgroundColorChart(onlyTop: boolean = false) {
     return onlyTop
       ? ["#FFD700", "#C0C0C0", "#cd7f32"]
-      : ["#FFFFFF"];
+      : ["#6b6a6aff"];
   }
 
   getDataSet(values: number[], onlyTop: boolean) {
