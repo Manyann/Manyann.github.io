@@ -1,19 +1,18 @@
 <p-panel header="Heros" [toggleable]="true" class="player-panel">
     <div class="hero-card-layout">
-        <div *ngFor="let hero of (heroSession$ | async)" class="hero-card">
-            <div class="header">{{hero['nom']}}</div>
-            <div class="body"> </div>
+        <div *ngFor="let hero of (heroSession$ | async)" class="hero-row">
+            <div class="hero-name">{{hero['nom']}}</div>
             <div class="action">
-                <div class="row">
+                <div class="action">
                     <p-button (onClick)="removeDestin(hero['nom'])" icon="pi pi-minus" label="Destin" />
                     <p-button (onClick)="addMort(hero['nom'])" icon="pi pi-plus" label="Mort" />
                 </div>
-                <div class="row">
-                    <p-inputNumber class="input-sm" [(ngModel)]="addDegats"></p-inputNumber>
+                <div class="action">
+                    <p-inputNumber class="" [(ngModel)]="addDegats"></p-inputNumber>
                     <p-button (onClick)="updateDegatsDealt(hero['nom'])" icon="pi pi-plus" label="Dégats" />
                  </div>
-                <div class="row">
-                    <p-inputNumber class="input-sm" [(ngModel)]="addIntensite"></p-inputNumber>
+                <div class="action">
+                    <p-inputNumber class="" [(ngModel)]="addIntensite"></p-inputNumber>
                     <p-button (onClick)="addCoupCritique(hero['nom'])"  icon="pi pi-plus" label="CC" />
                     <p-button (onClick)="addEchecCritique(hero['nom'])"  icon="pi pi-plus" label="EC" />
                     <p-button (onClick)="addParadeCritique(hero['nom'])"  icon="pi pi-plus" label="PC" />

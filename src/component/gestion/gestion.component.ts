@@ -150,15 +150,18 @@ export class GestionComponent {
     this.herosMetiersSelect = filtered;
   }
 
-  triggerAjouter(){
+  triggerAjouter(event:MouseEvent){
+    event.stopPropagation();
     this.sidebarVisible = true;
   }
 
-  triggerAjouterStuff(){
+  triggerAjouterStuff(event:MouseEvent){
+    event.stopPropagation();
     this.sidebarStuffVisible = true;
   }
 
-  triggerAjouterStats(){
+  triggerAjouterStats(event:MouseEvent){
+    event.stopPropagation();
     this.sidebarStatsVisible = true;
   }
 

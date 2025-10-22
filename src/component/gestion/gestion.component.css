@@ -120,3 +120,17 @@
 .mw-20 {
   max-width: 20rem;
 }
+
+.row{
+  flex-direction: row;
+}
+
+
+/* === SIDEBAR STYLING === */
+
+::ng-deep .p-sidebar {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-left: 1px solid var(--border);
+  padding: 2rem;
+}

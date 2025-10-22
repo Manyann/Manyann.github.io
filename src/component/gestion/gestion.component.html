@@ -3,6 +3,8 @@
     <p-tabPanel header="session">
         <p-splitter [style]="{'height': '40rem'}">
             <ng-template pTemplate>
+                <div class="row">
+                <div>
                 <p-table responsiveLayout="scroll" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" [value]="(allHeros$ | async) ?? [] | isFromSession">
                     <ng-template pTemplate="header">
                         <tr>
@@ -20,7 +22,13 @@
                             <td>{{hero.origine | heroType: herosTypes ?? []}}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </p-table></div>
+                <div>
+                    <br>
+    <p-button class="m-2" (onClick)="triggerAjouter($event)" label="Hero" icon="pi pi-plus" />
+    <p-button class="m-2" (onClick)="goToCombat()" label="Combat" icon="pi pi-caret-right" />
+    <p-button class="m-2" (onClick)="triggerAjouterStats($event)" label="Ajouter statistique" icon="pi pi-chart-line" />
+    </div></div>
             </ng-template>
             <ng-template pTemplate>
                 <div  *ngFor="let hero of (hero$ | async) ??[]" class="mw-20 ml-2">
@@ -48,7 +56,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div class="stats-handler"><h4> Inventaire   <p-button class=" bt-sm" (onClick)="triggerAjouterStuff()" icon="pi pi-plus"></p-button></h4></div>
+                                <div class="stats-handler"><h4> Inventaire   <p-button class=" bt-sm" (onClick)="triggerAjouterStuff($event)" icon="pi pi-plus"></p-button></h4></div>
                                 <div *ngFor="let arme of (armes$ | async)?.armes ??[]| shouldBeEquipe : false">
                                     <p-button (onClick)="equipe(hero['nom'],arme['code'])" icon="pi pi-arrow-left" class="blue-dot bt-sm" />
                                     {{arme['libelle']}} 
@@ -102,11 +110,6 @@
             </ng-template>
         </p-splitter>
     </p-tabPanel>
-    <br/>
-    <p-button class="m-2" (onClick)="triggerAjouter()" label="Hero" icon="pi pi-plus" />
-    <p-button class="m-2" (onClick)="goToCombat()" label="Combat" icon="pi pi-caret-right" />
-    <p-button class="m-2" (onClick)="triggerAjouterStats()" label="Ajouter statistique" icon="pi pi-chart-line" />
-    <br/>
 </p-tabView>
 <p-sidebar [(visible)]="sidebarVisible">
     <div class="add-panel">

@@ -1,6 +1,8 @@
 .hero-card-layout{
     display: flex;
-    justify-content: space-around;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap:1rem;
 }
 
 .hero-card{
@@ -26,15 +28,50 @@
 
 .input-sm{
     width: 5rem;
+    margin: 0;
 }
 
 ::ng-deep.p-inputnumber {
     width: 5rem;
+    margin: 0;
 }
 
 ::ng-deep.p-inputnumber-input{
     width: 5rem;
+    margin: inherit;
 }
+
+.p-editable-column{
+    text-align: center;
+}
+
+.hero-row{
+    display: flex;
+        padding: 1rem;
+    border: 2px solid white;
+    border-radius: 10px;
+    align-items: center;
+        height: 3rem;
+    width: 70rem;
+    > .action{
+            height: inherit;
+            display: flex;
+            align-items: center;
+            width: 60rem;
+            justify-content: space-around;
+            > .action{
+            justify-content: space-around;
+            height: inherit;
+            display: flex;
+            align-items: center;
+            }
+    }
+}
+
+.hero-name{
+        width: 10rem;
+        color:#c8aa6e;
+    }
 
 .row > p-button{
     margin-left: 0.5rem;
@@ -42,6 +79,11 @@
 
 ::ng-deep.p-autoComplete{
     margin-right: 0.5rem;
+}
+
+::ng-deep .p-overlay{
+  background-color: var(--bg-main);
+  color: var(--text-main);
 }
 
 .row-flex{
