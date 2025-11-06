@@ -5325,7 +5325,7 @@ export class ItemHelper{
             "attaque":"",
             "parade":"",
             "rupture":"",
-            "informations":"+2 PR"
+            "informations":"+1 PR"
         },
         {
             "libelle":"Élixir de Carapace Minérale",
