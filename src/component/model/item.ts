@@ -4395,8 +4395,7 @@ export class ItemHelper{
 
     static getAllPotion() :Array<Potion>{
         return [
-            //#region Vie
-        {
+            {
             "libelle":"Petite potion de vie",
             "basePourcentage":95,
             "region":"commun",
@@ -4405,7 +4404,7 @@ export class ItemHelper{
                 "code":"soins",
                 "libelle" : "Soins"
             },
-            "prix":50,
+            "prix":25,
             "duree":"1",
             "vie":"5",
             "mana":"",
@@ -4429,7 +4428,7 @@ export class ItemHelper{
                 "code":"soins",
                 "libelle" : "Soins"
             },
-            "prix":120,
+            "prix":60,
             "duree":"1",
             "vie":"10",
             "mana":"",
@@ -4453,7 +4452,7 @@ export class ItemHelper{
                 "code":"soins",
                 "libelle" : "Soins"
             },
-            "prix":175,
+            "prix":90,
             "duree":"3",
             "vie":"5",
             "mana":"",
@@ -4477,7 +4476,7 @@ export class ItemHelper{
                 "code":"soins",
                 "libelle" : "Soins"
             },
-            "prix":250,
+            "prix":150,
             "duree":"1",
             "vie":"20",
             "mana":"",
@@ -4501,7 +4500,7 @@ export class ItemHelper{
                 "code":"soins",
                 "libelle" : "Soins"
             },
-            "prix":420,
+            "prix":220,
             "duree":"3",
             "vie":"10",
             "mana":"",
@@ -4525,7 +4524,7 @@ export class ItemHelper{
                 "code":"soins",
                 "libelle" : "Soins"
             },
-            "prix":600,
+            "prix":350,
             "duree":"1",
             "vie":"50",
             "mana":"",
@@ -4562,7 +4561,7 @@ export class ItemHelper{
             "attaque":"",
             "parade":"",
             "rupture":"",
-            "informations":"Rend full HP. Prix 1.5 x EV max"
+            "informations":"Rend full HP. Prix 8 x EV max"
         },
         //#endregion Vie
         //#region Mana
@@ -4575,7 +4574,7 @@ export class ItemHelper{
                 "code":"mana",
                 "libelle" : "Mana"
             },
-            "prix":55,
+            "prix":30,
             "duree":"1",
             "vie":"",
             "mana":"5",
@@ -4599,7 +4598,7 @@ export class ItemHelper{
                 "code":"mana",
                 "libelle" : "Mana"
             },
-            "prix":120,
+            "prix":70,
             "duree":"1",
             "vie":"",
             "mana":"10",
@@ -4623,7 +4622,7 @@ export class ItemHelper{
                 "code":"mana",
                 "libelle" : "Mana"
             },
-            "prix":160,
+            "prix":120,
             "duree":"3",
             "vie":"",
             "mana":"5",
@@ -4647,7 +4646,7 @@ export class ItemHelper{
                 "code":"mana",
                 "libelle" : "Mana"
             },
-            "prix":260,
+            "prix":180,
             "duree":"1",
             "vie":"",
             "mana":"20",
@@ -4671,7 +4670,7 @@ export class ItemHelper{
                 "code":"mana",
                 "libelle" : "Mana"
             },
-            "prix":360,
+            "prix":280,
             "duree":"1",
             "vie":"10",
             "mana":"20",
@@ -4708,7 +4707,7 @@ export class ItemHelper{
             "attaque":"",
             "parade":"",
             "rupture":"",
-            "informations":"Rend full Mana. Prix 1.5 x mana max"
+            "informations":"Rend full Mana. Prix 10 x mana max"
         },
         //#endregion Mana
         //#region Courage
@@ -4721,7 +4720,7 @@ export class ItemHelper{
                 "code":"courage",
                 "libelle" : "Courage"
             },
-            "prix":100,
+            "prix":30,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -4745,7 +4744,7 @@ export class ItemHelper{
                 "code":"courage",
                 "libelle" : "Courage"
             },
-            "prix":190,
+            "prix":80,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -4769,7 +4768,7 @@ export class ItemHelper{
                 "code":"courage",
                 "libelle" : "Courage"
             },
-            "prix":350,
+            "prix":200,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -4795,7 +4794,7 @@ export class ItemHelper{
                 "code":"intelligence",
                 "libelle" : "Intelligence"
             },
-            "prix":90,
+            "prix":50,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -4819,12 +4818,12 @@ export class ItemHelper{
                 "code":"intelligence",
                 "libelle" : "Intelligence"
             },
-            "prix":190,
+            "prix":120,
             "duree":"3",
             "vie":"",
             "mana":"",
             "courage":"",
-            "intelligence":"1",
+            "intelligence":"2",
             "charisme":"",
             "adresse":"",
             "force":"",
@@ -4843,7 +4842,7 @@ export class ItemHelper{
                 "code":"intelligence",
                 "libelle" : "Intelligence"
             },
-            "prix":350,
+            "prix":300,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -4869,7 +4868,7 @@ export class ItemHelper{
                 "code":"charisme",
                 "libelle" : "Charisme"
             },
-            "prix":90,
+            "prix":15,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -4893,7 +4892,7 @@ export class ItemHelper{
                 "code":"charisme",
                 "libelle" : "Charisme"
             },
-            "prix":190,
+            "prix":30,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -4917,7 +4916,7 @@ export class ItemHelper{
                 "code":"charisme",
                 "libelle" : "Charisme"
             },
-            "prix":350,
+            "prix":100,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -4943,8 +4942,8 @@ export class ItemHelper{
                 "code":"adresse",
                 "libelle" : "Adresse"
             },
-            "prix":90,
-            "duree":"3",
+            "prix":50,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -4959,7 +4958,7 @@ export class ItemHelper{
             "informations":""
         },
         {
-            "libelle":"Philtre de Voix d’Argent",
+            "libelle":"Elixir d'agilité",
             "basePourcentage":75,
             "region":"commun",
             "origine":"",
@@ -4967,8 +4966,8 @@ export class ItemHelper{
                 "code":"adresse",
                 "libelle" : "Adresse"
             },
-            "prix":190,
-            "duree":"3",
+            "prix":110,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -4983,7 +4982,7 @@ export class ItemHelper{
             "informations":""
         },
         {
-            "libelle":"Philtre de Voix d’Argent",
+            "libelle":"Concoction de l'assassin",
             "basePourcentage":60,
             "region":"commun",
             "origine":"",
@@ -4991,8 +4990,8 @@ export class ItemHelper{
                 "code":"adresse",
                 "libelle" : "Adresse"
             },
-            "prix":350,
-            "duree":"3",
+            "prix":240,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5017,8 +5016,8 @@ export class ItemHelper{
                 "code":"force",
                 "libelle" : "Force"
             },
-            "prix":90,
-            "duree":"3",
+            "prix":40,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5041,8 +5040,8 @@ export class ItemHelper{
                 "code":"force",
                 "libelle" : "Force"
             },
-            "prix":190,
-            "duree":"3",
+            "prix":100,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5065,8 +5064,8 @@ export class ItemHelper{
                 "code":"force",
                 "libelle" : "Force"
             },
-            "prix":350,
-            "duree":"3",
+            "prix":200,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5091,7 +5090,7 @@ export class ItemHelper{
                 "code":"chance",
                 "libelle" : "Chance"
             },
-            "prix":90,
+            "prix":70,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -5115,7 +5114,7 @@ export class ItemHelper{
                 "code":"chance",
                 "libelle" : "Chance"
             },
-            "prix":190,
+            "prix":120,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -5139,7 +5138,7 @@ export class ItemHelper{
                 "code":"chance",
                 "libelle" : "Chance"
             },
-            "prix":350,
+            "prix":120,
             "duree":"3",
             "vie":"",
             "mana":"",
@@ -5148,7 +5147,7 @@ export class ItemHelper{
             "charisme":"1",
             "adresse":"",
             "force":"",
-            "chance":"4",
+            "chance":"2",
             "attaque":"",
             "parade":"",
             "rupture":"",
@@ -5165,8 +5164,8 @@ export class ItemHelper{
                 "code":"attaque",
                 "libelle" : "Attaque"
             },
-            "prix":90,
-            "duree":"3",
+            "prix":60,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5189,8 +5188,8 @@ export class ItemHelper{
                 "code":"attaque",
                 "libelle" : "Attaque"
             },
-            "prix":190,
-            "duree":"3",
+            "prix":100,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5213,8 +5212,8 @@ export class ItemHelper{
                 "code":"attaque",
                 "libelle" : "Attaque"
             },
-            "prix":350,
-            "duree":"3",
+            "prix":250,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5239,8 +5238,8 @@ export class ItemHelper{
                 "code":"parade",
                 "libelle" : "Parade"
             },
-            "prix":90,
-            "duree":"3",
+            "prix":50,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5263,7 +5262,7 @@ export class ItemHelper{
                 "code":"parade",
                 "libelle" : "Parade"
             },
-            "prix":190,
+            "prix":70,
             "duree":"5",
             "vie":"",
             "mana":"",
@@ -5287,8 +5286,8 @@ export class ItemHelper{
                 "code":"parade",
                 "libelle" : "Parade"
             },
-            "prix":350,
-            "duree":"3",
+            "prix":200,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5313,8 +5312,8 @@ export class ItemHelper{
                 "code":"armure",
                 "libelle" : "Armure"
             },
-            "prix":90,
-            "duree":"3",
+            "prix":50,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5337,8 +5336,8 @@ export class ItemHelper{
                 "code":"armure",
                 "libelle" : "Armure"
             },
-            "prix":190,
-            "duree":"3",
+            "prix":90,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5353,7 +5352,7 @@ export class ItemHelper{
             "informations":"+2PR"
         },
         {
-            "libelle":"Liquer de Mithril",
+            "libelle":"Liqueur de Mithril",
             "basePourcentage":60,
             "region":"commun",
             "origine":"",
@@ -5361,7 +5360,7 @@ export class ItemHelper{
                 "code":"armure",
                 "libelle" : "Armure"
             },
-            "prix":350,
+            "prix":130,
             "duree":"5",
             "vie":"",
             "mana":"",
@@ -5387,8 +5386,8 @@ export class ItemHelper{
                 "code":"armure-magique",
                 "libelle" : "Armure magique"
             },
-            "prix":90,
-            "duree":"3",
+            "prix":40,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5411,8 +5410,8 @@ export class ItemHelper{
                 "code":"armure-magique",
                 "libelle" : "Armure magique"
             },
-            "prix":190,
-            "duree":"3",
+            "prix":80,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5435,8 +5434,8 @@ export class ItemHelper{
                 "code":"armure-magique",
                 "libelle" : "Armure magique"
             },
-            "prix":350,
-            "duree":"3",
+            "prix":110,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5461,8 +5460,8 @@ export class ItemHelper{
                 "code":"mixe",
                 "libelle" : "Mixe"
             },
-            "prix":300,
-            "duree":"3",
+            "prix":200,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"2",
@@ -5485,8 +5484,8 @@ export class ItemHelper{
                 "code":"mixe",
                 "libelle" : "Mixe"
             },
-            "prix":300,
-            "duree":"3",
+            "prix":250,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5509,8 +5508,8 @@ export class ItemHelper{
                 "code":"mixe",
                 "libelle" : "Mixe"
             },
-            "prix":300,
-            "duree":"3",
+            "prix":250,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5533,8 +5532,8 @@ export class ItemHelper{
                 "code":"mixe",
                 "libelle" : "Mixe"
             },
-            "prix":300,
-            "duree":"3",
+            "prix":150,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"1",
@@ -5557,8 +5556,8 @@ export class ItemHelper{
                 "code":"mixe",
                 "libelle" : "Mixe"
             },
-            "prix":300,
-            "duree":"3",
+            "prix":100,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5581,8 +5580,8 @@ export class ItemHelper{
                 "code":"mixe",
                 "libelle" : "Mixe"
             },
-            "prix":300,
-            "duree":"3",
+            "prix":120,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"",
@@ -5605,8 +5604,8 @@ export class ItemHelper{
                 "code":"mixe",
                 "libelle" : "Mixe"
             },
-            "prix":300,
-            "duree":"3",
+            "prix":120,
+            "duree":"5",
             "vie":"",
             "mana":"",
             "courage":"1",
@@ -5629,8 +5628,8 @@ export class ItemHelper{
                 "code":"mixe",
                 "libelle" : "Mixe"
             },
-            "prix":500,
-            "duree":"3",
+            "prix":400,
+            "duree":"*",
             "vie":"",
             "mana":"",
             "courage":"1",
@@ -5653,8 +5652,8 @@ export class ItemHelper{
                 "code":"mixe",
                 "libelle" : "Mixe"
             },
-            "prix":800,
-            "duree":"3",
+            "prix":500,
+            "duree":"5",
             "vie":"5",
             "mana":"5",
             "courage":"2",
