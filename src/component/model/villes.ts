@@ -21,22 +21,6 @@ export class VilleHelper{
         "type":"capitale",
         "handicap":0,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":10
-            },
-            {
-                "region":"nord",
-                "handicap":25
-            },
-            {
-                "region":"est",
-                "handicap":40
-            },
-            {
-                "region":"samurai",
-                "handicap":60
-            }
         ]
     },
     {
@@ -45,22 +29,6 @@ export class VilleHelper{
         "type":"ville-grande",
         "handicap":8,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -69,22 +37,6 @@ export class VilleHelper{
         "type":"ville-grande",
         "handicap":8,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":25
-            },
-            {
-                "region":"nord",
-                "handicap":45
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"samurai",
-                "handicap":80
-            }
         ]
     },
     {
@@ -93,22 +45,6 @@ export class VilleHelper{
         "type":"ville-grande",
         "handicap":10,
         "malus" : [
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -117,26 +53,6 @@ export class VilleHelper{
         "type":"ville-grande",
         "handicap":10,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":20
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":65
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":10
-            }
         ]
     },
     {
@@ -145,26 +61,6 @@ export class VilleHelper{
         "type":"ville-grande",
         "handicap":10,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":75
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            }
         ]
     },
     {
@@ -173,22 +69,6 @@ export class VilleHelper{
         "type":"ville-grande",
         "handicap":10,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"commun",
-                "handicap":25
-            },
-            {
-                "region":"est",
-                "handicap":85
-            },
-            {
-                "region":"samurai",
-                "handicap":85
-            }
         ]
     },
     {
@@ -197,22 +77,6 @@ export class VilleHelper{
         "type":"ville-moyenne",
         "handicap":15,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -221,22 +85,6 @@ export class VilleHelper{
         "type":"ville-moyenne",
         "handicap":15,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":25
-            },
-            {
-                "region":"nord",
-                "handicap":45
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"samurai",
-                "handicap":80
-            }
         ]
     },
     {
@@ -245,22 +93,6 @@ export class VilleHelper{
         "type":"ville-moyenne",
         "handicap":18,
         "malus" : [
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -269,26 +101,6 @@ export class VilleHelper{
         "type":"ville-moyenne",
         "handicap":18,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":20
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":65
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":10
-            }
         ]
     },
     {
@@ -297,26 +109,6 @@ export class VilleHelper{
         "type":"ville-moyenne",
         "handicap":18,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":75
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            }
         ]
     },
     {
@@ -325,22 +117,6 @@ export class VilleHelper{
         "type":"ville-moyenne",
         "handicap":18,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"commun",
-                "handicap":25
-            },
-            {
-                "region":"est",
-                "handicap":85
-            },
-            {
-                "region":"samurai",
-                "handicap":85
-            }
         ]
     },
     {
@@ -349,22 +125,6 @@ export class VilleHelper{
         "type":"ville-petite",
         "handicap":22,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -373,22 +133,6 @@ export class VilleHelper{
         "type":"ville-petite",
         "handicap":22,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":25
-            },
-            {
-                "region":"nord",
-                "handicap":45
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"samurai",
-                "handicap":80
-            }
         ]
     },
     {
@@ -397,22 +141,6 @@ export class VilleHelper{
         "type":"ville-petite",
         "handicap":23,
         "malus" : [
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -421,26 +149,6 @@ export class VilleHelper{
         "type":"ville-petite",
         "handicap":23,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":20
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":65
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":10
-            }
         ]
     },
     {
@@ -449,26 +157,6 @@ export class VilleHelper{
         "type":"ville-petite",
         "handicap":23,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":75
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            }
         ]
     },
     {
@@ -477,22 +165,6 @@ export class VilleHelper{
         "type":"ville-petite",
         "handicap":23,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"commun",
-                "handicap":25
-            },
-            {
-                "region":"est",
-                "handicap":85
-            },
-            {
-                "region":"samurai",
-                "handicap":85
-            }
         ]
     },
     {
@@ -501,22 +173,6 @@ export class VilleHelper{
         "type":"bourgade",
         "handicap":27,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -525,22 +181,6 @@ export class VilleHelper{
         "type":"bourgade",
         "handicap":30,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":25
-            },
-            {
-                "region":"nord",
-                "handicap":45
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"samurai",
-                "handicap":80
-            }
         ]
     },
     {
@@ -549,22 +189,6 @@ export class VilleHelper{
         "type":"bourgade",
         "handicap":30,
         "malus" : [
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -573,26 +197,6 @@ export class VilleHelper{
         "type":"bourgade",
         "handicap":30,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":20
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":65
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":10
-            }
         ]
     },
     {
@@ -601,26 +205,6 @@ export class VilleHelper{
         "type":"bourgade",
         "handicap":30,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":75
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            }
         ]
     },
     {
@@ -629,22 +213,6 @@ export class VilleHelper{
         "type":"bourgade",
         "handicap":30,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"commun",
-                "handicap":25
-            },
-            {
-                "region":"est",
-                "handicap":85
-            },
-            {
-                "region":"samurai",
-                "handicap":85
-            }
         ]
     },
     {
@@ -653,22 +221,6 @@ export class VilleHelper{
         "type":"campement",
         "handicap":8,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -677,22 +229,6 @@ export class VilleHelper{
         "type":"campement",
         "handicap":12,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":25
-            },
-            {
-                "region":"nord",
-                "handicap":45
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"samurai",
-                "handicap":80
-            }
         ]
     },
     {
@@ -701,22 +237,6 @@ export class VilleHelper{
         "type":"campement",
         "handicap":12,
         "malus" : [
-            {
-                "region":"commun",
-                "handicap":15
-            },
-            {
-                "region":"nord",
-                "handicap":30
-            },
-            {
-                "region":"est",
-                "handicap":45
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            }
         ]
     },
     {
@@ -725,26 +245,6 @@ export class VilleHelper{
         "type":"campement",
         "handicap":15,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":20
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":65
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":10
-            }
         ]
     },
     {
@@ -753,26 +253,6 @@ export class VilleHelper{
         "type":"campement",
         "handicap":15,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"nord",
-                "handicap":40
-            },
-            {
-                "region":"est",
-                "handicap":75
-            },
-            {
-                "region":"samurai",
-                "handicap":65
-            },
-            {
-                "region":"commun",
-                "handicap":15
-            }
         ]
     },
     {
@@ -781,22 +261,6 @@ export class VilleHelper{
         "type":"campement",
         "handicap":15,
         "malus" : [
-            {
-                "region":"desert",
-                "handicap":30
-            },
-            {
-                "region":"commun",
-                "handicap":25
-            },
-            {
-                "region":"est",
-                "handicap":85
-            },
-            {
-                "region":"samurai",
-                "handicap":85
-            }
         ]
     }
 ];

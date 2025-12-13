@@ -57,6 +57,14 @@ export class ShopComponent {
         code:"samurai",
         libelle:"Samurais"
       },
+      {
+        code:"walkyrie",
+        libelle:"Walkyrie"
+      },
+      // {
+      //   code:"volcanide",
+      //   libelle:"Volcanide"
+      // },
     ];
   }
 
@@ -89,6 +97,14 @@ export class ShopComponent {
       {
         code:"orque",
         libelle:"Plaines orque"
+      },
+      {
+        code:"nord",
+        libelle:"Grand Nord"
+      },
+      {
+        code:"volcan",
+        libelle:"Ile volcanique"
       },
     ];
   }
