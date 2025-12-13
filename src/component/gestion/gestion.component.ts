@@ -21,6 +21,7 @@ import { HeroArmes, HeroArmures } from '../model/item';
 import { ConfirmationService,Message, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
+import { SidebarComponent } from '../common/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-ingame',
@@ -28,7 +29,7 @@ import { ToastModule } from 'primeng/toast';
   imports: [CommonModule, ToastModule, TabViewModule, SplitterModule , 
     TableModule, InputSwitchModule, FormsModule, AutoCompleteModule, DropdownModule, ButtonModule,
     ReactiveFormsModule,InputNumberModule, SidebarModule,MultiSelectModule,ConfirmDialogModule, 
-    HeroPipe,HeroTypePipe, IsFromSessionPipe, ShouldBeEquipePipe],
+    HeroPipe,HeroTypePipe, IsFromSessionPipe, ShouldBeEquipePipe,SidebarComponent ],
     providers:[ConfirmationService, MessageService],
   templateUrl: './gestion.component.html',
   styleUrl: './gestion.component.css'
@@ -105,6 +106,10 @@ export class GestionComponent {
     armesService.getAllArmures().then(snap => {
       this.herosArmuresSelect = snap;
     });
+  }
+
+  resetStorage(){
+    this.herosService.resetStorage();
   }
 
   handleSelect(hero:string){

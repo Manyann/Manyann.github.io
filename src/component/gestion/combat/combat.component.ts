@@ -327,7 +327,10 @@ export class CombatComponent {
     this.autoCompleteMobs = this.mobsToSearch ?? [];
     for (let i = 0; i < this.mobsToSearch.length; i++) {
       let type = this.mobsToSearch[i];
-      if (type['libelle'].toLowerCase().indexOf(query.toLowerCase()) == 0) {
+      if(type['libelle'] === undefined){
+        console.log(type);
+      }
+      if (type['libelle']?.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(type);
       }
     }

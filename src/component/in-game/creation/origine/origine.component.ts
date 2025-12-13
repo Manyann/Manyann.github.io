@@ -4,7 +4,6 @@ import { RouterOutlet } from '@angular/router';
 import { TreeTableModule } from 'primeng/treetable';
 import { CreationHelper, Origine } from '../../../model/creation';
 import { TreeNode } from 'primeng/api';
-import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
 

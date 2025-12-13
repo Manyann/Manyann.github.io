@@ -51,6 +51,8 @@ export class MobsService {
       armure:mob.armure,
       experience:mob.experience,
     });
+
+    await this.storage.addElementInStorageGroup(StorageKeys.MOBS, mob);
   }
 
   async bulkInsert(){

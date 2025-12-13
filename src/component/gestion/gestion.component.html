@@ -28,6 +28,7 @@
     <p-button class="m-2" (onClick)="triggerAjouter($event)" label="Hero" icon="pi pi-plus" />
     <p-button class="m-2" (onClick)="goToCombat()" label="Combat" icon="pi pi-caret-right" />
     <p-button class="m-2" (onClick)="triggerAjouterStats($event)" label="Ajouter statistique" icon="pi pi-chart-line" />
+    <p-button class="m-2" (onClick)="resetStorage()" label="Vider le cache" icon="pi pi-exclamation-triangle" />
     </div></div>
             </ng-template>
             <ng-template pTemplate>
@@ -41,7 +42,7 @@
                     <div class="stats-handler"><span class="text-bold">Morts</span> {{ hero['morts']}} <p-button (onClick)="addMort(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
                     <div>
                         <h3>Equipements</h3>
-                        <div class="div-flex">
+                        <div class="block-flex">
                             <div>
                                 <h4> Equipé </h4>
                                 <div *ngFor="let arme of (armes$ | async)?.armes ??[] | shouldBeEquipe : true">
@@ -74,7 +75,7 @@
             </ng-template>
         </p-splitter>
     </p-tabPanel>
-    <p-tabPanel *ngFor="let joueur of (joueurs ?? [])" [header]="joueur.code">
+    <p-tabPanel *ngFor="let joueur of (joueurs)" [header]="joueur.code">
         <p-splitter [style]="{'height': '40rem'}">
             <ng-template pTemplate>
                 <p-table responsiveLayout="scroll" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" [value]="(allHeros$ | async) ?? [] | hero:joueur.code">
@@ -111,9 +112,9 @@
         </p-splitter>
     </p-tabPanel>
 </p-tabView>
-<p-sidebar [(visible)]="sidebarVisible">
+<app-sidebar [(visible)]="sidebarVisible">
     <div class="add-panel">
-            <div class="mt-2">
+            <div class="mt-2 div-flex row">
                 <span>Joueur : </span>
                 <p-dropdown 
                 [options]="joueurs" 
@@ -124,11 +125,11 @@
                 placeholder="Joueur"
                 class="w-12" />
             </div>
-            <div class="mt-2">
+            <div class="mt-2 div-flex row">
                 <span>Nom :  </span>
-                <input type="text" pInputText [(ngModel)]="addNom" />
+                <input type="text" class="textAsNumberStyle" pInputText [(ngModel)]="addNom" />
             </div>
-            <div class="mt-2">
+            <div class="mt-2 div-flex row">
                 <span>Origine :  </span>
                 <p-autoComplete
                 [(ngModel)]="addOrigine"
@@ -139,7 +140,7 @@
                 placeholder="origine"
                 (completeMethod)="search($event)"  />
             </div>
-            <div class="mt-2">
+            <div class="mt-2 div-flex row">
                 <span>Metier :  </span>
                 <p-autoComplete
                 [(ngModel)]="addMetier"
@@ -150,23 +151,24 @@
                 placeholder="origine"
                 (completeMethod)="searchMetier($event)"  />
             </div>
-            <div class="mt-2">
+            <div class="mt-2 div-flex row">
                 <span>Niveau :  </span>
-                <p-inputNumber  [(ngModel)]="addNiveau" name="addNiveau" />
+                <p-inputNumber class="no-margin"  [(ngModel)]="addNiveau" name="addNiveau" />
             </div>
-            <div class="mt-2">
+            <div class="mt-2 div-flex row">
                 <span>Or :  </span>
-                <p-inputNumber [(ngModel)]="addOr" name="addOr"/>
+                <p-inputNumber class="no-margin" [(ngModel)]="addOr" name="addOr"/>
             </div>
-            <div class="mt-2"> 
+            <div class="mt-2 div-flex  row"> 
                 <span>Point de destin : </span>
-                <p-inputNumber  [(ngModel)]="addDestin" name="addDestin"/>
+                <p-inputNumber class="no-margin" [(ngModel)]="addDestin" name="addDestin"/>
             </div>
-            <div class="mt-2"> 
+            
+            <div class="mt-2 div-flex row"> 
                 <p-button (onClick)="valider()" >Valider</p-button>
             </div>
     </div>
-</p-sidebar>
+</app-sidebar>
 <p-sidebar [(visible)]="sidebarStuffVisible">
     <div class="add-panel">
             <div class="mt-2">

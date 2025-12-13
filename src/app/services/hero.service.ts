@@ -19,8 +19,12 @@ export class HerosService {
   
   //#region All
 
+  async resetStorage(){
+    this.storage.clear();
+  }
+
   async getAll(){
-    if(!this.storage.get(StorageKeys.HEROS)){
+    if(!this.storage.get<DocumentData[]>(StorageKeys.HEROS)){
           const heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
           this.storage.set<DocumentData[]>(StorageKeys.HEROS,heros);
     }
@@ -29,9 +33,10 @@ export class HerosService {
   }
 
   async getAllFromSession(){
-    if(!this.storage.get<DocumentData[]>(StorageKeys.HEROS)){
-        await this.getAll();
-    }
+     if(!this.storage.get<DocumentData[]>(StorageKeys.HEROS)){
+         await this.getAll();
+     }
+    await this.getAll();
     
     return this.storage
       .get<DocumentData[]>(StorageKeys.HEROS)
@@ -44,7 +49,7 @@ export class HerosService {
   }
 
   async getAllOrigine(){
-     if(!this.storage.get(StorageKeys.HERO_ORIGINES)){
+     if(!this.storage.get<DocumentData[]>(StorageKeys.HERO_ORIGINES)){
           const herosTypes = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
           this.storage.set<DocumentData[]>(StorageKeys.HERO_ORIGINES,herosTypes);
     }
@@ -53,8 +58,8 @@ export class HerosService {
   }
 
   async getAllMetier(){
-     if(!this.storage.get(StorageKeys.HERO_METIERS)){
-          const herosTypes = (await getDocs(query(collection(this.firestore,'metier')))).docs.map((entries) => entries.data());
+     if(!this.storage.get<DocumentData[]>(StorageKeys.HERO_METIERS)){
+          const herosTypes = (await getDocs(query(collection(this.firestore,'metiers')))).docs.map((entries) => entries.data());
           this.storage.set<DocumentData[]>(StorageKeys.HERO_METIERS,herosTypes);
     }
     

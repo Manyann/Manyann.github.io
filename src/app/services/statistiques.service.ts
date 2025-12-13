@@ -91,7 +91,7 @@ export class StatistiquesService {
 
   async getMetier(joueur:string, slice : number | null = null){    
     let key : string = StorageKeys.JOUEURS_METIERS+"_"+joueur;
-    if(!this.storage.getFromString(key)){
+   if(!this.storage.getFromString(key)){
 
     let heros = await this.herosService.getAll();
     let metiers = await this.getAllMetiers();
@@ -104,6 +104,9 @@ export class StatistiquesService {
     }
 
     heros.forEach((hero) =>{
+      if(metiers.find(x=>x['code'] == hero['metier']) === undefined){
+        console.log(hero);
+      }
       libelle = metiers.find(x=>x['code'] == hero['metier'])!['libelle'] ?? hero['metier'];
       if(statistiques.find(x=>x.code == libelle) === undefined){
         statistiques.push({code:libelle,valeur:0});
