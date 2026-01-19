@@ -739,7 +739,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
    async getTotalDestinJoueur(joueur:string){
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
-    const totalDestin = heros.reduce((sum, hero) => sum + hero['destin_utilise'], 0);
+    const totalDestin = heros.reduce((sum, hero) => sum + (hero['destin_utilise'] == undefined ? 0 :hero['destin_utilise']) , 0);
 
     let details: JoueurStatistiqueDetails = {
       'libelle' : 'Total de destins utilisés',
@@ -753,11 +753,11 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     const maxDestinHero = heros.reduce((prev, curr) =>
-      curr['destin_utilise'] > prev['destin_utilise'] ? curr : prev
+      (curr['destin_utilise'] == undefined ? 0 :curr['destin_utilise']) > (prev['destin_utilise'] == undefined ? 0 :prev['destin_utilise']) ? curr : prev
     );
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Total de critiques',
+      'libelle' : 'Maximun de destins utilisés',
       'valeur': maxDestinHero['destin_utilise'] + ' ( ' + maxDestinHero['nom'] + ' )'
     };
 
@@ -767,7 +767,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
   async getTotalBonPointsJoueur(joueur:string){
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
-    const totalDestin = heros.reduce((sum, hero) => sum + hero['bon_point'], 0);
+    const totalDestin = heros.reduce((sum, hero) => sum + (hero['bon_point']!== undefined ? hero['bon_point'] : 0) , 0);
 
     let details: JoueurStatistiqueDetails = {
       'libelle' : 'Total de bon points',
@@ -781,7 +781,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     const maxDestinHero = heros.reduce((prev, curr) =>
-      curr['bon_point'] > prev['bon_point'] ? curr : prev
+       (curr['bon_point']!== undefined ?  curr['bon_point'] : 0) >  (prev['bon_point']!== undefined ? prev['bon_point'] : 0) ? curr : prev
     );
 
     let details: JoueurStatistiqueDetails = {
@@ -795,7 +795,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
   async getTotalMauvaisPointsJoueur(joueur:string){
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
-    const totalDestin = heros.reduce((sum, hero) => sum + hero['mauvais_point'], 0);
+    const totalDestin = heros.reduce((sum, hero) => sum +  (hero['mauvais_point']!== undefined ? hero['mauvais_point'] : 0), 0);
 
     let details: JoueurStatistiqueDetails = {
       'libelle' : 'Total de mauvais points',
@@ -809,7 +809,7 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     
     const maxDestinHero = heros.reduce((prev, curr) =>
-      curr['mauvais_point'] > prev['mauvais_point'] ? curr : prev
+     (curr['mauvais_point']!== undefined ? curr['mauvais_point'] : 0) > (prev['mauvais_point']!== undefined ? prev['mauvais_point'] : 0) ? curr : prev
     );
 
     let details: JoueurStatistiqueDetails = {
