@@ -34,10 +34,10 @@ import { ItemsService } from "../../../../app/services/items.service";
     }
 
     public filterItems(){
-        let ville = this.villes.find(x=>x.region == "commun" 
+        let ville = this.villes.find(x=>x.region == this.selectedRegion 
           && x.type == this.selectedVilleType);
     
-        this.items = ItemHelper.getAll().filter(x=>this.estPresent(x, ville));
+        this.items = ItemHelper.getAll(this.selectedRegion).filter(x=>this.estPresent(x, ville));
       }
     
       public estPresent(item:Item, ville:Ville|undefined):boolean{

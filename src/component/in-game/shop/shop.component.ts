@@ -23,50 +23,18 @@ export class ShopComponent {
   title = 'shop';
   villes: Array<Ville>;
   villesType : Array<CodeLibelle>;
-  targets : Array<CodeLibelle>;
   zones : Array<CodeLibelle>;
   selectedVilleType : string;
-  selectedTarget : string;
   selectedZone : string;
 
   constructor(){
     this.villes =  VilleHelper.getAll().sort((a,b)=> a.libelle.localeCompare(b.libelle));
-    this.targets = this.buildTargets();
     this.zones = this.buildZones();
     this.villesType = this.buildVillesType();
     this.selectedVilleType = "";
-    this.selectedTarget = "";
     this.selectedZone = "";
   }
 
-  buildTargets(): Array<CodeLibelle>{
-    return [
-      {
-        code:"commun",
-        libelle:"Commun"
-      },
-      {
-        code:"elfe",
-        libelle:"Elfes"
-      },
-      {
-        code:"nain",
-        libelle:"Nains"
-      },
-      {
-        code:"samurai",
-        libelle:"Samurais"
-      },
-      {
-        code:"walkyrie",
-        libelle:"Walkyrie"
-      },
-      // {
-      //   code:"volcanide",
-      //   libelle:"Volcanide"
-      // },
-    ];
-  }
 
   buildZones(): Array<CodeLibelle>{
     return [
@@ -148,12 +116,6 @@ export class ShopComponent {
     const target = event.target as HTMLSelectElement;
     const value = target.value;
     this.selectedZone = value;
-  }
-
-  onChangedTarget(event:Event):void{
-    const target = event.target as HTMLSelectElement;
-    const value = target.value;
-    this.selectedTarget = value;
   }
 
 }

@@ -30,10 +30,11 @@ import { Ville, VilleHelper } from "../../../model/villes";
       }
   
       public filterItems(){
-          let ville = this.villes.find(x=>x.region == "commun" 
+        console.log(this.selectedVilleType)
+          let ville = this.villes.find(x=>x.region == this.selectedRegion 
             && x.type == this.selectedVilleType);
       
-          this.items = ItemHelper.getAllArmure().filter(x=>this.estPresent(x, ville));
+          this.items = ItemHelper.getAllArmure(this.selectedRegion).filter(x=>this.estPresent(x, ville));
         }
       
         public estPresent(item:Item, ville:Ville|undefined):boolean{

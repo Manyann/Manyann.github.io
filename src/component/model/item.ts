@@ -157,8 +157,8 @@ export class ItemHelper{
     if (!dico) return "commun";
 
     const origineList = Object.values(dico);
-    const zoneProba = 12;      // % pour l'origine correspondant à la zone
-    const autreProba = 2.5;    // % pour chaque autre origine
+    const zoneProba = 15;      // % pour l'origine correspondant à la zone
+    const autreProba = 1.5;    // % pour chaque autre origine
 
     let totalPourOrigines = 0;
     const probaExacte: { [origine: string]: number } = {};

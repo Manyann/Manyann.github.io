@@ -69,6 +69,7 @@ export class LootboxComponent implements OnInit, OnDestroy {
     this.showRoulette = false;
     this.showResult = false;
     this.rouletteOffset = 0;
+    this.rouletteItems = [];
     this.wonItem = null;
   }
 
