@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 
 export class Hero{
     "nom":string;
@@ -11,13 +10,4 @@ export class Hero{
     "origine":string;
     "vie":number;
     "vivant":boolean;
-
 };
-
-
-
-export class HeroHelper{
-    
-
-
-}
