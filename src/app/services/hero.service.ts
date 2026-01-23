@@ -14,7 +14,6 @@ export class HerosService {
     private storage : StorageService,
     private trophesService : TrophesService
   ) {
-      console.log('Firestore hero instance:', this.firestore); 
     }
   
   //#region All
@@ -23,112 +22,47 @@ export class HerosService {
     this.storage.clear();
   }
 
-  async getAll(){
-    if(!this.storage.get<DocumentData[]>(StorageKeys.HEROS)){
-          const heros = (await getDocs(query(collection(this.firestore,'heros')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HEROS,heros);
-    }
-    
-    return this.storage.get<DocumentData[]>(StorageKeys.HEROS) ?? [];
-  }
 
+  async getAll() { return this.getCachedCollection(StorageKeys.HEROS); }
+
+  async getAllOrigine() { return this.getCachedCollection(StorageKeys.ORIGINES); }
+
+  async getAllMetier() { return this.getCachedCollection(StorageKeys.METIERS); }
+
+  async getAllHerosCritique() { return this.getCachedCollection(StorageKeys.HERO_CRITIQUES); }
+
+  async getAllHerosParade() { return this.getCachedCollection(StorageKeys.HERO_PARADES); }
+ 
+  async getAllHerosEchec() { return this.getCachedCollection(StorageKeys.HERO_ECHECS); }
+ 
+  async getAllHerosEntropique() { return this.getCachedCollection(StorageKeys.HERO_ENTROPIQUES); }
+
+  async getAllHerosDegat() { return this.getCachedCollection(StorageKeys.HERO_DEGATS); }
+
+  async getAllHerosMob() { return this.getCachedCollection(StorageKeys.HERO_MOBS); }
+
+  async getAllTrophes(){return this.getCachedCollection(StorageKeys.TROPHES)}
+  
+  
   async getAllFromSession(){
-     if(!this.storage.get<DocumentData[]>(StorageKeys.HEROS)){
-         await this.getAll();
-     }
-    await this.getAll();
-    
-    return this.storage
-      .get<DocumentData[]>(StorageKeys.HEROS)
-      ?.filter(x=>x['actif']) ?? [];
+    return (await this.getAll())?.filter(x=>x['actif']) ?? [];
   }
 
   async getByName(name: string){
-    
     return (await this.getAll())?.filter(x=>x['nom'] == name) ?? [];
-  }
-
-  async getAllOrigine(){
-     if(!this.storage.get<DocumentData[]>(StorageKeys.HERO_ORIGINES)){
-          const herosTypes = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_ORIGINES,herosTypes);
-    }
-    
-    return  this.storage.get<DocumentData[]>(StorageKeys.HERO_ORIGINES)?? [];
-  }
-
-  async getAllMetier(){
-     if(!this.storage.get<DocumentData[]>(StorageKeys.HERO_METIERS)){
-          const herosTypes = (await getDocs(query(collection(this.firestore,'metiers')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_METIERS,herosTypes);
-    }
-    
-    return  this.storage.get<DocumentData[]>(StorageKeys.HERO_METIERS)?? [];
-  }
-
-  async getAllHerosCritique(){
-    if(!this.storage.get(StorageKeys.HERO_CRITIQUES)){
-          const heros = (await getDocs(query(collection(this.firestore,'heros_critiques')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_CRITIQUES,heros);
-    }
-    
-    return this.storage.get<DocumentData[]>(StorageKeys.HERO_CRITIQUES) ?? [];
-  }
-
-  async getAllHerosParade(){
-    if(!this.storage.get(StorageKeys.HERO_PARADES)){
-          const heros = (await getDocs(query(collection(this.firestore,'heros_parades')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_PARADES,heros);
-    }
-    
-    return this.storage.get<DocumentData[]>(StorageKeys.HERO_PARADES) ?? [];
   }
 
   async getAllHeroOfJoueur(joueur:string){
     return (await this.getAll())?.filter(x=>x['code_joueur'] == joueur);
   }
 
-  async getAllHerosEchec(){
-    if(!this.storage.get(StorageKeys.HERO_ECHECS)){
-          const heros = (await getDocs(query(collection(this.firestore,'heros_echecs')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_ECHECS,heros);
-    }
-    
-    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ECHECS) ?? [];
-  }
-
-  async getAllHerosEntropique(){
-    if(!this.storage.get(StorageKeys.HERO_ENTROPIQUES)){
-          const heros = (await getDocs(query(collection(this.firestore,'heros_entropiques')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_ENTROPIQUES,heros);
-    }
-    
-    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ECHECS) ?? [];
-  }
-
-  async getAllHerosDegat(){
-    if(!this.storage.get(StorageKeys.HERO_DEGATS)){
-          const heros = (await getDocs(query(collection(this.firestore,'heros_degats')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_DEGATS,heros);
-    }
-    
-    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ECHECS) ?? [];
-  }
-  
-  async getAllHerosMob(){
-    if(!this.storage.get(StorageKeys.HERO_MOBS)){
-          const heros = (await getDocs(query(collection(this.firestore,'heros_mobs')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.HERO_MOBS,heros);
-    }
-    
-    return this.storage.get<DocumentData[]>(StorageKeys.HERO_ECHECS) ?? [];
-  }
+//#endregion All
 
   async updateSession(nom:string, isActif:boolean){
     const hero = doc(this.firestore, 'heros', nom);
     await setDoc(hero, { actif: isActif }, { merge: true });
 
-    await this.storage.updatePropertyInStorage<DocumentData,boolean>(StorageKeys.HEROS,'nom',nom,'actif',isActif);
+    this.storage.updatePropertyInStorage<DocumentData,boolean>(StorageKeys.HEROS,'nom',nom,'actif',isActif);
   }
   
   async add(joueur:string, nom:string, origine:string, 
@@ -155,14 +89,14 @@ export class HerosService {
     }
 
     await setDoc(doc(this.firestore, "heros", nom.toLowerCase()),document );
-    await this.storage.addElementInStorageGroup(StorageKeys.HEROS, document);
+    this.storage.addElementInStorageGroup(StorageKeys.HEROS, document);
 
      //#region trophes
      
     let allHeros = await this.getAllHeroOfJoueur(joueur);
 
-     let originesJouees = await this.trophesService.getOriginesJouees();
-     let metiersJoues = await this.trophesService.getMetiersJouees();
+     let originesJouees = this.trophesService.getOriginesJouees();
+     let metiersJoues = this.trophesService.getMetiersJouees();
      for(let hero of allHeros){
       originesJouees[hero['origine']] ++;
       metiersJoues[hero['metier']] ++;
@@ -170,22 +104,22 @@ export class HerosService {
  
      let trophes = [];
         
-    let trophesOrigine = await this.trophesService.getTrophesOrigines();
+    let trophesOrigine = this.trophesService.getTrophesOrigines();
     if(trophesOrigine[origine]){
       trophes.push(await this.setTrophe(joueur,trophesOrigine[origine]));
     }
 
-    let trophesMetier = await this.trophesService.getTrophesMetier();
+    let trophesMetier =  this.trophesService.getTrophesMetier();
     if(trophesMetier[metier]){
       trophes.push(await this.setTrophe(joueur,trophesMetier[metier]));
     }
 
-    let trophesOrigineMetier = await this.trophesService.getTrophesOriginesMetier();
+    let trophesOrigineMetier = this.trophesService.getTrophesOriginesMetier();
     if(trophesOrigineMetier[origine] && trophesOrigineMetier[origine][metier]){
       trophes.push(await this.setTrophe(joueur,trophesOrigineMetier[origine][metier]));
     }
 
-    let trophesComplexe = await this.trophesService
+    let trophesComplexe = this.trophesService
     .getTrophesComplexeClasse(originesJouees,metiersJoues,await this.getAllOrigine(),await this.getAllMetier());
     for(let trophe of trophesComplexe){
       trophes.push(await this.setTrophe(joueur,trophe));
@@ -204,22 +138,28 @@ export class HerosService {
 
   async addBonPoint(nom:string) : Promise<string[]>{
     const hero = doc(this.firestore, 'heros', nom);
-    await setDoc(hero, { bon_point: increment(1) }, { merge: true });
 
     //#region trophes
     
     let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
     
+    const current = heros[0]['bon_point'] ?? 0;
+    const next = current + 1;
+
+    await setDoc(hero, { bon_point: increment(1) }, { merge: true });
+    this.storage.updatePropertyInStorage<DocumentData, number>(
+    StorageKeys.HEROS, 'nom', nom, 'bon_point', next);
+    
    let trophes = [];
 
-    if(heros[0]['bon_point'] >= 5){
+    if(next >= 5){
       trophes.push(await this.setTrophe(joueur,'Gentilhomme'));
     }
-    if(heros[0]['bon_point'] >= 10){
+    if(next >= 10){
       trophes.push(await this.setTrophe(joueur,'Un saint parmi les saints'));
     }
-    if(heros[0]['bon_point'] >= 15){
+    if(next >= 15){
       trophes.push(await this.setTrophe(joueur,'Gros lèche botte là'));
     }
 
@@ -237,15 +177,22 @@ export class HerosService {
     let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
     
+    const current = heros[0]['mauvais_point'] ?? 0;
+    const next = current + 1;
+    
+    this.storage.updatePropertyInStorage<DocumentData, number>(
+    StorageKeys.HEROS, 'nom', nom, 'mauvais_point', next
+    );
+    
    let trophes = [];
 
-    if(heros[0]['mauvais_point'] == 5){
+    if(next == 5){
       trophes.push(await this.setTrophe(joueur,'Filer du mauvais coton'));
     }
-    if(heros[0]['mauvais_point'] == 10){
+    if(next == 10){
       trophes.push(await this.setTrophe(joueur,"L'incarnation du mal"));
     }
-    if(heros[0]['mauvais_point'] == 15){
+    if(next == 15){
       trophes.push(await this.setTrophe(joueur,'Là tu cherches'));
     }
 
@@ -257,6 +204,15 @@ export class HerosService {
   async addMort(nom:string){
     const hero = doc(this.firestore, 'heros', nom);
     await setDoc(hero, { morts: increment(1)  }, { merge: true });
+
+    let heros = await this.getByName(nom);
+    
+    const current = heros[0]['morts'] ?? 0;
+    const next = current + 1;
+
+    this.storage.updatePropertyInStorage<DocumentData, number>(
+    StorageKeys.HEROS, 'nom', nom, 'morts', next
+    );
   }
 
   async addNiveau(nom:string) : Promise<string[]>{
@@ -268,9 +224,16 @@ export class HerosService {
     let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
     
+    const current = heros[0]['niveau'] ?? 0;
+    const next = current + 1;
+
+    this.storage.updatePropertyInStorage<DocumentData, number>(
+    StorageKeys.HEROS, 'nom', nom, 'niveau', next
+    );
+    
    let trophes = [];
 
-    if(heros[0]['niveau'] == 10){
+    if(next == 10){
       trophes.push(await this.setTrophe(joueur,"C'est donc possible ..."));
     }
 
@@ -349,7 +312,7 @@ export class HerosService {
 
     await setDoc(doc(this.firestore, "heros_degats", crypto.randomUUID()), document);
 
-    await this.storage.addElementInStorageGroup(StorageKeys.HERO_DEGATS, document);
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_DEGATS, document);
 
     //#region trophes
     
@@ -373,9 +336,10 @@ export class HerosService {
     }
 
     let totalDegat=0;
+    const allDegats = await this.getAllHerosDegat();
     for (const hero of allHeros) {
-      let allDegats = ( await this.getAllHerosDegat())?.filter(x=>x['hero_nom'] == hero['nom']);
-      allDegats.forEach(element => {
+      const heroDegats = allDegats.filter(x => x['hero_nom'] === hero['nom']);
+      heroDegats.forEach(element => {
         totalDegat += element['intensite'];
       });
     }
@@ -405,6 +369,14 @@ export class HerosService {
     //#region trophes
     
     let heros = await this.getByName(nom);
+    
+    const current = heros[0]['destin_utilise'] ?? 0;
+    const next = current - 1;
+
+    
+    this.storage.updatePropertyInStorage<DocumentData, number>(
+    StorageKeys.HEROS, 'nom', nom, 'destin_utilise', next
+    );
 
     let joueur =  heros[0]['code_joueur'];
 
@@ -472,9 +444,8 @@ export class HerosService {
     
     
     let heros = await this.getByName(nom);
+
     let joueur = heros[0]['code_joueur'];
-    
-    let allHeros = await this.getAllHeroOfJoueur(joueur);
         
     let extinction = false;
     let heroMobs = (await this.getAllHerosMob())
@@ -486,7 +457,7 @@ export class HerosService {
 
     let storageMob = this.storage.get<DocumentData[]>(StorageKeys.MOBS)?.find(x=>x['code'] == mob);
     let apparition = storageMob !== undefined ? storageMob['apparition'] : 0;
-    await this.storage.updatePropertyInStorage<DocumentData,number>(StorageKeys.MOBS,'code',mob,'apparition',apparition+1)
+    this.storage.updatePropertyInStorage<DocumentData,number>(StorageKeys.MOBS,'code',mob,'apparition',apparition+1)
 
     let trophes = [];
 
@@ -528,17 +499,14 @@ export class HerosService {
     
     let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
-    
-    let allHeros = await this.getAllHeroOfJoueur(joueur);
 
     let trophes = [];
-    let heroCritiques: Critique[] = [];
-
-    for (const hero of allHeros) {
-      heroCritiques = (await this.getAllHerosCritique())
-              ?.filter(x=>x['hero_nom'] == hero['nom'])
-              .map(x => x as Critique);
-    }
+    const allHeros = await this.getAllHeroOfJoueur(joueur);
+    const all = await this.getAllHerosCritique();                 // 1 seule lecture
+    const noms = new Set(allHeros.map(h => h['nom']));             // noms des héros du joueur
+    const heroCritiques = all
+      .filter(x => noms.has(x['hero_nom']))
+      .map(x => x as Critique);
 
     if([19,20].some(e => heroCritiques.map(x=>x.intensite).includes(e))){
       trophes.push(await this.setTrophe(joueur,'Mort instantané'));
@@ -575,17 +543,13 @@ export class HerosService {
     
     let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
-    
-    let allHeros = await this.getAllHeroOfJoueur(joueur);
- 
-     let trophes = [];
-     let heroParades: Critique[] = [];
- 
-     for (const hero of allHeros) {
-      heroParades = (await this.getAllHerosParade())
-              ?.filter(x=>x['hero_nom'] == hero['nom'])
-              .map(x => x as Critique);
-      }
+
+    let trophes = [];
+    const allHeros = await this.getAllHeroOfJoueur(joueur);
+    const all = await this.getAllHerosParade();
+    const noms = new Set(allHeros.map(h => h['nom']));
+    const heroParades = all.filter(x => noms.has(x['hero_nom'])).map(x => x as Critique);
+
  
      if(heroParades.length > 0){
        trophes.push(await this.setTrophe(joueur,'The Hail Mary'));
@@ -616,17 +580,13 @@ export class HerosService {
     
     let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
-    
-    let allHeros = await this.getAllHeroOfJoueur(joueur);
 
-    let trophes = [];;
-    let heroEchecs: number[] = [];
+    let trophes = [];
+    const allHeros = await this.getAllHeroOfJoueur(joueur);
+    const all = await this.getAllHerosEchec(); // (et pas Parade)
+    const noms = new Set(allHeros.map(h => h['nom']));
+    const heroEchecs = all.filter(x => noms.has(x['hero_nom'])).map(x => x['intensite'] as number);
 
-    for (const hero of allHeros) {
-      heroEchecs = (await this.getAllHerosParade())
-              ?.filter(x=>x['hero_nom'] == hero['nom'])
-              .map(x => x['intensite']);
-    }
 
     if(heroEchecs.includes(19)){
       trophes.push(await this.setTrophe(joueur,'Pourquoi moi ?!'));
@@ -676,18 +636,15 @@ export class HerosService {
     let heros = await this.getByName(nom);
     let joueur = heros[0]['code_joueur'];
     
-    let allHeros = await this.getAllHeroOfJoueur(joueur);
  
-     let trophes = [];
-     let heroEntropique: Critique[] = [];
+    let trophes = [];
+    const allHeros = await this.getAllHeroOfJoueur(joueur);
+    const all = await this.getAllHerosEntropique(); // (et pas Parade)
+    const noms = new Set(allHeros.map(h => h['nom']));
+    const heroEntropiques = all.filter(x => noms.has(x['hero_nom'])).map(x => x as Critique);
+
  
-     for (const hero of allHeros) {
-      heroEntropique = (await this.getAllHerosParade())
-              ?.filter(x=>x['hero_nom'] == hero['nom'])
-              .map(x => x as Critique);
-      }
- 
-     if(heroEntropique.length > 100){
+     if(heroEntropiques.length > 100){
        trophes.push(await this.setTrophe(joueur,'Agent du chaos'));
      }
  
@@ -713,7 +670,7 @@ export class HerosService {
 
     await setDoc(doc(this.firestore, "heros_critiques", crypto.randomUUID()),document );
   
-    await this.storage.addElementInStorageGroup(StorageKeys.HERO_CRITIQUES,document);
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_CRITIQUES,document);
   }
 
   async addParadeMJ(intensite:number){
@@ -725,7 +682,7 @@ export class HerosService {
 
     await setDoc(doc(this.firestore, "heros_parades", crypto.randomUUID()),document );
   
-    await this.storage.addElementInStorageGroup(StorageKeys.HERO_PARADES,document);
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_PARADES,document);
   }
 
   async addEchecCritiqueMJ(intensite:number){
@@ -737,7 +694,7 @@ export class HerosService {
 
     await setDoc(doc(this.firestore, "heros_echecs", crypto.randomUUID()),document );
   
-    await this.storage.addElementInStorageGroup(StorageKeys.HERO_ECHECS,document);
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_ECHECS,document);
   }
 
   async addEntropiqueMJ(intensite:number){
@@ -749,7 +706,7 @@ export class HerosService {
 
     await setDoc(doc(this.firestore, "heros_entropiques", crypto.randomUUID()),document );
   
-    await this.storage.addElementInStorageGroup(StorageKeys.HERO_ENTROPIQUES,document);
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_ENTROPIQUES,document);
   }
 
   //#endregion Critiques
@@ -775,7 +732,7 @@ async setTrophe(joueur:string,titre:string):Promise<string>{
 
     await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),document);
 
-    await this.storage.addElementInStorageGroup(StorageKeys.TROPHES, document);
+    this.storage.addElementInStorageGroup(StorageKeys.TROPHES, document);
 
     return titre;
   }
@@ -788,18 +745,16 @@ async setTrophe(joueur:string,titre:string):Promise<string>{
       ?.filter(x=>x['code_joueur'] == joueur)
       .map(x=>x['titre']);
   }
-
-  async getAllTrophes():Promise<DocumentData[]>{
-
-    if(!this.storage.get(StorageKeys.TROPHES)){
-          const trophes = (await getDocs(query(collection(this.firestore,'heros_trophes')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.TROPHES,trophes);
-    }
-    
-    return this.storage.get<DocumentData[]>(StorageKeys.TROPHES) ?? [];
-  }
-  
   //#endregion
 
+private async getCachedCollection(key: StorageKeys): Promise<DocumentData[]> {
+  const cached = this.storage.get<DocumentData[]>(key);
+  if (cached) return cached;
+
+  const data = (await getDocs(collection(this.firestore, key)))
+    .docs.map(d => d.data());
+  this.storage.set(key, data);
+  return data;
+}
 
 }

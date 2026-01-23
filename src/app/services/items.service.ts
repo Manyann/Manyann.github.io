@@ -1,9 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { collection, doc, DocumentData, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { HeroArmes, HeroArmures, ItemHelper } from '../../component/model/item';
-import { CreationHelper } from '../../component/model/creation';
 import { StorageKeys, StorageService } from './storage.service';
-import { TrophesService } from './trophes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,149 +10,124 @@ export class ItemsService {
    constructor(
     private firestore:Firestore,
     private storage : StorageService,
-  ) {
-       console.log('Firestore items instance:', this.firestore); 
-     }
+  ) {}
 
-  async getAllArmes(){
-    if(!this.storage.get(StorageKeys.ARMES)){
-      const armes = (await getDocs(query(collection(this.firestore,'armes')))).docs.map((entries) => entries.data());
-      this.storage.set<DocumentData[]>(StorageKeys.ARMES,armes);
-    }
-          
-    return this.storage.get<DocumentData[]>(StorageKeys.ARMES) ?? [];
-  }
-  
-  async getAllArmures(){
-    if(!this.storage.get(StorageKeys.ARMURES)){
-      const armures = (await getDocs(query(collection(this.firestore,'armures')))).docs.map((entries) => entries.data());
-      this.storage.set<DocumentData[]>(StorageKeys.ARMURES,armures);
-    }
-          
-    return this.storage.get<DocumentData[]>(StorageKeys.ARMURES) ?? [];
-  }
+  async getAllArmes() { return this.getCachedCollection(StorageKeys.ARMES); }
+  async getAllArmures() { return this.getCachedCollection(StorageKeys.ARMURES); }
 
-  async getArmesByHero(hero:string){
-    const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armes')
-    ,where('hero_nom','==',hero)
-    ,where('supprime','==',false)))).docs.map((items) => items.data());
 
-    if(itemsLinked.length = 0){
-      return {hero_nom:hero,armes:[]};
-    }
+  async getArmesByHero(hero: string): Promise<HeroArmes> {
+  const links = (await getDocs(query(
+    collection(this.firestore, 'heros_armes'),
+    where('hero_nom', '==', hero),
+    where('supprime', '==', false)
+  ))).docs.map(d => d.data());
 
-    let armes =  (await getDocs(query(collection(this.firestore,'armes')
-    ,where('code','in',itemsLinked.map(x=>x['arme_code']))))).docs.map((items) => items.data());
-  
-    let heroArmes : HeroArmes = {hero_nom:hero,armes:[]};
-    let arme : DocumentData;
+  if (links.length === 0) return { hero_nom: hero, armes: [] };
 
-    itemsLinked.forEach(element => {
-      arme  = armes.find(x=>x['code'] == element['arme_code']) ?? {};
-      heroArmes.armes.push({
-        code : element['arme_code'],
-        libelle : arme['libelle'],
-        equipe : element['equipe']
-      })
+  // Charge toutes les armes via cache, puis map en mémoire
+  const allArmes = await this.getAllArmes();
+  const armesByCode = new Map(allArmes.map(a => [a['code'], a]));
+
+  const result: HeroArmes = { hero_nom: hero, armes: [] };
+  for (const l of links) {
+    const arme = armesByCode.get(l['arme_code']);
+    result.armes.push({
+      code: l['arme_code'],
+      libelle: arme?.['libelle'] ?? '(inconnu)',
+      equipe: !!l['equipe']
     });
-    return heroArmes;
   }
+  return result;
+}
 
-  async getArmuresByHero(hero:string){
-    const itemsLinked =  (await getDocs(query(collection(this.firestore,'heros_armures')
-    ,where('hero_nom','==',hero)
-    ,where('supprime','==',false)))).docs.map((items) => items.data());
 
-    if(itemsLinked.length = 0){
-      return {hero_nom:hero,armures:[]};
-    }
+  async getArmuresByHero(hero: string): Promise<HeroArmures> {
+  const links = (await getDocs(query(
+    collection(this.firestore, 'heros_armures'),
+    where('hero_nom', '==', hero),
+    where('supprime', '==', false)
+  ))).docs.map(d => d.data());
 
-    let armes =  (await getDocs(query(collection(this.firestore,'armures')
-    ,where('code','in',itemsLinked.map(x=>x['armure_code']))))).docs.map((items) => items.data());
-  
-    let heroArmures : HeroArmures = {hero_nom:hero,armures:[]};
-    let arme : DocumentData;
+  if (links.length === 0) return { hero_nom: hero, armures: [] };
 
-    itemsLinked.forEach(element => {
-      arme  = armes.find(x=>x['code'] == element['armure_code']) ?? {};
-      heroArmures.armures.push({
-        code : element['armure_code'],
-        libelle : arme['libelle'],
-        equipe : element['equipe']
-      })
+  // Charge toutes les armes via cache, puis map en mémoire
+  const allArmes = await this.getAllArmes();
+  const armesByCode = new Map(allArmes.map(a => [a['code'], a]));
+
+  const result: HeroArmures = { hero_nom: hero, armures: [] };
+  for (const l of links) {
+    const arme = armesByCode.get(l['armure_code']);
+    result.armures.push({
+      code: l['armure_code'],
+      libelle: arme?.['libelle'] ?? '(inconnu)',
+      equipe: !!l['equipe']
     });
-    return heroArmures; 
+  }
+  return result;
+}
+
+
+async equipe(heroCode: string, arme: string): Promise<string[]> {
+  const snap = await getDocs(query(
+    collection(this.firestore,'heros_armes'),
+    where('hero_nom','==',heroCode),
+    where('arme_code','==',arme),
+    where('equipe','==',false),
+    where('supprime','==',false)
+  ));
+
+  // update 1 doc (le premier) de manière sûre
+  for (const d of snap.docs) {
+    await setDoc(doc(this.firestore,'heros_armes', d.id), { ...d.data(), equipe: true });
+    break;
   }
 
-  async equipe(heroCode:string, arme:string) : Promise<string[]>{
-    let armesHero =  (await getDocs(query(
-      collection(this.firestore,'heros_armes')
-      ,where('hero_nom','==',heroCode)
-      ,where('arme_code','==',arme)
-      ,where('equipe','==',false)
-      ,where('supprime',"==",false))));
+  // récupérer le joueur
+  const heroSnap = await getDocs(query(
+    collection(this.firestore,'heros'),
+    where('nom','==',heroCode)
+  ));
+  const currentHero = heroSnap.docs[0]?.data();
+  if (!currentHero) return [];
 
-      let firstDealedWith : boolean = false;
+  const joueur = currentHero['code_joueur'];
 
-      //#region trophes
-      let trophes = [];
+  // toutes les armes équipées
+  const equipes = (await getDocs(query(
+    collection(this.firestore,'heros_armes'),
+    where('hero_nom','==',heroCode),
+    where('equipe','==',true),
+    where('supprime','==',false)
+  ))).docs.map(d => d.data());
 
-      armesHero.forEach(async (document) => {
-        const docId = document.id; // Get document ID
-        const docData = document.data(); // Get document data
-        docData['equipe'] = true;
-    
-        if(!firstDealedWith){
-          firstDealedWith=true;
-          await setDoc(doc(this.firestore,'heros_armes',docId), docData);
-        }
-      });
+  const nameMap = new Map<string, number>();
+  let hasBriseMonde = false;
+  const heroPlaque: Record<string, number> = {};
+  const heroDueliste: Record<string, number> = {};
 
-      let currentHero = (await getDocs(query(collection(this.firestore,'heros'),
-      where('nom',"==", heroCode)))).docs.map((entries) => entries.data())[0];
+  for (const item of equipes) {
+    const heroNom = item['hero_nom'];
+    const armeCode = item['arme_code'];
 
-      let equipes =  (await getDocs(query(
-        collection(this.firestore,'heros_armes')
-        ,where('hero_nom','==',heroCode)
-        ,where('equipe','==',true)
-        ,where('supprime',"==",false))))
-        .docs.map((entries) => entries.data());
+    if (armeCode === 'le-brise-monde') hasBriseMonde = true;
+    if (armeCode === 'lame-de-dueliste') heroDueliste[heroNom] = (heroDueliste[heroNom] ?? 0) + 1;
+    if (armeCode?.includes('plaque-travaille')) heroPlaque[heroNom] = (heroPlaque[heroNom] ?? 0) + 1;
 
-        const nameMap = new Map<string, number>();
-        let hasBriseMonde = false;
-        let heroPlaque: { [hero: string] : number; } = {};
-        let heroDueliste: { [hero: string] : number; } = {};
-        for (const item of equipes) {
-          let armeCode:string = item['arme_code'];
-          if(armeCode == 'le-brise-monde'){
-            hasBriseMonde = true;
-          }else if(armeCode == 'lame-de-dueliste'){
-            heroDueliste[item['hero_nom']]++;
-          }else if(armeCode.indexOf('plaque-travaille')!= -1 && item['equipe'] == true){
-            heroPlaque[item['hero_nom']]++;
-          }
-          if (new Set(["baton-d-elementaliste", "grimoire-universel"]).has(armeCode)) {
-            nameMap.set(item['hero_nom'], (nameMap.get(item['hero_nom']) || 0) + 1);
-          }
-        }
-      
-        if(nameMap.size > 0){
-          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Elémentaire mon cher"));
-        }
-        if(hasBriseMonde){
-          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Galactus"));
-        }
-        if(heroPlaque){
-          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Indestructible"));
-        }
-        if(heroDueliste){
-          trophes.push(await this.setTrophe(currentHero[0]['code_joueur'],"Go 1v1"));
-        }
-
-      //#endregion trophes
-
-      return trophes;
+    if (armeCode === 'baton-d-elementaliste' || armeCode === 'grimoire-universel') {
+      nameMap.set(heroNom, (nameMap.get(heroNom) ?? 0) + 1);
+    }
   }
+
+  const trophes: string[] = [];
+  if (nameMap.size > 0) trophes.push(await this.setTrophe(joueur, "Elémentaire mon cher"));
+  if (hasBriseMonde) trophes.push(await this.setTrophe(joueur, "Galactus"));
+  if (Object.values(heroPlaque).some(v => v > 0)) trophes.push(await this.setTrophe(joueur, "Indestructible"));
+  if (Object.values(heroDueliste).some(v => v > 0)) trophes.push(await this.setTrophe(joueur, "Go 1v1"));
+
+  return trophes.filter(t => t); // enlève les "" éventuels
+}
+
 
   async desequipe(heroCode:string, arme:string){
     let armesHero =  (await getDocs(query(
@@ -260,7 +233,6 @@ export class ItemsService {
         }
       });
   }
-  
 
   async removeArmureFromHero(heroCode:string, armure: string){
     let armesHero =  (await getDocs(query(
@@ -283,18 +255,6 @@ export class ItemsService {
       });
   }
 
-  async bulkInsert(){
-    let origines =  CreationHelper.getAllMetier();
-
-    origines.forEach(async element => {
-      let transformed = element.nom.replaceAll(" ","-").replaceAll("'","-").toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
-      await setDoc(doc(this.firestore, "metiers",transformed ), {
-        code: transformed,
-        libelle: element.nom,
-      });
-    });
-  }
-
   //#region Trophes
 
 async setTrophe(joueur:string,titre:string):Promise<string>{
@@ -312,7 +272,7 @@ async setTrophe(joueur:string,titre:string):Promise<string>{
 
     await setDoc(doc(this.firestore,'joueurs_trophes', crypto.randomUUID()),document);
 
-    await this.storage.addElementInStorageGroup(StorageKeys.TROPHES, document);
+    this.storage.addElementInStorageGroup(StorageKeys.TROPHES, document);
 
     return titre;
   }
@@ -338,5 +298,17 @@ async setTrophe(joueur:string,titre:string):Promise<string>{
 
 
   //#endregion
+
+  
+
+private async getCachedCollection(key: StorageKeys): Promise<DocumentData[]> {
+  const cached = this.storage.get<DocumentData[]>(key);
+  if (cached) return cached;
+
+  const data = (await getDocs(collection(this.firestore, key)))
+    .docs.map(d => d.data());
+  this.storage.set(key, data);
+  return data;
+}
 
 }

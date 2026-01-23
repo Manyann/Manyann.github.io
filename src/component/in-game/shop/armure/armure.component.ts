@@ -30,7 +30,6 @@ import { Ville, VilleHelper } from "../../../model/villes";
       }
   
       public filterItems(){
-        console.log(this.selectedVilleType)
           let ville = this.villes.find(x=>x.region == this.selectedRegion 
             && x.type == this.selectedVilleType);
       

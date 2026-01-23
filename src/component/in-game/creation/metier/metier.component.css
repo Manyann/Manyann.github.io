@@ -54,21 +54,6 @@
   padding: 2rem;
 }
 
-.parts .title {
-  color: var(--accent);
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.parts .list-item-details-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.list-autres .list-item-details-items {
-  flex-direction: column;
-}
 
 /* === SPÉCIFIQUE === */
 .forbidden {

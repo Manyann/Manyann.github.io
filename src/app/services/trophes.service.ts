@@ -8,19 +8,9 @@ import { DocumentData } from 'firebase/firestore';
 })
 export class TrophesService {
 
-  async getTrophesMetier() : Promise<Record<string,string>>{
+  getTrophesMetier() : Record<string,string>{
     return {
-      'pretre': 'BRUT',
-      'voleur': "De l'autre coté de la mer",
-      'artiste': 'Picasso',
-      'bourgeois': '92%',
-      'artisant': "C'est moi qui l'ait fait",
-      'ranger': 'Buzz la foudre',
-      'ingenieur': "Il a encore oublié d'enlever l'armure",
-      'demonologue': 'Tes HP ... nos HP',
-      'guerrier': "Ma seule stat c'est force",
-      'mage': 'Poudlard',
-      'walkyrie': 'Comme un air de supériorité',
+      ...this.getTrophesMetierBase(),
       'chasseur-de-monstres': 'Monster Hunter',
       'chasseur-de-tresor': 'Uncharted',
       'chasseur-de-primes': 'Marshal',
@@ -52,14 +42,14 @@ export class TrophesService {
     };
   }
   
-  async getTrophesMetierBase() : Promise<Record<string,string>>{
+  getTrophesMetierBase() : Record<string,string>{
     return {
       'pretre': 'BRUT',
       'voleur': "De l'autre coté de la mer",
       'artiste': 'Picasso',
       'bourgeois': '92%',
       'artisant': "C'est moi qui l'ait fait",
-      'ranger': 'Buzz la foudre',
+      'ranger': 'Buzz',
       'ingenieur': "Il a encore oublié d'enlever l'armure",
       'demonologue': 'Tes HP ... nos HP',
       'guerrier': "Ma seule stat c'est force",
@@ -68,7 +58,7 @@ export class TrophesService {
     };
   }
   
-  async getTrophesOrigines() : Promise<Record<string,string>>{
+  getTrophesOrigines() : Record<string,string>{
     return {
     'demi-elfe': 'Mangeur de salade marque repère',
     'elfe-sylvain': 'Mangeur de salade bio',
@@ -87,7 +77,7 @@ export class TrophesService {
     };
   }
 
-  async getTrophesOriginesMetier(): Promise<Record<string,Record<string, string>>>{
+  getTrophesOriginesMetier(): Record<string,Record<string, string>>{
     return {
       'humain': {
         '': "C'est sur qu'on a pas de swap ?"
@@ -99,7 +89,7 @@ export class TrophesService {
         'voleur': "Renforcer les stéréotypes"
       },
       'elfe-noir': {
-        'demologue': "Le vrai Dark Sasuke"
+        'demonologue': "Le vrai Dark Sasuke"
       },
       'walkyrie': {
         'compagnie-du-crepuscule': "Représentant divin",
@@ -109,7 +99,7 @@ export class TrophesService {
     };
   }
 
-  async getOriginesJouees() : Promise<Record<string,number>>{
+  getOriginesJouees() : Record<string,number>{
     return {
     'barbare': 0,
     'centaure': 0,
@@ -129,7 +119,7 @@ export class TrophesService {
     };
   }
 
-  async getMetiersJouees() : Promise<Record<string,number>>{
+  getMetiersJouees() : Record<string,number>{
     return {
     'archange': 0,
     'archeologue': 0,
@@ -149,7 +139,7 @@ export class TrophesService {
     'conservateur': 0,
     'corsaire': 0,
     'demonologue': 0,
-    'empoisoneur': 0,
+    'empoisonneur': 0,
     'forgeron': 0,
     'forgeur-de-runes': 0,
     'gardienne-de-l-aube': 0,
@@ -179,12 +169,12 @@ export class TrophesService {
     };
   }
 
-  async getTrophesComplexeClasse(
+  getTrophesComplexeClasse(
     originesJouees:Record<string,number>,
     metierJoues:Record<string,number>,
     allOrigines : DocumentData[],
     allMetiers : DocumentData[],
-  ): Promise<string[]>{
+  ): string[]{
     let trophes = [];
 
     if(originesJouees['orque'] > 0 && originesJouees['demi-orque']  > 0
@@ -215,7 +205,7 @@ export class TrophesService {
     if(metierJoues['forgeron'] > 0 && metierJoues['forgeur-de-runes'] > 0){
       trophes.push("C'est un forgeant qu'on devient forgeron");
     }
-    if(originesJouees['centaure'] > 0 && originesJouees['hommes-des-sables'] > 0
+    if(originesJouees['centaure'] > 0 && originesJouees['homme-des-sables'] > 0
        && originesJouees['samurai'] > 0 && originesJouees['walkyrie'] > 0){
       trophes.push('Contrées lointaines');
     }
@@ -231,7 +221,7 @@ export class TrophesService {
     if(allOrigines.length == Object.values(originesJouees).filter(value => value > 0).length){
       trophes.push('Joueur du monde');
     }
-    if(Object.keys(await this.getTrophesMetierBase()).length == Object.values(metierJoues).filter(value => value > 0).length){
+    if(Object.keys(this.getTrophesMetierBase()).length == Object.values(metierJoues).filter(value => value > 0).length){
       trophes.push('Polyvalent');
     }
     if(Object.values(originesJouees).filter(value => value >= 10).length > 0){
@@ -245,8 +235,7 @@ export class TrophesService {
       trophes.push('1001 vies');
     }
     
-    
-    return [];
+    return trophes;
   }
 
 }

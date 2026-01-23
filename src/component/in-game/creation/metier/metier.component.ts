@@ -75,7 +75,6 @@ setAll():void{
   }
 
 handleSidebarHide() {
-  console.log('sidebar hidden');
   this.sidebarVisible = false;
 
   // Délai pour laisser le DOM se stabiliser
