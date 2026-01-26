@@ -1,15 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
-import {
-  trigger,
-  transition,
-  style,
-  animate
-} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -17,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   standalone:true,
-  imports: [HomeComponent,CommonModule ,RouterModule,MenubarModule,SidebarModule],
+  imports: [CommonModule ,RouterModule,MenubarModule,SidebarModule],
 })
 export class AppComponent {
   menuVisible = false;

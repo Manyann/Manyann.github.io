@@ -8,18 +8,19 @@ import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { PanelModule } from 'primeng/panel';
-import { ConfirmationService, Message, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { Mob } from '../../model/ennemi';
 import { MobsService } from '../../../app/services/mob.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { Toaster } from '../../../utils/toaster';
 
 @Component({
   selector: 'app-combat',
   standalone: true,
   imports: [PanelModule, ToastModule,TableModule, CommonModule,AutoCompleteModule,ButtonModule,InputNumberModule,FormsModule,ConfirmDialogModule],
-  providers:[ConfirmationService, MessageService],
+  providers:[ConfirmationService],
   templateUrl: './combat.component.html',
   styleUrl: './combat.component.css'
 })
@@ -47,9 +48,9 @@ export class CombatComponent {
   constructor(
     private herosService:HerosService,
     private mobsService: MobsService,
-    private messageService: MessageService,
     confirmationService:ConfirmationService,
-    private router: Router
+    private router: Router,
+    private toaster: Toaster
   ){
 
     this.sidebarVisible = false;
@@ -99,11 +100,7 @@ export class CombatComponent {
   addMort(hero:string){
     this.herosService.addMort(hero)
     .then(()=> {
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Mort ajoutée"
-      });
+      this.toaster.info("Mort ajoutée");
     });
   }
 
@@ -111,11 +108,7 @@ export class CombatComponent {
     this.herosService.addCritique(hero,this.addIntensite,this.getFakeTour(hero))
     .then((trophes)=> {
       this.addIntensite = 0;
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Coup critique ajouté"
-      });
+      this.toaster.info("Coup critique ajouté");
       this.handleTrophes(trophes); 
     });
   }
@@ -124,11 +117,7 @@ export class CombatComponent {
     this.herosService.addEchecCritique(hero,this.addIntensite,this.getFakeTour(hero))
     .then((trophes)=> {
       this.addIntensite = 0;
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Echec critique ajouté"
-      });
+      this.toaster.info("Echec critique ajouté");
       this.handleTrophes(trophes); 
     });
   }
@@ -137,11 +126,7 @@ export class CombatComponent {
     this.herosService.addParade(hero,this.addIntensite,this.getFakeTour(hero))
     .then((trophes)=> {
       this.addIntensite = 0;
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Parade critique ajoutée"
-      });
+      this.toaster.info("Parade critique ajouté");
       this.handleTrophes(trophes); 
     });
   }
@@ -150,11 +135,7 @@ export class CombatComponent {
     this.herosService.addEntropique(hero,this.addIntensite,this.getFakeTour(hero))
     .then((trophes)=> {
       this.addIntensite = 0;
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Entropique ajoutée"
-      });
+      this.toaster.info("Sort entropique ajouté");
       this.handleTrophes(trophes); 
     });
   }
@@ -163,11 +144,7 @@ export class CombatComponent {
     this.herosService.addEntropiqueMJ(this.addIntensite)
     .then(()=> {
       this.addIntensite = 0;
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Entropique ajoutée"
-      });
+      this.toaster.info("Sort entropique MJ ajouté");
     });
   }
 
@@ -176,11 +153,7 @@ export class CombatComponent {
     this.herosService.addCritiqueMJ(this.addIntensite)
     .then(()=> {
       this.addIntensite = 0;
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Coup critique ajouté"
-      });
+      this.toaster.info("Coup critique MJ ajouté");
     });
   }
 
@@ -188,11 +161,7 @@ export class CombatComponent {
     this.herosService.addParadeMJ(this.addIntensite)
     .then(()=> {
       this.addIntensite = 0;
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Parade critique ajoutée"
-      });
+      this.toaster.info("Parade critique MJ ajouté");
     });
   }
 
@@ -200,22 +169,14 @@ export class CombatComponent {
     this.herosService.addEchecCritiqueMJ(this.addIntensite)
     .then(()=> {
       this.addIntensite = 0;
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Echec critique ajouté"
-      });
+      this.toaster.info("Echec critique MJ ajouté");
     });
   }
 
   updateDegatsDealt(hero:string){
     this.herosService.updateDegatsDealt(hero,this.addDegats,this.getFakeTour(hero))
     .then((trophes)=> {
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:`${this.addDegats} ajouté(s)`
-      });
+      this.toaster.info(`${this.addDegats} ajouté(s)`);
       this.handleTrophes(trophes); 
       this.addDegats = 0;
     });
@@ -228,11 +189,7 @@ export class CombatComponent {
   removeDestin(hero:string){
     this.herosService.removeDestin(hero)
     .then((trophes)=> {
-      this.messageService.add({
-        severity:'info',
-        closable:true,
-        summary:"Point de destin retiré"
-      });
+      this.toaster.info("Point de destin retiré");
       this.handleTrophes(trophes); 
     this.heroSession$ = this.herosService.getAllFromSession();
     });
@@ -305,13 +262,7 @@ export class CombatComponent {
     let mob = this.mobs.find(x=>x.index == index);
     if(mob != undefined){
       this.mobsService.insert(mob).then(()=>{
-        this.messageService.add({
-          severity:'success',
-          icon:'pi-plus',
-          closable:true,
-          summary:`${mob.libelle} enregistré.`,
-          life:1000
-        });
+      this.toaster.success(`${mob.libelle} enregistré.`);
         this.allMobs$ = this.mobsService.getAll();
         this.allMobs$.then((m) =>{
           this.mobsToSearch = m;
@@ -337,13 +288,7 @@ export class CombatComponent {
 
   handleTrophes(trophes:string[]){
     for(let trophe of trophes.filter(x=>x != "")){
-      this.messageService.add({
-        severity:'success',
-        icon:'pi-crown',
-        closable:true,
-        summary:trophe,
-        life:70000
-      });
+      this.toaster.success(trophe,'crown');
     }
   }
 

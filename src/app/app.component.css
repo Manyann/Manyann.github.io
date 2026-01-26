@@ -89,3 +89,28 @@
     display: none;
   }
 }
+::ng-deep.p-toast-message-content {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+    min-height: 0;
+    overflow: hidden;
+    transition: padding 250ms ease-in;
+}
+
+::ng-deep.p-toast-message-info{
+      background-color: rgba(14, 165, 233,0.7) ;
+    }
+
+::ng-deep.p-toast-message-danger{
+      background-color: rgba(237, 39, 0,0.7) ;
+    }
+
+::ng-deep.p-toast-message-success{
+      background-color: rgba(26, 201, 32,0.7) ;
+    }
+
+::ng-deep.p-toast-message-warning{
+      background-color: rgba(255, 124, 43,0.7) ;
+    }

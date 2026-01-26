@@ -7,6 +7,7 @@ import { environment } from '../environments/environments';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(), // ← AJOUTER CECI
     provideFirebaseApp(() => initializeApp(environment.firebase)), // doit venir AVANT
-    provideFirestore(() => getFirestore())                         // dépend de l'init ci-dessus
+    provideFirestore(() => getFirestore()),
+    MessageService                    
   ]
 };

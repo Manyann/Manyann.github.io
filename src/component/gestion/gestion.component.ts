@@ -18,10 +18,11 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HeroArmes, HeroArmures } from '../model/item';
-import { ConfirmationService,Message, MessageService } from 'primeng/api';
+import { ConfirmationService} from 'primeng/api';
 import { Router } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { SidebarComponent } from '../common/sidebar/sidebar.component';
+import { Toaster } from '../../utils/toaster';
 
 @Component({
   selector: 'app-ingame',
@@ -30,7 +31,7 @@ import { SidebarComponent } from '../common/sidebar/sidebar.component';
     TableModule, InputSwitchModule, FormsModule, AutoCompleteModule, DropdownModule, ButtonModule,
     ReactiveFormsModule,InputNumberModule, SidebarModule,MultiSelectModule,ConfirmDialogModule, 
     HeroPipe,HeroTypePipe, IsFromSessionPipe, ShouldBeEquipePipe,SidebarComponent ],
-    providers:[ConfirmationService, MessageService],
+    providers:[ConfirmationService],
   templateUrl: './gestion.component.html',
   styleUrl: './gestion.component.css'
 })
@@ -77,7 +78,7 @@ export class GestionComponent {
     herosService:HerosService,
     armesService:ItemsService,
     confirmationService:ConfirmationService,
-    private messageService: MessageService,
+    private toaster: Toaster,
     private router: Router
   ){
 
@@ -279,13 +280,7 @@ export class GestionComponent {
 
   handleTrophes(trophes:string[]){
     for(let trophe of trophes.filter(x=>x !== "")){
-      this.messageService.add({
-        severity:'success',
-        icon:'pi-crown',
-        closable:true,
-        summary:trophe,
-        life:7000
-      });
+      this.toaster.success(trophe,'crown');
     }
   }
 
