@@ -9,6 +9,11 @@
   background-color: var(--border);
 }
 
+::ng-deep.p-splitter-panel-nested{
+  display: block;
+  width: 50%;
+}
+
 /* --- P-TABLE --- */
 .p-table,
 .p-datatable {

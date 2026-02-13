@@ -12,6 +12,10 @@
                             <th>Nom</th>
                             <th>Niveau</th>
                             <th>Type</th>
+                            <th>Destin</th>
+                            <th>Bon Point</th>
+                            <th>Mauvais Point</th>
+                            <th>Mort</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-hero>
@@ -20,6 +24,10 @@
                             <td>{{hero.nom}}</td>
                             <td>{{hero.niveau}}</td>
                             <td>{{hero.origine | heroType: herosTypes ?? []}}</td>
+                            <td>{{hero.destin}}</td>
+                            <td>{{hero.bon_point}}</td>
+                            <td>{{hero.mauvais_point}}</td>
+                            <td>{{hero.mort}}</td>
                         </tr>
                     </ng-template>
                 </p-table></div>
@@ -27,50 +35,21 @@
                     <br>
     <p-button class="m-2" (onClick)="triggerAjouter($event)" label="Hero" icon="pi pi-plus" />
     <p-button class="m-2" (onClick)="goToCombat()" label="Combat" icon="pi pi-caret-right" />
-    <p-button class="m-2" (onClick)="triggerAjouterStats($event)" label="Ajouter statistique" icon="pi pi-chart-line" />
     <p-button class="m-2" (onClick)="resetStorage()" label="Vider le cache" icon="pi pi-exclamation-triangle" />
     </div></div>
             </ng-template>
             <ng-template pTemplate>
                 <div  *ngFor="let hero of (hero$ | async) ??[]" class="mw-20 ml-2">
-                    <div class="text-center" ><h2>{{hero['nom']}}</h2></div>
-                    <div class="stats-handler"><span class="text-bold">Niveau</span> {{hero['niveau']}}<p-button (onClick)="levelUp(hero['nom'])" icon="pi pi-plus" class="bt-sm" /></div>
-                    <div class="stats-handler"><span class="text-bold">Or</span> {{hero['or']}}<p-button icon="pi pi-plus" class="bt-sm" /></div>
-                    <div class="stats-handler"><span class="text-bold">Point de destin</span> {{hero['destin']}}<p-button (onClick)="removeDestin(hero['nom'])" icon="pi pi-minus" class="bt-sm" /></div>
-                    <div class="stats-handler"><span class="text-bold">Bon point</span> {{hero['bon_point']}} <p-button (onClick)="addBonPoint(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
-                    <div class="stats-handler"><span class="text-bold">Mauvais point</span> {{hero['mauvais_point']}} <p-button (onClick)="addMauvaisPoint(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
-                    <div class="stats-handler"><span class="text-bold">Morts</span> {{ hero['morts']}} <p-button (onClick)="addMort(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
                     <div>
-                        <h3>Equipements</h3>
+                        <h3>Armes</h3>
                         <div class="block-flex">
-                            <div>
-                                <h4> Equipé </h4>
-                                <div *ngFor="let arme of (armes$ | async)?.armes ??[] | shouldBeEquipe : true">
-                                    <p-button (onClick)="supprimer(hero['nom'],arme['code'])" icon="pi pi-trash" class="red-dot bt-sm" /> 
-                                    {{arme['libelle']}} 
-                                    <p-button (onClick)="desequipe(hero['nom'],arme['code'])" icon="pi pi-arrow-right" class="blue-dot bt-sm" />
-                                </div>
-                                <div *ngFor="let armure of (armures$ | async)?.armures ??[] | shouldBeEquipe : true">
-                                    <p-button (onClick)="supprimerArmure(hero['nom'],armure['code'])" icon="pi pi-trash" class="red-dot bt-sm" /> 
-                                    {{armure['libelle']}} 
-                                    <p-button (onClick)="desequipeArmure(hero['nom'],armure['code'])" icon="pi pi-arrow-right" class="blue-dot bt-sm" />
-                                </div>
-                            </div>
-                            <div>
-                                <div class="stats-handler"><h4> Inventaire   <p-button class=" bt-sm" (onClick)="triggerAjouterStuff($event)" icon="pi pi-plus"></p-button></h4></div>
-                                <div *ngFor="let arme of (armes$ | async)?.armes ??[]| shouldBeEquipe : false">
-                                    <p-button (onClick)="equipe(hero['nom'],arme['code'])" icon="pi pi-arrow-left" class="blue-dot bt-sm" />
-                                    {{arme['libelle']}} 
-                                    <p-button (onClick)="supprimer(hero['nom'],arme['code'])" icon ="pi pi-trash" class="red-dot bt-sm" />
-                                </div>
-                                <div *ngFor="let armure of (armures$ | async)?.armures ??[]| shouldBeEquipe : false">
-                                    <p-button (onClick)="equipeArmure(hero['nom'],armure['code'])" icon="pi pi-arrow-left" class="blue-dot bt-sm" />
-                                    {{armure['libelle']}} 
-                                    <p-button (onClick)="supprimerArmure(hero['nom'],armure['code'])" icon ="pi pi-trash" class="red-dot bt-sm" />
-                                </div>
-                            </div>
                         </div>
-                      </div>
+                    </div>
+                    <div>
+                        <h3>Armures</h3>
+                        <div class="block-flex">
+                        </div>
+                    </div>
                 </div>
             </ng-template>
         </p-splitter>
@@ -155,10 +134,6 @@
                 <span>Niveau :  </span>
                 <p-inputNumber class="no-margin"  [(ngModel)]="addNiveau" name="addNiveau" />
             </div>
-            <div class="mt-2 div-flex row">
-                <span>Or :  </span>
-                <p-inputNumber class="no-margin" [(ngModel)]="addOr" name="addOr"/>
-            </div>
             <div class="mt-2 div-flex  row"> 
                 <span>Point de destin : </span>
                 <p-inputNumber class="no-margin" [(ngModel)]="addDestin" name="addDestin"/>
@@ -169,59 +144,6 @@
             </div>
     </div>
 </app-sidebar>
-<p-sidebar [(visible)]="sidebarStuffVisible">
-    <div class="add-panel">
-            <div class="mt-2">
-                <span>Armes :  </span>
-                <p-multiSelect 
-                [options]="herosArmesSelect"
-                [(ngModel)]="addArmes"
-                optionLabel="libelle"
-                placeholder="armes" />
-            </div>
-            <div class="mt-2">
-                <span>Armures :  </span>
-                <p-multiSelect 
-                [options]="herosArmuresSelect"
-                [(ngModel)]="addArmures"
-                optionLabel="libelle"
-                placeholder="armures" />
-            </div>
-            <div class="mt-2"> 
-                <p-button (onClick)="validerStuff()" >Valider</p-button>
-            </div>
-    </div>
-</p-sidebar>
-<p-sidebar [(visible)]="sidebarStatsVisible">
-    <div class="add-panel">
-            <div class="mt-2">
-                <span>Hero(s) : </span>
-                <p-multiSelect 
-                [options]="(allHeros$ | async) ?? [] | isFromSession" 
-                [(ngModel)]="addStatsHero" 
-                name="addStatsHero"
-                optionLabel="nom" 
-                placeholder="Hero(s)"
-                class="w-12" />
-            </div>
-            <div class="mt-2">
-                <span>Kms :  </span>
-                <p-inputNumber 
-                [(ngModel)]="addKmParcourus"
-                placeholder="Kms" />
-            </div>
-            <div class="mt-2">
-                <span>Or :  </span>
-                <p-inputNumber 
-                [(ngModel)]="addOrs"
-                placeholder="Ors" />
-            </div>
-            <div class="mt-2"> 
-                <p-button (onClick)="validerStats()" >Valider</p-button>
-            </div>
-    </div>
-</p-sidebar>
-
 <p-confirmDialog>
     <ng-template #message let-message>
         <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
