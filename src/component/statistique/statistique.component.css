@@ -27,7 +27,7 @@
 .infos-achivement{
     z-index: 0;
     display: flex;   
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     gap: 0.5rem;
     position: relative;
     justify-content: center;
@@ -113,12 +113,15 @@
 
 
 
-  .bcolor-5,.bcolor-8,.bcolor-10{
+  .bcolor-5,
+  .bcolor-8,
+  .bcolor-10{
     background: #1D1F20;
     position: relative;
     border-radius: 1px;
   }
-  .b-color-11,.b-color-12 {
+  .b-color-11,
+  .b-color-12 {
     background: #d6ecf7;
     position: relative;
     border-radius: 1px;
@@ -133,7 +136,7 @@
     background:linear-gradient(60deg, #e5e4e2,#000000,#e5e4e2);
     border-radius: calc(2* 1px);
     z-index: -1;
-    animation: _ngcontent-ng-c1820034613_animatedgradient 3s ease alternate infinite;
+    animation: animatedgradient 3s ease alternate infinite;
     background-size: 300% 300%;
   }
   .bcolor-8:after {
@@ -146,7 +149,7 @@
     background:linear-gradient(60deg, #86E9FF,#000000,#86E9FF);
     border-radius: calc(2* 1px);
     z-index: -1;
-    animation: _ngcontent-ng-c1820034613_animatedgradient 3s ease alternate infinite;
+    animation: animatedgradient 3s ease alternate infinite;
     background-size: 300% 300%;
   }
   .bcolor-10:after {
@@ -163,7 +166,7 @@
         #C73131);
     border-radius: calc(2* 1px);
     z-index: -1;
-    animation: _ngcontent-ng-c1820034613_animatedgradient 3s ease alternate infinite;
+    animation: animatedgradient 3s ease alternate infinite;
     background-size: 300% 300%;
   }
   

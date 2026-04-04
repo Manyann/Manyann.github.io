@@ -309,6 +309,10 @@ getChartOptionsMiroir(title: string): any {
   }
 
   async updateTrophes(joueurCode: string) {
-    this.trophesJoueur = await this.statistiquesService.getJoueurTrophes(joueurCode);
+    const data = await this.statistiquesService.getJoueurTrophes(joueurCode);
+
+    this.trophesJoueur = [...(data ?? [])].sort((a, b) =>
+      Number(a.categorie) - Number(b.categorie)
+    );
   }
 }

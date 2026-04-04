@@ -54,7 +54,8 @@ export class TrophesService {
       'demonologue': 'Tes HP ... nos HP',
       'guerrier': "Ma seule stat c'est force",
       'mage': 'Poudlard',
-      'walkyrie': 'Comme un air de supériorité'
+      'walkyrie': 'Comme un air de supériorité',
+      'barbare' : 'Conan'
     };
   }
   
@@ -80,7 +81,7 @@ export class TrophesService {
   getTrophesOriginesMetier(): Record<string,Record<string, string>>{
     return {
       'humain': {
-        '': "C'est sur qu'on a pas de swap ?"
+        'sans-metier': "C'est sur qu'on a pas de swap ?"
       },
       'orque': {
         'mage': "Combattre les stéréotypes"
