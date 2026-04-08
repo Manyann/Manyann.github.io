@@ -1,55 +1,54 @@
+<p-table
+  [value]="items"
+  [scrollable]="true"
+  dataKey="categorie.code"
+  rowGroupMode="subheader"
+  groupRowsBy="categorie.code"
+  [tableStyle]="{ 'min-width': '70rem' }"
+  styleClass="mt-3 p-datatable-striped boutique-table"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pFrozenColumn>Nom</th>
+      <th pFrozenColumn pSortableColumn="prix">Prix</th>
+      <th>Durée</th>
+      <th pSortableColumn="vie">EV</th>
+      <th pSortableColumn="mana">EA</th>
+      <th>PR</th>
+      <th>AT / PRD</th>
+      <th pSortableColumn="courage">COU</th>
+      <th pSortableColumn="intelligence">INT</th>
+      <th pSortableColumn="charisme">CHA</th>
+      <th pSortableColumn="adresse">AD</th>
+      <th pSortableColumn="force">FO</th>
+      <th pSortableColumn="chance">CHN</th>
+      <th>Informations</th>
+    </tr>
+  </ng-template>
 
-    <p-table
-      [value]="items"
-      [scrollable]="true"
-      dataKey="categorie.code"
-      rowGroupMode="subheader"
-      groupRowsBy="categorie.code"
-      [tableStyle]="{ 'min-width': '70rem' }"
-      styleClass="mt-3 p-datatable-striped boutique-table"
-      >
-    <ng-template pTemplate="header">
-        <tr>
-            <th pFrozenColumn>Nom</th>
-            <th pFrozenColumn pSortableColumn="prix">Prix</th>
-            <th>Durée</th>
-            <th pSortableColumn="vie" >EV</th>
-            <th pSortableColumn="mana" >EA</th>
-            <th>PR</th>
-            <th>AT / PRD</th>
-            <th pSortableColumn="courage">COU</th>
-            <th pSortableColumn="intelligence">INT</th>
-            <th pSortableColumn="charisme">CHA</th>
-            <th pSortableColumn="adresse">AD</th>
-            <th pSortableColumn="force">FO</th>
-            <th pSortableColumn="chance">CHN</th>
-            <th>Informations</th>
-        </tr>
-    </ng-template>
-
-        <ng-template pTemplate="groupheader" let-item  let-expanded="expanded">
-            <tr class="group-header">
-                <td colspan="100%">
-                    <div>{{item.categorie.libelle}}</div>
-                </td>
-            </tr>
-        </ng-template>
-    <ng-template pTemplate="body" let-item>
-        <tr>
-            <td pFrozenColumn>{{item.libelle}} </td>
-            <td pFrozenColumn [innerHTML]="item.prix | promotion"></td>
-            <th [innerHTML]="item.duree"></th>
-            <th [innerHTML]="item.vie"></th>
-            <th [innerHTML]="item.mana"></th>
-            <th [innerHTML]="item.armure"></th>
-            <th>{{item.attaque}} / {{item.parade}}</th>
-            <th>{{item.courage}}</th>
-            <th>{{item.intelligence}}</th>
-            <th>{{item.charisme}}</th>
-            <th [innerHTML]="item.adresse" ></th>
-            <th [innerHTML]="item.force"></th>
-            <th>{{item.chance}}</th>
-            <th [innerHTML]="item.informations"></th>
-        </tr>
-    </ng-template>
+  <ng-template pTemplate="groupheader" let-item let-expanded="expanded">
+    <tr class="group-header">
+      <td colspan="100%">
+        <div>{{ item.categorie.libelle }}</div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td pFrozenColumn>{{ item.libelle }}</td>
+      <td pFrozenColumn [innerHTML]="item.prix | promotion"></td>
+      <td [innerHTML]="item.duree"></td>
+      <td [innerHTML]="item.vie"></td>
+      <td [innerHTML]="item.mana"></td>
+      <td [innerHTML]="item.armure"></td>
+      <td>{{ item.attaque }} / {{ item.parade }}</td>
+      <td>{{ item.courage }}</td>
+      <td>{{ item.intelligence }}</td>
+      <td>{{ item.charisme }}</td>
+      <td [innerHTML]="item.adresse"></td>
+      <td [innerHTML]="item.force"></td>
+      <td>{{ item.chance }}</td>
+      <td [innerHTML]="item.informations"></td>
+    </tr>
+  </ng-template>
 </p-table>

@@ -1,17 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
+function badge(label: string, cssClass: string): string {
+  return ` <span class="shop-bonus ${cssClass}">${label}</span>`;
+}
+
 @Pipe({
   name: 'bonusAd',
-  standalone: true
+  standalone: true,
 })
 export class BonusAdPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: string, origine : string): SafeHtml  {
-
-    if(origine === "elfe"){
-      return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:gold>(+1)</span>');
+  transform(value: string, origine: string): SafeHtml {
+    if (origine === 'elfe') {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `${value}${badge('+1', 'bonus-elfe')}`,
+      );
     }
     return this.sanitizer.bypassSecurityTrustHtml(value);
   }
@@ -19,15 +24,16 @@ export class BonusAdPipe implements PipeTransform {
 
 @Pipe({
   name: 'bonusForce',
-  standalone: true
+  standalone: true,
 })
 export class BonusForcePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: string, origine : string): SafeHtml  {
-
-    if(origine === "orc"){
-      return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:green>(+1)</span>');
+  transform(value: string, origine: string): SafeHtml {
+    if (origine === 'orc') {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `${value}${badge('+1', 'bonus-orc')}`,
+      );
     }
     return this.sanitizer.bypassSecurityTrustHtml(value);
   }
@@ -35,15 +41,16 @@ export class BonusForcePipe implements PipeTransform {
 
 @Pipe({
   name: 'bonusArmure',
-  standalone: true
+  standalone: true,
 })
 export class BonusArmurePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: string, origine : string): SafeHtml  {
-
-    if(origine === "nain"){
-      return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:orange>(+1)</span>');
+  transform(value: string, origine: string): SafeHtml {
+    if (origine === 'nain') {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `${value}${badge('+1', 'bonus-nain')}`,
+      );
     }
     return this.sanitizer.bypassSecurityTrustHtml(value);
   }
@@ -51,15 +58,16 @@ export class BonusArmurePipe implements PipeTransform {
 
 @Pipe({
   name: 'bonusDegat',
-  standalone: true
+  standalone: true,
 })
 export class BonusDegatPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: string, origine : string): SafeHtml  {
-
-    if(origine === "homme-sable"){
-      return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:cyan>(+1)</span>');
+  transform(value: string, origine: string): SafeHtml {
+    if (origine === 'homme-sable') {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `${value}${badge('+1', 'bonus-sable')}`,
+      );
     }
     return this.sanitizer.bypassSecurityTrustHtml(value);
   }
@@ -67,15 +75,16 @@ export class BonusDegatPipe implements PipeTransform {
 
 @Pipe({
   name: 'bonusAttaque',
-  standalone: true
+  standalone: true,
 })
 export class BonusAttaquePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: string, origine : string): SafeHtml  {
-
-    if(origine === "samurai"){
-      return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:purple>(+1)</span>');
+  transform(value: string, origine: string): SafeHtml {
+    if (origine === 'samurai') {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `${value}${badge('+1', 'bonus-samurai')}`,
+      );
     }
     return this.sanitizer.bypassSecurityTrustHtml(value);
   }
@@ -83,15 +92,16 @@ export class BonusAttaquePipe implements PipeTransform {
 
 @Pipe({
   name: 'bonusInfo',
-  standalone: true
+  standalone: true,
 })
 export class BonusInfoPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: string, origine : string): SafeHtml  {
-
-    if(origine === "pirate"){
-      return this.sanitizer.bypassSecurityTrustHtml(value+'<span style=color:red>(+10% po au loot)</span>');
+  transform(value: string, origine: string): SafeHtml {
+    if (origine === 'pirate') {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `${value}${badge('+1 Chance au drop', 'bonus-pirate')}`,
+      );
     }
     return this.sanitizer.bypassSecurityTrustHtml(value);
   }

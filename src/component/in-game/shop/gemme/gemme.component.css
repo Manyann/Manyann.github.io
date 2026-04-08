@@ -1,11 +1,93 @@
-::ng-deep.boutique-table-gemmes {
-  width: 50%;
+:host {
+  display: block;
+  min-width: 0;
 }
 
-.td-prix{
+:host ::ng-deep .boutique-table-gemmes {
+  display: block;
+  width: 100%;
+}
+
+:host ::ng-deep .boutique-table-gemmes .p-datatable {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+}
+
+:host ::ng-deep .boutique-table-gemmes .p-datatable-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+:host ::ng-deep .boutique-table-gemmes table {
+  width: 100%;
+  min-width: 40rem;
+}
+
+:host ::ng-deep .boutique-table-gemmes .p-datatable-thead > tr > th {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.02)
+    ),
+    var(--bg-secondary);
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  padding: 0.9rem 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .boutique-table-gemmes .p-datatable-tbody > tr > td {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.05);
+  padding: 0.9rem 0.85rem;
+  vertical-align: top;
+}
+
+:host
+  ::ng-deep
+  .boutique-table-gemmes
+  .p-datatable-tbody
+  > tr:nth-child(even)
+  > td {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+:host ::ng-deep .boutique-table-gemmes .p-datatable-tbody > tr:hover > td {
+  background: rgba(200, 170, 110, 0.08);
+}
+
+.td-prix {
   text-align: center;
+  white-space: nowrap;
+  font-weight: 700;
+  color: var(--accent);
+  width: 8rem;
 }
 
-.td-infos{
-  padding-left: 12rem;
+.td-infos {
+  line-height: 1.45;
+  white-space: normal;
+  min-width: 18rem;
+}
+
+@media (max-width: 700px) {
+  :host ::ng-deep .boutique-table-gemmes table {
+    min-width: 32rem;
+  }
+
+  :host ::ng-deep .boutique-table-gemmes .p-datatable-thead > tr > th,
+  :host ::ng-deep .boutique-table-gemmes .p-datatable-tbody > tr > td {
+    padding: 0.7rem 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  .td-infos {
+    min-width: 14rem;
+  }
 }

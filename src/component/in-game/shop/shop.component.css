@@ -1,35 +1,140 @@
-.boutique-tabs {
-  background-color: var(--bg-main);
+.shop-page {
+  padding: 1.5rem;
   color: var(--text-main);
-  padding: 2rem;
 }
 
-.p-tabview-nav {
-  background-color: var(--bg-secondary);
-  border: none;
+.shop-hero {
+  margin-bottom: 1.25rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(200, 170, 110, 0.12), transparent 45%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.015)
+    );
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
 }
 
-.p-table {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  border: 1px solid #333;
+.shop-hero-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.4px;
+  margin-bottom: 0.25rem;
 }
 
-.p-datatable-thead > tr > th {
-  background-color: #1e1e1e;
-  color: #c8aa6e;
-  border-bottom: 1px solid #333;
+.shop-hero-subtitle {
+  color: var(--text-main);
+  opacity: 0.82;
+  font-size: 1rem;
 }
 
-.p-datatable-tbody > tr > td {
-  background-color: #121212;
-  color: #e0e0e0;
-  border-color: #333;
+.shop-filters-card {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.filters-title {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1rem;
 }
 
 .select-container {
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 320px));
+  gap: 1rem;
+  justify-content: start;
+  margin: 0;
 }
 
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.filter-field label {
+  font-size: 0.92rem;
+  color: var(--text-main);
+  opacity: 0.86;
+  font-weight: 600;
+}
+
+.filter-field select {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-main);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.filter-field select:hover {
+  border-color: rgba(200, 170, 110, 0.35);
+}
+
+.filter-field select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(200, 170, 110, 0.12);
+}
+
+:host ::ng-deep .shop-tabs .p-tabview-nav {
+  background: transparent;
+  border: none;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .shop-tabs .p-tabview-nav li .p-tabview-nav-link {
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.015)
+  );
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+:host ::ng-deep .shop-tabs .p-tabview-nav li .p-tabview-nav-link:hover {
+  border-color: rgba(200, 170, 110, 0.35);
+  color: #fff;
+}
+
+:host ::ng-deep .shop-tabs .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: linear-gradient(
+    180deg,
+    rgba(200, 170, 110, 0.16),
+    rgba(255, 255, 255, 0.02)
+  );
+  border-color: rgba(200, 170, 110, 0.4);
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+:host ::ng-deep .shop-tabs .p-tabview-panels {
+  padding: 1rem 0 0 0;
+  background: transparent;
+}

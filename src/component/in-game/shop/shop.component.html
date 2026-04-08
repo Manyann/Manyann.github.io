@@ -1,31 +1,60 @@
-<div class="select-container">
-  <select (change)="onChangedVille($event)">
-    <option value="" disabled selected>Choisissez une taille de ville...</option>
-    <option *ngFor="let type of villesType" [value]="type.code">
-      {{ type.libelle }}
-    </option>
-  </select>
-  
-  <select (change)="onChangedRegion($event)">
-    <option value="" disabled selected>Choisissez une région...</option>
-    <option *ngFor="let type of zones" [value]="type.code">
-      {{ type.libelle }}
-    </option>
-  </select>
-</div>
+<div class="shop-page">
+  <div class="shop-filters-card">
+    <div class="filters-title">
+      <i class="pi pi-sliders-h"></i>
+      Paramètres du marché
+    </div>
 
+    <div class="select-container">
+      <div class="filter-field">
+        <label for="villeType">Taille de ville</label>
+        <select id="villeType" (change)="onChangedVille($event)">
+          <option value="" disabled selected>
+            Choisissez une taille de ville...
+          </option>
+          <option *ngFor="let type of villesType" [value]="type.code">
+            {{ type.libelle }}
+          </option>
+        </select>
+      </div>
 
-<p-tabView class="custom-tabs">
+      <div class="filter-field">
+        <label for="region">Région</label>
+        <select id="region" (change)="onChangedRegion($event)">
+          <option value="" disabled selected>Choisissez une région...</option>
+          <option *ngFor="let type of zones" [value]="type.code">
+            {{ type.libelle }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <p-tabView class="custom-tabs shop-tabs">
     <p-tabPanel header="Armes">
-        <app-shop-arme [selectedVilleType]="selectedVilleType" [selectedRegion]="selectedZone"></app-shop-arme>
+      <app-shop-arme
+        [selectedVilleType]="selectedVilleType"
+        [selectedRegion]="selectedZone"
+      >
+      </app-shop-arme>
     </p-tabPanel>
+
     <p-tabPanel header="Armures">
-        <app-shop-armure [selectedVilleType]="selectedVilleType" [selectedRegion]="selectedZone"></app-shop-armure>
+      <app-shop-armure
+        [selectedVilleType]="selectedVilleType"
+        [selectedRegion]="selectedZone"
+      >
+      </app-shop-armure>
     </p-tabPanel>
+
     <p-tabPanel header="Potions">
-        <app-shop-potion [selectedVilleType]="selectedVilleType"></app-shop-potion>
+      <app-shop-potion
+        [selectedVilleType]="selectedVilleType"
+      ></app-shop-potion>
     </p-tabPanel>
+
     <p-tabPanel header="Gemmes">
-        <app-shop-gemme [selectedVilleType]="selectedVilleType"></app-shop-gemme>
+      <app-shop-gemme [selectedVilleType]="selectedVilleType"></app-shop-gemme>
     </p-tabPanel>
-</p-tabView>
+  </p-tabView>
+</div>

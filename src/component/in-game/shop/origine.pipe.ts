@@ -3,58 +3,52 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({
   name: 'origine',
-  standalone: true
+  standalone: true,
 })
 export class OriginePipe implements PipeTransform {
-
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: string): SafeHtml  {
-    if(value === "commun")
-      return "";
-
-    let color = "";
-
-    switch(value){
-      case "elfe" :
-        color = "gold";
-          break;
-      case "nain" :
-        color = "orange";
-            break;
-      case "orc" :
-        color = "green";
-            break;
-      case "pirate" :
-        color = "red";
-            break;
-      case "homme-sable" :
-          color = "cyan";
-            break;
-      case "samurai" :
-          color = "purple";
-            break;
+  transform(value: string): SafeHtml {
+    if (value === 'commun') {
+      return '';
     }
-    
-    return this.sanitizer.bypassSecurityTrustHtml('<span style=color:'+color+'>('+value+')</span>');
+
+    const labels: Record<string, string> = {
+      elfe: 'Elfe',
+      nain: 'Nain',
+      orc: 'Orc',
+      pirate: 'Pirate',
+      'homme-sable': 'Homme-sable',
+      samurai: 'Samurai',
+    };
+
+    const cssClassMap: Record<string, string> = {
+      elfe: 'tag-elfe',
+      nain: 'tag-nain',
+      orc: 'tag-orc',
+      pirate: 'tag-pirate',
+      'homme-sable': 'tag-sable',
+      samurai: 'tag-samurai',
+    };
+
+    const label = labels[value] ?? value;
+    const cssClass = cssClassMap[value] ?? 'tag-default';
+
+    return this.sanitizer.bypassSecurityTrustHtml(
+      ` <span class="shop-tag ${cssClass}">${label}</span>`,
+    );
   }
 }
 
-
 @Pipe({
   name: 'originePrix',
-  standalone: true
+  standalone: true,
 })
 export class OriginePrixPipe implements PipeTransform {
-
-  transform(value: number, origine : string): number  {
-    if(origine === "commun")
-      return value;
-    else if(origine == "samurai" || origine == "nain")
-      return value * 1.4;
-    else if(origine == "pirate")
-      return value *0.8;
-    else
-      return value * 1.2;
+  transform(value: number, origine: string): number {
+    if (origine === 'commun') return value;
+    if (origine === 'samurai' || origine === 'nain') return value * 1.4;
+    if (origine === 'pirate') return value * 0.8;
+    return value * 1.2;
   }
 }

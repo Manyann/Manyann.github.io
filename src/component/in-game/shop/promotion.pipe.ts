@@ -3,34 +3,40 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({
   name: 'promotion',
-  standalone: true
+  standalone: true,
 })
 export class PromotionPipe implements PipeTransform {
-
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: number): SafeHtml  {
+  transform(value: number): SafeHtml {
+    const baseValue = value;
+    const random = Math.floor(Math.random() * 20);
 
-    let random = Math.floor(Math.random() * 20);
-    let infos = "";
+    let badge = '';
 
-    if(random == 0){
-        infos = "<i class='pi pi-angle-double-down' style='color:green' title='"+value+"'></i>";
-        value = value * 0.8;
+    if (random === 0) {
+      value = value * 0.8;
+      badge = `
+        <span class="shop-price-badge price-up-strong">-20%</span>`;
+    } else if (random === 1) {
+      value = value * 0.9;
+      badge = `
+        <span class="shop-price-badge price-up-strong">-10%</span>`;
+    } else if (random === 18) {
+      value = value * 1.1;
+      badge = `
+        <span class="shop-price-badge price-up-strong">+10%</span>`;
+    } else if (random === 19) {
+      value = value * 1.2;
+      badge = `
+        <span class="shop-price-badge price-up-strong">+20%</span>`;
     }
-    else if(random ==1 ){
-        infos = "<i class='pi pi-angle-down' style='color:green' title='"+value+"'></i>";
-        value = value * 0.9;
-    }
-    else if(random == 18){
-        infos = "<i class='pi pi-angle-up' style='color:red' title='"+value+"'></i>";
-        value = value * 1.1;
-    }
-    else if(random == 19){
-        infos = "<i class='pi pi-angle-double-up' style='color:red' title='"+value+"'></i>";
-        value = value * 1.2;
-    }
-    
-    return this.sanitizer.bypassSecurityTrustHtml(Math.floor(value) + infos);
+
+    return this.sanitizer.bypassSecurityTrustHtml(`
+      <span class="shop-price-cell">
+        <span class="shop-price">${Math.floor(value)}</span>
+        ${badge}
+      </span>
+    `);
   }
 }
