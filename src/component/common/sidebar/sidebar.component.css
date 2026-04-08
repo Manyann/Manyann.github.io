@@ -7,16 +7,17 @@
   background-color: var(--bg-secondary);
   color: var(--text-main);
   padding: 1rem;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
   transition: left 0.3s ease;
   z-index: 1000;
+  overflow-y: auto;
 }
 
 .custom-sidebar.visible {
   left: 0;
 }
 
-p-inputnumber.no-margin::ng-deep{
+p-inputnumber.no-margin::ng-deep {
   display: contents;
 }
 
