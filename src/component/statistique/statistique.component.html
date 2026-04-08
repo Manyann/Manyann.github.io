@@ -230,75 +230,108 @@
       <p-panel header="Statistiques" class="stats-panel">
         <div class="player-details-container">
           <div class="stat-section">
-            <div class="stat-card">
-              <h2 class="stat-header">Critique</h2>
+            <div class="stat-card crit-card">
+              <h2 class="stat-header">
+                <i class="pi pi-bolt"></i>
+                Critique
+              </h2>
+
               @if (isLoadingPlayerStatsCrit) {
-                Chargement ...
+                <div class="stat-skeleton">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
               } @else {
                 <div
                   class="stat-line"
                   *ngFor="let stat of statistiquesJoueurCritiques?.details"
                 >
-                  {{ stat.libelle }} : <span>{{ stat.valeur }}</span>
+                  <span class="stat-label">{{ stat.libelle }}</span>
+                  <span class="stat-value">{{ stat.valeur }}</span>
                 </div>
               }
             </div>
 
-            <div class="stat-card">
-              <h2 class="stat-header">Combat</h2>
+            <div class="stat-card combat-card">
+              <h2 class="stat-header">
+                <i class="pi pi-shield"></i>
+                Combat
+              </h2>
+
               @if (isLoadingPlayerStatsCombat) {
-                Chargement ...
+                <div class="stat-skeleton">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
               } @else {
                 <div
                   class="stat-line"
                   *ngFor="let stat of statistiquesJoueurCombat?.details"
                 >
-                  {{ stat.libelle }} : <span>{{ stat.valeur }}</span>
+                  <span class="stat-label">{{ stat.libelle }}</span>
+                  <span class="stat-value">{{ stat.valeur }}</span>
                 </div>
               }
             </div>
 
-            <div class="stat-card">
-              <h2 class="stat-header">Trivia</h2>
+            <div class="stat-card trivia-card">
+              <h2 class="stat-header">
+                <i class="pi pi-star"></i>
+                Trivia
+              </h2>
+
               @if (isLoadingPlayerStatsTrivia) {
-                Chargement ...
+                <div class="stat-skeleton">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
               } @else {
                 <div
                   class="stat-line"
                   *ngFor="let stat of statistiquesJoueurTrivia?.details"
                 >
-                  {{ stat.libelle }} : <span>{{ stat.valeur }}</span>
+                  <span class="stat-label">{{ stat.libelle }}</span>
+                  <span class="stat-value">{{ stat.valeur }}</span>
                 </div>
               }
             </div>
           </div>
         </div>
       </p-panel>
-      <p-panel header="{{ trophesJoueur ?? [] | trophes }}" class="stats-panel">
-        <div>
-          <div class="infos-achivement">
-            <div
-              class="achivement display-{{
-                trophe.categorie <= 3 || trophe.possede
-              }} {{ trophe.possede ? 'bcolor-' + trophe.categorie : '' }}"
-              *ngFor="let trophe of trophesJoueur"
-            >
-              <div class="icon">
-                <i
-                  class="pi pi-crown {{
-                    trophe.possede ? 'color-' + trophe.categorie : ''
-                  }}"
-                ></i>
-              </div>
-              <div
-                class="message {{
+
+      <p-panel
+        header="{{ trophesJoueur ?? [] | trophes }}"
+        class="stats-panel trophy-panel"
+      >
+        <div class="infos-achivement">
+          <div
+            class="achivement display-{{
+              trophe.categorie <= 3 || trophe.possede
+            }} {{ trophe.possede ? 'bcolor-' + trophe.categorie : '' }}"
+            *ngFor="let trophe of trophesJoueur"
+          >
+            <div class="icon">
+              <i
+                class="pi pi-crown {{
                   trophe.possede ? 'color-' + trophe.categorie : ''
                 }}"
-              >
-                <div class="title">{{ trophe.titre }}</div>
-                <div class="description visible-{{ trophe.possede }}">
-                  {{ trophe.description }}
-                </div>
+              ></i>
+            </div>
+
+            <div
+              class="message {{
+                trophe.possede ? 'color-' + trophe.categorie : ''
+              }}"
+            >
+              <div class="title">{{ trophe.titre }}</div>
+              <div class="description visible-{{ trophe.possede }}">
+                {{ trophe.description }}
               </div>
             </div>
           </div>
