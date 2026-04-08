@@ -1,483 +1,664 @@
 import { Injectable } from '@angular/core';
-import { collection, doc, DocumentData, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
+import {
+  collection,
+  doc,
+  DocumentData,
+  Firestore,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from '@angular/fire/firestore';
 import { CodeValeur } from '../../component/model/code-libelle';
 import { StorageKeys, StorageService } from './storage.service';
 import { HerosService } from './hero.service';
 import { ItemsService } from './items.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StatistiquesService {
-    constructor(
-       private firestore : Firestore,
-       private storage : StorageService,
-       private itemsService : ItemsService,
-       private herosService : HerosService
-    ) {
+  constructor(
+    private firestore: Firestore,
+    private storage: StorageService,
+    private itemsService: ItemsService,
+    private herosService: HerosService,
+  ) {}
+
+  async getAllOrigines() {
+    if (!this.storage.get(StorageKeys.ORIGINES)) {
+      const origines = (
+        await getDocs(query(collection(this.firestore, 'origines')))
+      ).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.ORIGINES, origines);
     }
 
-  async getAllOrigines(){
-    if(!this.storage.get(StorageKeys.ORIGINES)){
-      const origines = (await getDocs(query(collection(this.firestore,'origines')))).docs.map((entries) => entries.data());
-      this.storage.set<DocumentData[]>(StorageKeys.ORIGINES,origines);
-    }
-            
     return this.storage.get<DocumentData[]>(StorageKeys.ORIGINES) ?? [];
   }
 
-  async getAllMetiers(){
-    if(!this.storage.get(StorageKeys.METIERS)){
-      const metiers = (await getDocs(query(collection(this.firestore,'metiers')))).docs.map((entries) => entries.data());
-      this.storage.set<DocumentData[]>(StorageKeys.METIERS,metiers);
+  async getAllMetiers() {
+    if (!this.storage.get(StorageKeys.METIERS)) {
+      const metiers = (
+        await getDocs(query(collection(this.firestore, 'metiers')))
+      ).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.METIERS, metiers);
     }
-            
+
     return this.storage.get<DocumentData[]>(StorageKeys.METIERS) ?? [];
   }
 
-  async getAllArmes(){
-    if(!this.storage.get(StorageKeys.HERO_ARMES)){
-      const armes = (await getDocs(query(collection(this.firestore,'heros_armes')))).docs.map((entries) => entries.data());
-      this.storage.set<DocumentData[]>(StorageKeys.HERO_ARMES,armes);
+  async getAllArmes() {
+    if (!this.storage.get(StorageKeys.HERO_ARMES)) {
+      const armes = (
+        await getDocs(query(collection(this.firestore, 'heros_armes')))
+      ).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.HERO_ARMES, armes);
     }
-            
+
     return this.storage.get<DocumentData[]>(StorageKeys.HERO_ARMES) ?? [];
   }
-  
-  async getAllArmures(){
-    if(!this.storage.get(StorageKeys.HERO_ARMURES)){
-      const armures = (await getDocs(query(collection(this.firestore,'heros_armures')))).docs.map((entries) => entries.data());
-      this.storage.set<DocumentData[]>(StorageKeys.HERO_ARMURES,armures);
+
+  async getAllArmures() {
+    if (!this.storage.get(StorageKeys.HERO_ARMURES)) {
+      const armures = (
+        await getDocs(query(collection(this.firestore, 'heros_armures')))
+      ).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.HERO_ARMURES, armures);
     }
-            
+
     return this.storage.get<DocumentData[]>(StorageKeys.HERO_ARMURES) ?? [];
   }
 
-  async getOrigines(joueur:string, slice : number | null = null){
+  async getOrigines(joueur: string, slice: number | null = null) {
+    let key: string = StorageKeys.JOUEURS_ORIGINES + '_' + joueur;
+    if (!this.storage.get(key)) {
+      let heros = await this.herosService.getAll();
+      let origines = await this.getAllOrigines();
 
-    let key : string = StorageKeys.JOUEURS_ORIGINES+"_"+joueur;
-    if(!this.storage.get(key)){
+      let statistiques: CodeValeur[] = [];
+      let libelle = '';
 
-    let heros = await this.herosService.getAll();
-    let origines = await this.getAllOrigines();
-
-    let statistiques : CodeValeur[] = [];
-    let libelle = "";
-
-    if(joueur !== ""){
-      heros = heros.filter(x=>x['code_joueur'] == joueur);
-    }
-
-    heros.forEach((hero) =>{
-      libelle = origines.find(x=>x['code'] == hero['origine'])!['libelle'] ?? hero['origine'];
-      if(statistiques.find(x=>x.code == libelle) === undefined){
-        statistiques.push({code:libelle,valeur:0});
+      if (joueur !== '') {
+        heros = heros.filter((x) => x['code_joueur'] == joueur);
       }
-      statistiques.find(x=>x.code == libelle)!.valeur ++;
-    });
 
-    this.storage.set<CodeValeur[]>(key,statistiques);
-   }
+      heros.forEach((hero) => {
+        libelle =
+          origines.find((x) => x['code'] == hero['origine'])!['libelle'] ??
+          hero['origine'];
+        if (statistiques.find((x) => x.code == libelle) === undefined) {
+          statistiques.push({ code: libelle, valeur: 0 });
+        }
+        statistiques.find((x) => x.code == libelle)!.valeur++;
+      });
 
-    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(key) ??[];
-
-    if(slice !== null){
-      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+      this.storage.set<CodeValeur[]>(key, statistiques);
     }
 
-    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
+    let values: CodeValeur[] = this.storage.get<CodeValeur[]>(key) ?? [];
+
+    if (slice !== null) {
+      values = values.sort((n1, n2) => n2.valeur - n1.valeur).slice(0, slice);
+    }
+
+    return values.sort((n1, n2) => n2.valeur - n1.valeur);
   }
 
-  async getMetier(joueur:string, slice : number | null = null){    
-    let key : string = StorageKeys.JOUEURS_METIERS+"_"+joueur;
-   if(!this.storage.get(key)){
+  async getMetier(joueur: string, slice: number | null = null) {
+    let key: string = StorageKeys.JOUEURS_METIERS + '_' + joueur;
+    if (!this.storage.get(key)) {
+      let heros = await this.herosService.getAll();
+      let metiers = await this.getAllMetiers();
 
-    let heros = await this.herosService.getAll();
-    let metiers = await this.getAllMetiers();
+      let statistiques: CodeValeur[] = [];
+      let libelle = '';
 
-    let statistiques : CodeValeur[] = [];
-    let libelle = "";
-
-    if(joueur !== ""){
-      heros = heros.filter(x=>x['code_joueur'] == joueur);
-    }
-
-    heros.forEach((hero) =>{
-      libelle = metiers.find(x=>x['code'] == hero['metier'])!['libelle'] ?? hero['metier'];
-      if(statistiques.find(x=>x.code == libelle) === undefined){
-        statistiques.push({code:libelle,valeur:0});
+      if (joueur !== '') {
+        heros = heros.filter((x) => x['code_joueur'] == joueur);
       }
-      statistiques.find(x=>x.code == libelle)!.valeur ++;
-    });
-    this.storage.set(key,statistiques);
-   }
-    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(key) ??[];
 
-    if(slice !== null){
-      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+      heros.forEach((hero) => {
+        libelle =
+          metiers.find((x) => x['code'] == hero['metier'])!['libelle'] ??
+          hero['metier'];
+        if (statistiques.find((x) => x.code == libelle) === undefined) {
+          statistiques.push({ code: libelle, valeur: 0 });
+        }
+        statistiques.find((x) => x.code == libelle)!.valeur++;
+      });
+      this.storage.set(key, statistiques);
+    }
+    let values: CodeValeur[] = this.storage.get<CodeValeur[]>(key) ?? [];
+
+    if (slice !== null) {
+      values = values.sort((n1, n2) => n2.valeur - n1.valeur).slice(0, slice);
     }
 
-    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
+    return values.sort((n1, n2) => n2.valeur - n1.valeur);
   }
 
-  async getArmes(){
-    if(!this.storage.get(StorageKeys.STATS_ARMES)){
-    let herosArmes = await this.getAllArmes();
-    let armes = await this.itemsService.getAllArmes();
+  async getArmes() {
+    if (!this.storage.get(StorageKeys.STATS_ARMES)) {
+      let herosArmes = await this.getAllArmes();
+      let armes = await this.itemsService.getAllArmes();
 
-    let statistiques : CodeValeur[] = [];
-    let libelle = "";
+      let statistiques: CodeValeur[] = [];
+      let libelle = '';
 
-    herosArmes.forEach((heroArme) =>{
-      libelle = armes.find(x=>x['code'] == heroArme['arme_code'])!['libelle'] ?? heroArme['arme_code'];
-      if(statistiques.find(x=>x.code == libelle) === undefined){
-        statistiques.push({code:libelle,valeur:0});
-      }
-      statistiques.find(x=>x.code == libelle)!.valeur ++;
-    });
+      herosArmes.forEach((heroArme) => {
+        libelle =
+          armes.find((x) => x['code'] == heroArme['arme_code'])!['libelle'] ??
+          heroArme['arme_code'];
+        if (statistiques.find((x) => x.code == libelle) === undefined) {
+          statistiques.push({ code: libelle, valeur: 0 });
+        }
+        statistiques.find((x) => x.code == libelle)!.valeur++;
+      });
 
-    this.storage.set<CodeValeur[]>(StorageKeys.STATS_ARMES,statistiques);
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_ARMES, statistiques);
     }
 
     return this.storage.get<CodeValeur[]>(StorageKeys.STATS_ARMES);
   }
 
-  async getArmures(){
-    if(!this.storage.get(StorageKeys.STATS_ARMURES)){
-    let herosArmures = await this.getAllArmures();
-    let armures = await this.itemsService.getAllArmures();
+  async getArmures() {
+    if (!this.storage.get(StorageKeys.STATS_ARMURES)) {
+      let herosArmures = await this.getAllArmures();
+      let armures = await this.itemsService.getAllArmures();
 
-    let statistiques : CodeValeur[] = [];
-    let libelle = "";
+      let statistiques: CodeValeur[] = [];
+      let libelle = '';
 
-    herosArmures.forEach((heroArme) =>{
-      libelle = armures.find(x=>x['code'] == heroArme['armure_code'])!['libelle'] ?? heroArme['armure_code'];
+      herosArmures.forEach((heroArme) => {
+        libelle =
+          armures.find((x) => x['code'] == heroArme['armure_code'])![
+            'libelle'
+          ] ?? heroArme['armure_code'];
 
-      if(statistiques.find(x=>x.code == libelle) === undefined){
-        statistiques.push({code:libelle,valeur:0});
-      }
-      statistiques.find(x=>x.code == libelle)!.valeur ++;
-    });
+        if (statistiques.find((x) => x.code == libelle) === undefined) {
+          statistiques.push({ code: libelle, valeur: 0 });
+        }
+        statistiques.find((x) => x.code == libelle)!.valeur++;
+      });
 
-    this.storage.set<CodeValeur[]>(StorageKeys.STATS_ARMURES,statistiques);
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_ARMURES, statistiques);
     }
 
     return this.storage.get<CodeValeur[]>(StorageKeys.STATS_ARMURES);
   }
 
-  async getCrits(slice : number | null = null){
-    if(!this.storage.get(StorageKeys.STATS_CRITS)){
-    let critiques = (await getDocs(query(collection(this.firestore,'heros_critiques')))).docs.map((entries) => entries.data());
-    
-    let statistiques : CodeValeur[] = [];
+  async getCrits(slice: number | null = null) {
+    if (!this.storage.get(StorageKeys.STATS_CRITS)) {
+      let critiques = (
+        await getDocs(query(collection(this.firestore, 'heros_critiques')))
+      ).docs.map((entries) => entries.data());
 
-    critiques.forEach((critique) =>{
-      if(statistiques.find(x=>x.code == critique['hero_nom']) === undefined){
-        statistiques.push({code:critique['hero_nom'],valeur:0});
-      }
-      statistiques.find(x=>x.code == critique['hero_nom'])!.valeur ++;
-    });
+      let statistiques: CodeValeur[] = [];
 
-    this.storage.set<CodeValeur[]>(StorageKeys.STATS_CRITS,statistiques);
+      critiques.forEach((critique) => {
+        if (
+          statistiques.find((x) => x.code == critique['hero_nom']) === undefined
+        ) {
+          statistiques.push({ code: critique['hero_nom'], valeur: 0 });
+        }
+        statistiques.find((x) => x.code == critique['hero_nom'])!.valeur++;
+      });
+
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_CRITS, statistiques);
     }
 
-    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_CRITS) ??[];
+    let values: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_CRITS) ?? [];
 
-    if(slice !== null){
-      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+    if (slice !== null) {
+      values = values.sort((n1, n2) => n2.valeur - n1.valeur).slice(0, slice);
     }
 
-    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
+    return values.sort((n1, n2) => n2.valeur - n1.valeur);
   }
 
-  async getEchecCrits(slice : number | null = null){
-    if(!this.storage.get(StorageKeys.STATS_ECHECS)){
-      let echecs = (await getDocs(query(collection(this.firestore,'heros_echecs')))).docs.map((entries) => entries.data());
-      let statistiques : CodeValeur[] = [];
+  async getEchecCrits(slice: number | null = null) {
+    if (!this.storage.get(StorageKeys.STATS_ECHECS)) {
+      let echecs = (
+        await getDocs(query(collection(this.firestore, 'heros_echecs')))
+      ).docs.map((entries) => entries.data());
+      let statistiques: CodeValeur[] = [];
 
-      echecs.forEach((critique) =>{
-        if(statistiques.find(x=>x.code == critique['hero_nom']) === undefined){
-          statistiques.push({code:critique['hero_nom'],valeur:0});
+      echecs.forEach((critique) => {
+        if (
+          statistiques.find((x) => x.code == critique['hero_nom']) === undefined
+        ) {
+          statistiques.push({ code: critique['hero_nom'], valeur: 0 });
         }
-        statistiques.find(x=>x.code == critique['hero_nom'])!.valeur ++;
+        statistiques.find((x) => x.code == critique['hero_nom'])!.valeur++;
       });
 
-      this.storage.set<CodeValeur[]>(StorageKeys.STATS_ECHECS,statistiques);
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_ECHECS, statistiques);
     }
-    if(!this.storage.get(StorageKeys.STATS_ENTROPIQUES)){
-      let echecs = (await getDocs(query(collection(this.firestore,'heros_entropiques')))).docs.map((entries) => entries.data());
-      let statistiques : CodeValeur[] = [];
+    if (!this.storage.get(StorageKeys.STATS_ENTROPIQUES)) {
+      let echecs = (
+        await getDocs(query(collection(this.firestore, 'heros_entropiques')))
+      ).docs.map((entries) => entries.data());
+      let statistiques: CodeValeur[] = [];
 
-      echecs.forEach((critique) =>{
-        if(statistiques.find(x=>x.code == critique['hero_nom']) === undefined){
-          statistiques.push({code:critique['hero_nom'],valeur:0});
+      echecs.forEach((critique) => {
+        if (
+          statistiques.find((x) => x.code == critique['hero_nom']) === undefined
+        ) {
+          statistiques.push({ code: critique['hero_nom'], valeur: 0 });
         }
-        statistiques.find(x=>x.code == critique['hero_nom'])!.valeur ++;
+        statistiques.find((x) => x.code == critique['hero_nom'])!.valeur++;
       });
 
-      this.storage.set<CodeValeur[]>(StorageKeys.STATS_ENTROPIQUES,statistiques);
+      this.storage.set<CodeValeur[]>(
+        StorageKeys.STATS_ENTROPIQUES,
+        statistiques,
+      );
     }
 
-    let valuesEchecs : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_ECHECS) ??[];
-    let valuesEntropiques : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_ENTROPIQUES) ??[];
+    let valuesEchecs: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_ECHECS) ?? [];
+    let valuesEntropiques: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_ENTROPIQUES) ?? [];
 
-      const resultMap = new Map<string, number>();
-  
+    const resultMap = new Map<string, number>();
+
     // Combiner les deux listes
-    [...valuesEchecs, ...valuesEntropiques].forEach(item => {
+    [...valuesEchecs, ...valuesEntropiques].forEach((item) => {
       resultMap.set(item.code, (resultMap.get(item.code) || 0) + item.valeur);
     });
-    
+
     // Convertir en tableau et trier
-    let result = Array.from(resultMap.entries()).map(([code, valeur]) => ({ code, valeur }));
-    
+    let result = Array.from(resultMap.entries()).map(([code, valeur]) => ({
+      code,
+      valeur,
+    }));
+
     // Trier par valeur décroissante
     result.sort((a, b) => b.valeur - a.valeur);
-    
+
     // Appliquer le slice si nécessaire
     if (slice !== null) {
       result = result.slice(0, slice);
     }
-    
+
     return result;
   }
 
-  async getDegatsTotaux(slice : number | null = null){
-    if(!this.storage.get(StorageKeys.STATS_DEGATS)){
-    let degats = (await getDocs(query(collection(this.firestore,'heros_degats')))).docs.map((entries) => entries.data());
-    
-    let statistiques : CodeValeur[] = [];
+  async getDegatsTotaux(slice: number | null = null) {
+    if (!this.storage.get(StorageKeys.STATS_DEGATS)) {
+      let degats = (
+        await getDocs(query(collection(this.firestore, 'heros_degats')))
+      ).docs.map((entries) => entries.data());
 
-    degats.forEach((degat) =>{
-      if(statistiques.find(x=>x.code == degat['hero_nom']) === undefined){
-        statistiques.push({code:degat['hero_nom'],valeur:0});
-      }
-      statistiques.find(x=>x.code == degat['hero_nom'])!.valeur +=degat['intensite'];
-    });
+      let statistiques: CodeValeur[] = [];
 
-    this.storage.set<CodeValeur[]>(StorageKeys.STATS_DEGATS,statistiques);
+      degats.forEach((degat) => {
+        if (
+          statistiques.find((x) => x.code == degat['hero_nom']) === undefined
+        ) {
+          statistiques.push({ code: degat['hero_nom'], valeur: 0 });
+        }
+        statistiques.find((x) => x.code == degat['hero_nom'])!.valeur +=
+          degat['intensite'];
+      });
+
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_DEGATS, statistiques);
     }
 
-    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS) ??[];
+    let values: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS) ?? [];
 
-    if(slice !== null){
-      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+    if (slice !== null) {
+      values = values.sort((n1, n2) => n2.valeur - n1.valeur).slice(0, slice);
     }
 
-    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
+    return values.sort((n1, n2) => n2.valeur - n1.valeur);
   }
 
-  async getDegatsMax(slice : number | null = null){
-    if(!this.storage.get(StorageKeys.STATS_DEGATS_MAX)){
-    let degats = (await getDocs(query(collection(this.firestore,'heros_degats')))).docs.map((entries) => entries.data());
-    
-    let statistiques : CodeValeur[] = [];
+  async getDegatsMax(slice: number | null = null) {
+    if (!this.storage.get(StorageKeys.STATS_DEGATS_MAX)) {
+      let degats = (
+        await getDocs(query(collection(this.firestore, 'heros_degats')))
+      ).docs.map((entries) => entries.data());
 
-    degats.forEach((degat) =>{
-      if(statistiques.find(x=>x.code == degat['hero_nom']) === undefined){
-        statistiques.push({code:degat['hero_nom'],valeur:0});
-      }
-      if(statistiques.find(x=>x.code == degat['hero_nom'])!.valeur < degat['intensite']){
-        statistiques.find(x=>x.code == degat['hero_nom'])!.valeur = degat['intensite'];
-      }
-    });
+      let statistiques: CodeValeur[] = [];
 
-    this.storage.set<CodeValeur[]>(StorageKeys.STATS_DEGATS_MAX,statistiques);
+      degats.forEach((degat) => {
+        if (
+          statistiques.find((x) => x.code == degat['hero_nom']) === undefined
+        ) {
+          statistiques.push({ code: degat['hero_nom'], valeur: 0 });
+        }
+        if (
+          statistiques.find((x) => x.code == degat['hero_nom'])!.valeur <
+          degat['intensite']
+        ) {
+          statistiques.find((x) => x.code == degat['hero_nom'])!.valeur =
+            degat['intensite'];
+        }
+      });
+
+      this.storage.set<CodeValeur[]>(
+        StorageKeys.STATS_DEGATS_MAX,
+        statistiques,
+      );
     }
 
-    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS_MAX) ??[];
+    let values: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS_MAX) ?? [];
 
-    if(slice !== null){
-      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+    if (slice !== null) {
+      values = values.sort((n1, n2) => n2.valeur - n1.valeur).slice(0, slice);
     }
 
-    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
+    return values.sort((n1, n2) => n2.valeur - n1.valeur);
   }
 
-  async getEnnemis(slice : number | null = null){
-    if(!this.storage.get(StorageKeys.STATS_MOBS)){
-    let mobs = (await getDocs(query(collection(this.firestore,'mobs')))).docs.map((entries) => entries.data());
+  async getEnnemis(slice: number | null = null) {
+    if (!this.storage.get(StorageKeys.STATS_MOBS)) {
+      let mobs = (
+        await getDocs(query(collection(this.firestore, 'mobs')))
+      ).docs.map((entries) => entries.data());
 
-    let statistiques : CodeValeur[] = [];
-    mobs.forEach((mob) => {
-      statistiques.push({code:mob['libelle'],valeur:mob['apparition']})
-    });
+      let statistiques: CodeValeur[] = [];
+      mobs.forEach((mob) => {
+        statistiques.push({ code: mob['libelle'], valeur: mob['apparition'] });
+      });
 
-    this.storage.set<CodeValeur[]>(StorageKeys.STATS_MOBS,statistiques);
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_MOBS, statistiques);
     }
 
-    let values : CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_MOBS) ??[];
+    let values: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_MOBS) ?? [];
 
-    if(slice !== null){
-      values = values.sort((n1,n2)=> n2.valeur - n1.valeur).slice(0,slice);
+    if (slice !== null) {
+      values = values.sort((n1, n2) => n2.valeur - n1.valeur).slice(0, slice);
     }
 
-    return values.sort((n1,n2)=> n2.valeur - n1.valeur);
+    return values.sort((n1, n2) => n2.valeur - n1.valeur);
   }
 
-async getRapportCritiquesEchecs(slice: number | null = null) {
-  let valuesEchecs: CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_ECHECS) ?? [];
-  let valuesCritiques: CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_CRITS) ?? [];
-  let valuesEntropiques: CodeValeur[] = this.storage.get<CodeValeur[]>(StorageKeys.STATS_ENTROPIQUES) ?? [];
+  async getRapportJoueursMjStacked() {
+    const [echecsSnap, critiquesSnap, herosSnap] = await Promise.all([
+      this.getEchecCrits(),
+      this.getCrits(),
+      this.herosService.getAll(),
+    ]);
+    const heroToJoueur = new Map<string, string>();
+    for (const hero of herosSnap) {
+      if (hero?.['nom'] && hero?.['code_joueur']) {
+        heroToJoueur.set(hero['nom'], hero['code_joueur']);
+      }
+    }
 
-  const allEchecs = new Map<string, number>();
-  
-  // Combiner échecs et entropiques
-  [...valuesEchecs, ...valuesEntropiques].forEach(item => {
-    allEchecs.set(item.code, (allEchecs.get(item.code) || 0) + item.valeur);
-  });
-  
-  // Convertir en tableau
-  let totalEchecs = Array.from(allEchecs.entries()).map(([code, valeur]) => ({ code, valeur }));
-  
-  // Récupérer tous les codes uniques
-  const tousLesCodes = [...new Set([
-    ...totalEchecs.map(v => v.code),
-    ...valuesCritiques.map(v => v.code)
-  ])];
-  
-  // Créer des maps pour un accès rapide
-  const mapEchecs = new Map(totalEchecs.map(v => [v.code, v.valeur]));
-  const mapCritiques = new Map(valuesCritiques.map(v => [v.code, v.valeur]));
-  
-  // Filtrer et trier les codes par total
-  const codesAvecTotaux = tousLesCodes
-    .map(code => ({
-      code,
-      echecs: mapEchecs.get(code) || 0,
-      critiques: mapCritiques.get(code) || 0,
-      total: (mapEchecs.get(code) || 0) + (mapCritiques.get(code) || 0)
-    }))
-    .filter(item => item.total > 0 && item.code !== 'MJ' && item.code !== 'yyyyy')
-    .sort((a, b) => b.total - a.total);
+    const joueursMap = new Map<string, { critiques: number; echecs: number }>();
 
-  // Appliquer le slice
-  const codesFiltres = slice ? codesAvecTotaux.slice(0, slice) : codesAvecTotaux.slice(0,20);
-  
-  // SOLUTION : Utiliser deux datasets séparés au lieu d'un seul
-  const labels: string[] = codesFiltres.map(item => item.code);
-  
-  return {
-    title: "Échecs vs Critiques",
-    labels: labels,
-    datasets: [
+    let mjCritiques = 0;
+    let mjEchecs = 0;
+
+    const ensureJoueur = (codeJoueur: string) => {
+      if (!joueursMap.has(codeJoueur)) {
+        joueursMap.set(codeJoueur, { critiques: 0, echecs: 0 });
+      }
+      return joueursMap.get(codeJoueur)!;
+    };
+
+    for (const entry of critiquesSnap) {
+      const nom = entry.code;
+
+      if (nom === 'MJ') {
+        mjCritiques += entry.valeur;
+        continue;
+      }
+
+      const codeJoueur = heroToJoueur.get(nom);
+      if (!codeJoueur) continue;
+
+      ensureJoueur(codeJoueur).critiques += entry.valeur;
+    }
+
+    for (const entry of echecsSnap) {
+      const nom = entry.code;
+
+      if (nom === 'MJ') {
+        mjEchecs += entry.valeur;
+        continue;
+      }
+
+      const codeJoueur = heroToJoueur.get(nom);
+      if (!codeJoueur) continue;
+
+      ensureJoueur(codeJoueur).echecs += entry.valeur;
+    }
+
+    // Ordre demandé
+    const labels = [
+      'Critique MJ',
+      'Échec MJ',
+      'Critique joueurs',
+      'Échec joueurs',
+    ];
+
+    const datasets: any[] = [
       {
-        label: 'Échecs',
-        stack: "Stack 0",
-        data: codesFiltres.map(item => -item.echecs), // Négatifs pour aller à gauche
-        backgroundColor: '#FF6B6B',
-        borderColor: '#FF5252',
-        borderWidth: 1,
-        barThickness: 18,
-        maxBarThickness: 25
+        label: 'MJ',
+        data: [mjCritiques, mjEchecs, 0, 0],
+        backgroundColor: '#FFA726',
       },
-      {
-        label: 'Critiques',
-        stack: "Stack 0",
-        data: codesFiltres.map(item => item.critiques), // Positifs pour aller à droite
-        backgroundColor: '#4ECDC4',
-        borderColor: '#26A69A',
-        borderWidth: 1,
-        barThickness: 18,
-        maxBarThickness: 25
-      }
-    ]
-  };
-}
+    ];
 
-  async getJoueurStatistiqueCritique(joueur:string){
+    const colors = [
+      '#42A5F5',
+      '#66BB6A',
+      '#AB47BC',
+      '#EC407A',
+      '#FFCA28',
+      '#26C6DA',
+      '#8D6E63',
+      '#7E57C2',
+    ];
 
-    let key : string = StorageKeys.STATS_JOUEUR_CRIT+"_"+joueur;
-    if(!this.storage.has(key)){
+    let colorIndex = 0;
 
-      let totalCritiques  =  await this.getTotalCritiquesJoueur(joueur);
-      let totalEchecs  =  await this.getTotalEchecsJoueur(joueur);
-      let totalEntropiques  =  await this.getTotalEntropiquesJoueur(joueur);
-      let totalParades  =  await this.getTotalParadesJoueur(joueur);
+    for (const [joueur, stats] of joueursMap.entries()) {
+      datasets.push({
+        label: joueur,
+        data: [0, 0, stats.critiques, stats.echecs],
+        backgroundColor: colors[colorIndex % colors.length],
+      });
+      colorIndex++;
+    }
+
+    return {
+      labels,
+      datasets,
+    };
+  }
+
+  async getRapportCritiquesEchecs(slice: number | null = null) {
+    let valuesEchecs: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_ECHECS) ?? [];
+    let valuesCritiques: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_CRITS) ?? [];
+    let valuesEntropiques: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_ENTROPIQUES) ?? [];
+
+    const allEchecs = new Map<string, number>();
+
+    // Combiner échecs et entropiques
+    [...valuesEchecs, ...valuesEntropiques].forEach((item) => {
+      allEchecs.set(item.code, (allEchecs.get(item.code) || 0) + item.valeur);
+    });
+
+    // Convertir en tableau
+    let totalEchecs = Array.from(allEchecs.entries()).map(([code, valeur]) => ({
+      code,
+      valeur,
+    }));
+
+    // Récupérer tous les codes uniques
+    const tousLesCodes = [
+      ...new Set([
+        ...totalEchecs.map((v) => v.code),
+        ...valuesCritiques.map((v) => v.code),
+      ]),
+    ];
+
+    // Créer des maps pour un accès rapide
+    const mapEchecs = new Map(totalEchecs.map((v) => [v.code, v.valeur]));
+    const mapCritiques = new Map(
+      valuesCritiques.map((v) => [v.code, v.valeur]),
+    );
+
+    // Filtrer et trier les codes par total
+    const codesAvecTotaux = tousLesCodes
+      .map((code) => ({
+        code,
+        echecs: mapEchecs.get(code) || 0,
+        critiques: mapCritiques.get(code) || 0,
+        total: (mapEchecs.get(code) || 0) + (mapCritiques.get(code) || 0),
+      }))
+      .filter(
+        (item) => item.total > 0 && item.code !== 'MJ' && item.code !== 'yyyyy',
+      )
+      .sort((a, b) => b.total - a.total);
+
+    // Appliquer le slice
+    const codesFiltres = slice
+      ? codesAvecTotaux.slice(0, slice)
+      : codesAvecTotaux.slice(0, 20);
+
+    // SOLUTION : Utiliser deux datasets séparés au lieu d'un seul
+    const labels: string[] = codesFiltres.map((item) => item.code);
+
+    return {
+      title: 'Échecs vs Critiques',
+      labels: labels,
+      datasets: [
+        {
+          label: 'Échecs',
+          stack: 'Stack 0',
+          data: codesFiltres.map((item) => -item.echecs), // Négatifs pour aller à gauche
+          backgroundColor: '#FF6B6B',
+          borderColor: '#FF5252',
+          borderWidth: 1,
+          barThickness: 18,
+          maxBarThickness: 25,
+        },
+        {
+          label: 'Critiques',
+          stack: 'Stack 0',
+          data: codesFiltres.map((item) => item.critiques), // Positifs pour aller à droite
+          backgroundColor: '#4ECDC4',
+          borderColor: '#26A69A',
+          borderWidth: 1,
+          barThickness: 18,
+          maxBarThickness: 25,
+        },
+      ],
+    };
+  }
+
+  async getJoueurStatistiqueCritique(joueur: string) {
+    let key: string = StorageKeys.STATS_JOUEUR_CRIT + '_' + joueur;
+    if (!this.storage.has(key)) {
+      let totalCritiques = await this.getTotalCritiquesJoueur(joueur);
+      let totalEchecs = await this.getTotalEchecsJoueur(joueur);
+      let totalEntropiques = await this.getTotalEntropiquesJoueur(joueur);
+      let totalParades = await this.getTotalParadesJoueur(joueur);
       let heroCritiques = await this.getHeroCritiqueJoueur(joueur);
-      let heroEchecs =  await this.getHeroEchecsJoueur(joueur);
+      let heroEchecs = await this.getHeroEchecsJoueur(joueur);
       let heroEntropiques = await this.getHeroEntropiquesJoueur(joueur);
-      let heroParades =  await this.getHeroParadesJoueur(joueur);
+      let heroParades = await this.getHeroParadesJoueur(joueur);
 
-    let statistiques : JoueurStatistique = {
-      details : [
-        totalCritiques,heroCritiques,
-        totalEchecs,heroEchecs,
-        totalEntropiques,heroEntropiques,
-        totalParades, heroParades
-      ],
-    };
+      let statistiques: JoueurStatistique = {
+        details: [
+          totalCritiques,
+          heroCritiques,
+          totalEchecs,
+          heroEchecs,
+          totalEntropiques,
+          heroEntropiques,
+          totalParades,
+          heroParades,
+        ],
+      };
 
-    this.storage.set<JoueurStatistique>(key,statistiques,10);
+      this.storage.set<JoueurStatistique>(key, statistiques, 10);
     }
 
     return this.storage.get<JoueurStatistique>(key);
   }
-  async getJoueurStatistiqueCombat(joueur:string){
 
-    let key : string = StorageKeys.STATS_JOUEUR_COMBAT+"_"+joueur;
-    if(!this.storage.has(key)){
+  async getJoueurStatistiqueCombat(joueur: string) {
+    let key: string = StorageKeys.STATS_JOUEUR_COMBAT + '_' + joueur;
+    if (!this.storage.has(key)) {
+      let totalDegats = await this.getTotalDegatsJoueur(joueur);
+      let maxDegat = await this.getMaxDegatsJoueur(joueur);
+      let totalEnnemis = await this.getTotalEnnemisJoueur(joueur);
+      let maxEnnemis = await this.getMaxEnnemisJoueur(joueur);
 
-      let totalDegats  =  await this.getTotalDegatsJoueur(joueur);
-      let maxDegat  =  await this.getMaxDegatsJoueur(joueur);
-      let totalEnnemis  =  await this.getTotalEnnemisJoueur(joueur);
-      let maxEnnemis  =  await this.getMaxEnnemisJoueur(joueur);
+      let statistiques: JoueurStatistique = {
+        details: [totalDegats, maxDegat, totalEnnemis, maxEnnemis],
+      };
 
-    let statistiques : JoueurStatistique = {
-      details: [
-        totalDegats,maxDegat,totalEnnemis,maxEnnemis
-      ],
-    };
-
-    this.storage.set<JoueurStatistique>(key,statistiques,10);
+      this.storage.set<JoueurStatistique>(key, statistiques, 10);
     }
 
     return this.storage.get<JoueurStatistique>(key);
   }
-  async getJoueurStatistiqueTrivia(joueur:string){
 
-    let key : string = StorageKeys.STATS_JOUEUR_TRIVIA+"_"+joueur;
-    if(!this.storage.has(key)){
-
+  async getJoueurStatistiqueTrivia(joueur: string) {
+    let key: string = StorageKeys.STATS_JOUEUR_TRIVIA + '_' + joueur;
+    if (!this.storage.has(key)) {
       let level = await this.getMaxLevelJoueur(joueur);
-      let nombrePersonnage  =  await this.getPersoCountJoueur(joueur);
-      let origine =  await this.getOrigineJoueur(joueur);
-      let metier =  await this.getMetierJoueur(joueur);
-      let totalDestins =  await this.getTotalDestinJoueur(joueur);
-      let heroDetins =  await this.getHeroDestinJoueur(joueur);
-      let totalBonPoints =  await this.getTotalBonPointsJoueur(joueur);
-      let heroBonPoints =  await this.getHeroBonPointsJoueur(joueur);
-      let totalMauvaisPoints =  await this.getTotalMauvaisPointsJoueur(joueur);
-      let heroMauvaisPoint =  await this.getHeroMauvaisPointsJoueur(joueur);
+      let nombrePersonnage = await this.getPersoCountJoueur(joueur);
+      let origine = await this.getOrigineJoueur(joueur);
+      let metier = await this.getMetierJoueur(joueur);
+      let totalDestins = await this.getTotalDestinJoueur(joueur);
+      let heroDetins = await this.getHeroDestinJoueur(joueur);
+      let totalBonPoints = await this.getTotalBonPointsJoueur(joueur);
+      let heroBonPoints = await this.getHeroBonPointsJoueur(joueur);
+      let totalMauvaisPoints = await this.getTotalMauvaisPointsJoueur(joueur);
+      let heroMauvaisPoint = await this.getHeroMauvaisPointsJoueur(joueur);
 
-    let statistiques : JoueurStatistique = {
-      details:[
-        nombrePersonnage, level,
-        origine, metier,
-        totalDestins, heroDetins,
-        totalBonPoints, heroBonPoints,
-        totalMauvaisPoints, heroMauvaisPoint
-      ]
-    };
+      let statistiques: JoueurStatistique = {
+        details: [
+          nombrePersonnage,
+          level,
+          origine,
+          metier,
+          totalDestins,
+          heroDetins,
+          totalBonPoints,
+          heroBonPoints,
+          totalMauvaisPoints,
+          heroMauvaisPoint,
+        ],
+      };
 
-    this.storage.set<JoueurStatistique>(key,statistiques,10);
+      this.storage.set<JoueurStatistique>(key, statistiques, 10);
     }
 
     return this.storage.get<JoueurStatistique>(key);
   }
 
-  async getOrigineJoueur(joueur:string){
+  async getOrigineJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     let origines = await this.getAllOrigines();
-    let libelle = "";
-    let originesCount : { [key: string]: number } = {};
+    let libelle = '';
+    let originesCount: { [key: string]: number } = {};
 
     for (const hero of heros) {
-      libelle = origines.find(x=>x['code'] == hero['origine'])!['libelle'] ?? hero['origine'];
-      if(!(libelle in originesCount)){
+      libelle =
+        origines.find((x) => x['code'] == hero['origine'])!['libelle'] ??
+        hero['origine'];
+      if (!(libelle in originesCount)) {
         originesCount[libelle] = 0;
       }
-      originesCount[libelle] = originesCount[libelle] +1;
+      originesCount[libelle] = originesCount[libelle] + 1;
     }
 
     let maxValue = -Infinity;
@@ -489,26 +670,28 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       }
     }
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Origine la plus jouée',
-      'valeur': maxKey + " ( " + maxValue + " )" 
+      libelle: 'Origine la plus jouée',
+      valeur: maxKey + ' ( ' + maxValue + ' )',
     };
 
     return details;
   }
 
-  async getMetierJoueur(joueur:string){
+  async getMetierJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
     let metiers = await this.getAllMetiers();
 
-    let libelle = "";
-    let originesCount : { [key: string]: number } = {};
+    let libelle = '';
+    let originesCount: { [key: string]: number } = {};
 
     for (const hero of heros) {
-      libelle = metiers.find(x=>x['code'] == hero['metier'])!['libelle'] ?? hero['metier'];
-      if(originesCount[libelle] === undefined){
+      libelle =
+        metiers.find((x) => x['code'] == hero['metier'])!['libelle'] ??
+        hero['metier'];
+      if (originesCount[libelle] === undefined) {
         originesCount[libelle] = 0;
       }
-      originesCount[libelle] = originesCount[libelle] +1;
+      originesCount[libelle] = originesCount[libelle] + 1;
     }
 
     let maxValue = -Infinity;
@@ -520,138 +703,169 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       }
     }
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Métier le plus joué',
-      'valeur': maxKey + " ( " + maxValue + " )" 
+      libelle: 'Métier le plus joué',
+      valeur: maxKey + ' ( ' + maxValue + ' )',
     };
 
     return details;
   }
 
-  async getHeroCritiqueJoueur(joueur:string){
+  async getHeroCritiqueJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
-    let heroNom = "";
+
+    let heroNom = '';
     let critiqueCount = 0;
-    let currentHeroNom = "";
+    let currentHeroNom = '';
     let currentCritiqueCount = 0;
 
     for (const hero of heros) {
       currentHeroNom = hero['nom'];
-      let heroCritiques = (await getDocs(query(collection(this.firestore,'heros_critiques'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      let heroCritiques = (
+        await getDocs(
+          query(
+            collection(this.firestore, 'heros_critiques'),
+            where('hero_nom', '==', hero['nom']),
+          ),
+        )
+      ).docs.map((entries) => entries.data());
       currentCritiqueCount = heroCritiques.length;
-      if(currentCritiqueCount > critiqueCount){
+      if (currentCritiqueCount > critiqueCount) {
         critiqueCount = currentCritiqueCount;
         heroNom = currentHeroNom;
       }
     }
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Héros avec le plus de critiques',
-      'valeur': heroNom + " ( " + critiqueCount + " )"
+      libelle: 'Héros avec le plus de critiques',
+      valeur: heroNom + ' ( ' + critiqueCount + ' )',
     };
 
     return details;
   }
 
-  async getHeroEchecsJoueur(joueur:string){
+  async getHeroEchecsJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
-    let heroNom = "";
+
+    let heroNom = '';
     let critiqueCount = 0;
-    let currentHeroNom = "";
+    let currentHeroNom = '';
     let currentCritiqueCount = 0;
 
     for (const hero of heros) {
       currentHeroNom = hero['nom'];
-      let heroCritiques = (await getDocs(query(collection(this.firestore,'heros_echecs'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      let heroCritiques = (
+        await getDocs(
+          query(
+            collection(this.firestore, 'heros_echecs'),
+            where('hero_nom', '==', hero['nom']),
+          ),
+        )
+      ).docs.map((entries) => entries.data());
       currentCritiqueCount = heroCritiques.length;
-      if(currentCritiqueCount > critiqueCount){
+      if (currentCritiqueCount > critiqueCount) {
         critiqueCount = currentCritiqueCount;
         heroNom = currentHeroNom;
       }
     }
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Héros avec le plus d\'échecs critiques',
-      'valeur': heroNom + " ( " + critiqueCount + " )"
+      libelle: "Héros avec le plus d'échecs critiques",
+      valeur: heroNom + ' ( ' + critiqueCount + ' )',
     };
 
     return details;
   }
-  
-  async getHeroEntropiquesJoueur(joueur:string){
+
+  async getHeroEntropiquesJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
-    let heroNom = "";
+
+    let heroNom = '';
     let critiqueCount = 0;
-    let currentHeroNom = "";
+    let currentHeroNom = '';
     let currentCritiqueCount = 0;
 
     for (const hero of heros) {
       currentHeroNom = hero['nom'];
-      let heroCritiques = (await getDocs(query(collection(this.firestore,'heros_entropiques'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      let heroCritiques = (
+        await getDocs(
+          query(
+            collection(this.firestore, 'heros_entropiques'),
+            where('hero_nom', '==', hero['nom']),
+          ),
+        )
+      ).docs.map((entries) => entries.data());
       currentCritiqueCount = heroCritiques.length;
-      if(currentCritiqueCount > critiqueCount){
+      if (currentCritiqueCount > critiqueCount) {
         critiqueCount = currentCritiqueCount;
         heroNom = currentHeroNom;
       }
     }
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Héros avec le plus d\'entropiques',
-      'valeur': heroNom + " ( " + critiqueCount + " )"
+      libelle: "Héros avec le plus d'entropiques",
+      valeur: heroNom + ' ( ' + critiqueCount + ' )',
     };
 
     return details;
   }
-  
-  async getHeroParadesJoueur(joueur:string){
+
+  async getHeroParadesJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
-    let heroNom = "";
+
+    let heroNom = '';
     let critiqueCount = 0;
-    let currentHeroNom = "";
+    let currentHeroNom = '';
     let currentCritiqueCount = 0;
 
     for (const hero of heros) {
       currentHeroNom = hero['nom'];
-      let heroCritiques = (await getDocs(query(collection(this.firestore,'heros_parades'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
+      let heroCritiques = (
+        await getDocs(
+          query(
+            collection(this.firestore, 'heros_parades'),
+            where('hero_nom', '==', hero['nom']),
+          ),
+        )
+      ).docs.map((entries) => entries.data());
       currentCritiqueCount = heroCritiques.length;
-      if(currentCritiqueCount > critiqueCount){
+      if (currentCritiqueCount > critiqueCount) {
         critiqueCount = currentCritiqueCount;
         heroNom = currentHeroNom;
       }
     }
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Héros avec le plus de parades exceptionnelles',
-      'valeur': heroNom + " ( " + critiqueCount + " )"
+      libelle: 'Héros avec le plus de parades exceptionnelles',
+      valeur: heroNom + ' ( ' + critiqueCount + ' )',
     };
 
     return details;
   }
 
   async getMaxLevelJoueur(joueur: string) {
-  const heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
 
-  let heroNom = '';
-  let maxLevel = -Infinity;
+    let heroNom = '';
+    let maxLevel = -Infinity;
 
-  for (const hero of heros) {
-    const lvl = hero['niveau'] ?? 0;
-    if (lvl > maxLevel) {
-      maxLevel = lvl;
-      heroNom = hero['nom'];
+    for (const hero of heros) {
+      const lvl = hero['niveau'] ?? 0;
+      if (lvl > maxLevel) {
+        maxLevel = lvl;
+        heroNom = hero['nom'];
+      }
     }
+
+    return {
+      libelle: 'Plus haut niveau atteint',
+      valeur: `${maxLevel} ( ${heroNom} )`,
+    } as JoueurStatistiqueDetails;
   }
 
-  return { libelle: 'Plus haut niveau atteint', valeur: `${maxLevel} ( ${heroNom} )` } as JoueurStatistiqueDetails;
-}
-
-  async getMaxEnnemisJoueur(joueur:string){
+  async getMaxEnnemisJoueur(joueur: string) {
     debugger;
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
+
     let totalMobByName: Record<string, number> = {};
 
     let topMobName = null;
@@ -665,216 +879,271 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       if (!mobs) continue;
 
       for (const [mobName, count] of Object.entries(mobs)) {
-        totalMobByName[mobName] = (totalMobByName[mobName] || 0) + (count as number);
+        totalMobByName[mobName] =
+          (totalMobByName[mobName] || 0) + (count as number);
       }
     }
 
-      for (const [mobName, total] of Object.entries(totalMobByName)) {
-        if (total > topMobCount) {
-          topMobName = mobName;
-          topMobCount = total ?? 0;
-        }
+    for (const [mobName, total] of Object.entries(totalMobByName)) {
+      if (total > topMobCount) {
+        topMobName = mobName;
+        topMobCount = total ?? 0;
       }
-
-    let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Ennemi le plus rencontré',
-      'valeur': topMobName+" ( " + topMobCount + " ) "
-    };
-
-    return details;
-  }
-
- async getMaxDegatsJoueur(joueur: string) {
-  const heros = await this.herosService.getAllHeroOfJoueur(joueur);
-  const noms = new Set(heros.map(h => h['nom']));
-
-  const degats = (await getDocs(collection(this.firestore, 'heros_degats')))
-    .docs.map(d => d.data());
-
-  let heroNom = '';
-  let maxDegat = -Infinity;
-
-  for (const d of degats) {
-    const hn = d['hero_nom'];
-    if (!noms.has(hn)) continue;
-    const val = d['intensite'] ?? 0;
-    if (val > maxDegat) {
-      maxDegat = val;
-      heroNom = hn;
     }
-  }
-
-  return { libelle: 'Plus gros dégats infligés', valeur: `${maxDegat} ( ${heroNom} )` } as JoueurStatistiqueDetails;
-}
-
-  async getPersoCountJoueur(joueur:string){
-    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Personnages créés',
-      'valeur': heros.length.toString()
+      libelle: 'Ennemi le plus rencontré',
+      valeur: topMobName + ' ( ' + topMobCount + ' ) ',
     };
 
     return details;
   }
 
-   async getTotalDestinJoueur(joueur:string){
+  async getMaxDegatsJoueur(joueur: string) {
+    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    const noms = new Set(heros.map((h) => h['nom']));
+
+    const degats = (
+      await getDocs(collection(this.firestore, 'heros_degats'))
+    ).docs.map((d) => d.data());
+
+    let heroNom = '';
+    let maxDegat = -Infinity;
+
+    for (const d of degats) {
+      const hn = d['hero_nom'];
+      if (!noms.has(hn)) continue;
+      const val = d['intensite'] ?? 0;
+      if (val > maxDegat) {
+        maxDegat = val;
+        heroNom = hn;
+      }
+    }
+
+    return {
+      libelle: 'Plus gros dégats infligés',
+      valeur: `${maxDegat} ( ${heroNom} )`,
+    } as JoueurStatistiqueDetails;
+  }
+
+  async getPersoCountJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
-    const totalDestin = heros.reduce((sum, hero) => sum + (hero['destin_utilise'] == undefined ? 0 :hero['destin_utilise']) , 0);
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Total de destins utilisés',
-      'valeur': totalDestin.toString()
+      libelle: 'Personnages créés',
+      valeur: heros.length.toString(),
     };
 
     return details;
   }
 
-  async getHeroDestinJoueur(joueur:string){
+  async getTotalDestinJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
-    const maxDestinHero = heros.reduce((prev, curr) =>
-      (curr['destin_utilise'] == undefined ? 0 :curr['destin_utilise']) > (prev['destin_utilise'] == undefined ? 0 :prev['destin_utilise']) ? curr : prev
+
+    const totalDestin = heros.reduce(
+      (sum, hero) =>
+        sum +
+        (hero['destin_utilise'] == undefined ? 0 : hero['destin_utilise']),
+      0,
     );
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Maximun de destins utilisés',
-      'valeur': maxDestinHero['destin_utilise'] + ' ( ' + maxDestinHero['nom'] + ' )'
+      libelle: 'Total de destins utilisés',
+      valeur: totalDestin.toString(),
     };
 
     return details;
   }
 
-  async getTotalBonPointsJoueur(joueur:string){
+  async getHeroDestinJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
-    const totalDestin = heros.reduce((sum, hero) => sum + (hero['bon_point']!== undefined ? hero['bon_point'] : 0) , 0);
 
-    let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Total de bon points',
-      'valeur': totalDestin.toString()
-    };
-
-    return details;
-  }
-
-  async getHeroBonPointsJoueur(joueur:string){
-    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
     const maxDestinHero = heros.reduce((prev, curr) =>
-       (curr['bon_point']!== undefined ?  curr['bon_point'] : 0) >  (prev['bon_point']!== undefined ? prev['bon_point'] : 0) ? curr : prev
+      (curr['destin_utilise'] == undefined ? 0 : curr['destin_utilise']) >
+      (prev['destin_utilise'] == undefined ? 0 : prev['destin_utilise'])
+        ? curr
+        : prev,
     );
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Héro avec le plus de bon points',
-      'valeur': maxDestinHero['bon_point'] + ' ( ' + maxDestinHero['nom'] + ' )'
-    };
-
-    return details;
-  }
-  
-  async getTotalMauvaisPointsJoueur(joueur:string){
-    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
-    const totalDestin = heros.reduce((sum, hero) => sum +  (hero['mauvais_point']!== undefined ? hero['mauvais_point'] : 0), 0);
-
-    let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Total de mauvais points',
-      'valeur': totalDestin.toString()
+      libelle: 'Maximun de destins utilisés',
+      valeur:
+        (maxDestinHero['destin_utilise'] == undefined
+          ? 0
+          : maxDestinHero['destin_utilise']) +
+        ' ( ' +
+        maxDestinHero['nom'] +
+        ' )',
     };
 
     return details;
   }
 
-  async getHeroMauvaisPointsJoueur(joueur:string){
+  async getTotalBonPointsJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
-    const maxDestinHero = heros.reduce((prev, curr) =>
-     (curr['mauvais_point']!== undefined ? curr['mauvais_point'] : 0) > (prev['mauvais_point']!== undefined ? prev['mauvais_point'] : 0) ? curr : prev
+
+    const totalDestin = heros.reduce(
+      (sum, hero) =>
+        sum + (hero['bon_point'] !== undefined ? hero['bon_point'] : 0),
+      0,
     );
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Héro avec le plus de mauvais points',
-      'valeur': maxDestinHero['mauvais_point'] + ' ( ' + maxDestinHero['nom'] + ' )'
+      libelle: 'Total de bon points',
+      valeur: totalDestin.toString(),
     };
 
     return details;
   }
 
-  async getTotalCritiquesJoueur(joueur:string){
-    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    const noms = new Set(heros.map(h => h['nom']));
-
-    const critiques = (await getDocs(collection(this.firestore, 'heros_critiques')))
-      .docs.map(d => d.data());
-
-    const total = critiques.filter(c => noms.has(c['hero_nom'])).length;
-
-    return { libelle: 'Total de critiques', valeur: String(total) } as JoueurStatistiqueDetails;
-  }
-
-  async getTotalEntropiquesJoueur(joueur:string){
-    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    const noms = new Set(heros.map(h => h['nom']));
-
-    const critiques = (await getDocs(collection(this.firestore, 'heros_entropiques')))
-      .docs.map(d => d.data());
-
-    const total = critiques.filter(c => noms.has(c['hero_nom'])).length;
-
-    return { libelle: 'Total entropiques', valeur: String(total) } as JoueurStatistiqueDetails;
-  }
-
-  async getTotalParadesJoueur(joueur:string){
-    
-    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    const noms = new Set(heros.map(h => h['nom']));
-
-    const critiques = (await getDocs(collection(this.firestore, 'heros_parades')))
-      .docs.map(d => d.data());
-
-    const total = critiques.filter(c => noms.has(c['hero_nom'])).length;
-
-    return { libelle: 'Total de parades exceptionelles', valeur: String(total) } as JoueurStatistiqueDetails;
-  }
-
-  async getTotalEchecsJoueur(joueur:string){
-
-    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    const noms = new Set(heros.map(h => h['nom']));
-
-    const critiques = (await getDocs(collection(this.firestore, 'heros_echecs')))
-      .docs.map(d => d.data());
-
-    const total = critiques.filter(c => noms.has(c['hero_nom'])).length;
-
-    return { libelle: 'Total d\'echecs critiques', valeur: String(total) } as JoueurStatistiqueDetails;
-  }
-
-  async getTotalDegatsJoueur(joueur:string){
+  async getHeroBonPointsJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
+
+    const maxDestinHero = heros.reduce((prev, curr) =>
+      (curr['bon_point'] !== undefined ? curr['bon_point'] : 0) >
+      (prev['bon_point'] !== undefined ? prev['bon_point'] : 0)
+        ? curr
+        : prev,
+    );
+
+    let details: JoueurStatistiqueDetails = {
+      libelle: 'Héro avec le plus de bon points',
+      valeur: maxDestinHero['bon_point'] + ' ( ' + maxDestinHero['nom'] + ' )',
+    };
+
+    return details;
+  }
+
+  async getTotalMauvaisPointsJoueur(joueur: string) {
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+
+    const totalDestin = heros.reduce(
+      (sum, hero) =>
+        sum + (hero['mauvais_point'] !== undefined ? hero['mauvais_point'] : 0),
+      0,
+    );
+
+    let details: JoueurStatistiqueDetails = {
+      libelle: 'Total de mauvais points',
+      valeur: totalDestin.toString(),
+    };
+
+    return details;
+  }
+
+  async getHeroMauvaisPointsJoueur(joueur: string) {
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+
+    const maxDestinHero = heros.reduce((prev, curr) =>
+      (curr['mauvais_point'] !== undefined ? curr['mauvais_point'] : 0) >
+      (prev['mauvais_point'] !== undefined ? prev['mauvais_point'] : 0)
+        ? curr
+        : prev,
+    );
+
+    let details: JoueurStatistiqueDetails = {
+      libelle: 'Héro avec le plus de mauvais points',
+      valeur:
+        maxDestinHero['mauvais_point'] + ' ( ' + maxDestinHero['nom'] + ' )',
+    };
+
+    return details;
+  }
+
+  async getTotalCritiquesJoueur(joueur: string) {
+    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    const noms = new Set(heros.map((h) => h['nom']));
+
+    const critiques = (
+      await getDocs(collection(this.firestore, 'heros_critiques'))
+    ).docs.map((d) => d.data());
+
+    const total = critiques.filter((c) => noms.has(c['hero_nom'])).length;
+
+    return {
+      libelle: 'Total de critiques',
+      valeur: String(total),
+    } as JoueurStatistiqueDetails;
+  }
+
+  async getTotalEntropiquesJoueur(joueur: string) {
+    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    const noms = new Set(heros.map((h) => h['nom']));
+
+    const critiques = (
+      await getDocs(collection(this.firestore, 'heros_entropiques'))
+    ).docs.map((d) => d.data());
+
+    const total = critiques.filter((c) => noms.has(c['hero_nom'])).length;
+
+    return {
+      libelle: 'Total entropiques',
+      valeur: String(total),
+    } as JoueurStatistiqueDetails;
+  }
+
+  async getTotalParadesJoueur(joueur: string) {
+    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    const noms = new Set(heros.map((h) => h['nom']));
+
+    const critiques = (
+      await getDocs(collection(this.firestore, 'heros_parades'))
+    ).docs.map((d) => d.data());
+
+    const total = critiques.filter((c) => noms.has(c['hero_nom'])).length;
+
+    return {
+      libelle: 'Total de parades exceptionelles',
+      valeur: String(total),
+    } as JoueurStatistiqueDetails;
+  }
+
+  async getTotalEchecsJoueur(joueur: string) {
+    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    const noms = new Set(heros.map((h) => h['nom']));
+
+    const critiques = (
+      await getDocs(collection(this.firestore, 'heros_echecs'))
+    ).docs.map((d) => d.data());
+
+    const total = critiques.filter((c) => noms.has(c['hero_nom'])).length;
+
+    return {
+      libelle: "Total d'echecs critiques",
+      valeur: String(total),
+    } as JoueurStatistiqueDetails;
+  }
+
+  async getTotalDegatsJoueur(joueur: string) {
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+
     let total = 0;
 
     for (const hero of heros) {
-      let degats = (await getDocs(query(collection(this.firestore,'heros_degats'),where('hero_nom','==',hero['nom'])))).docs.map((entries) => entries.data());
-      degats.forEach(element => {
+      let degats = (
+        await getDocs(
+          query(
+            collection(this.firestore, 'heros_degats'),
+            where('hero_nom', '==', hero['nom']),
+          ),
+        )
+      ).docs.map((entries) => entries.data());
+      degats.forEach((element) => {
         total += element['intensite'];
       });
     }
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Dégâts totaux infligés',
-      'valeur': total.toString()
+      libelle: 'Dégâts totaux infligés',
+      valeur: total.toString(),
     };
 
     return details;
   }
 
-  async getTotalEnnemisJoueur(joueur:string){
+  async getTotalEnnemisJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
-    
+
     let total = 0;
 
     for (const hero of heros) {
@@ -882,59 +1151,62 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
       const docSnap = await getDoc(docRef);
 
       const mobs = docSnap.exists() ? docSnap.data() : null;
-      
-      total += mobs ? Object.values(mobs).reduce((sum, val) => sum + val, 0) : 0;
+
+      total += mobs
+        ? Object.values(mobs).reduce((sum, val) => sum + val, 0)
+        : 0;
     }
 
     let details: JoueurStatistiqueDetails = {
-      'libelle' : 'Nombre total d’ennemis rencontrés',
-      'valeur': total.toString()
+      libelle: 'Nombre total d’ennemis rencontrés',
+      valeur: total.toString(),
     };
 
     return details;
   }
 
-  async getJoueurTrophes(joueur:string){
-    let key : string = StorageKeys.TROPHES+"_"+joueur;
-    if(!this.storage.has(key)){
-    //tous les trophés du joueurs
-    let trophesJoueur = await this.getInnerJoueurTrophes(joueur);
+  async getJoueurTrophes(joueur: string) {
+    let key: string = StorageKeys.TROPHES + '_' + joueur;
+    if (!this.storage.has(key)) {
+      //tous les trophés du joueurs
+      let trophesJoueur = await this.getInnerJoueurTrophes(joueur);
 
-    //tous les trophés
-    const trophes =  (await getDocs(query(collection(this.firestore,'trophes')))).docs.map((entries) => entries.data() as Trophe);
+      //tous les trophés
+      const trophes = (
+        await getDocs(query(collection(this.firestore, 'trophes')))
+      ).docs.map((entries) => entries.data() as Trophe);
 
-    let trophesFiltered = [];
-    for(let troph of trophes){
-      if(trophesJoueur.includes(troph['titre'])){
-        troph.possede =true;
-      }else{
-        troph.possede =false;
+      let trophesFiltered = [];
+      for (let troph of trophes) {
+        if (trophesJoueur.includes(troph['titre'])) {
+          troph.possede = true;
+        } else {
+          troph.possede = false;
+        }
+        trophesFiltered.push(troph);
       }
-      trophesFiltered.push(troph);
-    }
 
-    this.storage.set<Trophe[]>(key,trophesFiltered);
+      this.storage.set<Trophe[]>(key, trophesFiltered);
     }
 
     return this.storage.get<Trophe[]>(key) ?? undefined;
-  };
-
+  }
 
   //#region Trophes
 
- async getInnerJoueurTrophes(joueur:string):Promise<string[]>{
-
-    let trophes  : DocumentData[] = await this.getAllTrophes();
+  async getInnerJoueurTrophes(joueur: string): Promise<string[]> {
+    let trophes: DocumentData[] = await this.getAllTrophes();
     return trophes
-      ?.filter(x=>x['code_joueur'] == joueur)
-      .map(x=>x['titre']);
+      ?.filter((x) => x['code_joueur'] == joueur)
+      .map((x) => x['titre']);
   }
 
-  async getAllTrophes():Promise<DocumentData[]>{
-
-    if(!this.storage.has(StorageKeys.TROPHES)){
-          const trophes = (await getDocs(query(collection(this.firestore,'joueurs_trophes')))).docs.map((entries) => entries.data());
-          this.storage.set<DocumentData[]>(StorageKeys.TROPHES,trophes);
+  async getAllTrophes(): Promise<DocumentData[]> {
+    if (!this.storage.has(StorageKeys.TROPHES)) {
+      const trophes = (
+        await getDocs(query(collection(this.firestore, 'joueurs_trophes')))
+      ).docs.map((entries) => entries.data());
+      this.storage.set<DocumentData[]>(StorageKeys.TROPHES, trophes);
     }
     return this.storage.get<DocumentData[]>(StorageKeys.TROPHES) ?? [];
   }
@@ -942,25 +1214,24 @@ async getRapportCritiquesEchecs(slice: number | null = null) {
   //#endregion Trophes
 }
 
-export interface  JoueurStatistique{
-  'details':JoueurStatistiqueDetails[];
-};
-
-export interface  JoueurStatistiqueDetails{
-  "libelle" : string;
-  "valeur" : string;
+export interface JoueurStatistique {
+  details: JoueurStatistiqueDetails[];
 }
 
-export class Trophe{
-  "categorie":number;
-  "titre":string;
-  "description":string;
-  "possede":boolean;
+export interface JoueurStatistiqueDetails {
+  libelle: string;
+  valeur: string;
 }
 
+export class Trophe {
+  'categorie': number;
+  'titre': string;
+  'description': string;
+  'possede': boolean;
+}
 
-export class Critique{
-  "hero_nom":string;
-  "intensite":number;
-  "tour":number;
+export class Critique {
+  'hero_nom': string;
+  'intensite': number;
+  'tour': number;
 }

@@ -31,6 +31,7 @@ export enum StorageKeys {
   STATS_DEGATS= 'statistiques_degats',
   STATS_DEGATS_MAX= 'statistiques_degats_max',
   STATS_MOBS= 'statistiques_mobs',
+  STATS_JOUEURS_MJ =  'statistiques_joueurs_mj',
   TROPHES = 'joueurs_trophes',
   ORIGINES = 'origines',
   METIERS = 'metiers'
