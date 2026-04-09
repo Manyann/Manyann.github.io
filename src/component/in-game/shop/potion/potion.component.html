@@ -36,7 +36,11 @@
   <ng-template pTemplate="body" let-item>
     <tr>
       <td pFrozenColumn>{{ item.libelle }}</td>
-      <td pFrozenColumn [innerHTML]="item.prix | promotion"></td>
+      <td
+  pFrozenColumn
+  class="td-price"
+  [innerHTML]="item.prix | originePrix : item.origine | promotion">
+</td>
       <td [innerHTML]="item.duree"></td>
       <td [innerHTML]="item.vie"></td>
       <td [innerHTML]="item.mana"></td>
