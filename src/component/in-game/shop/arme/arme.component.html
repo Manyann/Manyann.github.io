@@ -36,10 +36,10 @@
         {{ item.libelle }} <span [innerHTML]="item.origine | origine"></span>
       </td>
       <td
-        pFrozenColumn
-        class="td-price"
-        [innerHTML]="item.prix | originePrix: item.origine | promotion"
-      ></td>
+  pFrozenColumn
+  class="td-price"
+  [innerHTML]="item.prix | originePrix : item.origine | promotion">
+</td>
       <td [innerHTML]="item.degats | bonusDegat: item.origine"></td>
       <td>
         <span [innerHTML]="item.attaque | bonusAttaque: item.origine"></span>/
