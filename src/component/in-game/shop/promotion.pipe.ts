@@ -9,27 +9,21 @@ export class PromotionPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(value: number): SafeHtml {
-    const baseValue = value;
     const random = Math.floor(Math.random() * 20);
-
     let badge = '';
 
     if (random === 0) {
       value = value * 0.8;
-      badge = `
-        <span class="shop-price-badge price-up-strong">-20%</span>`;
+      badge = `<span class="shop-price-badge price-sale-strong">-20%</span>`;
     } else if (random === 1) {
       value = value * 0.9;
-      badge = `
-        <span class="shop-price-badge price-up-strong">-10%</span>`;
+      badge = `<span class="shop-price-badge price-sale">-10%</span>`;
     } else if (random === 18) {
       value = value * 1.1;
-      badge = `
-        <span class="shop-price-badge price-up-strong">+10%</span>`;
+      badge = `<span class="shop-price-badge price-up">+10%</span>`;
     } else if (random === 19) {
       value = value * 1.2;
-      badge = `
-        <span class="shop-price-badge price-up-strong">+20%</span>`;
+      badge = `<span class="shop-price-badge price-up-strong">+20%</span>`;
     }
 
     return this.sanitizer.bypassSecurityTrustHtml(`
