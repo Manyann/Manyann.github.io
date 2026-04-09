@@ -77,7 +77,6 @@ h1 {
 .custom-tabs {
   background-color: var(--bg-main);
   color: var(--text-main);
-  padding: 2rem;
 }
 
 .p-tabview-panels {
@@ -433,4 +432,8 @@ p-inputswitch {
 .td-price {
   white-space: nowrap !important;
   min-width: 7rem;
+}
+
+.p-treetable-scrollable-header-box {
+  padding-right: 0 !important;
 }
