@@ -1,9 +1,10 @@
-<br>
-<p-tabView  [(activeIndex)]="activeIndex"> 
+<div class="creation-page">
+  <p-tabView [(activeIndex)]="activeIndex">
     <p-tabPanel header="Classes">
-        <app-origine (openMetier)="openMetiers($event)"></app-origine>
+      <app-origine (openMetier)="openMetiers($event)"></app-origine>
     </p-tabPanel>
     <p-tabPanel header="Metiers">
-        <app-metier [restrictions]="restrictionsMetier"></app-metier>
+      <app-metier [restrictions]="restrictionsMetier"></app-metier>
     </p-tabPanel>
-</p-tabView>
+  </p-tabView>
+</div>

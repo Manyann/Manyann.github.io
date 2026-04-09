@@ -1,63 +1,118 @@
-
-<p-treeTable [value]="treeNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+<div class="origine-page">
+  <p-treeTable
+    [value]="treeNodes"
+    [scrollable]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    class="origine-table"
+  >
     <ng-template pTemplate="header">
-        <tr>
-            <th>Classe</th>
-            <th>COU</th>
-            <th>INT</th>
-            <th>CHA</th>
-            <th>AD</th>
-            <th>FO</th>
-            <th>CHN</th>
-            <th></th>
-        </tr>
+      <tr>
+        <th>Classe</th>
+        <th>COU</th>
+        <th>INT</th>
+        <th>CHA</th>
+        <th>AD</th>
+        <th>FO</th>
+        <th>CHN</th>
+        <th class="col-actions">Actions</th>
+      </tr>
     </ng-template>
+
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <p-treeTableToggler [rowNode]="rowNode" />
-                {{ rowData.nom }}
-            </td>
-            <td class="{{rowData.courage.type}}">{{ rowData.courage.nombre }}</td>
-            <td class="{{rowData.intelligence.type}}">{{ rowData.intelligence.nombre }}</td>
-            <td class="{{rowData.charisme.type}}">{{ rowData.charisme.nombre }}</td>
-            <td class="{{rowData.adresse.type}}">{{ rowData.adresse.nombre }}</td>
-            <td class="{{rowData.force.type}}">{{ rowData.force.nombre }}</td>
-            <td class="{{rowData.chance.type}}">{{ rowData.chance.nombre }}</td>
-            <td>
-                <p-button (onClick)="openInformations($event,rowData.nom)" icon="pi pi-question" />
-                <p-button (onClick)="openMetiers(rowData.restrictionsMetierShortCode)" class="ml-2" icon="pi pi-briefcase" />
-            </td>
+      <tr [ttRow]="rowNode">
+        <td class="col-classe">
+          <p-treeTableToggler [rowNode]="rowNode" />
+          <span class="classe-name">{{ rowData.nom }}</span>
+        </td>
 
-        </tr>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.courage.type }}">{{
+            rowData.courage.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.intelligence.type }}">{{
+            rowData.intelligence.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.charisme.type }}">{{
+            rowData.charisme.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.adresse.type }}">{{
+            rowData.adresse.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.force.type }}">{{
+            rowData.force.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.chance.type }}">{{
+            rowData.chance.nombre
+          }}</span>
+        </td>
+
+        <td class="action-cell">
+          <p-button
+            (onClick)="openInformations($event, rowData.nom)"
+            icon="pi pi-question-circle"
+            styleClass="btn-origine btn-info"
+          />
+          <p-button
+            (onClick)="openMetiers(rowData.restrictionsMetierShortCode)"
+            icon="pi pi-briefcase"
+            styleClass="btn-origine btn-metier-open"
+          />
+        </td>
+      </tr>
     </ng-template>
-</p-treeTable>
+  </p-treeTable>
 
-<app-sidebar [(visible)]="sidebarVisible">
-     <ng-container *ngIf="origineToSee">
-        <div class="list-bonus parts" *ngIf="origineToSee.caracteristiques.length > 0">
-            <div class="title">Characteristiques</div>
-            <div class="list-item-details-items">
-                <span  *ngFor="let caracteristique of origineToSee.caracteristiques">{{caracteristique}}</span>
-            </div>
+  <app-sidebar [(visible)]="sidebarVisible">
+    <ng-container *ngIf="origineToSee">
+      <div class="sidebar-origine-title">{{ origineToSee.nom }}</div>
+
+      <div class="parts" *ngIf="origineToSee.caracteristiques.length > 0">
+        <div class="title">Caractéristiques</div>
+        <div class="list-item-details-items">
+          <span *ngFor="let caracteristique of origineToSee.caracteristiques">{{
+            caracteristique
+          }}</span>
         </div>
-        <div class="list-restriction parts" *ngIf="origineToSee.restrictions.length > 0">
-            <div class="title">Restriction</div>
-            <div class="list-item-details-items">
-                <span  *ngFor="let restriction of origineToSee.restrictions">{{restriction}}</span>  
-            </div>
+      </div>
+
+      <div class="parts" *ngIf="origineToSee.restrictions.length > 0">
+        <div class="title">Restrictions</div>
+        <div class="list-item-details-items">
+          <span *ngFor="let restriction of origineToSee.restrictions">{{
+            restriction
+          }}</span>
         </div>
-        <div class="list-competence-base parts" *ngIf="origineToSee.competencesHerites.length > 0">
-            <div class="title">Compétences Hérités</div>
-            <div class="list-item-details-items">
-                <span  *ngFor="let competenceHerite of origineToSee.competencesHerites">{{competenceHerite}}</span>  
-            </div>
+      </div>
+
+      <div class="parts" *ngIf="origineToSee.competencesHerites.length > 0">
+        <div class="title">Compétences héritées</div>
+        <div class="list-item-details-items">
+          <span
+            *ngFor="let competenceHerite of origineToSee.competencesHerites"
+            >{{ competenceHerite }}</span
+          >
         </div>
-        <div class="list-restriction-metier parts" *ngIf="origineToSee.restrictionsMetier.length > 0">
-            <div class="title">Restriction métier</div>
-            <div class="list-item-details-items">
-                <span  *ngFor="let restrictionMetier of origineToSee.restrictionsMetier">{{restrictionMetier}}</span>  
-            </div>
+      </div>
+
+      <div class="parts" *ngIf="origineToSee.restrictionsMetier.length > 0">
+        <div class="title">Restrictions métier</div>
+        <div class="list-item-details-items">
+          <span
+            *ngFor="let restrictionMetier of origineToSee.restrictionsMetier"
+            >{{ restrictionMetier }}</span
+          >
         </div>
+      </div>
     </ng-container>
-</app-sidebar>
+  </app-sidebar>
+</div>

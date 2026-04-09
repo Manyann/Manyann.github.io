@@ -1,29 +1,180 @@
-.max {
-  color: red;
+:host {
+  display: block;
+}
+
+.origine-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.origine-toolbar {
+  padding: 1rem 1.2rem;
+  border-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.origine-toolbar-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+
+.origine-toolbar-subtitle {
+  color: var(--text-main);
+  opacity: 0.82;
+  font-size: 0.95rem;
+}
+
+:host ::ng-deep .origine-table .p-treetable {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+}
+
+:host ::ng-deep .origine-table .p-treetable-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+:host ::ng-deep .origine-table table {
+  width: 100%;
+  min-width: 50rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+:host ::ng-deep .origine-table .p-treetable-thead > tr > th {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.02)
+    ),
+    var(--bg-secondary);
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  padding: 0.9rem 0.85rem;
+  text-align: center;
+}
+
+:host ::ng-deep .origine-table .p-treetable-tbody > tr > td {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.05);
+  padding: 0.8rem 0.85rem;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .origine-table .p-treetable-tbody > tr:nth-child(even) > td {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+:host ::ng-deep .origine-table .p-treetable-tbody > tr:hover > td {
+  background: rgba(200, 170, 110, 0.08);
+}
+
+.col-classe {
+  min-width: 16rem;
+  white-space: nowrap;
+}
+
+.classe-name {
+  font-weight: 700;
+  color: #f3f3f3;
+  margin-left: 0.35rem;
+}
+
+.stat-cell {
+  text-align: center;
+}
+
+.stat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  padding: 0.22rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  border: 1px solid transparent;
 }
 
 .min {
-  color: green;
+  color: #79e79c;
+}
+
+.max {
+  color: #ff8b8b;
+}
+
+.stat-badge.min {
+  background: rgba(80, 200, 120, 0.14);
+  border-color: rgba(80, 200, 120, 0.26);
+}
+
+.stat-badge.max {
+  background: rgba(255, 100, 100, 0.14);
+  border-color: rgba(255, 100, 100, 0.26);
+}
+
+.action-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.col-actions {
+  min-width: 8rem;
+}
+
+:host ::ng-deep .btn-origine.p-button {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 10px;
+  margin: 0 0.18rem;
+  border: 1px solid var(--border);
+}
+
+:host ::ng-deep .btn-info.p-button {
+  background: rgba(90, 220, 255, 0.12);
+  border-color: rgba(90, 220, 255, 0.24);
+  color: #8be9ff;
+}
+
+:host ::ng-deep .btn-metier-open.p-button {
+  background: rgba(200, 170, 110, 0.14);
+  border-color: rgba(200, 170, 110, 0.28);
+  color: var(--accent);
+}
+
+.sidebar-origine-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 1rem;
 }
 
 .parts {
   display: flex;
   flex-direction: column;
-  .list-item-details-items {
-    margin-top: 0.5rem;
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  .title {
-    font-weight: bold;
-  }
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 }
 
 .parts .title {
   color: var(--accent);
-  font-weight: bold;
+  font-weight: 800;
   margin-bottom: 0.5rem;
 }
 
@@ -32,27 +183,35 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-.list-item-details-items {
-  display: flex;
-  /* justify-content: space-evenly; */
-  flex-direction: column;
-  /* margin:0.2rem; */
+
+.parts .list-item-details-items span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+  font-size: 0.84rem;
+  line-height: 1.2;
 }
 
-.list-autres .list-item-details-items {
-  flex-direction: column;
+::ng-deep .p-button .p-button-icon {
+  margin: 0rem;
 }
 
 @media (max-width: 900px) {
-  ::ng-deep.p-button.p-button-icon-only {
+  :host ::ng-deep .origine-table table {
+    min-width: 42rem;
+  }
+
+  :host ::ng-deep .btn-origine.p-button {
     width: 2rem;
     height: 2rem;
-    margin: 0.1rem;
+    margin: 0 0.1rem;
   }
-}
 
-@media (min-width: 900px) {
-  .ml-2 {
-    margin-left: 2rem;
+  .col-classe {
+    min-width: 13rem;
   }
 }

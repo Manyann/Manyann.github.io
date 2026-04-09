@@ -1,61 +1,115 @@
-
-<p-treeTable [value]="treeNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+<div class="metier-page">
+  <p-treeTable
+    [value]="treeNodes"
+    [scrollable]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    class="origine-table"
+  >
     <ng-template pTemplate="header">
-        <tr>
-            <th></th>
-            <th>Metier</th>
-            <th>COU</th>
-            <th>INT</th>
-            <th>CHA</th>
-            <th>AD</th>
-            <th>FO</th>
-            <th>CHN</th>
-            <th></th>
-        </tr>
+      <tr>
+        <th></th>
+        <th>Metier</th>
+        <th>COU</th>
+        <th>INT</th>
+        <th>CHA</th>
+        <th>AD</th>
+        <th>FO</th>
+        <th>CHN</th>
+        <th class="col-actions">Actions</th>
+      </tr>
     </ng-template>
+
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode" class="{{rowData.isForbidden ? 'forbidden':''}}">
-            <td>
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>    
-            </td>
-            <td><span class="level">[{{ rowNode.level+1 }}]</span> {{ rowData.nom }}</td>
-            <td class="{{rowData.courage.type}}">{{ rowData.courage.nombre }}</td>
-            <td class="{{rowData.intelligence.type}}">{{ rowData.intelligence.nombre }}</td>
-            <td class="{{rowData.charisme.type}}">{{ rowData.charisme.nombre }}</td>
-            <td class="{{rowData.adresse.type}}">{{ rowData.adresse.nombre }}</td>
-            <td class="{{rowData.force.type}}">{{ rowData.force.nombre }}</td>
-            <td class="{{rowData.chance.type}}">{{ rowData.chance.nombre }}</td>
-            <td>
-                <p-button (onClick)="openInformations($event,rowData.shortCode)" icon="pi pi-question" />
-            </td>
-        </tr>
+      <tr
+        [ttRow]="rowNode"
+        class="{{ rowData.isForbidden ? 'forbidden' : '' }}"
+      >
+        <td class="col-toggle">
+          <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+        </td>
+
+        <td class="col-classe">
+          <span class="level-badge">N{{ rowNode.level + 1 }}</span>
+          <span class="classe-name">{{ rowData.nom }}</span>
+        </td>
+
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.courage.type }}">{{
+            rowData.courage.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.intelligence.type }}">{{
+            rowData.intelligence.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.charisme.type }}">{{
+            rowData.charisme.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.adresse.type }}">{{
+            rowData.adresse.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.force.type }}">{{
+            rowData.force.nombre
+          }}</span>
+        </td>
+        <td class="stat-cell">
+          <span class="stat-badge {{ rowData.chance.type }}">{{
+            rowData.chance.nombre
+          }}</span>
+        </td>
+
+        <td class="action-cell">
+          <p-button
+            (onClick)="openInformations($event, rowData.shortCode)"
+            icon="pi pi-question-circle"
+            styleClass="btn-origine btn-info"
+          />
+        </td>
+      </tr>
     </ng-template>
-</p-treeTable>
+  </p-treeTable>
 
+  <app-sidebar [(visible)]="sidebarVisible">
+    <div class="sidebar-origine-title">{{ metierToSee.nom }}</div>
 
-<app-sidebar [(visible)]="sidebarVisible">
-    <div class="list-bonus parts" *ngIf="metierToSee.caracteristiques.length > 0">
-        <div class="title">Characteristiques</div>
-        <div class="list-item-details-items">
-            <span  *ngFor="let caracteristique of metierToSee.caracteristiques">{{caracteristique}}</span>
-        </div>
+    <div class="parts" *ngIf="metierToSee.caracteristiques.length > 0">
+      <div class="title">Caractéristiques</div>
+      <div class="list-item-details-items">
+        <span *ngFor="let caracteristique of metierToSee.caracteristiques">{{
+          caracteristique
+        }}</span>
+      </div>
     </div>
-    <div class="list-restriction parts" *ngIf="metierToSee.restrictions.length > 0">
-        <div class="title">Restriction</div>
-        <div class="list-item-details-items">
-            <span  *ngFor="let restriction of metierToSee.restrictions">{{restriction}}</span>  
-        </div>
+
+    <div class="parts" *ngIf="metierToSee.restrictions.length > 0">
+      <div class="title">Restrictions</div>
+      <div class="list-item-details-items">
+        <span *ngFor="let restriction of metierToSee.restrictions">{{
+          restriction
+        }}</span>
+      </div>
     </div>
-    <div class="list-competence-base parts" *ngIf="metierToSee.competencesHerites.length > 0">
-        <div class="title">Compétences Hérités</div>
-        <div class="list-item-details-items">
-            <span  *ngFor="let competenceHerite of metierToSee.competencesHerites">{{competenceHerite}}</span>  
-        </div>
+
+    <div class="parts" *ngIf="metierToSee.competencesHerites.length > 0">
+      <div class="title">Compétences héritées</div>
+      <div class="list-item-details-items">
+        <span *ngFor="let competenceHerite of metierToSee.competencesHerites">{{
+          competenceHerite
+        }}</span>
+      </div>
     </div>
+
     <div class="parts list-autres" *ngIf="metierToSee.autres.length > 0">
-        <div class="title">Autres</div>
-        <div class="list-item-details-items">
-            <span  *ngFor="let restrictionMetier of metierToSee.autres">{{restrictionMetier}}</span>  
-        </div>
+      <div class="title">Autres</div>
+      <div class="list-item-details-items">
+        <span *ngFor="let autre of metierToSee.autres">{{ autre }}</span>
+      </div>
     </div>
-</app-sidebar>
+  </app-sidebar>
+</div>
