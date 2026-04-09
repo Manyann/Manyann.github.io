@@ -37,10 +37,10 @@
     <tr>
       <td pFrozenColumn>{{ item.libelle }}</td>
       <td
-  pFrozenColumn
-  class="td-price"
-  [innerHTML]="item.prix | originePrix : item.origine | promotion">
-</td>
+        pFrozenColumn
+        class="td-price"
+        [innerHTML]="item.prix | promotion"
+      ></td>
       <td [innerHTML]="item.duree"></td>
       <td [innerHTML]="item.vie"></td>
       <td [innerHTML]="item.mana"></td>
