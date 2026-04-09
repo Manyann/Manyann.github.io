@@ -395,7 +395,7 @@ p-panel {
 
 .display-false {
   display: grid;
-  opacity: 0.36;
+  opacity: 0.02;
   filter: grayscale(1);
 }
 
