@@ -382,10 +382,9 @@ p-inputswitch {
 
 .shop-price-cell {
   display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.22rem;
-  min-width: 4.2rem;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
 }
 
 .shop-price {
@@ -397,19 +396,14 @@ p-inputswitch {
 .shop-price-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.22rem;
-  padding: 0.14rem 0.38rem;
+  justify-content: center;
+  padding: 0.16rem 0.45rem;
   border-radius: 999px;
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 800;
   line-height: 1;
   border: 1px solid transparent;
   white-space: nowrap;
-}
-
-.shop-price-badge i {
-  font-size: 0.68rem;
-  line-height: 1;
 }
 
 .price-sale-strong {
@@ -434,4 +428,9 @@ p-inputswitch {
   background: rgba(255, 90, 90, 0.18);
   color: #ff7c7c;
   border-color: rgba(255, 90, 90, 0.32);
+}
+
+.td-price {
+  white-space: nowrap !important;
+  min-width: 7rem;
 }
