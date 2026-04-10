@@ -1,118 +1,361 @@
-.hero-card-layout{
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
-    gap:1rem;
+:host {
+  display: block;
 }
 
-.hero-card{
-    padding:0.5rem;
-    border:1px solid white;
-    border-radius: 10px;
+.combat-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.header{
-    font-weight: bold;
-    text-align: center;
+.combat-shell {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.75rem;
 }
 
-.body{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-.row{
-    margin-top:0.5rem;
-}
-
-.input-sm{
-    width: 5rem;
-    margin: 0;
+/* CARDS */
+.combat-card {
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
-::ng-deep.p-inputnumber {
-    width: 5rem;
-    margin: 0;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
-::ng-deep.p-inputnumber-input{
-    width: 5rem;
-    margin: inherit;
+.compact-header {
+  margin-bottom: 0.6rem;
 }
 
-.p-editable-column{
-    text-align: center;
+.combat-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.1rem;
+  line-height: 1.1;
 }
 
-.hero-row{
-    display: flex;
-        padding: 1rem;
-    border: 2px solid white;
-    border-radius: 10px;
-    align-items: center;
-        height: 3rem;
-    width: 70rem;
-    > .action{
-            height: inherit;
-            display: flex;
-            align-items: center;
-            width: 60rem;
-            justify-content: space-around;
-            > .action{
-            justify-content: space-around;
-            height: inherit;
-            display: flex;
-            align-items: center;
-            }
-    }
+.combat-subtitle {
+  color: var(--text-main);
+  opacity: 0.78;
+  font-size: 0.85rem;
+  line-height: 1.1;
 }
 
-.hero-name{
-        width: 10rem;
-        color:#c8aa6e;
-    }
-
-.row > p-button{
-    margin-left: 0.5rem;
+/* HEROES */
+.hero-list-scroll {
+  max-height: 33vh;
+  min-height: 11rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
 }
 
-::ng-deep.p-autoComplete{
-    margin-right: 0.5rem;
+.hero-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
 }
 
-::ng-deep .p-overlay{
+.hero-row {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.hero-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--accent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-inline-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mini-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.mini-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-main);
+  opacity: 0.82;
+  min-width: 2.4rem;
+}
+
+/* TOOLBAR */
+.compact-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 0.75rem;
+}
+
+.toolbar-block {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  padding: 0.55rem 0.7rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.toolbar-block-right {
+  justify-content: flex-start;
+}
+
+.toolbar-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent);
+  min-width: 2.5rem;
+}
+
+/* TABLE */
+.mob-table-wrap {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .combat-table .p-datatable {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+}
+
+:host ::ng-deep .combat-table .p-datatable-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+:host ::ng-deep .combat-table table {
+  width: 100%;
+  min-width: 64rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+:host ::ng-deep .combat-table .p-datatable-thead > tr > th {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.02)
+    ),
+    var(--bg-secondary);
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.82rem;
+  white-space: nowrap;
+  padding: 0.55rem 0.55rem;
+  text-align: center;
+}
+
+:host ::ng-deep .combat-table .p-datatable-tbody > tr > td {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.05);
+  padding: 0.45rem 0.5rem;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.82rem;
+}
+
+:host ::ng-deep .combat-table .p-datatable-tbody > tr:nth-child(even) > td {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+:host ::ng-deep .combat-table .p-datatable-tbody > tr:hover > td {
+  background: rgba(200, 170, 110, 0.08);
+}
+
+.p-editable-column {
+  text-align: center;
+}
+
+/* INPUTS */
+.input-xs {
+  width: 4.25rem;
+  margin: 0;
+}
+
+::ng-deep .p-inputnumber.input-xs,
+::ng-deep .input-xs .p-inputnumber {
+  width: 4.25rem;
+}
+
+::ng-deep .p-inputnumber {
+  width: 4.25rem;
+  margin: 0;
+}
+
+::ng-deep .p-inputnumber-input {
+  width: 4.25rem;
+  margin: inherit;
+  padding: 0.35rem 0.45rem;
+  font-size: 0.82rem;
+}
+
+.mob-autocomplete {
+  min-width: 14rem;
+}
+
+::ng-deep .mob-autocomplete .p-autocomplete {
+  min-width: 14rem;
+}
+
+::ng-deep .mob-autocomplete .p-inputtext {
+  padding: 0.4rem 0.55rem;
+  font-size: 0.82rem;
+}
+
+:host ::ng-deep .combat-table .p-inputtext {
+  padding: 0.3rem 0.4rem;
+  font-size: 0.8rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+::ng-deep .p-autoComplete {
+  margin-right: 0.2rem;
+}
+
+::ng-deep .p-overlay {
   background-color: var(--bg-main);
   color: var(--text-main);
 }
 
-.row-flex{
-    display: flex;
-    justify-content: space-between;
+/* BUTTONS */
+:host ::ng-deep .mini-btn.p-button,
+:host ::ng-deep .icon-btn.p-button {
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  font-weight: 700;
+  min-height: 2rem;
+  padding: 0.32rem 0.55rem;
+  font-size: 0.76rem;
 }
 
-.flex-start{
-    display: flex;
-    justify-content: start;
+:host ::ng-deep .icon-btn.p-button {
+  min-width: 2rem;
+  padding: 0.32rem;
 }
 
-.flex-end{
-    display: flex;
-    justify-content: end;
+:host ::ng-deep .action-btn-primary.p-button {
+  background: rgba(90, 220, 255, 0.12);
+  border-color: rgba(90, 220, 255, 0.24);
+  color: #8be9ff;
 }
 
-.flex-start , .flex-end{
-    gap:0.5rem;
+:host ::ng-deep .action-btn-secondary.p-button {
+  background: rgba(200, 170, 110, 0.14);
+  border-color: rgba(200, 170, 110, 0.28);
+  color: var(--accent);
 }
 
-.next-tour{
-    margin-top:1rem;
-    display:flex;
-    align-items: center;
-    gap:1rem;
+:host ::ng-deep .action-btn-danger.p-button {
+  background: rgba(255, 100, 100, 0.14);
+  border-color: rgba(255, 100, 100, 0.28);
+  color: #ff8b8b;
 }
 
-.row-button{
-    display: flex;
-    justify-content: space-around;
+:host ::ng-deep .action-btn-warning.p-button {
+  background: rgba(255, 180, 80, 0.14);
+  border-color: rgba(255, 180, 80, 0.28);
+  color: #ffc36b;
+}
+
+:host ::ng-deep .action-btn-muted.p-button {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+:host ::ng-deep .end-combat-btn.p-button {
+  border-radius: 10px;
+  font-weight: 700;
+  background: rgba(255, 100, 100, 0.14);
+  border-color: rgba(255, 100, 100, 0.28);
+  color: #ff8b8b;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+::ng-deep .p-button .p-button-icon {
+  margin: 0rem;
+}
+
+/* ACTIONS TABLE */
+.row-button {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .hero-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-name {
+    margin-bottom: 0.15rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .combat-card {
+    padding: 0.7rem;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-list-scroll {
+    max-height: 38vh;
+  }
+
+  .mob-autocomplete,
+  ::ng-deep .mob-autocomplete .p-autocomplete {
+    min-width: 12rem;
+  }
+
+  :host ::ng-deep .combat-table table {
+    min-width: 58rem;
+  }
 }
