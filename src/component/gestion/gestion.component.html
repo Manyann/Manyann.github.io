@@ -1,234 +1,684 @@
-<br>
-<p-tabView  > 
+<div class="gestion-page">
+  <p-tabView>
     <p-tabPanel header="session">
-        <p-splitter [style]="{'height': '40rem'}">
-            <ng-template pTemplate>
-                <div class="row">
-                <div>
-                <p-table responsiveLayout="scroll" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" [value]="(allHeros$ | async) ?? [] | isFromSession">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Joueur</th>
-                            <th>Nom</th>
-                            <th>Niveau</th>
-                            <th>Type</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-hero>
-                        <tr (click)="handleSelect(hero.nom)">
-                            <td>{{hero.code_joueur}}</td>
-                            <td>{{hero.nom}}</td>
-                            <td>{{hero.niveau}}</td>
-                            <td>{{hero.origine | heroType: herosTypes ?? []}}</td>
-                        </tr>
-                    </ng-template>
-                </p-table></div>
-                <div>
-                    <br>
-    <p-button class="m-2" (onClick)="triggerAjouter($event)" label="Hero" icon="pi pi-plus" />
-    <p-button class="m-2" (onClick)="goToCombat()" label="Combat" icon="pi pi-caret-right" />
-    <p-button class="m-2" (onClick)="triggerAjouterStats($event)" label="Ajouter statistique" icon="pi pi-chart-line" />
-    <p-button class="m-2" (onClick)="resetStorage()" label="Vider le cache" icon="pi pi-exclamation-triangle" />
-    </div></div>
-            </ng-template>
-            <ng-template pTemplate>
-                <div  *ngFor="let hero of (hero$ | async) ??[]" class="mw-20 ml-2">
-                    <div class="text-center" ><h2>{{hero['nom']}}</h2></div>
-                    <div class="stats-handler"><span class="text-bold">Niveau</span> {{hero['niveau']}}<p-button (onClick)="levelUp(hero['nom'])" icon="pi pi-plus" class="bt-sm" /></div>
-                    <div class="stats-handler"><span class="text-bold">Or</span> {{hero['or']}}<p-button icon="pi pi-plus" class="bt-sm" /></div>
-                    <div class="stats-handler"><span class="text-bold">Point de destin</span> {{hero['destin']}}<p-button (onClick)="removeDestin(hero['nom'])" icon="pi pi-minus" class="bt-sm" /></div>
-                    <div class="stats-handler"><span class="text-bold">Bon point</span> {{hero['bon_point']}} <p-button (onClick)="addBonPoint(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
-                    <div class="stats-handler"><span class="text-bold">Mauvais point</span> {{hero['mauvais_point']}} <p-button (onClick)="addMauvaisPoint(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
-                    <div class="stats-handler"><span class="text-bold">Morts</span> {{ hero['morts']}} <p-button (onClick)="addMort(hero['nom'])" icon="pi pi-plus" class="bt-sm" /> </div>
-                    <div>
-                        <h3>Equipements</h3>
-                        <div class="block-flex">
-                            <div>
-                                <h4> Equipé </h4>
-                                <div *ngFor="let arme of (armes$ | async)?.armes ??[] | shouldBeEquipe : true">
-                                    <p-button (onClick)="supprimer(hero['nom'],arme['code'])" icon="pi pi-trash" class="red-dot bt-sm" /> 
-                                    {{arme['libelle']}} 
-                                    <p-button (onClick)="desequipe(hero['nom'],arme['code'])" icon="pi pi-arrow-right" class="blue-dot bt-sm" />
-                                </div>
-                                <div *ngFor="let armure of (armures$ | async)?.armures ??[] | shouldBeEquipe : true">
-                                    <p-button (onClick)="supprimerArmure(hero['nom'],armure['code'])" icon="pi pi-trash" class="red-dot bt-sm" /> 
-                                    {{armure['libelle']}} 
-                                    <p-button (onClick)="desequipeArmure(hero['nom'],armure['code'])" icon="pi pi-arrow-right" class="blue-dot bt-sm" />
-                                </div>
-                            </div>
-                            <div>
-                                <div class="stats-handler"><h4> Inventaire   <p-button class=" bt-sm" (onClick)="triggerAjouterStuff($event)" icon="pi pi-plus"></p-button></h4></div>
-                                <div *ngFor="let arme of (armes$ | async)?.armes ??[]| shouldBeEquipe : false">
-                                    <p-button (onClick)="equipe(hero['nom'],arme['code'])" icon="pi pi-arrow-left" class="blue-dot bt-sm" />
-                                    {{arme['libelle']}} 
-                                    <p-button (onClick)="supprimer(hero['nom'],arme['code'])" icon ="pi pi-trash" class="red-dot bt-sm" />
-                                </div>
-                                <div *ngFor="let armure of (armures$ | async)?.armures ??[]| shouldBeEquipe : false">
-                                    <p-button (onClick)="equipeArmure(hero['nom'],armure['code'])" icon="pi pi-arrow-left" class="blue-dot bt-sm" />
-                                    {{armure['libelle']}} 
-                                    <p-button (onClick)="supprimerArmure(hero['nom'],armure['code'])" icon ="pi pi-trash" class="red-dot bt-sm" />
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                </div>
-            </ng-template>
-        </p-splitter>
-    </p-tabPanel>
-    <p-tabPanel *ngFor="let joueur of (joueurs)" [header]="joueur.code">
-        <p-splitter [style]="{'height': '40rem'}">
-            <ng-template pTemplate>
-                <p-table responsiveLayout="scroll" [scrollable]="true" [tableStyle]="{'min-width':'30rem'}" [value]="(allHeros$ | async) ?? [] | hero:joueur.code">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Nom</th>
-                            <th>Niveau</th>
-                            <th>Type</th>
-                            <th>Session</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-hero>
-                        <tr (click)="handleSelect(hero.nom)">
-                            <td class="{{hero.vivant? 'c-green' : 'c-red'}}">{{hero.nom}}</td>
-                            <td>{{hero.niveau}}</td>
-                            <td>{{hero.origine | heroType: herosTypes ?? []}}</td>
-                            <td><p-inputSwitch *ngIf="hero.vivant" [(ngModel)]="hero.actif" (onChange)="changeSession($event,hero.nom)"></p-inputSwitch></td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </ng-template>
-            <ng-template pTemplate>
-                <div  *ngFor="let hero of (hero$ | async) ??[]" class="mw-20">
-                    <div class="text-center" ><h2>{{hero['nom']}}</h2></div>
-                    
-                    <div>Or {{hero['or']}}</div>
-                    <div>Point de destin {{hero['destin']}}</div>
-                    <div>
-                        <p>stuff</p>
-                        <div *ngFor="let arme of ((armes$ | async)?.armes ?? []) ">{{arme['libelle']}}</div>
-                    </div>
-                </div>
-            </ng-template>
-        </p-splitter>
-    </p-tabPanel>
-</p-tabView>
-<app-sidebar [(visible)]="sidebarVisible">
-    <div class="add-panel">
-            <div class="mt-2 div-flex row">
-                <span>Joueur : </span>
-                <p-dropdown 
-                [options]="joueurs" 
-                [(ngModel)]="addJoueur" 
-                name="addJoueur"
-                optionLabel="code" 
-                optionValue="code"
-                placeholder="Joueur"
-                class="w-12" />
-            </div>
-            <div class="mt-2 div-flex row">
-                <span>Nom :  </span>
-                <input type="text" class="textAsNumberStyle" pInputText [(ngModel)]="addNom" />
-            </div>
-            <div class="mt-2 div-flex row">
-                <span>Origine :  </span>
-                <p-autoComplete
-                [(ngModel)]="addOrigine"
-                name="addOrigine"
-                [dropdown]="true"
-                [suggestions]="herosTypesSelect??[]"
-                optionLabel="libelle"
-                placeholder="origine"
-                (completeMethod)="search($event)"  />
-            </div>
-            <div class="mt-2 div-flex row">
-                <span>Metier :  </span>
-                <p-autoComplete
-                [(ngModel)]="addMetier"
-                name="addMetier"
-                [dropdown]="true"
-                [suggestions]="herosMetiersSelect??[]"
-                optionLabel="libelle"
-                placeholder="origine"
-                (completeMethod)="searchMetier($event)"  />
-            </div>
-            <div class="mt-2 div-flex row">
-                <span>Niveau :  </span>
-                <p-inputNumber class="no-margin"  [(ngModel)]="addNiveau" name="addNiveau" />
-            </div>
-            <div class="mt-2 div-flex row">
-                <span>Or :  </span>
-                <p-inputNumber class="no-margin" [(ngModel)]="addOr" name="addOr"/>
-            </div>
-            <div class="mt-2 div-flex  row"> 
-                <span>Point de destin : </span>
-                <p-inputNumber class="no-margin" [(ngModel)]="addDestin" name="addDestin"/>
-            </div>
-            
-            <div class="mt-2 div-flex row"> 
-                <p-button (onClick)="valider()" >Valider</p-button>
-            </div>
-    </div>
-</app-sidebar>
-<p-sidebar [(visible)]="sidebarStuffVisible">
-    <div class="add-panel">
-            <div class="mt-2">
-                <span>Armes :  </span>
-                <p-multiSelect 
-                [options]="herosArmesSelect"
-                [(ngModel)]="addArmes"
-                optionLabel="libelle"
-                placeholder="armes" />
-            </div>
-            <div class="mt-2">
-                <span>Armures :  </span>
-                <p-multiSelect 
-                [options]="herosArmuresSelect"
-                [(ngModel)]="addArmures"
-                optionLabel="libelle"
-                placeholder="armures" />
-            </div>
-            <div class="mt-2"> 
-                <p-button (onClick)="validerStuff()" >Valider</p-button>
-            </div>
-    </div>
-</p-sidebar>
-<p-sidebar [(visible)]="sidebarStatsVisible">
-    <div class="add-panel">
-            <div class="mt-2">
-                <span>Hero(s) : </span>
-                <p-multiSelect 
-                [options]="(allHeros$ | async) ?? [] | isFromSession" 
-                [(ngModel)]="addStatsHero" 
-                name="addStatsHero"
-                optionLabel="nom" 
-                placeholder="Hero(s)"
-                class="w-12" />
-            </div>
-            <div class="mt-2">
-                <span>Kms :  </span>
-                <p-inputNumber 
-                [(ngModel)]="addKmParcourus"
-                placeholder="Kms" />
-            </div>
-            <div class="mt-2">
-                <span>Or :  </span>
-                <p-inputNumber 
-                [(ngModel)]="addOrs"
-                placeholder="Ors" />
-            </div>
-            <div class="mt-2"> 
-                <p-button (onClick)="validerStats()" >Valider</p-button>
-            </div>
-    </div>
-</p-sidebar>
+      <p-splitter [style]="{ height: '40rem' }">
+        <ng-template pTemplate>
+          <div class="session-layout">
+            <div class="gestion-card session-table-card">
+              <div class="gestion-title">Session</div>
+              <div class="gestion-subtitle">Gestion des héros actifs</div>
 
-<p-confirmDialog>
+              <p-table
+                class="gestion-table"
+                responsiveLayout="scroll"
+                [scrollable]="true"
+                [tableStyle]="{ 'min-width': '30rem' }"
+                [value]="(allHeros$ | async) ?? [] | isFromSession"
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Joueur</th>
+                    <th>Nom</th>
+                    <th>Niveau</th>
+                    <th>Type</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-hero>
+                  <tr (click)="handleSelect(hero.nom)">
+                    <td>{{ hero.code_joueur }}</td>
+                    <td>{{ hero.nom }}</td>
+                    <td>{{ hero.niveau }}</td>
+                    <td>{{ hero.origine | heroType: herosTypes ?? [] }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+
+            <div class="gestion-card session-actions-card">
+              <div class="gestion-title">Actions</div>
+              <div class="session-actions">
+                <p-button
+                  class="m-2"
+                  (onClick)="triggerAjouter($event)"
+                  label="Hero"
+                  icon="pi pi-plus"
+                />
+                <p-button
+                  class="m-2"
+                  (onClick)="goToCombat()"
+                  label="Combat"
+                  icon="pi pi-caret-right"
+                />
+                <p-button
+                  class="m-2"
+                  (onClick)="triggerAjouterStats($event)"
+                  label="Ajouter statistique"
+                  icon="pi pi-chart-line"
+                />
+                <p-button
+                  class="m-2"
+                  (onClick)="resetStorage()"
+                  label="Vider le cache"
+                  icon="pi pi-exclamation-triangle"
+                />
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate>
+          <div *ngFor="let hero of (hero$ | async) ?? []" class="hero-panel">
+            <div class="hero-header">
+              <h2>{{ hero["nom"] }}</h2>
+              <div class="hero-sub">Niveau {{ hero["niveau"] }}</div>
+            </div>
+
+            <div class="hero-section">
+              <div class="section-title">Statistiques</div>
+
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <span>Niveau</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge">{{ hero["niveau"] }}</span>
+                    <p-button
+                      (onClick)="levelUp(hero['nom'])"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Or</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge">{{ hero["or"] }}</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Destin</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge">{{ hero["destin"] }}</span>
+                    <p-button
+                      (onClick)="removeDestin(hero['nom'])"
+                      icon="pi pi-minus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Bon</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge stat-good">{{
+                      hero["bon_point"]
+                    }}</span>
+                    <p-button
+                      (onClick)="addBonPoint(hero['nom'])"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Mauvais</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge stat-bad">{{
+                      hero["mauvais_point"]
+                    }}</span>
+                    <p-button
+                      (onClick)="addMauvaisPoint(hero['nom'])"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Morts</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge stat-dead">{{
+                      hero["morts"]
+                    }}</span>
+                    <p-button
+                      (onClick)="addMort(hero['nom'])"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-section">
+              <div class="section-title">Équipement</div>
+
+              <div class="equip-grid">
+                <div class="equip-box">
+                  <div class="equip-title">Équipé</div>
+
+                  <div
+                    *ngFor="
+                      let arme of (armes$ | async)?.armes ?? []
+                        | shouldBeEquipe: true
+                    "
+                    class="equip-item"
+                  >
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="desequipe(hero['nom'], arme.code)"
+                        icon="pi pi-arrow-right"
+                        class="blue-dot bt-sm"
+                      />
+                    </div>
+                    <span class="equip-label">{{ arme.libelle }}</span>
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="supprimer(hero['nom'], arme.code)"
+                        icon="pi pi-trash"
+                        class="red-dot bt-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    *ngFor="
+                      let armure of (armures$ | async)?.armures ?? []
+                        | shouldBeEquipe: true
+                    "
+                    class="equip-item"
+                  >
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="desequipeArmure(hero['nom'], armure['code'])"
+                        icon="pi pi-arrow-right"
+                        class="blue-dot bt-sm"
+                      />
+                    </div>
+                    <span class="equip-label">{{ armure["libelle"] }}</span>
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="supprimerArmure(hero['nom'], armure['code'])"
+                        icon="pi pi-trash"
+                        class="red-dot bt-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="equip-box">
+                  <div class="equip-title">
+                    <span>Inventaire</span>
+                    <p-button
+                      (onClick)="triggerAjouterStuff($event)"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+
+                  <div
+                    *ngFor="
+                      let arme of (armes$ | async)?.armes ?? []
+                        | shouldBeEquipe: false
+                    "
+                    class="equip-item"
+                  >
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="equipe(hero['nom'], arme.code)"
+                        icon="pi pi-arrow-left"
+                        class="blue-dot bt-sm"
+                      />
+                    </div>
+                    <span class="equip-label">{{ arme.libelle }}</span>
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="supprimer(hero['nom'], arme.code)"
+                        icon="pi pi-trash"
+                        class="red-dot bt-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    *ngFor="
+                      let armure of (armures$ | async)?.armures ?? []
+                        | shouldBeEquipe: false
+                    "
+                    class="equip-item"
+                  >
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="equipeArmure(hero['nom'], armure['code'])"
+                        icon="pi pi-arrow-left"
+                        class="blue-dot bt-sm"
+                      />
+                    </div>
+                    <span class="equip-label">{{ armure["libelle"] }}</span>
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="supprimerArmure(hero['nom'], armure['code'])"
+                        icon="pi pi-trash"
+                        class="red-dot bt-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-splitter>
+    </p-tabPanel>
+
+    <p-tabPanel *ngFor="let joueur of joueurs" [header]="joueur.code">
+      <p-splitter [style]="{ height: '40rem' }">
+        <ng-template pTemplate>
+          <p-table
+            class="gestion-table table-overflow"
+            responsiveLayout="scroll"
+            [scrollable]="true"
+            [tableStyle]="{ 'min-width': '30rem' }"
+            [value]="(allHeros$ | async) ?? [] | hero: joueur.code"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Nom</th>
+                <th>Niveau</th>
+                <th>Type</th>
+                <th>Session</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-hero>
+              <tr (click)="handleSelect(hero.nom)">
+                <td class="{{ hero.vivant ? 'c-green' : 'c-red' }}">
+                  {{ hero.nom }}
+                </td>
+                <td>{{ hero.niveau }}</td>
+                <td>{{ hero.origine | heroType: herosTypes ?? [] }}</td>
+                <td>
+                  <p-inputSwitch
+                    *ngIf="hero.vivant"
+                    [(ngModel)]="hero.actif"
+                    (onChange)="changeSession($event, hero.nom)"
+                  ></p-inputSwitch>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </ng-template>
+
+        <ng-template pTemplate>
+          <div *ngFor="let hero of (hero$ | async) ?? []" class="hero-panel">
+            <div class="hero-header">
+              <h2>{{ hero["nom"] }}</h2>
+            </div>
+
+            <div class="hero-section">
+              <div class="section-title">Statistiques</div>
+
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <span>Niveau</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge">{{ hero["niveau"] }}</span>
+                    <p-button
+                      (onClick)="levelUp(hero['nom'])"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Or</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge">{{ hero["or"] }}</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Destin</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge">{{ hero["destin"] }}</span>
+                    <p-button
+                      (onClick)="removeDestin(hero['nom'])"
+                      icon="pi pi-minus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Bon</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge stat-good">{{
+                      hero["bon_point"]
+                    }}</span>
+                    <p-button
+                      (onClick)="addBonPoint(hero['nom'])"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Mauvais</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge stat-bad">{{
+                      hero["mauvais_point"]
+                    }}</span>
+                    <p-button
+                      (onClick)="addMauvaisPoint(hero['nom'])"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <span>Morts</span>
+                  <div class="stat-value-inline">
+                    <span class="stat-badge stat-dead">{{
+                      hero["morts"]
+                    }}</span>
+                    <p-button
+                      (onClick)="addMort(hero['nom'])"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-section">
+              <div class="section-title">Équipement</div>
+
+              <div class="equip-grid">
+                <div class="equip-box">
+                  <div class="equip-title">Équipé</div>
+
+                  <div
+                    *ngFor="
+                      let arme of (armes$ | async)?.armes ?? []
+                        | shouldBeEquipe: true
+                    "
+                    class="equip-item"
+                  >
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="desequipe(hero['nom'], arme.code)"
+                        icon="pi pi-arrow-right"
+                        class="blue-dot bt-sm"
+                      />
+                    </div>
+                    <span class="equip-label text-center">{{
+                      arme.libelle
+                    }}</span>
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="supprimer(hero['nom'], arme.code)"
+                        icon="pi pi-trash"
+                        class="red-dot bt-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    *ngFor="
+                      let armure of (armures$ | async)?.armures ?? []
+                        | shouldBeEquipe: true
+                    "
+                    class="equip-item"
+                  >
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="desequipeArmure(hero['nom'], armure['code'])"
+                        icon="pi pi-arrow-right"
+                        class="blue-dot bt-sm"
+                      />
+                    </div>
+                    <span class="equip-label text-center">{{
+                      armure["libelle"]
+                    }}</span>
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="supprimerArmure(hero['nom'], armure['code'])"
+                        icon="pi pi-trash"
+                        class="red-dot bt-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="equip-box">
+                  <div class="equip-title">
+                    <span>Inventaire</span>
+                    <p-button
+                      (onClick)="triggerAjouterStuff($event)"
+                      icon="pi pi-plus"
+                      class="bt-sm"
+                    />
+                  </div>
+
+                  <div
+                    *ngFor="
+                      let arme of (armes$ | async)?.armes ?? []
+                        | shouldBeEquipe: false
+                    "
+                    class="equip-item"
+                  >
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="equipe(hero['nom'], arme.code)"
+                        icon="pi pi-arrow-left"
+                        class="blue-dot bt-sm"
+                      />
+                    </div>
+                    <span class="equip-label text-center">{{
+                      arme.libelle
+                    }}</span>
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="supprimer(hero['nom'], arme.code)"
+                        icon="pi pi-trash"
+                        class="red-dot bt-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    *ngFor="
+                      let armure of (armures$ | async)?.armures ?? []
+                        | shouldBeEquipe: false
+                    "
+                    class="equip-item"
+                  >
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="equipeArmure(hero['nom'], armure['code'])"
+                        icon="pi pi-arrow-left"
+                        class="blue-dot bt-sm"
+                      />
+                    </div>
+                    <span class="equip-label text-center">{{
+                      armure["libelle"]
+                    }}</span>
+                    <div class="equip-actions">
+                      <p-button
+                        (onClick)="supprimerArmure(hero['nom'], armure['code'])"
+                        icon="pi pi-trash"
+                        class="red-dot bt-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-splitter>
+    </p-tabPanel>
+  </p-tabView>
+
+  <app-sidebar [(visible)]="sidebarVisible">
+    <div class="add-panel">
+      <div class="sidebar-form-title">Ajouter un héros</div>
+
+      <div class="mt-2 div-flex row">
+        <span>Joueur :</span>
+        <p-dropdown
+          [options]="joueurs"
+          [(ngModel)]="addJoueur"
+          name="addJoueur"
+          optionLabel="code"
+          optionValue="code"
+          placeholder="Joueur"
+          class="w-12"
+        />
+      </div>
+
+      <div class="mt-2 div-flex row">
+        <span>Nom :</span>
+        <input
+          type="text"
+          class="textAsNumberStyle"
+          pInputText
+          [(ngModel)]="addNom"
+        />
+      </div>
+
+      <div class="mt-2 div-flex row">
+        <span>Origine :</span>
+        <p-autoComplete
+          [(ngModel)]="addOrigine"
+          name="addOrigine"
+          [dropdown]="true"
+          [suggestions]="herosTypesSelect ?? []"
+          optionLabel="libelle"
+          placeholder="origine"
+          (completeMethod)="search($event)"
+        />
+      </div>
+
+      <div class="mt-2 div-flex row">
+        <span>Metier :</span>
+        <p-autoComplete
+          [(ngModel)]="addMetier"
+          name="addMetier"
+          [dropdown]="true"
+          [suggestions]="herosMetiersSelect ?? []"
+          optionLabel="libelle"
+          placeholder="origine"
+          (completeMethod)="searchMetier($event)"
+        />
+      </div>
+
+      <div class="mt-2 div-flex row">
+        <span>Niveau :</span>
+        <p-inputNumber
+          class="no-margin"
+          [(ngModel)]="addNiveau"
+          name="addNiveau"
+        />
+      </div>
+
+      <div class="mt-2 div-flex row">
+        <span>Or :</span>
+        <p-inputNumber class="no-margin" [(ngModel)]="addOr" name="addOr" />
+      </div>
+
+      <div class="mt-2 div-flex row">
+        <span>Point de destin :</span>
+        <p-inputNumber
+          class="no-margin"
+          [(ngModel)]="addDestin"
+          name="addDestin"
+        />
+      </div>
+
+      <div class="mt-2 div-flex row form-actions">
+        <p-button (onClick)="valider()">Valider</p-button>
+      </div>
+    </div>
+  </app-sidebar>
+
+  <p-sidebar [(visible)]="sidebarStuffVisible">
+    <div class="add-panel">
+      <div class="sidebar-form-title">Gérer l'équipement</div>
+
+      <div class="mt-2">
+        <span>Armes :</span>
+        <p-multiSelect
+          [options]="herosArmesSelect"
+          [(ngModel)]="addArmes"
+          optionLabel="libelle"
+          placeholder="armes"
+        />
+      </div>
+
+      <div class="mt-2">
+        <span>Armures :</span>
+        <p-multiSelect
+          [options]="herosArmuresSelect"
+          [(ngModel)]="addArmures"
+          optionLabel="libelle"
+          placeholder="armures"
+        />
+      </div>
+
+      <div class="mt-2 form-actions">
+        <p-button (onClick)="validerStuff()">Valider</p-button>
+      </div>
+    </div>
+  </p-sidebar>
+
+  <p-sidebar [(visible)]="sidebarStatsVisible">
+    <div class="add-panel">
+      <div class="sidebar-form-title">Ajouter des statistiques</div>
+
+      <div class="mt-2">
+        <span>Hero(s) :</span>
+        <p-multiSelect
+          [options]="(allHeros$ | async) ?? [] | isFromSession"
+          [(ngModel)]="addStatsHero"
+          name="addStatsHero"
+          optionLabel="nom"
+          placeholder="Hero(s)"
+          class="w-12"
+        />
+      </div>
+
+      <div class="mt-2">
+        <span>Kms :</span>
+        <p-inputNumber [(ngModel)]="addKmParcourus" placeholder="Kms" />
+      </div>
+
+      <div class="mt-2">
+        <span>Or :</span>
+        <p-inputNumber [(ngModel)]="addOrs" placeholder="Ors" />
+      </div>
+
+      <div class="mt-2 form-actions">
+        <p-button (onClick)="validerStats()">Valider</p-button>
+      </div>
+    </div>
+  </p-sidebar>
+
+  <p-confirmDialog>
     <ng-template #message let-message>
-        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
-            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
-            <p>{{ message.message }}</p>
-        </div>
+      <div
+        class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700"
+      >
+        <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
+        <p>{{ message.message }}</p>
+      </div>
     </ng-template>
-</p-confirmDialog>
-<p-toast></p-toast>
-    
+  </p-confirmDialog>
+
+  <p-toast></p-toast>
+</div>
