@@ -1,55 +1,72 @@
-import { OnInit, OnDestroy, ViewChild, ElementRef, Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { animate, state, style, transition, trigger } from "@angular/animations";
-import { LootService } from "./lootbox.service";
-import { ItemRarity, LootItem } from "../../model/item";
-import { InputNumberModule } from "primeng/inputnumber";
-import { FormsModule } from "@angular/forms";
-import { InputSwitchModule } from "primeng/inputswitch";
+import {
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  Component,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { LootService } from './lootbox.service';
+import { ItemRarity, LootItem } from '../../model/item';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-loot-system',
   standalone: true,
-  imports: [CommonModule, InputNumberModule,FormsModule, InputSwitchModule  ],
-  providers:[LootService],
+  imports: [
+    CommonModule,
+    InputNumberModule,
+    FormsModule,
+    InputSwitchModule,
+    ButtonModule,
+  ],
+  providers: [LootService],
   templateUrl: './lootbox.component.html',
   styleUrl: './lootbox.component.css',
   animations: [
     trigger('slideIn', [
       transition(':enter', [
         style({ transform: 'translateX(-100%)' }),
-        animate('300ms ease-in', style({ transform: 'translateX(0%)' }))
-      ])
+        animate('300ms ease-in', style({ transform: 'translateX(0%)' })),
+      ]),
     ]),
     trigger('bounce', [
       state('normal', style({ transform: 'scale(1)' })),
       state('bounced', style({ transform: 'scale(1.1)' })),
       transition('normal => bounced', animate('200ms ease-in')),
-      transition('bounced => normal', animate('200ms ease-out'))
-    ])
-  ]
+      transition('bounced => normal', animate('200ms ease-out')),
+    ]),
+  ],
 })
 export class LootboxComponent implements OnInit, OnDestroy {
-  
-  @ViewChild('roulette', { static: false }) rouletteElement!: ElementRef<HTMLDivElement>;
-  @ViewChild('rouletteContainer', { static: false }) rouletteContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('roulette', { static: false })
+  rouletteElement!: ElementRef<HTMLDivElement>;
+  @ViewChild('rouletteContainer', { static: false })
+  rouletteContainer!: ElementRef<HTMLDivElement>;
 
-  // État du composant
   inventory: LootItem[] = [];
-  
-  // État de l'ouverture
+
   showModal = false;
   isLoading = false;
   isOpening = false;
   showRoulette = false;
   showResult = false;
   chance = 10;
-  includeArmes = false;
-  includeArmures = false;
+  includeArmes = true;
+  includeArmures = true;
   includePotions = false;
   includeGemmes = false;
-  
-  // Roulette
+
   rouletteItems: LootItem[] = [];
   rouletteOffset = 0;
   wonItem: LootItem | null = null;
@@ -60,9 +77,7 @@ export class LootboxComponent implements OnInit, OnDestroy {
     this.lootService.interpolateWeights(2);
   }
 
-  ngOnDestroy(): void {
-  }
-
+  ngOnDestroy(): void {}
 
   private resetModalState(): void {
     this.isLoading = false;
@@ -73,46 +88,100 @@ export class LootboxComponent implements OnInit, OnDestroy {
     this.wonItem = null;
   }
 
-
   private startRoulette(): void {
     this.isOpening = true;
     this.isLoading = true;
-    this.rouletteItems = this.lootService.generateRouletteItems(this.chance,100,this.includeArmes,this.includeArmures,this.includePotions, this.includeGemmes);
-    
-    // Sélectionner l'objet gagnant (entre les positions 20-30 pour l'effet visuel)
+    this.showRoulette = true;
+    this.showResult = false;
+
+    this.rouletteItems = this.lootService.generateRouletteItems(
+      this.chance,
+      100,
+      this.includeArmes,
+      this.includeArmures,
+      this.includePotions,
+      this.includeGemmes,
+    );
+
     const winningIndex = Math.floor(Math.random() * 10) + 20;
     this.wonItem = this.rouletteItems[winningIndex];
-    
-    // Calculer la distance de déplacement
-    const itemWidth = 250;
-    const containerCenter = 250;
-    this.rouletteOffset = -(winningIndex * itemWidth - containerCenter);
-    
-    // Attendre la fin de l'animation
-    const rouletteTimer = setTimeout(() => {
+
+    this.rouletteOffset = 0;
+
+    requestAnimationFrame(() => {
+      const containerEl = this.rouletteContainer?.nativeElement;
+      const rouletteEl = this.rouletteElement?.nativeElement;
+
+      if (!containerEl || !rouletteEl) {
+        return;
+      }
+
+      const firstItem = rouletteEl.querySelector(
+        '.roulette-item',
+      ) as HTMLElement | null;
+      if (!firstItem) {
+        return;
+      }
+
+      const containerWidth = containerEl.offsetWidth;
+      const itemWidth = firstItem.offsetWidth;
+
+      const selectorCenter = containerWidth / 2;
+      const winningItemCenter = winningIndex * itemWidth + itemWidth / 2;
+
+      this.rouletteOffset = selectorCenter - winningItemCenter;
+    });
+
+    setTimeout(() => {
       this.showResult = true;
       this.isOpening = false;
-      
-      // Créer l'effet de particules pour les objets rares
+      this.isLoading = false;
+
       if (this.wonItem && this.lootService.isRareItem(this.wonItem.rarity)) {
         this.createParticleEffect();
       }
     }, 4500);
-    
   }
 
+  getCurrentWeights(): { label: string; value: number; className: string }[] {
+    const weights = this.lootService.interpolateWeights(this.chance);
+
+    return [
+      { label: 'Pérave', value: weights.perave, className: 'rarity-perave' },
+      { label: 'Qualité', value: weights.qualite, className: 'rarity-qualite' },
+      {
+        label: 'Artisant',
+        value: weights.artisant,
+        className: 'rarity-artisant',
+      },
+      {
+        label: 'Excellence',
+        value: weights.excellence,
+        className: 'rarity-excellence',
+      },
+      {
+        label: 'Légendaire',
+        value: weights.legendaire,
+        className: 'rarity-legendaire',
+      },
+      {
+        label: 'Mythique',
+        value: weights.mythique,
+        className: 'rarity-mythique',
+      },
+    ];
+  }
 
   private createParticleEffect(): void {
-    // Créer des particules dorées pour les objets rares
     for (let i = 0; i < 20; i++) {
       const particle = document.createElement('div');
       particle.className = 'particle';
-      
+
       const angle = (i / 20) * Math.PI * 2;
       const velocity = 100 + Math.random() * 100;
       const dx = Math.cos(angle) * velocity;
       const dy = Math.sin(angle) * velocity;
-      
+
       particle.style.cssText = `
         position: fixed;
         width: 10px;
@@ -128,9 +197,9 @@ export class LootboxComponent implements OnInit, OnDestroy {
         --dx: ${dx}px;
         --dy: ${dy}px;
       `;
-      
+
       document.body.appendChild(particle);
-      
+
       setTimeout(() => {
         if (particle.parentNode) {
           particle.parentNode.removeChild(particle);
@@ -156,7 +225,6 @@ export class LootboxComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Utilitaires pour le template
   getRarityClass(rarity: ItemRarity): string {
     return this.lootService.getRarityClass(rarity);
   }
@@ -169,10 +237,6 @@ export class LootboxComponent implements OnInit, OnDestroy {
   trackByFn(index: number, item: LootItem): any {
     return item.id || index;
   }
-
 }
 
-// Fournir le service
-export const LOOT_PROVIDERS = [
-  LootService
-];
+export const LOOT_PROVIDERS = [LootService];
