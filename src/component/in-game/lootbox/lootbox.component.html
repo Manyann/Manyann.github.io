@@ -1,5 +1,5 @@
 <div class="loot-page">
-  <section class="loot-card loot-controls-card">
+  <section class="loot-card top-bar-card">
     <div class="card-header">
       <div>
         <div class="loot-title">Générateur de butin</div>
@@ -15,124 +15,144 @@
         />
       </div>
     </div>
+  </section>
 
-    <div class="controls-grid">
-      <div class="control-block chance-block">
-        <div class="control-label">Chance</div>
-
-        <div class="chance-input-row">
-          <p-inputNumber
-            [(ngModel)]="chance"
-            [min]="0"
-            [max]="20"
-            [step]="1"
-            inputId="chance"
-          />
-          <div class="chance-badge">{{ chance }}/20</div>
+  <div class="loot-layout">
+    <!-- COLONNE GAUCHE : CHANCE -->
+    <aside class="left-column">
+      <section class="loot-card chance-card">
+        <div class="section-header">
+          <div class="section-title">Chance</div>
         </div>
 
-        <div class="weight-block">
-          <div class="weight-title">Probabilités actuelles</div>
+        <div class="control-block chance-block">
+          <div class="chance-input-row">
+            <p-inputNumber
+              [(ngModel)]="chance"
+              [min]="0"
+              [max]="20"
+              [step]="1"
+              inputId="chance"
+            />
+            <div class="chance-badge">{{ chance }}/20</div>
+          </div>
 
-          <div class="weight-list">
-            <div *ngFor="let weight of getCurrentWeights()" class="weight-item">
-              <span class="weight-label" [ngClass]="weight.className">
-                {{ weight.label }}
-              </span>
-              <span class="weight-value">
-                {{ weight.value | number: "1.1-2" }}%
-              </span>
+          <div class="weight-block">
+            <div class="weight-title">Probabilités actuelles</div>
+
+            <div class="weight-list">
+              <div
+                *ngFor="let weight of getCurrentWeights()"
+                class="weight-item"
+              >
+                <span class="weight-label" [ngClass]="weight.className">
+                  {{ weight.label }}
+                </span>
+                <span class="weight-value">
+                  {{ weight.value | number: "1.1-2" }}%
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+    </aside>
 
-      <div class="control-block filters-block">
-        <div class="control-label">Catégories</div>
+    <!-- COLONNE DROITE : CATÉGORIES + ROULETTE + RÉSULTAT -->
+    <div class="right-column">
+      <section class="loot-card categories-card">
+        <div class="section-header">
+          <div class="section-title">Catégories</div>
+        </div>
 
-        <div class="switch-grid">
-          <div class="switch-item">
-            <span>Armes</span>
-            <p-inputSwitch [(ngModel)]="includeArmes" />
-          </div>
+        <div class="control-block filters-block">
+          <div class="switch-grid">
+            <div class="switch-item">
+              <span>Armes</span>
+              <p-inputSwitch [(ngModel)]="includeArmes" />
+            </div>
 
-          <div class="switch-item">
-            <span>Armures</span>
-            <p-inputSwitch [(ngModel)]="includeArmures" />
-          </div>
+            <div class="switch-item">
+              <span>Armures</span>
+              <p-inputSwitch [(ngModel)]="includeArmures" />
+            </div>
 
-          <div class="switch-item">
-            <span>Potions</span>
-            <p-inputSwitch [(ngModel)]="includePotions" />
-          </div>
+            <div class="switch-item">
+              <span>Potions</span>
+              <p-inputSwitch [(ngModel)]="includePotions" />
+            </div>
 
-          <div class="switch-item">
-            <span>Gemmes</span>
-            <p-inputSwitch [(ngModel)]="includeGemmes" />
+            <div class="switch-item">
+              <span>Gemmes</span>
+              <p-inputSwitch [(ngModel)]="includeGemmes" />
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <section class="loot-card roulette-card">
-    <div class="section-header">
-      <div class="section-title">Roulette</div>
-    </div>
+      <section class="loot-card roulette-card">
+        <div class="section-header">
+          <div class="section-title">Roulette</div>
+        </div>
 
-    <div class="roulette-shell">
-      <div class="roulette-container" #rouletteContainer>
-        <div class="selector-line"></div>
+        <div class="roulette-shell">
+          <div class="roulette-container" #rouletteContainer>
+            <div class="selector-line"></div>
 
-        <div
-          class="roulette"
-          #roulette
-          [class.is-spinning]="isOpening"
-          [style.transform]="'translateX(' + rouletteOffset + 'px)'"
-        >
+            <div
+              class="roulette"
+              #roulette
+              [class.is-spinning]="isOpening"
+              [style.transform]="'translateX(' + rouletteOffset + 'px)'"
+            >
+              <div
+                *ngFor="let item of rouletteItems; trackBy: trackByFn"
+                class="roulette-item"
+                [ngClass]="getRarityClass(item.rarity)"
+              >
+                <div class="item-name">{{ item.name }}</div>
+                <div class="item-rarity">
+                  {{ formatRarity(item.rarity) }}
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="roulette-placeholder"
+              *ngIf="rouletteItems.length === 0"
+            >
+              Générateur de butin.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="loot-card result-card">
+        <div class="section-header">
+          <div class="section-title">Résultat</div>
+        </div>
+
+        <div class="result-state" *ngIf="!wonItem && !isOpening">
+          Aucun tirage en cours.
+        </div>
+
+        <div class="result-state" *ngIf="isOpening">Tirage en cours...</div>
+
+        <div class="result-container active" *ngIf="showResult && wonItem">
           <div
-            *ngFor="let item of rouletteItems; trackBy: trackByFn"
-            class="roulette-item"
-            [ngClass]="getRarityClass(item.rarity)"
+            class="result-item"
+            [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''"
           >
-            <div class="item-name">{{ item.name }}</div>
-            <div class="item-rarity">
-              {{ formatRarity(item.rarity) }}
+            <div class="result-name">{{ wonItem?.name }}</div>
+            <div
+              class="result-rarity"
+              [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''"
+            >
+              {{ formatRarity(wonItem?.rarity) }}
             </div>
           </div>
         </div>
-
-        <div class="roulette-placeholder" *ngIf="rouletteItems.length === 0">
-          Générateur de butin.
-        </div>
-      </div>
+      </section>
     </div>
-  </section>
-
-  <section class="loot-card result-card">
-    <div class="section-header">
-      <div class="section-title">Résultat</div>
-    </div>
-
-    <div class="result-state" *ngIf="!wonItem && !isOpening">
-      Aucun tirage en cours.
-    </div>
-
-    <div class="result-state" *ngIf="isOpening">Tirage en cours...</div>
-
-    <div class="result-container active" *ngIf="showResult && wonItem">
-      <div
-        class="result-item"
-        [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''"
-      >
-        <div class="result-name">{{ wonItem?.name }}</div>
-        <div
-          class="result-rarity"
-          [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''"
-        >
-          {{ formatRarity(wonItem?.rarity) }}
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 </div>

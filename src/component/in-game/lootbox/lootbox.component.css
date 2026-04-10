@@ -8,6 +8,27 @@
   gap: 1rem;
 }
 
+/* LAYOUT PRINCIPAL */
+.loot-layout {
+  display: grid;
+  grid-template-columns: 20rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
 /* CARDS */
 .loot-card {
   padding: 1rem 1.2rem;
@@ -57,6 +78,42 @@
   gap: 0.5rem;
 }
 
+/* BLOCS */
+.control-block {
+  padding: 0.85rem 0.95rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.control-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.chance-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.chance-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.5rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  background: rgba(200, 170, 110, 0.14);
+  border: 1px solid rgba(200, 170, 110, 0.28);
+}
+
 .weight-block {
   margin-top: 1rem;
   padding-top: 0.85rem;
@@ -97,52 +154,10 @@
   color: var(--text-main);
 }
 
-/* CONTROLS */
-.controls-grid {
-  display: grid;
-  grid-template-columns: 16rem 1fr;
-  gap: 1rem;
-  align-items: start;
-}
-
-.control-block {
-  padding: 0.85rem 0.95rem;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.control-label {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: var(--accent);
-  margin-bottom: 0.75rem;
-}
-
-.chance-input-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.chance-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 4.5rem;
-  padding: 0.28rem 0.65rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: var(--accent);
-  background: rgba(200, 170, 110, 0.14);
-  border: 1px solid rgba(200, 170, 110, 0.28);
-}
-
+/* CATÉGORIES */
 .switch-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  justify-content: space-around;
   gap: 0.65rem;
 }
 
@@ -227,12 +242,23 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 3px;
-  height: 104px;
-  background: linear-gradient(to bottom, transparent, #ffa500, transparent);
-  box-shadow: 0 0 20px #ffa500;
+  transform: translateY(-50%);
+
+  width: 4px;
+  height: 110px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #ffa500 30%,
+    #ffd700 50%,
+    #ffa500 70%,
+    transparent
+  );
+  box-shadow:
+    0 0 25px #ffa500,
+    0 0 10px #ffd700;
   z-index: 10;
+  pointer-events: none;
 }
 
 .roulette-placeholder {
@@ -246,6 +272,13 @@
   font-size: 0.95rem;
   text-align: center;
   padding: 1rem;
+}
+
+.roulette-card,
+.roulette-shell,
+.roulette-container {
+  min-width: 0;
+  width: 100%;
 }
 
 /* RESULT */
@@ -415,7 +448,7 @@
 }
 
 @media (max-width: 900px) {
-  .controls-grid {
+  .loot-layout {
     grid-template-columns: 1fr;
   }
 
