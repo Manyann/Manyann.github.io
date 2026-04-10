@@ -249,10 +249,6 @@
 }
 
 /* RESULT */
-.result-card {
-  min-height: 12rem;
-}
-
 .result-state {
   min-height: 6rem;
   display: flex;

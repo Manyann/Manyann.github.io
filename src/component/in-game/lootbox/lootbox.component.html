@@ -3,9 +3,6 @@
     <div class="card-header">
       <div>
         <div class="loot-title">Générateur de butin</div>
-        <div class="loot-subtitle">
-          Réglage rapide de la qualité et du type de récompense
-        </div>
       </div>
 
       <div class="header-actions">
@@ -81,7 +78,6 @@
   <section class="loot-card roulette-card">
     <div class="section-header">
       <div class="section-title">Roulette</div>
-      <div class="section-subtitle">Défilement visuel du tirage en cours</div>
     </div>
 
     <div class="roulette-shell">
@@ -107,7 +103,7 @@
         </div>
 
         <div class="roulette-placeholder" *ngIf="rouletteItems.length === 0">
-          Appuie sur <strong>Lancer</strong> pour générer un butin.
+          Générateur de butin.
         </div>
       </div>
     </div>
@@ -116,7 +112,6 @@
   <section class="loot-card result-card">
     <div class="section-header">
       <div class="section-title">Résultat</div>
-      <div class="section-subtitle">Objet obtenu après le tirage</div>
     </div>
 
     <div class="result-state" *ngIf="!wonItem && !isOpening">
@@ -137,16 +132,6 @@
         >
           {{ formatRarity(wonItem?.rarity) }}
         </div>
-      </div>
-
-      <div class="buttons">
-        <button
-          class="btn btn-primary"
-          (click)="openAnotherCase()"
-          [disabled]="isOpening"
-        >
-          Relancer
-        </button>
       </div>
     </div>
   </section>
