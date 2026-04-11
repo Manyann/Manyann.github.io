@@ -383,8 +383,6 @@ export class HerosService {
       document,
     );
 
-    this.storage.addElementInStorageGroup(StorageKeys.HERO_DEGATS, document);
-
     //#region trophes
 
     let heros = await this.getByName(nom);
@@ -431,6 +429,7 @@ export class HerosService {
     if (totalDegat > 25000) {
       trophes.push(await this.setTrophe(joueur, 'La fierté de Thanos'));
     }
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_DEGATS, document);
 
     //#endregion trophes
 
