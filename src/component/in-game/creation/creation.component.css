@@ -40,6 +40,7 @@
   background: transparent;
   border: none;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 :host ::ng-deep .creation-tabs .p-tabview-nav li .p-tabview-nav-link {
@@ -78,4 +79,61 @@
 :host ::ng-deep .creation-tabs .p-tabview-panels {
   padding: 1rem 0 0 0;
   background: transparent;
+}
+
+@media (max-width: 900px) {
+  .creation-page {
+    padding: 1rem;
+  }
+
+  .creation-title {
+    font-size: 1.6rem;
+  }
+
+  .creation-subtitle {
+    font-size: 0.92rem;
+  }
+
+  :host ::ng-deep .creation-tabs .p-tabview-nav {
+    gap: 0.35rem;
+  }
+
+  :host ::ng-deep .creation-tabs .p-tabview-nav li {
+    flex: 1 1 calc(50% - 0.35rem);
+  }
+
+  :host ::ng-deep .creation-tabs .p-tabview-nav li .p-tabview-nav-link {
+    justify-content: center;
+    text-align: center;
+    padding: 0.75rem 0.85rem;
+    border-radius: 12px 12px 0 0;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .creation-page {
+    padding: 0.75rem;
+  }
+
+  .creation-title {
+    font-size: 1.35rem;
+  }
+
+  .creation-subtitle {
+    font-size: 0.86rem;
+  }
+
+  :host ::ng-deep .creation-tabs .p-tabview-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  :host ::ng-deep .creation-tabs .p-tabview-nav li {
+    width: 100%;
+  }
+
+  :host ::ng-deep .creation-tabs .p-tabview-panels {
+    padding-top: 0.75rem;
+  }
 }

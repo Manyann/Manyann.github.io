@@ -15,6 +15,7 @@
 
 .custom-sidebar.visible {
   left: 0;
+  width: auto;
 }
 
 p-inputnumber.no-margin::ng-deep {

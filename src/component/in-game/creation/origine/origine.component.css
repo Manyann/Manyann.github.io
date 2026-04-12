@@ -8,6 +8,72 @@
   gap: 1rem;
 }
 
+.desktop-view {
+  display: block;
+}
+
+.mobile-cards {
+  display: none;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.mobile-card {
+  padding: 0.9rem;
+  border-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+.mobile-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.mobile-card-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.2;
+}
+
+.mobile-card-actions {
+  display: flex;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.mobile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.mobile-stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.mobile-stat-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-main);
+  opacity: 0.82;
+}
+
 .origine-toolbar {
   padding: 1rem 1.2rem;
   border-radius: 16px;
@@ -213,5 +279,56 @@
 
   .col-classe {
     min-width: 13rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar-origine-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .parts {
+    margin-bottom: 0.85rem;
+  }
+
+  .parts .title {
+    font-size: 0.92rem;
+  }
+
+  .parts .list-item-details-items span {
+    font-size: 0.78rem;
+    padding: 0.24rem 0.48rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .desktop-view {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: flex;
+  }
+
+  :host ::ng-deep .btn-origine.p-button {
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 8px;
+    margin: 0;
+  }
+
+  .mobile-card-title {
+    font-size: 0.95rem;
+  }
+
+  .mobile-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-badge {
+    min-width: 1.7rem;
+    font-size: 0.7rem;
+    padding: 0.16rem 0.32rem;
   }
 }

@@ -1,79 +1,182 @@
 <div class="metier-page">
-  <p-treeTable
-    [value]="treeNodes"
-    [scrollable]="true"
-    scrollHeight="35rem"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    class="origine-table"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Metier</th>
-        <th>COU</th>
-        <th>INT</th>
-        <th>CHA</th>
-        <th>AD</th>
-        <th>FO</th>
-        <th>CHN</th>
-        <th class="col-actions">Actions</th>
-      </tr>
-    </ng-template>
+  <!-- DESKTOP / TABLETTE -->
+  <div class="desktop-view">
+    <p-treeTable
+      [value]="treeNodes"
+      [scrollable]="true"
+      scrollHeight="35rem"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      class="origine-table"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th></th>
+          <th>Metier</th>
+          <th>COU</th>
+          <th>INT</th>
+          <th>CHA</th>
+          <th>AD</th>
+          <th>FO</th>
+          <th>CHN</th>
+          <th class="col-actions">Actions</th>
+        </tr>
+      </ng-template>
 
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-      <tr
-        [ttRow]="rowNode"
-        class="{{ rowData.isForbidden ? 'forbidden' : '' }}"
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr
+          [ttRow]="rowNode"
+          class="{{ rowData.isForbidden ? 'forbidden' : '' }}"
+        >
+          <td class="col-toggle">
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+          </td>
+
+          <td class="col-classe">
+            <span class="level-badge">N{{ rowData.treeLevel }}</span>
+            <span class="classe-name">{{ rowData.nom }}</span>
+          </td>
+
+          <td class="stat-cell">
+            <span class="stat-badge {{ rowData.courage.type }}">
+              {{ rowData.courage.nombre }}
+            </span>
+          </td>
+          <td class="stat-cell">
+            <span class="stat-badge {{ rowData.intelligence.type }}">
+              {{ rowData.intelligence.nombre }}
+            </span>
+          </td>
+          <td class="stat-cell">
+            <span class="stat-badge {{ rowData.charisme.type }}">
+              {{ rowData.charisme.nombre }}
+            </span>
+          </td>
+          <td class="stat-cell">
+            <span class="stat-badge {{ rowData.adresse.type }}">
+              {{ rowData.adresse.nombre }}
+            </span>
+          </td>
+          <td class="stat-cell">
+            <span class="stat-badge {{ rowData.force.type }}">
+              {{ rowData.force.nombre }}
+            </span>
+          </td>
+          <td class="stat-cell">
+            <span class="stat-badge {{ rowData.chance.type }}">
+              {{ rowData.chance.nombre }}
+            </span>
+          </td>
+
+          <td class="action-cell">
+            <p-button
+              (onClick)="openInformations($event, rowData.shortCode)"
+              icon="pi pi-question-circle"
+              styleClass="btn-origine btn-info"
+            />
+          </td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+  </div>
+
+  <!-- MOBILE / CARTES -->
+  <div class="mobile-view">
+    <div class="mobile-level-header">
+      @if (mobileParentStack.length > 0) {
+        <button class="mobile-back-btn" (click)="goBackMobile()">
+          ← Retour
+        </button>
+      }
+
+      <div class="mobile-level-title">
+        Métiers niveau {{ mobileCurrentLevel }}
+      </div>
+    </div>
+
+    <div class="mobile-cards">
+      <div
+        *ngFor="let node of mobileCurrentNodes"
+        class="mobile-card level-{{ node.data.treeLevel }}"
+        [class.forbidden]="node.data.isForbidden"
+        (click)="openMobileNode(node)"
       >
-        <td class="col-toggle">
-          <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-        </td>
+        <div class="mobile-card-header">
+          <div class="mobile-card-title-wrap">
+            <span class="level-badge">N{{ node.data.treeLevel }}</span>
+            <div class="mobile-card-title">{{ node.data.nom }}</div>
+          </div>
 
-        <td class="col-classe">
-          <span class="level-badge">N{{ rowNode.level + 1 }}</span>
-          <span class="classe-name">{{ rowData.nom }}</span>
-        </td>
+          <div class="mobile-card-actions">
+            <p-button
+              (onClick)="openInformations($event, node.data.shortCode)"
+              icon="pi pi-question-circle"
+              styleClass="btn-origine btn-info"
+            />
+          </div>
+        </div>
 
-        <td class="stat-cell">
-          <span class="stat-badge {{ rowData.courage.type }}">{{
-            rowData.courage.nombre
-          }}</span>
-        </td>
-        <td class="stat-cell">
-          <span class="stat-badge {{ rowData.intelligence.type }}">{{
-            rowData.intelligence.nombre
-          }}</span>
-        </td>
-        <td class="stat-cell">
-          <span class="stat-badge {{ rowData.charisme.type }}">{{
-            rowData.charisme.nombre
-          }}</span>
-        </td>
-        <td class="stat-cell">
-          <span class="stat-badge {{ rowData.adresse.type }}">{{
-            rowData.adresse.nombre
-          }}</span>
-        </td>
-        <td class="stat-cell">
-          <span class="stat-badge {{ rowData.force.type }}">{{
-            rowData.force.nombre
-          }}</span>
-        </td>
-        <td class="stat-cell">
-          <span class="stat-badge {{ rowData.chance.type }}">{{
-            rowData.chance.nombre
-          }}</span>
-        </td>
+        <div class="mobile-stats-grid">
+          @if (node.data.courage.nombre !== "*") {
+            <div class="mobile-stat">
+              <span class="mobile-stat-label">COU</span>
+              <span class="stat-badge {{ node.data.courage.type }}">
+                {{ node.data.courage.nombre }}
+              </span>
+            </div>
+          }
 
-        <td class="action-cell">
-          <p-button
-            (onClick)="openInformations($event, rowData.shortCode)"
-            icon="pi pi-question-circle"
-            styleClass="btn-origine btn-info"
-          />
-        </td>
-      </tr>
-    </ng-template>
-  </p-treeTable>
+          @if (node.data.intelligence.nombre !== "*") {
+            <div class="mobile-stat">
+              <span class="mobile-stat-label">INT</span>
+              <span class="stat-badge {{ node.data.intelligence.type }}">
+                {{ node.data.intelligence.nombre }}
+              </span>
+            </div>
+          }
+
+          @if (node.data.charisme.nombre !== "*") {
+            <div class="mobile-stat">
+              <span class="mobile-stat-label">CHA</span>
+              <span class="stat-badge {{ node.data.charisme.type }}">
+                {{ node.data.charisme.nombre }}
+              </span>
+            </div>
+          }
+
+          @if (node.data.adresse.nombre !== "*") {
+            <div class="mobile-stat">
+              <span class="mobile-stat-label">AD</span>
+              <span class="stat-badge {{ node.data.adresse.type }}">
+                {{ node.data.adresse.nombre }}
+              </span>
+            </div>
+          }
+
+          @if (node.data.force.nombre !== "*") {
+            <div class="mobile-stat">
+              <span class="mobile-stat-label">FO</span>
+              <span class="stat-badge {{ node.data.force.type }}">
+                {{ node.data.force.nombre }}
+              </span>
+            </div>
+          }
+
+          @if (node.data.chance.nombre !== "*") {
+            <div class="mobile-stat">
+              <span class="mobile-stat-label">CHN</span>
+              <span class="stat-badge {{ node.data.chance.type }}">
+                {{ node.data.chance.nombre }}
+              </span>
+            </div>
+          }
+        </div>
+
+        @if (node.children && node.children.length > 0) {
+          <div class="mobile-children-hint">Voir les évolutions</div>
+        }
+      </div>
+    </div>
+  </div>
 
   <app-sidebar [(visible)]="sidebarVisible">
     <div class="sidebar-origine-title">{{ metierToSee.nom }}</div>
@@ -81,27 +184,27 @@
     <div class="parts" *ngIf="metierToSee.caracteristiques.length > 0">
       <div class="title">Caractéristiques</div>
       <div class="list-item-details-items">
-        <span *ngFor="let caracteristique of metierToSee.caracteristiques">{{
-          caracteristique
-        }}</span>
+        <span *ngFor="let caracteristique of metierToSee.caracteristiques">
+          {{ caracteristique }}
+        </span>
       </div>
     </div>
 
     <div class="parts" *ngIf="metierToSee.restrictions.length > 0">
       <div class="title">Restrictions</div>
       <div class="list-item-details-items">
-        <span *ngFor="let restriction of metierToSee.restrictions">{{
-          restriction
-        }}</span>
+        <span *ngFor="let restriction of metierToSee.restrictions">
+          {{ restriction }}
+        </span>
       </div>
     </div>
 
     <div class="parts" *ngIf="metierToSee.competencesHerites.length > 0">
       <div class="title">Compétences héritées</div>
       <div class="list-item-details-items">
-        <span *ngFor="let competenceHerite of metierToSee.competencesHerites">{{
-          competenceHerite
-        }}</span>
+        <span *ngFor="let competenceHerite of metierToSee.competencesHerites">
+          {{ competenceHerite }}
+        </span>
       </div>
     </div>
 

@@ -1,27 +1,67 @@
-<!-- BOUTON BURGER VISIBLE SEULEMENT EN MOBILE -->
-<button class="burger-button" (click)="menuVisible = true">
-  <i class="pi pi-bars"></i>
-</button>
+<div class="app-shell">
+  <header class="app-header">
+    <div class="app-brand">
+      <button
+        class="burger-button"
+        type="button"
+        aria-label="Ouvrir le menu"
+        (click)="menuVisible = true"
+      >
+        <i class="pi pi-bars"></i>
+      </button>
+    </div>
 
-<!-- MENU DESKTOP -->
-<p-menubar class="dark-menubar desktop-menu" [model]="items"></p-menubar>
+    <div class="desktop-menu-wrap">
+      <p-menubar class="dark-menubar desktop-menu" [model]="items"></p-menubar>
+    </div>
+  </header>
 
+  @if (menuVisible) {
+    <p-sidebar
+      [(visible)]="menuVisible"
+      class="mobile-menu"
+      position="left"
+      [showCloseIcon]="false"
+    >
+      <div class="mobile-sidebar">
+        <div class="mobile-sidebar-header">
+          <div class="mobile-brand"></div>
 
-<!-- MENU MOBILE SIDEBAR -->
- @if(menuVisible){
-<p-sidebar [(visible)]="menuVisible" class="mobile-menu" position="left">
-  <ul class="mobile-menu-list">
-    <li *ngFor="let item of items">
-      <a [routerLink]="item.routerLink"
-         routerLinkActive="active"
-         [routerLinkActiveOptions]="{ exact: true }"
-         (click)="menuVisible = false">
-        <i [class]="item.icon"></i> {{ item.label }}
-      </a>
-    </li>
-  </ul>
-</p-sidebar>
- }
-<main>
-  <router-outlet></router-outlet>
-</main>
+          <button
+            class="mobile-close"
+            type="button"
+            aria-label="Fermer le menu"
+            (click)="menuVisible = false"
+          >
+            <i class="pi pi-times"></i>
+          </button>
+        </div>
+
+        <nav class="mobile-nav">
+          <ul class="mobile-menu-list">
+            <li *ngFor="let item of items">
+              <a
+                [routerLink]="item.routerLink"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="menuVisible = false"
+              >
+                <span class="mobile-link-icon">
+                  <i [class]="item.icon"></i>
+                </span>
+                <span class="mobile-link-text">{{ item.label }}</span>
+                <span class="mobile-link-arrow">
+                  <i class="pi pi-angle-right"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </p-sidebar>
+  }
+
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
