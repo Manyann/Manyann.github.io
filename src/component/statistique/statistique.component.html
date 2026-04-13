@@ -1,342 +1,336 @@
-<br />
-<p-tabView (onChange)="onTabChange($event)">
-  <p-tabPanel header="Global">
-    <div class="chart-grid">
-      <div
-        class="chart"
-        [class.expanded]="expandedChart === 'dataOrigines'"
-        *ngIf="expandedChart === null || expandedChart === 'dataOrigines'"
-      >
-        <p-chart
-          type="bar"
-          #chart
-          [data]="dataOrigines"
-          [options]="optionsBardataOrigines"
-        />
-        <i
-          class="pi"
-          [ngClass]="{
-            'pi-arrow-up-right-and-arrow-down-left-from-center':
-              expandedChart !== 'dataOrigines',
-            'pi-arrow-down-left-and-arrow-up-right-to-center':
-              expandedChart === 'dataOrigines',
-          }"
-          (click)="toggleChart('dataOrigines')"
-          style="cursor: pointer"
-        ></i>
-      </div>
-      <div
-        class="chart"
-        [class.expanded]="expandedChart === 'dataMetiers'"
-        *ngIf="expandedChart === null || expandedChart === 'dataMetiers'"
-      >
-        <p-chart
-          #chart
-          type="bar"
-          [data]="dataMetiers"
-          [options]="optionsBardataMetiers"
-        />
-        <i
-          class="pi"
-          [ngClass]="{
-            'pi-arrow-up-right-and-arrow-down-left-from-center':
-              expandedChart !== 'dataMetiers',
-            'pi-arrow-down-left-and-arrow-up-right-to-center':
-              expandedChart === 'dataMetiers',
-          }"
-          (click)="toggleChart('dataMetiers')"
-          style="cursor: pointer"
-        ></i>
-      </div>
-      <div
-        class="chart"
-        [class.expanded]="expandedChart === 'dataCrits'"
-        *ngIf="expandedChart === null || expandedChart === 'dataCrits'"
-      >
-        <p-chart
-          #chart
-          type="bar"
-          [data]="dataCrits"
-          [options]="optionsBardataCrits"
-        />
-        <i
-          class="pi"
-          [ngClass]="{
-            'pi-arrow-up-right-and-arrow-down-left-from-center':
-              expandedChart !== 'dataCrits',
-            'pi-arrow-down-left-and-arrow-up-right-to-center':
-              expandedChart === 'dataCrits',
-          }"
-          (click)="toggleChart('dataCrits')"
-          style="cursor: pointer"
-        ></i>
-      </div>
-      <div
-        class="chart"
-        [class.expanded]="expandedChart === 'dataEchecCrits'"
-        *ngIf="expandedChart === null || expandedChart === 'dataEchecCrits'"
-      >
-        <p-chart
-          #chart
-          type="bar"
-          [data]="dataEchecCrits"
-          [options]="optionsBardataCritsdataEchecCrits"
-        />
-        <i
-          class="pi"
-          [ngClass]="{
-            'pi-arrow-up-right-and-arrow-down-left-from-center':
-              expandedChart !== 'dataEchecCrits',
-            'pi-arrow-down-left-and-arrow-up-right-to-center':
-              expandedChart === 'dataEchecCrits',
-          }"
-          (click)="toggleChart('dataEchecCrits')"
-          style="cursor: pointer"
-        ></i>
-      </div>
-      <div
-        class="chart"
-        [class.expanded]="expandedChart === 'dataDegatsTotal'"
-        *ngIf="expandedChart === null || expandedChart === 'dataDegatsTotal'"
-      >
-        <p-chart
-          #chart
-          type="bar"
-          [data]="dataDegatsTotal"
-          [options]="optionsBardataDegatsTotal"
-        />
-        <i
-          class="pi"
-          [ngClass]="{
-            'pi-arrow-up-right-and-arrow-down-left-from-center':
-              expandedChart !== 'dataDegatsTotal',
-            'pi-arrow-down-left-and-arrow-up-right-to-center':
-              expandedChart === 'dataDegatsTotal',
-          }"
-          (click)="toggleChart('dataDegatsTotal')"
-          style="cursor: pointer"
-        ></i>
-      </div>
-      <div
-        class="chart"
-        [class.expanded]="expandedChart === 'dataDegatsMax'"
-        *ngIf="expandedChart === null || expandedChart === 'dataDegatsMax'"
-      >
-        <p-chart
-          #chart
-          type="bar"
-          [data]="dataDegatsMax"
-          [options]="optionsBardataDegatsMax"
-        />
-        <i
-          class="pi"
-          [ngClass]="{
-            'pi-arrow-up-right-and-arrow-down-left-from-center':
-              expandedChart !== 'dataDegatsMax',
-            'pi-arrow-down-left-and-arrow-up-right-to-center':
-              expandedChart === 'dataDegatsMax',
-          }"
-          (click)="toggleChart('dataDegatsMax')"
-          style="cursor: pointer"
-        ></i>
-      </div>
-      <div
-        class="chart"
-        [class.expanded]="expandedChart === 'dataEnnemis'"
-        *ngIf="expandedChart === null || expandedChart === 'dataEnnemis'"
-      >
-        <p-chart
-          #chart
-          type="bar"
-          [data]="dataEnnemis"
-          [options]="optionsBardataEnnemis"
-        />
-        <i
-          class="pi"
-          [ngClass]="{
-            'pi-arrow-up-right-and-arrow-down-left-from-center':
-              expandedChart !== 'dataEnnemis',
-            'pi-arrow-down-left-and-arrow-up-right-to-center':
-              expandedChart === 'dataEnnemis',
-          }"
-          (click)="toggleChart('dataEnnemis')"
-          style="cursor: pointer"
-        ></i>
-      </div>
-      <div
-        class="chart"
-        [class.expanded]="expandedChart === 'dataRapports'"
-        *ngIf="
-          (expandedChart === null || expandedChart === 'dataRapports') &&
-          dataRapports.labels.length > 0
-        "
-      >
-        <p-chart
-          type="bar"
-          #chart
-          [data]="dataRapports"
-          [options]="optionsBardataRapports"
-        />
-        <i
-          class="pi"
-          [ngClass]="{
-            'pi-arrow-up-right-and-arrow-down-left-from-center':
-              expandedChart !== 'dataRapports',
-            'pi-arrow-down-left-and-arrow-up-right-to-center':
-              expandedChart === 'dataRapports',
-          }"
-          (click)="toggleChart('dataRapports')"
-          style="cursor: pointer"
+<div class="stats-page">
+  <p-tabView class="stats-tabs" (onChange)="onTabChange($event)">
+    <p-tabPanel header="Global">
+      <div class="chart-grid">
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataOrigines'"
+          *ngIf="expandedChart === null || expandedChart === 'dataOrigines'"
         >
-        </i>
-      </div>
-      <div
-        class="chart"
-        [class.expanded]="expandedChart === 'dataRapportsJoueurMj'"
-        *ngIf="
-          (expandedChart === null ||
-            expandedChart === 'dataRapportsJoueurMj') &&
-          dataRapportsJoueurMj.labels.length > 0
-        "
-      >
-        <p-chart
-          type="bar"
-          #chart
-          [data]="dataRapportsJoueurMj"
-          [options]="optionsBardataRapportsJoueurMj"
-        />
-        <i
-          class="pi"
-          [ngClass]="{
-            'pi-arrow-up-right-and-arrow-down-left-from-center':
-              expandedChart !== 'dataRapportsJoueurMj',
-            'pi-arrow-down-left-and-arrow-up-right-to-center':
-              expandedChart === 'dataRapportsJoueurMj',
-          }"
-          (click)="toggleChart('dataRapportsJoueurMj')"
-          style="cursor: pointer"
-        >
-        </i>
-      </div>
-    </div>
-  </p-tabPanel>
-
-  <p-tabPanel
-    *ngFor="let joueur of joueurs ?? []"
-    [header]="joueur.code"
-    (onAfterToggle)="updateStats(joueur.code)"
-  >
-    <div class="top-container">
-      <p-panel header="Statistiques" class="stats-panel">
-        <div class="player-details-container">
-          <div class="stat-section">
-            <div class="stat-card crit-card">
-              <h2 class="stat-header">
-                <i class="pi pi-bolt"></i>
-                Critique
-              </h2>
-
-              @if (isLoadingPlayerStatsCrit) {
-                <div class="stat-skeleton">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              } @else {
-                <div
-                  class="stat-line"
-                  *ngFor="let stat of statistiquesJoueurCritiques?.details"
-                >
-                  <span class="stat-label">{{ stat.libelle }}</span>
-                  <span class="stat-value">{{ stat.valeur }}</span>
-                </div>
-              }
-            </div>
-
-            <div class="stat-card combat-card">
-              <h2 class="stat-header">
-                <i class="pi pi-shield"></i>
-                Combat
-              </h2>
-
-              @if (isLoadingPlayerStatsCombat) {
-                <div class="stat-skeleton">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              } @else {
-                <div
-                  class="stat-line"
-                  *ngFor="let stat of statistiquesJoueurCombat?.details"
-                >
-                  <span class="stat-label">{{ stat.libelle }}</span>
-                  <span class="stat-value">{{ stat.valeur }}</span>
-                </div>
-              }
-            </div>
-
-            <div class="stat-card trivia-card">
-              <h2 class="stat-header">
-                <i class="pi pi-star"></i>
-                Trivia
-              </h2>
-
-              @if (isLoadingPlayerStatsTrivia) {
-                <div class="stat-skeleton">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              } @else {
-                <div
-                  class="stat-line"
-                  *ngFor="let stat of statistiquesJoueurTrivia?.details"
-                >
-                  <span class="stat-label">{{ stat.libelle }}</span>
-                  <span class="stat-value">{{ stat.valeur }}</span>
-                </div>
-              }
-            </div>
-          </div>
+          <p-chart
+            type="bar"
+            #chart
+            [data]="dataOrigines"
+            [options]="optionsBardataOrigines"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataOrigines',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataOrigines',
+            }"
+            (click)="toggleChart('dataOrigines')"
+          ></i>
         </div>
-      </p-panel>
 
-      <p-panel
-        header="{{ trophesJoueur ?? [] | trophes }}"
-        class="stats-panel trophy-panel"
-      >
-        <div class="infos-achivement">
-          <div
-            class="achivement display-{{
-              trophe.categorie <= 3 || trophe.possede
-            }} {{ trophe.possede ? 'bcolor-' + trophe.categorie : '' }}"
-            *ngFor="let trophe of trophesJoueur"
-          >
-            <div class="icon">
-              <i
-                class="pi pi-crown {{
-                  trophe.possede ? 'color-' + trophe.categorie : ''
-                }}"
-              ></i>
-            </div>
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataMetiers'"
+          *ngIf="expandedChart === null || expandedChart === 'dataMetiers'"
+        >
+          <p-chart
+            #chart
+            type="bar"
+            [data]="dataMetiers"
+            [options]="optionsBardataMetiers"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataMetiers',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataMetiers',
+            }"
+            (click)="toggleChart('dataMetiers')"
+          ></i>
+        </div>
 
-            <div
-              class="message {{
-                trophe.possede ? 'color-' + trophe.categorie : ''
-              }}"
-            >
-              <div class="title">{{ trophe.titre }}</div>
-              <div class="description visible-{{ trophe.possede }}">
-                {{ trophe.description }}
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataCrits'"
+          *ngIf="expandedChart === null || expandedChart === 'dataCrits'"
+        >
+          <p-chart
+            #chart
+            type="bar"
+            [data]="dataCrits"
+            [options]="optionsBardataCrits"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataCrits',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataCrits',
+            }"
+            (click)="toggleChart('dataCrits')"
+          ></i>
+        </div>
+
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataEchecCrits'"
+          *ngIf="expandedChart === null || expandedChart === 'dataEchecCrits'"
+        >
+          <p-chart
+            #chart
+            type="bar"
+            [data]="dataEchecCrits"
+            [options]="optionsBardataCritsdataEchecCrits"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataEchecCrits',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataEchecCrits',
+            }"
+            (click)="toggleChart('dataEchecCrits')"
+          ></i>
+        </div>
+
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataDegatsTotal'"
+          *ngIf="expandedChart === null || expandedChart === 'dataDegatsTotal'"
+        >
+          <p-chart
+            #chart
+            type="bar"
+            [data]="dataDegatsTotal"
+            [options]="optionsBardataDegatsTotal"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataDegatsTotal',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataDegatsTotal',
+            }"
+            (click)="toggleChart('dataDegatsTotal')"
+          ></i>
+        </div>
+
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataDegatsMax'"
+          *ngIf="expandedChart === null || expandedChart === 'dataDegatsMax'"
+        >
+          <p-chart
+            #chart
+            type="bar"
+            [data]="dataDegatsMax"
+            [options]="optionsBardataDegatsMax"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataDegatsMax',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataDegatsMax',
+            }"
+            (click)="toggleChart('dataDegatsMax')"
+          ></i>
+        </div>
+
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataEnnemis'"
+          *ngIf="expandedChart === null || expandedChart === 'dataEnnemis'"
+        >
+          <p-chart
+            #chart
+            type="bar"
+            [data]="dataEnnemis"
+            [options]="optionsBardataEnnemis"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataEnnemis',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataEnnemis',
+            }"
+            (click)="toggleChart('dataEnnemis')"
+          ></i>
+        </div>
+
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataRapports'"
+          *ngIf="
+            (expandedChart === null || expandedChart === 'dataRapports') &&
+            dataRapports.labels.length > 0
+          "
+        >
+          <p-chart
+            type="bar"
+            #chart
+            [data]="dataRapports"
+            [options]="optionsBardataRapports"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataRapports',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataRapports',
+            }"
+            (click)="toggleChart('dataRapports')"
+          ></i>
+        </div>
+
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataRapportsJoueurMj'"
+          *ngIf="
+            (expandedChart === null ||
+              expandedChart === 'dataRapportsJoueurMj') &&
+            dataRapportsJoueurMj.labels.length > 0
+          "
+        >
+          <p-chart
+            type="bar"
+            #chart
+            [data]="dataRapportsJoueurMj"
+            [options]="optionsBardataRapportsJoueurMj"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataRapportsJoueurMj',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataRapportsJoueurMj',
+            }"
+            (click)="toggleChart('dataRapportsJoueurMj')"
+          ></i>
+        </div>
+      </div>
+    </p-tabPanel>
+
+    <p-tabPanel *ngFor="let joueur of joueurs ?? []" [header]="joueur.code">
+      <div class="top-container">
+        <p-panel header="Statistiques" class="stats-panel">
+          <div class="player-details-container">
+            <div class="stat-section">
+              <div class="stat-card crit-card">
+                <h2 class="stat-header">
+                  <i class="pi pi-bolt"></i>
+                  Critique
+                </h2>
+
+                @if (isLoadingPlayerStatsCrit) {
+                  <div class="stat-skeleton">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                } @else {
+                  <div
+                    class="stat-line"
+                    *ngFor="let stat of statistiquesJoueurCritiques?.details"
+                  >
+                    <span class="stat-label">{{ stat.libelle }}</span>
+                    <span class="stat-value">{{ stat.valeur }}</span>
+                  </div>
+                }
+              </div>
+
+              <div class="stat-card combat-card">
+                <h2 class="stat-header">
+                  <i class="pi pi-shield"></i>
+                  Combat
+                </h2>
+
+                @if (isLoadingPlayerStatsCombat) {
+                  <div class="stat-skeleton">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                } @else {
+                  <div
+                    class="stat-line"
+                    *ngFor="let stat of statistiquesJoueurCombat?.details"
+                  >
+                    <span class="stat-label">{{ stat.libelle }}</span>
+                    <span class="stat-value">{{ stat.valeur }}</span>
+                  </div>
+                }
+              </div>
+
+              <div class="stat-card trivia-card">
+                <h2 class="stat-header">
+                  <i class="pi pi-star"></i>
+                  Trivia
+                </h2>
+
+                @if (isLoadingPlayerStatsTrivia) {
+                  <div class="stat-skeleton">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                } @else {
+                  <div
+                    class="stat-line"
+                    *ngFor="let stat of statistiquesJoueurTrivia?.details"
+                  >
+                    <span class="stat-label">{{ stat.libelle }}</span>
+                    <span class="stat-value">{{ stat.valeur }}</span>
+                  </div>
+                }
               </div>
             </div>
           </div>
-        </div>
-      </p-panel>
-    </div>
-  </p-tabPanel>
-</p-tabView>
+        </p-panel>
+
+        <p-panel
+          header="{{ trophesJoueur ?? [] | trophes }}"
+          class="stats-panel trophy-panel"
+        >
+          <div class="infos-achivement">
+            <div
+              class="achivement display-{{
+                trophe.categorie <= 3 || trophe.possede
+              }} {{ trophe.possede ? 'bcolor-' + trophe.categorie : '' }}"
+              *ngFor="let trophe of trophesJoueur"
+            >
+              <div class="icon">
+                <i
+                  class="pi pi-crown {{
+                    trophe.possede ? 'color-' + trophe.categorie : ''
+                  }}"
+                ></i>
+              </div>
+
+              <div
+                class="message {{
+                  trophe.possede ? 'color-' + trophe.categorie : ''
+                }}"
+              >
+                <div class="title">{{ trophe.titre }}</div>
+                <div class="description visible-{{ trophe.possede }}">
+                  {{ trophe.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-panel>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+</div>

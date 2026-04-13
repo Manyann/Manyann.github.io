@@ -1,11 +1,12 @@
 <div class="loot-page">
   <section class="loot-card top-bar-card">
-    <div class="card-header">
+    <div class="card-header top-bar-header">
       <div>
         <div class="loot-title">Générateur de butin</div>
+        <div class="loot-subtitle">Chance, catégories et tirage visuel</div>
       </div>
 
-      <div class="header-actions">
+      <div class="header-actions desktop-launch">
         <p-button
           label="Lancer"
           icon="pi pi-play"
@@ -18,10 +19,9 @@
   </section>
 
   <div class="loot-layout">
-    <!-- COLONNE GAUCHE : CHANCE -->
     <aside class="left-column">
       <section class="loot-card chance-card">
-        <div class="section-header">
+        <div class="section-header compact-section-header">
           <div class="section-title">Chance</div>
         </div>
 
@@ -58,10 +58,9 @@
       </section>
     </aside>
 
-    <!-- COLONNE DROITE : CATÉGORIES + ROULETTE + RÉSULTAT -->
     <div class="right-column">
       <section class="loot-card categories-card">
-        <div class="section-header">
+        <div class="section-header compact-section-header">
           <div class="section-title">Catégories</div>
         </div>
 
@@ -87,11 +86,21 @@
               <p-inputSwitch [(ngModel)]="includeGemmes" />
             </div>
           </div>
+
+          <div class="mobile-launch">
+            <p-button
+              label="Lancer"
+              icon="pi pi-play"
+              (onClick)="openAnotherCase()"
+              [disabled]="isOpening"
+              styleClass="loot-btn loot-btn-primary mobile-launch-btn"
+            />
+          </div>
         </div>
       </section>
 
       <section class="loot-card roulette-card">
-        <div class="section-header">
+        <div class="section-header compact-section-header">
           <div class="section-title">Roulette</div>
         </div>
 
@@ -128,7 +137,7 @@
       </section>
 
       <section class="loot-card result-card">
-        <div class="section-header">
+        <div class="section-header compact-section-header">
           <div class="section-title">Résultat</div>
         </div>
 
