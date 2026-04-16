@@ -99,40 +99,6 @@
   line-height: 1.4;
 }
 
-/* Mobile / petits écrans */
-@media (max-width: 900px) {
-  :host ::ng-deep .boutique-table table {
-    min-width: 58rem;
-  }
-
-  :host ::ng-deep .boutique-table .p-datatable-thead > tr > th {
-    padding: 0.7rem 0.65rem;
-    font-size: 0.85rem;
-  }
-
-  :host ::ng-deep .boutique-table .p-datatable-tbody > tr > td,
-  :host ::ng-deep .boutique-table .p-datatable-tbody > tr > th {
-    padding: 0.65rem 0.65rem;
-    font-size: 0.88rem;
-  }
-
-  :host ::ng-deep .boutique-table td:last-child,
-  :host ::ng-deep .boutique-table th:last-child {
-    min-width: 14rem;
-  }
-}
-
-@media (max-width: 600px) {
-  :host ::ng-deep .boutique-table table {
-    min-width: 52rem;
-  }
-
-  .group-header td {
-    font-size: 0.92rem;
-    padding: 0.7rem 0.8rem !important;
-  }
-}
-
 /* =========================
    TAGS D'ORIGINE
 ========================= */
@@ -356,4 +322,213 @@
 .td-price {
   min-width: 6.5rem;
   white-space: normal !important;
+}
+
+.desktop-view {
+  display: block;
+}
+
+.mobile-cards {
+  display: none;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+@media (max-width: 520px) {
+  .desktop-view {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: flex;
+  }
+
+  :host ::ng-deep .btn-origine.p-button {
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 8px;
+    margin: 0;
+  }
+
+  .mobile-card-title {
+    font-size: 0.95rem;
+  }
+
+  .mobile-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.22rem;
+    padding: 0.14rem 0.38rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .mobile-category-switch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .mobile-category-switch span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-main);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .switch-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .switch-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .switch-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .switch-item span {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+  :host ::ng-deep .shop-mobile-categories.p-panel {
+    margin-bottom: 1rem;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.025),
+      rgba(255, 255, 255, 0.01)
+    );
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16);
+  }
+
+  :host ::ng-deep .shop-mobile-categories .p-panel-header {
+    padding: 0.85rem 0.95rem;
+    background:
+      linear-gradient(90deg, rgba(200, 170, 110, 0.12), transparent 45%),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.03),
+        rgba(255, 255, 255, 0.015)
+      );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  :host ::ng-deep .shop-mobile-categories .p-panel-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-left: 1rem;
+  }
+
+  :host ::ng-deep .shop-mobile-categories .p-panel-header-icon {
+    color: var(--accent);
+  }
+
+  :host ::ng-deep .shop-mobile-categories .p-panel-content {
+    padding: 0.85rem 0.9rem 0.9rem;
+    background: transparent;
+  }
+
+  .mobile-card {
+    padding: 0.9rem;
+    border-radius: 16px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.025),
+      rgba(255, 255, 255, 0.01)
+    );
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  .mobile-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .mobile-card-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+
+  .mobile-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .mobile-card-actions {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  .mobile-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .mobile-stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .mobile-stat-label {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--text-main);
+    opacity: 0.82;
+  }
+
+  ::ng-deep .stat-up {
+    background: rgba(80, 200, 120, 0.14);
+    color: #79e79c;
+    border-color: rgba(80, 200, 120, 0.26);
+  }
+  ::ng-deep .stat-down {
+    background: rgba(255, 120, 120, 0.14);
+    color: #ff9797;
+    border-color: rgba(255, 120, 120, 0.26);
+  }
 }

@@ -1,59 +1,191 @@
-<p-table
-  [value]="items"
-  [scrollable]="true"
-  scrollHeight="35rem"
-  dataKey="categorie.code"
-  rowGroupMode="subheader"
-  groupRowsBy="categorie.code"
-  [tableStyle]="{ 'min-width': '70rem' }"
-  styleClass="mt-3 p-datatable-striped boutique-table"
->
-  <ng-template pTemplate="header">
-    <tr>
-      <th pFrozenColumn>Nom</th>
-      <th pFrozenColumn>Prix</th>
-      <th>Dégats</th>
-      <th>AT / PRD</th>
-      <th>RUP</th>
-      <th>COU</th>
-      <th>INT</th>
-      <th>CHA</th>
-      <th>AD</th>
-      <th>FO</th>
-      <th>CHN</th>
-      <th>Informations</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="groupheader" let-item let-expanded="expanded">
-    <tr class="group-header">
-      <td colspan="100%">
-        <div>{{ item.categorie.libelle }}</div>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-item>
-    <tr>
-      <td pFrozenColumn>
-        {{ item.libelle }} <span [innerHTML]="item.origine | origine"></span>
-      </td>
-      <td
-        pFrozenColumn
-        class="td-price"
-        [innerHTML]="item.prix | originePrix: item.origine | promotion"
-      ></td>
-      <td [innerHTML]="item.degats | bonusDegat: item.origine"></td>
-      <td>
-        <span [innerHTML]="item.attaque | bonusAttaque: item.origine"></span>/
-        {{ item.parade }}
-      </td>
-      <td>{{ item.rupture }}</td>
-      <td>{{ item.courage }}</td>
-      <td>{{ item.intelligence }}</td>
-      <td>{{ item.charisme }}</td>
-      <td [innerHTML]="item.adresse | bonusAd: item.origine"></td>
-      <td [innerHTML]="item.force | bonusForce: item.origine"></td>
-      <td>{{ item.chance }}</td>
-      <td [innerHTML]="item.informations | bonusInfo: item.origine"></td>
-    </tr>
-  </ng-template>
-</p-table>
+<!-- DESKTOP / TABLETTE -->
+<div class="desktop-view">
+  <p-table
+    [value]="items"
+    [scrollable]="true"
+    scrollHeight="35rem"
+    dataKey="categorie.code"
+    rowGroupMode="subheader"
+    groupRowsBy="categorie.code"
+    [tableStyle]="{ 'min-width': '70rem' }"
+    styleClass="mt-3 p-datatable-striped boutique-table"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pFrozenColumn>Nom</th>
+        <th pFrozenColumn>Prix</th>
+        <th>Dégats</th>
+        <th>AT / PRD</th>
+        <th>RUP</th>
+        <th>COU</th>
+        <th>INT</th>
+        <th>CHA</th>
+        <th>AD</th>
+        <th>FO</th>
+        <th>CHN</th>
+        <th>Informations</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="groupheader" let-item let-expanded="expanded">
+      <tr class="group-header">
+        <td colspan="100%">
+          <div>{{ item.categorie.libelle }}</div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td pFrozenColumn>
+          {{ item.libelle }} <span [innerHTML]="item.origine | origine"></span>
+        </td>
+        <td
+          pFrozenColumn
+          class="td-price"
+          [innerHTML]="item.prix | originePrix: item.origine | promotion"
+        ></td>
+        <td [innerHTML]="item.degats | bonusDegat: item.origine"></td>
+        <td>
+          <span [innerHTML]="item.attaque | bonusAttaque: item.origine"></span>/
+          {{ item.parade }}
+        </td>
+        <td>{{ item.rupture }}</td>
+        <td>{{ item.courage }}</td>
+        <td>{{ item.intelligence }}</td>
+        <td>{{ item.charisme }}</td>
+        <td [innerHTML]="item.adresse | bonusAd: item.origine"></td>
+        <td [innerHTML]="item.force | bonusForce: item.origine"></td>
+        <td>{{ item.chance }}</td>
+        <td [innerHTML]="item.informations | bonusInfo: item.origine"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<!-- MOBILE / CARTES -->
+<div class="mobile-cards">
+  <p-panel
+    header=" Catégories d’armes"
+    [toggleable]="true"
+    [collapsed]="true"
+    styleClass="shop-mobile-categories"
+  >
+    <div class="mobile-categories-grid">
+      <div class="mobile-category-switch" *ngFor="let category of categories">
+        <span>{{ category.libelle }}</span>
+        <p-inputSwitch
+          [(ngModel)]="categoryStates[category.code]"
+          (onChange)="onCategoryToggle()"
+        />
+      </div>
+    </div>
+  </p-panel>
+
+  <div *ngFor="let item of items" class="mobile-card">
+    <div class="mobile-card-header">
+      <div class="mobile-card-title">{{ item.libelle }}</div>
+    </div>
+
+    <div class="mobile-stats-grid">
+      <div class="mobile-stat">
+        <span class="mobile-stat-label">PO</span>
+        <span class="stat-badge {{ item.prix }}">
+          {{ item.prix }}
+        </span>
+      </div>
+
+      <div class="mobile-stat">
+        <span class="mobile-stat-label">Dégats</span>
+        <span class="stat-badge {{ item.degats }}">
+          {{ item.degats }}
+        </span>
+      </div>
+
+      @if (item.attaque !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">COU</span>
+          <span class="stat-badge {{ getStatStatut(item.attaque) }}">
+            {{ item.attaque }}
+          </span>
+        </div>
+      }
+
+      @if (item.parade !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">INT</span>
+          <span class="stat-badge {{ getStatStatut(item.parade) }}">
+            {{ item.parade }}
+          </span>
+        </div>
+      }
+
+      @if (item.courage !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">COU</span>
+          <span class="stat-badge {{ getStatStatut(item.courage) }}">
+            {{ item.courage }}
+          </span>
+        </div>
+      }
+
+      @if (item.intelligence !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">INT</span>
+          <span class="stat-badge {{ getStatStatut(item.intelligence) }}">
+            {{ item.intelligence }}
+          </span>
+        </div>
+      }
+
+      @if (item.charisme !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">CHA</span>
+          <span class="stat-badge {{ getStatStatut(item.charisme) }}">
+            {{ item.charisme }}
+          </span>
+        </div>
+      }
+
+      @if (item.adresse !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">AD</span>
+          <span class="stat-badge {{ getStatStatut(item.adresse) }}">
+            {{ item.adresse }}
+          </span>
+        </div>
+      }
+
+      @if (item.force !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">FO</span>
+          <span class="stat-badge {{ getStatStatut(item.force) }}">
+            {{ item.force }}
+          </span>
+        </div>
+      }
+
+      @if (item.chance !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">CHN</span>
+          <span class="stat-badge {{ getStatStatut(item.chance) }}">
+            {{ item.chance }}
+          </span>
+        </div>
+      }
+
+      <div class="mobile-stat">
+        <span class="mobile-stat-label">RUP</span>
+        <span class="stat-badge {{ getStatStatut(item.rupture) }}">
+          {{ item.rupture }}
+        </span>
+      </div>
+
+      @if (item.informations !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">INFO</span>
+          <span class="stat-badge">
+            {{ item.informations }}
+          </span>
+        </div>
+      }
+    </div>
+  </div>
+</div>

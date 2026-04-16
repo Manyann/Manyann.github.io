@@ -438,6 +438,11 @@ p-inputswitch {
   padding-right: 0 !important;
 }
 
+@media (max-width: 520px) {
+  p-inputswitch {
+    margin: 0;
+  }
+}
 /* RARITIES */
 .rarity-perave {
   color: #95a5a6;
