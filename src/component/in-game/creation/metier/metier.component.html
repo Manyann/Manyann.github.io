@@ -73,11 +73,13 @@
               icon="pi pi-tag"
               styleClass="btn-origine btn-info"
             />
-            <p-button
-              (onClick)="openInformationsComplete($event, rowData.shortCode)"
-              icon="pi pi-tags"
-              styleClass="btn-origine btn-infos"
-            />
+            @if (rowData.treeLevel == 1 && origineName != "") {
+              <p-button
+                (onClick)="openInformationsComplete($event, rowData.shortCode)"
+                icon="pi pi-tags"
+                styleClass="btn-origine btn-infos"
+              />
+            }
           </td>
         </tr>
       </ng-template>
@@ -117,11 +119,15 @@
               icon="pi pi-tag"
               styleClass="btn-origine btn-info"
             />
-            <p-button
-              (onClick)="openInformationsComplete($event, node.data.shortCode)"
-              icon="pi pi-tags"
-              styleClass="btn-origine btn-infos"
-            />
+            @if (mobileCurrentLevel == 1 && origineName != "") {
+              <p-button
+                (onClick)="
+                  openInformationsComplete($event, node.data.shortCode)
+                "
+                icon="pi pi-tags"
+                styleClass="btn-origine btn-infos"
+              />
+            }
           </div>
         </div>
 
