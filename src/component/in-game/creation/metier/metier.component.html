@@ -199,14 +199,11 @@
       </div>
     </div>
 
-    <div class="parts" *ngIf="metierToSee.competencesHerites.length > 0">
-      <div class="title">Compétences héritées</div>
-      <div class="list-item-details-items">
-        <span *ngFor="let competenceHerite of metierToSee.competencesHerites">
-          {{ competenceHerite }}
-        </span>
-      </div>
-    </div>
+    @if (metierToSee.competencesHerites.length > 0) {
+      <app-competence-list
+        [competences]="metierToSee.competencesHerites"
+      ></app-competence-list>
+    }
 
     <div class="parts list-autres" *ngIf="metierToSee.autres.length > 0">
       <div class="title">Autres</div>

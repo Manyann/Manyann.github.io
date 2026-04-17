@@ -175,27 +175,17 @@
         </div>
       </div>
 
-      <div class="parts" *ngIf="origineToSee.competencesHerites.length > 0">
-        <div class="title">Compétences héritées</div>
-        <div class="list-item-details-items">
-          <span
-            *ngFor="let competenceHerite of origineToSee.competencesHerites"
-          >
-            {{ competenceHerite }}
-          </span>
-        </div>
-      </div>
+      @if (origineToSee.competencesHerites.length > 0) {
+        <app-competence-list
+          [competences]="origineToSee.competencesHerites"
+        ></app-competence-list>
+      }
 
-      <div class="parts" *ngIf="origineToSee.restrictionsMetier.length > 0">
-        <div class="title">Restrictions métier</div>
-        <div class="list-item-details-items">
-          <span
-            *ngFor="let restrictionMetier of origineToSee.restrictionsMetier"
-          >
-            {{ restrictionMetier }}
-          </span>
-        </div>
-      </div>
+      @if (origineToSee.restrictionsMetierShortCode.length > 0) {
+        <app-unmetier-list
+          [unMetiers]="origineToSee.restrictionsMetierShortCode"
+        ></app-unmetier-list>
+      }
     </ng-container>
   </app-sidebar>
 </div>

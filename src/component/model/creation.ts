@@ -1747,7 +1747,7 @@ export class CreationHelper {
           'Ne peut être tué que par un critique (même 1-1)',
         ],
         restrictions: [],
-        competencesHerites: ['CDG', 'CDG', 'DE', 'DE', 'ME', 'ME', 'TV'],
+        competencesHerites: ['CDG', 'CDG', 'DET', 'DET', 'ME', 'ME', 'TV'],
         autres: [
           'Jugement divin : XEV. X dégats magique à tous les ennemies.',
           'Grâce du ciel. Tombe à 15EV. Ressuscite un allié. La walkyrie perd 15 EV initiale et 1 points à 1 cara',

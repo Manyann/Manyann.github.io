@@ -5,11 +5,18 @@ import { CreationHelper, Metier } from '../../../model/creation';
 import { TreeNode } from 'primeng/api';
 import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
 import { ButtonModule } from 'primeng/button';
+import { CompetenceListComponent } from '../../../common/competence-list/competence-list.component';
 
 @Component({
   selector: 'app-metier',
   standalone: true,
-  imports: [CommonModule, TreeTableModule, SidebarComponent, ButtonModule],
+  imports: [
+    CommonModule,
+    TreeTableModule,
+    SidebarComponent,
+    ButtonModule,
+    CompetenceListComponent,
+  ],
   templateUrl: './metier.component.html',
   styleUrl: './metier.component.css',
 })
