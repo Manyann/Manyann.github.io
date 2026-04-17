@@ -776,7 +776,7 @@ export class CreationHelper {
         force: new Caracteristique(),
         chance: new Caracteristique(),
         caracteristiques: [
-          'Le moine à 1/2 chance de se réincarner sans utiliser de point de destin. Il revient à la vie mais perd 1D4+1 EA initiale',
+          'Le moine à 1/4 chance de se réincarner sans utiliser de point de destin. Il revient à la vie mais perd 1D4+1 EA initiale',
         ],
         restrictions: [],
         competencesHerites: ['CLA', 'DS', 'RE', 'TV'],
@@ -1536,7 +1536,7 @@ export class CreationHelper {
           '+5EV',
           '-2AT',
           '+2PRD',
-          'Gloire : Le gladiateur gagne 1 de gloire par AT réussit et 2 par PRD réussit. Il en perd 1 par PRD ou AT ratée.',
+          'Gloire : Le gladiateur gagne 1 de gloire par AT réussi et 2 par PRD réussie. Il en perd 1 par PRD ratée.',
         ],
         restrictions: [
           '4PR max',
@@ -1546,6 +1546,7 @@ export class CreationHelper {
         ],
         competencesHerites: ['CDG', 'IN', 'TDM'],
         autres: [
+          'Pour la gloire : Le gladiateur commence le combat avec 5 de gloires',
           'Tenir bon : +level PR en dessous de 33% EV',
           "Doigt d'honneur : Force l'ennemie à l'attaquer pendant 3 tours. COU/CHA 5 gloires",
           'Coup de bouclier : Etourdit la cible pendant 2 tours. FO/AD 7 gloires',
