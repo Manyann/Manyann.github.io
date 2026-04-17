@@ -471,7 +471,7 @@ export class CreationHelper {
         nom: 'Orque',
         courage: { type: 'min', nombre: '11+' },
         intelligence: new Caracteristique(),
-        charisme: { type: 'max', nombre: '10-' },
+        charisme: { type: 'max', nombre: '11-' },
         adresse: new Caracteristique(),
         force: { type: 'min', nombre: '12+' },
         chance: new Caracteristique(),
