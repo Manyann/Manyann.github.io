@@ -1,0 +1,10 @@
+<div class="parts">
+  <div class="title">Statistiques</div>
+  <div class="list-item-details-items">
+    @for (stat of statistiquesMerged; track stat) {
+      <span [ngClass]="stat.stat.type">
+        {{ stat.label }} : {{ stat.stat.valeur }}
+      </span>
+    }
+  </div>
+</div>

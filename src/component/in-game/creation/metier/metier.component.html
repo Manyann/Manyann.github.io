@@ -197,6 +197,11 @@
   <app-sidebar [(visible)]="sidebarVisibleComplete">
     <div class="sidebar-origine-title">{{ metierToSee.nom }}</div>
 
+    <app-statistique-merge
+      [origine]="origine"
+      [metier]="metierToSee"
+    ></app-statistique-merge>
+
     @if (metierToSee.caracteristiques.length > 0) {
       <div class="parts" *ngIf="metierToSee.caracteristiques.length > 0">
         <div class="title">Caractéristiques</div>

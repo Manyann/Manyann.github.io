@@ -6,6 +6,8 @@ import { TreeNode } from 'primeng/api';
 import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
 import { ButtonModule } from 'primeng/button';
 import { CompetenceListComponent } from '../../../common/competence-list/competence-list.component';
+import { StatistiqueComponent } from '../../../statistique/statistique.component';
+import { StatistiqueMergeComponent } from '../statistique-merge/statistique-merge.component';
 
 @Component({
   selector: 'app-metier',
@@ -16,6 +18,7 @@ import { CompetenceListComponent } from '../../../common/competence-list/compete
     SidebarComponent,
     ButtonModule,
     CompetenceListComponent,
+    StatistiqueMergeComponent,
   ],
   templateUrl: './metier.component.html',
   styleUrl: './metier.component.css',
