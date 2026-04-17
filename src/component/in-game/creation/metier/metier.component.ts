@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
-import { CreationHelper, Metier } from '../../../model/creation';
+import { CreationHelper, Metier, Origine } from '../../../model/creation';
 import { TreeNode } from 'primeng/api';
 import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
 import { ButtonModule } from 'primeng/button';
@@ -27,12 +27,14 @@ export class MetierComponent {
   treeNodes: Array<TreeNode> = [];
   metierToSee: Metier;
   sidebarVisible: boolean = false;
+  sidebarVisibleComplete: boolean = false;
 
   mobileCurrentNodes: Array<TreeNode> = [];
   mobileParentStack: Array<TreeNode> = [];
   mobileCurrentLevel: number = 1;
 
-  @Input() restrictions: Array<string> = [];
+  @Input() origineName: string = '';
+  origine: Origine = CreationHelper.getDefaultOrigine();
 
   constructor() {
     this.metierToSee = CreationHelper.getDefaultMetier();
@@ -40,6 +42,9 @@ export class MetierComponent {
   }
 
   setAll(): void {
+    this.origine =
+      CreationHelper.getOrigineByName(this.origineName) ??
+      CreationHelper.getDefaultOrigine();
     this.metiersBase = CreationHelper.getAllMetier();
     this.metiers = this.metiersBase.filter(
       (x) =>
@@ -72,12 +77,13 @@ export class MetierComponent {
     let nodes: Array<TreeNode> = [];
 
     metiers.forEach((x) => {
-      x.isForbidden = this.restrictions.includes(x.shortCode);
-
       nodes.push({
         label: x.nom,
         data: {
           ...x,
+          isForbidden: this.origine.restrictionsMetierShortCode.includes(
+            x.shortCode,
+          ),
           treeLevel: level,
         },
         children: this.metierToTreeNode(x.subMetiers, level + 1),
@@ -95,6 +101,14 @@ export class MetierComponent {
     this.sidebarVisible = true;
   }
 
+  openInformationsComplete(event: MouseEvent, shortCode: string): void {
+    event.stopPropagation();
+    this.metierToSee =
+      this.metiersBase.find((x) => x.shortCode === shortCode) ??
+      CreationHelper.getDefaultMetier();
+    this.sidebarVisibleComplete = true;
+  }
+
   openMobileNode(node: TreeNode): void {
     if (node.children && node.children.length > 0) {
       this.mobileParentStack.push(node);
@@ -109,6 +123,20 @@ export class MetierComponent {
     this.sidebarVisible = true;
   }
 
+  openMobileNodeComplete(node: TreeNode): void {
+    if (node.children && node.children.length > 0) {
+      this.mobileParentStack.push(node);
+      this.mobileCurrentNodes = node.children;
+      this.mobileCurrentLevel = (node.data?.treeLevel ?? 1) + 1;
+      return;
+    }
+
+    this.metierToSee =
+      this.metiersBase.find((x) => x.shortCode === node.data.shortCode) ??
+      CreationHelper.getDefaultMetier();
+    this.sidebarVisibleComplete = true;
+  }
+
   goBackMobile(): void {
     this.mobileParentStack.pop();
 
@@ -120,22 +148,10 @@ export class MetierComponent {
 
     const parent = this.mobileParentStack[this.mobileParentStack.length - 1];
     this.mobileCurrentNodes = parent.children ?? [];
-    this.mobileCurrentLevel = parent.data?.treeLevel + 1 ?? 1;
+    this.mobileCurrentLevel = parent.data?.treeLevel + 1;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.setAll();
-  }
-
-  handleSidebarHide(): void {
-    this.sidebarVisible = false;
-    setTimeout(() => this.removeSidebarOverlayManually(), 100);
-  }
-
-  removeSidebarOverlayManually(): void {
-    const overlay = document.querySelector('.p-sidebar-mask');
-    if (overlay) {
-      overlay.remove();
-    }
   }
 }

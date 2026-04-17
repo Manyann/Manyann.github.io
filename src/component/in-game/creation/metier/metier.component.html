@@ -70,8 +70,13 @@
           <td class="action-cell">
             <p-button
               (onClick)="openInformations($event, rowData.shortCode)"
-              icon="pi pi-question-circle"
+              icon="pi pi-tag"
               styleClass="btn-origine btn-info"
+            />
+            <p-button
+              (onClick)="openInformationsComplete($event, rowData.shortCode)"
+              icon="pi pi-tags"
+              styleClass="btn-origine btn-infos"
             />
           </td>
         </tr>
@@ -109,8 +114,13 @@
           <div class="mobile-card-actions">
             <p-button
               (onClick)="openInformations($event, node.data.shortCode)"
-              icon="pi pi-question-circle"
+              icon="pi pi-tag"
               styleClass="btn-origine btn-info"
+            />
+            <p-button
+              (onClick)="openInformationsComplete($event, node.data.shortCode)"
+              icon="pi pi-tags"
+              styleClass="btn-origine btn-infos"
             />
           </div>
         </div>
@@ -178,38 +188,52 @@
     </div>
   </div>
 
-  <app-sidebar [(visible)]="sidebarVisible">
+  <app-sidebar [(visible)]="sidebarVisibleComplete">
     <div class="sidebar-origine-title">{{ metierToSee.nom }}</div>
 
-    <div class="parts" *ngIf="metierToSee.caracteristiques.length > 0">
-      <div class="title">Caractéristiques</div>
-      <div class="list-item-details-items">
-        <span *ngFor="let caracteristique of metierToSee.caracteristiques">
-          {{ caracteristique }}
-        </span>
+    @if (metierToSee.caracteristiques.length > 0) {
+      <div class="parts" *ngIf="metierToSee.caracteristiques.length > 0">
+        <div class="title">Caractéristiques</div>
+        <div class="list-item-details-items">
+          <span *ngFor="let caracteristique of origine.caracteristiques">
+            {{ caracteristique }}
+          </span>
+          <span *ngFor="let caracteristique of metierToSee.caracteristiques">
+            {{ caracteristique }}
+          </span>
+        </div>
       </div>
-    </div>
+    }
 
-    <div class="parts" *ngIf="metierToSee.restrictions.length > 0">
-      <div class="title">Restrictions</div>
-      <div class="list-item-details-items">
-        <span *ngFor="let restriction of metierToSee.restrictions">
-          {{ restriction }}
-        </span>
+    @if (metierToSee.restrictions.length > 0) {
+      <div class="parts" *ngIf="metierToSee.restrictions.length > 0">
+        <div class="title">Restrictions</div>
+        <div class="list-item-details-items">
+          <span *ngFor="let restriction of origine.restrictions">
+            {{ restriction }}
+          </span>
+          <span *ngFor="let restriction of metierToSee.restrictions">
+            {{ restriction }}
+          </span>
+        </div>
       </div>
-    </div>
+    }
 
     @if (metierToSee.competencesHerites.length > 0) {
       <app-competence-list
-        [competences]="metierToSee.competencesHerites"
+        [competences]="
+          metierToSee.competencesHerites.concat(origine.competencesHerites)
+        "
       ></app-competence-list>
     }
 
-    <div class="parts list-autres" *ngIf="metierToSee.autres.length > 0">
-      <div class="title">Autres</div>
-      <div class="list-item-details-items">
-        <span *ngFor="let autre of metierToSee.autres">{{ autre }}</span>
+    @if (metierToSee.autres.length > 0) {
+      <div class="parts list-autres" *ngIf="metierToSee.autres.length > 0">
+        <div class="title">Autres</div>
+        <div class="list-item-details-items">
+          <span *ngFor="let autre of metierToSee.autres">{{ autre }}</span>
+        </div>
       </div>
-    </div>
+    }
   </app-sidebar>
 </div>

@@ -276,6 +276,11 @@ export class CreationHelper {
     };
   }
 
+  static getOrigineByName(name: string) {
+    let a = this.getAllOrigine().find((x) => x.nom == name);
+    return a;
+  }
+
   static getDefaultMetier(): Metier {
     return {
       nom: '',

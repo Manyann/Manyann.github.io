@@ -62,11 +62,11 @@
           <td class="action-cell">
             <p-button
               (onClick)="openInformations($event, rowData.nom)"
-              icon="pi pi-question-circle"
+              icon="pi pi-tag"
               styleClass="btn-origine btn-info"
             />
             <p-button
-              (onClick)="openMetiers(rowData.restrictionsMetierShortCode)"
+              (onClick)="openMetiers(rowData.nom)"
               icon="pi pi-briefcase"
               styleClass="btn-origine btn-metier-open"
             />
@@ -84,11 +84,11 @@
         <div class="mobile-card-actions">
           <p-button
             (onClick)="openInformations($event, node.data.nom)"
-            icon="pi pi-question-circle"
+            icon="pi pi-tag"
             styleClass="btn-origine btn-info"
           />
           <p-button
-            (onClick)="openMetiers(node.data.restrictionsMetierShortCode)"
+            (onClick)="openMetiers(node.data.nom)"
             icon="pi pi-briefcase"
             styleClass="btn-origine btn-metier-open"
           />

@@ -30,9 +30,7 @@ export class OrigineComponent {
   treeNodes: Array<TreeNode>;
   origineToSee: Origine;
   sidebarVisible = false;
-  @Output() openMetier: EventEmitter<Array<string>> = new EventEmitter<
-    Array<string>
-  >();
+  @Output() openMetier: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() {
     this.originesBase = CreationHelper.getAllOrigine();
@@ -61,7 +59,7 @@ export class OrigineComponent {
     this.sidebarVisible = true;
   }
 
-  openMetiers(restrictions: Array<string>) {
-    this.openMetier.emit(restrictions);
+  openMetiers(origineName: string) {
+    this.openMetier.emit(origineName);
   }
 }

@@ -325,6 +325,12 @@
   color: #8be9ff;
 }
 
+:host ::ng-deep .btn-infos.p-button {
+  background: rgba(200, 170, 110, 0.14);
+  border-color: rgba(200, 170, 110, 0.28);
+  color: var(--accent);
+}
+
 .forbidden {
   opacity: 0.35;
   filter: grayscale(0.6);
