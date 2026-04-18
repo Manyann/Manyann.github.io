@@ -22,7 +22,12 @@ import { UnMetierListComponent } from '../../../common/unmetier-list/unmetier-li
     UnMetierListComponent,
   ],
   templateUrl: './origine.component.html',
-  styleUrl: './origine.component.css',
+  styleUrls: [
+    './origine.component.css',
+    '../../../../assets/css/sidebar-stats.css',
+    '../../../../assets/css/table.css',
+    '../../../../assets/css/badge.css',
+  ],
 })
 export class OrigineComponent {
   title = 'nhbk';

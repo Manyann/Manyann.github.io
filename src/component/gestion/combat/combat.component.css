@@ -257,65 +257,7 @@
   color: var(--text-main);
 }
 
-/* BUTTONS */
-:host ::ng-deep .mini-btn.p-button,
-:host ::ng-deep .icon-btn.p-button {
-  border-radius: 9px;
-  border: 1px solid var(--border);
-  font-weight: 700;
-  min-height: 2rem;
-  padding: 0.32rem 0.55rem;
-  font-size: 0.76rem;
-}
 
-:host ::ng-deep .icon-btn.p-button {
-  min-width: 2rem;
-  padding: 0.32rem;
-}
-
-:host ::ng-deep .action-btn-primary.p-button {
-  background: rgba(90, 220, 255, 0.12);
-  border-color: rgba(90, 220, 255, 0.24);
-  color: #8be9ff;
-}
-
-:host ::ng-deep .action-btn-secondary.p-button {
-  background: rgba(200, 170, 110, 0.14);
-  border-color: rgba(200, 170, 110, 0.28);
-  color: var(--accent);
-}
-
-:host ::ng-deep .action-btn-danger.p-button {
-  background: rgba(255, 100, 100, 0.14);
-  border-color: rgba(255, 100, 100, 0.28);
-  color: #ff8b8b;
-}
-
-:host ::ng-deep .action-btn-warning.p-button {
-  background: rgba(255, 180, 80, 0.14);
-  border-color: rgba(255, 180, 80, 0.28);
-  color: #ffc36b;
-}
-
-:host ::ng-deep .action-btn-muted.p-button {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: var(--text-main);
-}
-
-:host ::ng-deep .end-combat-btn.p-button {
-  border-radius: 10px;
-  font-weight: 700;
-  background: rgba(255, 100, 100, 0.14);
-  border-color: rgba(255, 100, 100, 0.28);
-  color: #ff8b8b;
-  padding: 0.45rem 0.75rem;
-  font-size: 0.8rem;
-}
-
-::ng-deep .p-button .p-button-icon {
-  margin: 0rem;
-}
 
 /* ACTIONS TABLE */
 .row-button {

@@ -9,7 +9,10 @@ import { CreationHelper } from '../../model/creation';
   standalone: true,
   imports: [CommonModule, CardModule],
   templateUrl: './competence-list.component.html',
-  styleUrl: './competence-list.component.css',
+  styleUrls: [
+    './competence-list.component.css',
+    '../../../assets/css/sidebar-stats.css',
+  ],
 })
 export class CompetenceListComponent {
   @Input() public competences: Array<string> = [];

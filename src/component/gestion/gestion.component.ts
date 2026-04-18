@@ -33,7 +33,7 @@ import { Toaster } from '../../utils/toaster';
     HeroPipe,HeroTypePipe, IsFromSessionPipe, ShouldBeEquipePipe,SidebarComponent ],
     providers:[ConfirmationService],
   templateUrl: './gestion.component.html',
-  styleUrl: './gestion.component.css'
+  styleUrls:['../../assets/css/sidebar-stats.css','./gestion.component.css','../../assets/css/badge.css']
 })
 export class GestionComponent {
   title = 'nhbk';

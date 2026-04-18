@@ -22,7 +22,7 @@ import { Toaster } from '../../../utils/toaster';
   imports: [PanelModule, ToastModule,TableModule, CommonModule,AutoCompleteModule,ButtonModule,InputNumberModule,FormsModule,ConfirmDialogModule],
   providers:[ConfirmationService],
   templateUrl: './combat.component.html',
-  styleUrl: './combat.component.css'
+  styleUrls: ['./combat.component.css','../../../assets/css/button.css']
 })
 export class CombatComponent {
   title = 'nhbk';

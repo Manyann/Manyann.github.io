@@ -152,12 +152,12 @@
             class="result-item"
             [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''"
           >
-            <div class="result-name">{{ wonItem?.name }}</div>
+            <div class="result-name">{{ wonItem.name }}</div>
             <div
               class="result-rarity"
               [ngClass]="wonItem ? getRarityClass(wonItem.rarity) : ''"
             >
-              {{ formatRarity(wonItem?.rarity) }}
+              {{ formatRarity(wonItem.rarity) }}
             </div>
           </div>
         </div>

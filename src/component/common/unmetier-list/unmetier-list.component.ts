@@ -9,7 +9,8 @@ import { CreationHelper } from '../../model/creation';
   standalone: true,
   imports: [CommonModule, CardModule],
   templateUrl: './unmetier-list.component.html',
-  styleUrl: './unmetier-list.component.css',
+  styleUrls: ['./unmetier-list.component.css',
+    '../../../assets/css/sidebar-stats.css',],
 })
 export class UnMetierListComponent {
   @Input() public unMetiers: Array<string> = [];

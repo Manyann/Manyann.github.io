@@ -437,3 +437,293 @@ p-inputswitch {
 .p-treetable-scrollable-header-box {
   padding-right: 0 !important;
 }
+
+
+
+/* =========================
+   ANIMATIONS GÉNÉRALES
+========================= */
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 55%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes cardShine {
+  0% {
+    left: -60%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  42% {
+    left: 125%;
+    opacity: 0.85;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    left: 125%;
+    opacity: 0;
+  }
+}
+
+@keyframes crownFloat {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.04);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes divineFloat {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.07);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes divineIconPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   ANIMATIONS SPÉCIFIQUES
+========================= */
+@keyframes chromePulse {
+  0% {
+    filter: brightness(1.02);
+  }
+  50% {
+    filter: brightness(1.14);
+  }
+  100% {
+    filter: brightness(1.02);
+  }
+}
+
+@keyframes arcanePulse {
+  0% {
+    filter: brightness(1.04) saturate(1.02);
+  }
+  50% {
+    filter: brightness(1.18) saturate(1.15);
+  }
+  100% {
+    filter: brightness(1.04) saturate(1.02);
+  }
+}
+
+@keyframes arcaneRing {
+  0% {
+    transform: scale(0.92) rotate(0deg);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.04) rotate(180deg);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(0.92) rotate(360deg);
+    opacity: 0.35;
+  }
+}
+
+@keyframes fireShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 65%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes emberPulse {
+  0% {
+    filter: brightness(1.02) saturate(1.02);
+  }
+  50% {
+    filter: brightness(1.2) saturate(1.18);
+  }
+  100% {
+    filter: brightness(1.02) saturate(1.02);
+  }
+}
+
+@keyframes flameFlicker {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  20% {
+    transform: translateY(-1px) scale(1.03);
+  }
+  40% {
+    transform: translateY(1px) scale(0.99);
+  }
+  60% {
+    transform: translateY(-2px) scale(1.05);
+  }
+  80% {
+    transform: translateY(0px) scale(1.01);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fireIconPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes emberDrift {
+  0% {
+    transform: translateY(8px);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-4px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-12px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes occultShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 45%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes occultPulse {
+  0% {
+    filter: brightness(1.03) saturate(1.02);
+  }
+  50% {
+    filter: brightness(1.16) saturate(1.14);
+  }
+  100% {
+    filter: brightness(1.03) saturate(1.02);
+  }
+}
+
+@keyframes occultOrbit {
+  0% {
+    transform: rotate(0deg) scale(0.96);
+    opacity: 0.35;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.03);
+    opacity: 0.65;
+  }
+  100% {
+    transform: rotate(360deg) scale(0.96);
+    opacity: 0.35;
+  }
+}
+
+@keyframes cosmicShift {
+  0% {
+    background-position: 0% 45%;
+  }
+  50% {
+    background-position: 100% 60%;
+  }
+  100% {
+    background-position: 0% 45%;
+  }
+}
+
+@keyframes divinePulse {
+  0% {
+    filter: brightness(1.04) saturate(1.04);
+  }
+  50% {
+    filter: brightness(1.22) saturate(1.18);
+  }
+  100% {
+    filter: brightness(1.04) saturate(1.04);
+  }
+}
+
+@keyframes divineHalo {
+  0% {
+    transform: scale(0.94);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.72;
+  }
+  100% {
+    transform: scale(0.94);
+    opacity: 0.35;
+  }
+}
+
+@keyframes starTwinkle {
+  0% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.45;
+  }
+}

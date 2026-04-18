@@ -99,7 +99,6 @@
 :host ::ng-deep .gestion-table .p-datatable {
   border: 1px solid var(--border);
   border-radius: 16px;
-  overflow: hidden;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
 }
 
@@ -108,6 +107,10 @@
   overflow-y: scroll;
   height: 30rem;
   display: flex;
+}
+
+::ng-deep .p-datatable-scrollable{
+  overflow-y:auto;
 }
 
 :host ::ng-deep .gestion-table .p-datatable-wrapper {
@@ -165,21 +168,6 @@ p-table::ng-deep {
   overflow-y: scroll;
 }
 
-/* VIVANT / MORT */
-.c-green {
-  color: var(--success);
-  font-weight: bold;
-}
-
-.c-red {
-  color: var(--error);
-  font-weight: bold;
-}
-
-/* INPUTS / OVERLAYS */
-::ng-deep .p-autoComplete {
-  margin-right: 0.5rem;
-}
 
 ::ng-deep .p-overlay {
   background-color: var(--bg-main);
@@ -214,43 +202,6 @@ p-table::ng-deep {
 
 ::ng-deep .p-button .p-button-icon {
   margin: 0rem;
-}
-
-/* TEXT UTILS */
-.text-center {
-  text-align: center;
-}
-
-.text-bold {
-  font-weight: bold;
-}
-
-.m-2 {
-  margin: 0.5rem;
-}
-
-.ml-2 {
-  margin-left: 1rem;
-}
-
-/* LAYOUT */
-.block-flex {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.div-flex {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 25rem;
-  margin-bottom: 1rem;
-}
-
-.row {
-  flex-direction: row;
 }
 
 /* FIELDS */
@@ -373,38 +324,6 @@ p-inputnumber.no-margin::ng-deep {
   gap: 0.4rem;
 }
 
-/* BADGES STYLE ORIGINE */
-.stat-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2rem;
-  padding: 0.22rem 0.55rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-main);
-}
-
-.stat-good {
-  background: rgba(80, 200, 120, 0.14);
-  border-color: rgba(80, 200, 120, 0.26);
-  color: #79e79c;
-}
-
-.stat-bad {
-  background: rgba(255, 100, 100, 0.14);
-  border-color: rgba(255, 100, 100, 0.26);
-  color: #ff8b8b;
-}
-
-.stat-dead {
-  background: rgba(180, 180, 180, 0.12);
-  border-color: rgba(180, 180, 180, 0.2);
-  color: #bdbdbd;
-}
 
 /* EQUIPMENT */
 .equip-grid {
@@ -457,22 +376,6 @@ p-inputnumber.no-margin::ng-deep {
   align-items: center;
 }
 
-/* SIDEBARS */
-.add-panel {
-  padding: 0.5rem 0.25rem;
-}
-
-.sidebar-form-title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-.form-actions {
-  justify-content: flex-end;
-}
-
 /* MISC */
 .mw-20 {
   max-width: 20rem;
@@ -512,10 +415,5 @@ p-inputnumber.no-margin::ng-deep {
 
   .equip-grid {
     flex-direction: column;
-  }
-
-  .div-flex {
-    width: 100%;
-    gap: 1rem;
   }
 }

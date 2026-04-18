@@ -526,10 +526,9 @@
   </p-tabView>
 
   <app-sidebar [(visible)]="sidebarVisible">
-    <div class="add-panel">
-      <div class="sidebar-form-title">Ajouter un héros</div>
-
-      <div class="mt-2 div-flex row">
+      <div class="sidebar-origine-title">Ajouter un héros</div>
+    <div class="sidebar-form">
+      <div class="sidebar-form-item">
         <span>Joueur :</span>
         <p-dropdown
           [options]="joueurs"
@@ -542,7 +541,7 @@
         />
       </div>
 
-      <div class="mt-2 div-flex row">
+      <div class="sidebar-form-item">
         <span>Nom :</span>
         <input
           type="text"
@@ -552,7 +551,7 @@
         />
       </div>
 
-      <div class="mt-2 div-flex row">
+      <div class="sidebar-form-item">
         <span>Origine :</span>
         <p-autoComplete
           [(ngModel)]="addOrigine"
@@ -565,7 +564,7 @@
         />
       </div>
 
-      <div class="mt-2 div-flex row">
+      <div class="sidebar-form-item">
         <span>Metier :</span>
         <p-autoComplete
           [(ngModel)]="addMetier"
@@ -578,7 +577,7 @@
         />
       </div>
 
-      <div class="mt-2 div-flex row">
+      <div class="sidebar-form-item">
         <span>Niveau :</span>
         <p-inputNumber
           class="no-margin"
@@ -587,12 +586,12 @@
         />
       </div>
 
-      <div class="mt-2 div-flex row">
+      <div class="sidebar-form-item">
         <span>Or :</span>
         <p-inputNumber class="no-margin" [(ngModel)]="addOr" name="addOr" />
       </div>
 
-      <div class="mt-2 div-flex row">
+      <div class="sidebar-form-item">
         <span>Point de destin :</span>
         <p-inputNumber
           class="no-margin"
@@ -601,7 +600,7 @@
         />
       </div>
 
-      <div class="mt-2 div-flex row form-actions">
+      <div class="sidebar-form-item form-actions">
         <p-button (onClick)="valider()">Valider</p-button>
       </div>
     </div>

@@ -21,7 +21,10 @@ import { StatistiqueMergeComponent } from '../statistique-merge/statistique-merg
     StatistiqueMergeComponent,
   ],
   templateUrl: './metier.component.html',
-  styleUrl: './metier.component.css',
+  styleUrls: ['./metier.component.css',
+    '../../../../assets/css/badge.css',
+    '../../../../assets/css/sidebar-stats.css',
+  '../../../../assets/css/table.css'],
 })
 export class MetierComponent {
   title = 'nhbk';

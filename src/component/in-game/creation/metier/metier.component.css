@@ -160,82 +160,6 @@
 }
 
 /* TABLE DESKTOP */
-.origine-toolbar {
-  padding: 1rem 1.2rem;
-  border-radius: 16px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.025),
-    rgba(255, 255, 255, 0.01)
-  );
-  border: 1px solid var(--border);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-}
-
-.origine-toolbar-title {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--accent);
-  margin-bottom: 0.2rem;
-}
-
-.origine-toolbar-subtitle {
-  color: var(--text-main);
-  opacity: 0.82;
-  font-size: 0.95rem;
-}
-
-:host ::ng-deep .origine-table .p-treetable {
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
-}
-
-:host ::ng-deep .origine-table .p-treetable-wrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-:host ::ng-deep .origine-table table {
-  width: 100%;
-  min-width: 50rem;
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-:host ::ng-deep .origine-table .p-treetable-thead > tr > th {
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.04),
-      rgba(255, 255, 255, 0.02)
-    ),
-    var(--bg-secondary);
-  color: var(--accent);
-  border-bottom: 1px solid var(--border);
-  font-weight: 700;
-  font-size: 0.92rem;
-  white-space: nowrap;
-  padding: 0.9rem 0.85rem;
-  text-align: center;
-}
-
-:host ::ng-deep .origine-table .p-treetable-tbody > tr > td {
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  border-color: rgba(255, 255, 255, 0.05);
-  padding: 0.8rem 0.85rem;
-  vertical-align: middle;
-}
-
-:host ::ng-deep .origine-table .p-treetable-tbody > tr:nth-child(even) > td {
-  background: rgba(255, 255, 255, 0.015);
-}
-
-:host ::ng-deep .origine-table .p-treetable-tbody > tr:hover > td {
-  background: rgba(200, 170, 110, 0.08);
-}
 
 .col-toggle {
   width: 3rem;
@@ -253,54 +177,11 @@
   margin-left: 0.35rem;
 }
 
-.level-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.45rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 999px;
-  background: rgba(100, 150, 255, 0.15);
-  color: #8fb3ff;
-  border: 1px solid rgba(100, 150, 255, 0.28);
-  font-weight: 800;
-  font-size: 0.75rem;
-  line-height: 1;
-}
 
 .stat-cell {
   text-align: center;
 }
 
-.stat-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2rem;
-  padding: 0.22rem 0.45rem;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  border: 1px solid transparent;
-}
-
-.min {
-  color: #79e79c;
-}
-
-.max {
-  color: #ff8b8b;
-}
-
-.stat-badge.min {
-  background: rgba(80, 200, 120, 0.14);
-  border-color: rgba(80, 200, 120, 0.26);
-}
-
-.stat-badge.max {
-  background: rgba(255, 100, 100, 0.14);
-  border-color: rgba(255, 100, 100, 0.26);
-}
 
 .action-cell {
   text-align: center;
@@ -309,6 +190,9 @@
 
 .col-actions {
   min-width: 8rem;
+}
+::ng-deep  .metier-table > .p-treetable-thead tr th:first-child{
+  width:2.5rem;
 }
 
 :host ::ng-deep .btn-origine.p-button {
@@ -336,51 +220,11 @@
   filter: grayscale(0.6);
 }
 
-.sidebar-origine-title {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-.parts {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1.1rem;
-}
-
-.parts .title {
-  color: var(--accent);
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-}
-
-.parts .list-item-details-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.parts .list-item-details-items span {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.28rem 0.6rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--text-main);
-  font-size: 0.84rem;
-  line-height: 1.2;
-}
-
 ::ng-deep .p-element .p-icon-wrapper {
   color: rgba(90, 220, 255, 0.24);
 }
 
 @media (max-width: 900px) {
-  :host ::ng-deep .origine-table table {
-    min-width: 42rem;
-  }
 
   :host ::ng-deep .btn-origine.p-button {
     width: 2rem;
@@ -390,25 +234,6 @@
 
   .col-classe {
     min-width: 13rem;
-  }
-}
-
-@media (max-width: 700px) {
-  .sidebar-origine-title {
-    font-size: 1.15rem;
-  }
-
-  .parts {
-    margin-bottom: 0.85rem;
-  }
-
-  .parts .title {
-    font-size: 0.92rem;
-  }
-
-  .parts .list-item-details-items span {
-    font-size: 0.78rem;
-    padding: 0.24rem 0.48rem;
   }
 }
 
@@ -436,15 +261,4 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .level-badge {
-    font-size: 0.64rem;
-    padding: 0.14rem 0.3rem;
-    margin-right: 0;
-  }
-
-  .stat-badge {
-    min-width: 1.7rem;
-    font-size: 0.7rem;
-    padding: 0.16rem 0.32rem;
-  }
 }

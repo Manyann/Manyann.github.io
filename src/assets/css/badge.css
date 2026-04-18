@@ -1,0 +1,73 @@
+
+/* BADGES STYLE ORIGINE */
+.stat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  &.min{
+  background: rgba(80, 200, 120, 0.14);
+  border-color: rgba(80, 200, 120, 0.26);
+  color: #79e79c;
+  }
+  &.max{
+  background: rgba(255, 100, 100, 0.14);
+  border-color: rgba(255, 100, 100, 0.26);
+  color: #ff8b8b;
+  }
+}
+
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.45rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(100, 150, 255, 0.15);
+  color: #8fb3ff;
+  border: 1px solid rgba(100, 150, 255, 0.28);
+  font-weight: 800;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.stat-good {
+  background: rgba(80, 200, 120, 0.14);
+  border-color: rgba(80, 200, 120, 0.26);
+  color: #79e79c;
+}
+
+.stat-bad {
+  background: rgba(255, 100, 100, 0.14);
+  border-color: rgba(255, 100, 100, 0.26);
+  color: #ff8b8b;
+}
+
+.stat-dead {
+  background: rgba(180, 180, 180, 0.12);
+  border-color: rgba(180, 180, 180, 0.2);
+  color: #bdbdbd;
+}
+
+@media (max-width: 520px) {
+  .level-badge {
+    font-size: 0.64rem;
+    padding: 0.14rem 0.3rem;
+    margin-right: 0;
+  }
+  
+
+  .stat-badge {
+    min-width: 1.7rem;
+    font-size: 0.7rem;
+    padding: 0.16rem 0.32rem;
+  }
+}

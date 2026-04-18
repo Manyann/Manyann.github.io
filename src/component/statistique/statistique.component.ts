@@ -18,7 +18,7 @@ import { CodeValeur } from '../model/code-libelle';
   standalone: true,
   imports: [CommonModule, TabViewModule, ChartModule, PanelModule, TrophesPipe],
   templateUrl: './statistique.component.html',
-  styleUrl: './statistique.component.css',
+  styleUrls: ['../../assets/css/trophe.css','../../assets/css/stat-panel.css','./statistique.component.css','../../assets/css/chart.css',],
 })
 export class StatistiqueComponent {
   title = 'nhbk';

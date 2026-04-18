@@ -6,7 +6,7 @@
       [scrollable]="true"
       scrollHeight="35rem"
       [tableStyle]="{ 'min-width': '50rem' }"
-      class="origine-table"
+      class="origine-table metier-table"
     >
       <ng-template pTemplate="header">
         <tr>
@@ -194,8 +194,51 @@
     </div>
   </div>
 
-  <app-sidebar [(visible)]="sidebarVisibleComplete">
+    <app-sidebar [(visible)]="sidebarVisible">
     <div class="sidebar-origine-title">{{ metierToSee.nom }}</div>
+
+    @if (metierToSee.caracteristiques.length > 0) {
+      <div class="parts" *ngIf="metierToSee.caracteristiques.length > 0">
+        <div class="title">Caractéristiques</div>
+        <div class="list-item-details-items">
+          <span *ngFor="let caracteristique of metierToSee.caracteristiques">
+            {{ caracteristique }}
+          </span>
+        </div>
+      </div>
+    }
+
+    @if (metierToSee.restrictions.length > 0) {
+      <div class="parts" *ngIf="metierToSee.restrictions.length > 0">
+        <div class="title">Restrictions</div>
+        <div class="list-item-details-items">
+          <span *ngFor="let restriction of metierToSee.restrictions">
+            {{ restriction }}
+          </span>
+        </div>
+      </div>
+    }
+
+    @if (metierToSee.competencesHerites.length > 0) {
+      <app-competence-list
+        [competences]="
+          metierToSee.competencesHerites
+        "
+      ></app-competence-list>
+    }
+
+    @if (metierToSee.autres.length > 0) {
+      <div class="parts list-autres" *ngIf="metierToSee.autres.length > 0">
+        <div class="title">Autres</div>
+        <div class="list-item-details-items">
+          <span *ngFor="let autre of metierToSee.autres">{{ autre }}</span>
+        </div>
+      </div>
+    }
+  </app-sidebar>
+
+  <app-sidebar [(visible)]="sidebarVisibleComplete">
+    <div class="sidebar-origine-title">{{ origine.nom }} {{ metierToSee.nom }}</div>
 
     <app-statistique-merge
       [origine]="origine"
