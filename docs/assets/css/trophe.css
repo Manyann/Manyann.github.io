@@ -1,0 +1,656 @@
+/* =========================
+   TROPHÉES / ACHIEVEMENTS
+========================= */
+.infos-achivement {
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  position: relative;
+  align-items: stretch;
+}
+
+.achivement {
+  position: relative;
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-height: 104px;
+  padding: 1rem 1.15rem;
+  border-radius: 18px;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #20242a 0%, #171a1f 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgb(130, 130, 130);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    opacity 0.28s ease,
+    filter 0.28s ease;
+}
+
+.achivement:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+.achivement .icon {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255, 255, 255, 0.12),
+      transparent 45%
+    ),
+    rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 8px 18px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+}
+
+.achivement .icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.08),
+    transparent 70%
+  );
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.achivement .icon i {
+  position: relative;
+  z-index: 2;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.message {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 0.2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 1.02rem;
+  line-height: 1.18;
+  margin-bottom: 0.34rem;
+  word-break: break-word;
+  letter-spacing: 0.15px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.description {
+  font-size: 0.84rem;
+  line-height: 1.36;
+  opacity: 0.92;
+  word-break: break-word;
+}
+
+/* =========================
+   ÉTATS
+========================= */
+.display-false {
+  display: grid;
+  opacity: 0.02;
+  filter: grayscale(1);
+}
+
+.visible-false {
+  display: none;
+}
+
+/* =========================
+   COULEURS TEXTE / ICÔNES
+========================= */
+.color-0 {
+  color: #287233;
+}
+
+.color-1 {
+  color: gold;
+}
+
+.color-2 {
+  color: silver;
+}
+
+.color-3 {
+  color: #cd7f32;
+}
+
+.color-5 {
+  color: #f3f2f0;
+}
+
+.color-8 {
+  color: #9ef1ff;
+}
+
+.color-10 {
+  color: #ff7575;
+}
+
+.color-11 {
+  color: #d570ff;
+}
+
+.color-12 {
+  color: #ff93e6;
+}
+
+.bcolor-0 {
+  border-color: #287233;
+}
+
+.bcolor-1 {
+  border-color: gold;
+}
+
+.bcolor-2 {
+  border-color: silver;
+}
+
+.bcolor-3 {
+  border-color: #cd7f32;
+}
+
+/* =========================
+   BASE RARETÉS ÉPIQUES
+========================= */
+.bcolor-5,
+.bcolor-8,
+.bcolor-10,
+.bcolor-11,
+.bcolor-12 {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.bcolor-5::before,
+.bcolor-8::before,
+.bcolor-10::before,
+.bcolor-11::before,
+.bcolor-12::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  z-index: -4;
+  background-size: 260% 260%;
+}
+
+.bcolor-5::after,
+.bcolor-8::after,
+.bcolor-10::after,
+.bcolor-11::after,
+.bcolor-12::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: inherit;
+  z-index: -3;
+  background: linear-gradient(180deg, #20242a 0%, #171a1f 100%);
+}
+
+.bcolor-5 .message::before,
+.bcolor-8 .message::before,
+.bcolor-10 .message::before,
+.bcolor-11 .message::before,
+.bcolor-12 .message::before {
+  content: "";
+  position: absolute;
+  top: -45%;
+  left: -60%;
+  width: 42%;
+  height: 190%;
+  transform: rotate(18deg);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.06) 38%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0.06) 62%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: cardShine 3.6s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* =========================
+   5 - PLATINE / CHROME
+========================= */
+.bcolor-5::before {
+  background: linear-gradient(
+    115deg,
+    #ffffff 0%,
+    #d7d7d7 16%,
+    #7c7c7c 34%,
+    #ffffff 50%,
+    #b5b5b5 66%,
+    #ffffff 84%,
+    #d8d8d8 100%
+  );
+  animation:
+    animatedgradient 2s linear infinite,
+    chromePulse 2.8s ease-in-out infinite;
+}
+
+.bcolor-5 {
+  box-shadow:
+    0 0 18px rgba(255, 255, 255, 0.16),
+    0 0 36px rgba(220, 220, 220, 0.08),
+    inset 0 0 12px rgba(255, 255, 255, 0.02);
+}
+
+.bcolor-5 .icon {
+  animation: iconPulse 2.4s ease-in-out infinite;
+}
+
+.bcolor-5 .icon i {
+  animation: crownFloat 2.4s ease-in-out infinite;
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.55),
+    0 0 18px rgba(255, 255, 255, 0.18);
+}
+
+/* =========================
+   8 - ARCANE / CYAN
+========================= */
+.bcolor-8::before {
+  background: linear-gradient(
+    115deg,
+    #e9fdff 0%,
+    #8deeff 18%,
+    #25d4ff 36%,
+    #d9fbff 52%,
+    #67e8ff 70%,
+    #e9fdff 100%
+  );
+  animation:
+    animatedgradient 1.8s linear infinite,
+    arcanePulse 2.2s ease-in-out infinite;
+}
+
+.bcolor-8 {
+  box-shadow:
+    0 0 18px rgba(134, 233, 255, 0.24),
+    0 0 38px rgba(134, 233, 255, 0.12),
+    inset 0 0 14px rgba(134, 233, 255, 0.04);
+}
+
+.bcolor-8 .icon {
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+.bcolor-8 .icon i {
+  animation: crownFloat 2.1s ease-in-out infinite;
+  text-shadow:
+    0 0 10px rgba(134, 233, 255, 0.75),
+    0 0 22px rgba(134, 233, 255, 0.25);
+}
+
+.bcolor-8 .icon::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(134, 233, 255, 0.18) 0%,
+    rgba(134, 233, 255, 0.05) 35%,
+    transparent 70%
+  );
+  animation: arcaneRing 2.6s linear infinite;
+  pointer-events: none;
+}
+
+/* =========================
+   10 - FEU / BRAISES
+========================= */
+.bcolor-10::before {
+  background: linear-gradient(
+    115deg,
+    #ffd7d7 0%,
+    #ff8b57 14%,
+    #c62525 32%,
+    #ffbb7c 50%,
+    #ff5656 68%,
+    #ffd7d7 100%
+  );
+  animation:
+    fireShift 1.6s linear infinite,
+    emberPulse 1.9s ease-in-out infinite;
+}
+
+.bcolor-10 {
+  box-shadow:
+    0 0 18px rgba(255, 90, 90, 0.22),
+    0 0 36px rgba(255, 120, 60, 0.12),
+    inset 0 0 14px rgba(255, 120, 60, 0.035);
+}
+
+.bcolor-10 .icon {
+  animation: fireIconPulse 1.7s ease-in-out infinite;
+}
+
+.bcolor-10 .icon i {
+  animation: flameFlicker 1.2s ease-in-out infinite;
+  text-shadow:
+    0 0 10px rgba(255, 120, 60, 0.75),
+    0 0 22px rgba(255, 70, 70, 0.25);
+}
+
+.bcolor-10 .achivement-sparks,
+.bcolor-10 .message::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bcolor-10 .message::after {
+  background:
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 160, 80, 0.14) 0 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 40% 60%,
+      rgba(255, 110, 60, 0.16) 0 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 70% 75%,
+      rgba(255, 180, 90, 0.12) 0 1.8px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 85% 55%,
+      rgba(255, 90, 60, 0.14) 0 2px,
+      transparent 3px
+    );
+  animation: emberDrift 3.4s linear infinite;
+  opacity: 0.6;
+}
+
+/* =========================
+   11 - OCCULTE / VIOLET
+========================= */
+.bcolor-11::before {
+  background: linear-gradient(
+    115deg,
+    #f4d9ff 0%,
+    #da8bff 16%,
+    #8618b5 34%,
+    #efccff 50%,
+    #b443f0 70%,
+    #f4d9ff 100%
+  );
+  animation:
+    occultShift 2s linear infinite,
+    occultPulse 2.6s ease-in-out infinite;
+}
+
+.bcolor-11 {
+  box-shadow:
+    0 0 18px rgba(190, 80, 255, 0.24),
+    0 0 40px rgba(161, 11, 167, 0.12),
+    inset 0 0 16px rgba(190, 80, 255, 0.04);
+}
+
+.bcolor-11 .icon {
+  animation: iconPulse 2.2s ease-in-out infinite;
+}
+
+.bcolor-11 .icon i {
+  animation: crownFloat 2.6s ease-in-out infinite;
+  text-shadow:
+    0 0 10px rgba(205, 120, 255, 0.85),
+    0 0 24px rgba(161, 11, 167, 0.24);
+}
+
+.bcolor-11 .icon::after {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(205, 120, 255, 0.22) 70deg,
+    transparent 140deg,
+    rgba(120, 40, 200, 0.18) 220deg,
+    transparent 360deg
+  );
+  animation: occultOrbit 4.2s linear infinite;
+  pointer-events: none;
+  filter: blur(1px);
+}
+
+/* =========================
+   12 - DIVIN / COSMIQUE
+========================= */
+.bcolor-12::before {
+  background: linear-gradient(
+    115deg,
+    #ffe6f8 0%,
+    #ff9ce6 16%,
+    #d11f8f 34%,
+    #ffd5f3 50%,
+    #ff63d1 70%,
+    #fff0fb 100%
+  );
+  animation:
+    cosmicShift 1.7s linear infinite,
+    divinePulse 2.1s ease-in-out infinite;
+}
+
+.bcolor-12 {
+  box-shadow:
+    0 0 20px rgba(255, 95, 207, 0.28),
+    0 0 44px rgba(255, 95, 207, 0.14),
+    inset 0 0 16px rgba(255, 170, 230, 0.05);
+}
+
+.bcolor-12 .icon {
+  animation: divineIconPulse 1.9s ease-in-out infinite;
+}
+
+.bcolor-12 .icon i {
+  animation: divineFloat 1.9s ease-in-out infinite;
+  text-shadow:
+    0 0 12px rgba(255, 160, 230, 0.95),
+    0 0 26px rgba(255, 95, 207, 0.28);
+}
+
+.bcolor-12 .icon::after {
+  content: "";
+  position: absolute;
+  inset: -28%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 190, 240, 0.18) 0%,
+    rgba(255, 120, 220, 0.08) 35%,
+    transparent 70%
+  );
+  animation: divineHalo 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.bcolor-12 .message::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 15% 30%,
+      rgba(255, 255, 255, 0.14) 0 1.5px,
+      transparent 2.5px
+    ),
+    radial-gradient(
+      circle at 35% 75%,
+      rgba(255, 190, 240, 0.16) 0 1.6px,
+      transparent 2.5px
+    ),
+    radial-gradient(
+      circle at 68% 20%,
+      rgba(255, 255, 255, 0.13) 0 1.4px,
+      transparent 2.5px
+    ),
+    radial-gradient(
+      circle at 88% 55%,
+      rgba(255, 150, 225, 0.18) 0 1.7px,
+      transparent 2.5px
+    );
+  animation: starTwinkle 3.2s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* =========================
+   HOVER
+========================= */
+.bcolor-5:hover,
+.bcolor-8:hover,
+.bcolor-10:hover,
+.bcolor-11:hover,
+.bcolor-12:hover {
+  transform: translateY(-6px) scale(1.024);
+}
+
+.bcolor-5:hover .icon,
+.bcolor-8:hover .icon,
+.bcolor-10:hover .icon,
+.bcolor-11:hover .icon,
+.bcolor-12:hover .icon {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 10px 22px rgba(0, 0, 0, 0.3),
+    0 0 18px currentColor;
+}
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .stats-page {
+    padding: 0.6rem;
+  }
+
+  :host ::ng-deep .p-tabview-nav {
+    gap: 0.35rem;
+  }
+
+  :host ::ng-deep .p-tabview-nav li .p-tabview-nav-link {
+    padding: 0.7rem 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  .chart-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .chart {
+    min-height: 250px;
+    padding: 8px;
+  }
+
+  .stat-section {
+    grid-template-columns: 1fr;
+  }
+
+  .infos-achivement {
+    grid-template-columns: 1fr;
+  }
+
+  .achivement {
+    grid-template-columns: 58px 1fr;
+    min-height: 92px;
+    padding: 0.9rem;
+    gap: 0.85rem;
+  }
+
+  .achivement .icon {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+  }
+
+  .achivement .icon i {
+    font-size: 1.7rem;
+  }
+
+  .title {
+    font-size: 0.96rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .achivement {
+    grid-template-columns: 52px 1fr;
+    min-height: 84px;
+    padding: 0.78rem;
+    gap: 0.75rem;
+    border-radius: 14px;
+  }
+
+  .achivement .icon {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 14px;
+  }
+
+  .achivement .icon i {
+    font-size: 1.45rem;
+  }
+
+  .title {
+    font-size: 0.9rem;
+  }
+
+  .description {
+    font-size: 0.76rem;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 420px) {
+  .infos-achivement {
+    gap: 0.75rem;
+  }
+}

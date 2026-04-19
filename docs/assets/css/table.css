@@ -1,0 +1,52 @@
+
+:host ::ng-deep .origine-table .p-treetable {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+}
+
+:host ::ng-deep .origine-table .p-treetable-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+:host ::ng-deep .origine-table table {
+  width: 100%;
+  min-width: 50rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+:host ::ng-deep .origine-table .p-treetable-thead > tr > th {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.02)
+    ),
+    var(--bg-secondary);
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  padding: 0.9rem 0.85rem;
+  text-align: center;
+}
+
+:host ::ng-deep .origine-table .p-treetable-tbody > tr > td {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.05);
+  padding: 0.8rem 0.85rem;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .origine-table .p-treetable-tbody > tr:nth-child(even) > td {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+:host ::ng-deep .origine-table .p-treetable-tbody > tr:hover > td {
+  background: rgba(200, 170, 110, 0.08);
+}
