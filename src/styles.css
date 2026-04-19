@@ -438,6 +438,30 @@ p-inputswitch {
   padding-right: 0 !important;
 }
 
+/* RARITIES */
+.rarity-perave {
+  color: #95a5a6;
+}
+
+.rarity-qualite {
+  color: #3cb371;
+}
+
+.rarity-artisant {
+  color: #3498db;
+}
+
+.rarity-excellence {
+  color: #9b59b6;
+}
+
+.rarity-legendaire {
+  color: #e91e63;
+}
+
+.rarity-mythique {
+  color: #ffd700;
+}
 
 
 /* =========================
@@ -725,5 +749,28 @@ p-inputswitch {
   }
   100% {
     opacity: 0.45;
+  }
+}
+
+@keyframes resultAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes explode {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      scale(0);
+    opacity: 0;
   }
 }

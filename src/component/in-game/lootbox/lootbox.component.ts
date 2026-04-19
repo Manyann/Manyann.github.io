@@ -32,7 +32,11 @@ import { ButtonModule } from 'primeng/button';
   ],
   providers: [LootService],
   templateUrl: './lootbox.component.html',
-  styleUrl: './lootbox.component.css',
+  styleUrls: [
+    '../../../assets/css/layout.css',
+    '../../../assets/css/badge.css',
+    './lootbox.component.css',
+  ],
   animations: [
     trigger('slideIn', [
       transition(':enter', [
