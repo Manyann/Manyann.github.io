@@ -35,6 +35,7 @@ import { ButtonModule } from 'primeng/button';
   styleUrls: [
     '../../../assets/css/layout.css',
     '../../../assets/css/badge.css',
+    '../../../assets/css/switch.css',
     './lootbox.component.css',
   ],
   animations: [
