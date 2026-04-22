@@ -5,117 +5,108 @@ import { Ville, VilleHelper } from '../../model/villes';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CodeLibelle } from '../../model/code-libelle';
-import { ArmeComponent } from "./arme/arme.component";
+import { ArmeComponent } from './arme/arme.component';
 import { TabViewModule } from 'primeng/tabview';
-import { ArmureComponent } from "./armure/armure.component";
-import { PotionComponent } from "./potion/potion.component";
+import { ArmureComponent } from './armure/armure.component';
+import { PotionComponent } from './potion/potion.component';
 import { GemmeComponent } from './gemme/gemme.component';
+import { Categorie, ItemHelper } from '../../model/item';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule, FormsModule, TableModule, ButtonModule, TabViewModule,
-    ArmeComponent, ArmureComponent, PotionComponent, GemmeComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TableModule,
+    ButtonModule,
+    TabViewModule,
+    ArmeComponent,
+    ArmureComponent,
+    PotionComponent,
+    GemmeComponent,
+    InputSwitchModule,
+    PanelModule,
+  ],
   templateUrl: './shop.component.html',
-  styleUrl: './shop.component.css'
+  styleUrl: './shop.component.css',
 })
 export class ShopComponent {
   title = 'shop';
   villes: Array<Ville>;
-  villesType : Array<CodeLibelle>;
-  zones : Array<CodeLibelle>;
-  selectedVilleType : string;
-  selectedZone : string;
+  villesType: Array<CodeLibelle>;
+  zones: Array<CodeLibelle>;
+  selectedVilleType: string;
+  selectedZone: string;
+  categories: Array<Categorie> = [];
+  categorieSelectable: Array<Categorie> = [];
+  categoriesArmures: Array<Categorie> = [];
+  activeCategorieCodes: Array<string> = [];
+  categoryStates: Record<string, boolean> = {};
+  activeIndex: number = 0;
 
-  constructor(){
-    this.villes =  VilleHelper.getAll().sort((a,b)=> a.libelle.localeCompare(b.libelle));
-    this.zones = this.buildZones();
-    this.villesType = this.buildVillesType();
-    this.selectedVilleType = "";
-    this.selectedZone = "";
+  constructor() {
+    this.villes = VilleHelper.getAll().sort((a, b) =>
+      a.libelle.localeCompare(b.libelle),
+    );
+    this.zones = VilleHelper.getAllZones();
+    this.villesType = this.villes.map((x) => ({
+      code: x.type,
+      libelle: x.libelle,
+    }));
+    this.selectedVilleType = '';
+    this.selectedZone = '';
+    this.categories = ItemHelper.getAllCategories();
+    this.categoriesArmures = ItemHelper.getAllCategoriesArmure();
+    this.buildCategories(this.categories);
   }
 
+  private buildCategories(categories: Categorie[]): void {
+    const nextStates: Record<string, boolean> = {};
 
-  buildZones(): Array<CodeLibelle>{
-    return [
-      {
-        code:"commun",
-        libelle:"Commun"
-      },
-      {
-        code:"nain",
-        libelle:"Montagne naine"
-      },
-      {
-        code:"elfe",
-        libelle:"Foret elfique"
-      },
-      {
-        code:"pirate",
-        libelle:"Iles pirate"
-      },
-      {
-        code:"homme-sable",
-        libelle:"Désert"
-      },
-      {
-        code:"samurai",
-        libelle:"Ile samurai"
-      },
-      {
-        code:"orque",
-        libelle:"Plaines orque"
-      },
-      {
-        code:"nord",
-        libelle:"Grand Nord"
-      },
-      {
-        code:"volcan",
-        libelle:"Ile volcanique"
-      },
-    ];
+    for (const category of categories) {
+      nextStates[category.code] = this.categoryStates[category.code] ?? true;
+    }
+
+    this.categoryStates = nextStates;
+    this.categorieSelectable = categories;
   }
 
-  buildVillesType(): Array<CodeLibelle>{
-    return [
-      {
-        code:"capitale",
-        libelle:"Capitale"
-      },
-      {
-        code:"ville-grande",
-        libelle:"Grande ville"
-      },
-      {
-        code:"ville-moyenne",
-        libelle:"Ville Moyenne"
-      },
-      {
-        code:"ville-petite",
-        libelle:"Petite Ville"
-      },
-      {
-        code:"bourgade",
-        libelle:"Bourgade, Hameaux, ..."
-      },
-      {
-        code:"campement",
-        libelle:"Campement, Groupement rustique, ..."
-      },
-    ];
+  onCategoryToggle(): void {
+    let categoriesToFilter: Categorie[] = [];
+    if (this.activeIndex === 0) {
+      categoriesToFilter = this.categories;
+    } else if (this.activeIndex === 1) {
+      categoriesToFilter = this.categoriesArmures;
+    }
+
+    this.activeCategorieCodes = categoriesToFilter
+      .filter((category) => this.categoryStates[category.code])
+      .map((category) => category.code);
   }
 
-  onChangedVille(event:Event):void{
+  onChangedVille(event: Event): void {
     const target = event.target as HTMLSelectElement;
     const value = target.value;
     this.selectedVilleType = value;
   }
 
-  onChangedRegion(event:Event):void{
+  onChangedRegion(event: Event): void {
     const target = event.target as HTMLSelectElement;
     const value = target.value;
     this.selectedZone = value;
   }
 
+  onTabChange(event: any) {
+    this.activeIndex = event.index;
+    if (event.index === 0) {
+      this.buildCategories(this.categories);
+    } else if (event.index === 1) {
+      this.buildCategories(this.categoriesArmures);
+    } else {
+      this.buildCategories([]);
+    }
+  }
 }

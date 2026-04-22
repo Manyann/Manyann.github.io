@@ -13,11 +13,10 @@ import {
 import { OriginePipe, OriginePrixPipe } from '../origine.pipe';
 import { PromotionPipe } from '../promotion.pipe';
 import { Ville, VilleHelper } from '../../../model/villes';
-import { Arme, Categorie, Item, ItemHelper } from '../../../model/item';
-import { ItemsService } from '../../../../app/services/items.service';
-import { CodeLibelle } from '../../../model/code-libelle';
+import { ArmeVente, ItemHelper } from '../../../model/item';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { PanelModule } from 'primeng/panel';
+import { ShopService } from '../shop.service';
 
 @Component({
   selector: 'app-shop-arme',
@@ -39,101 +38,71 @@ import { PanelModule } from 'primeng/panel';
     PanelModule,
   ],
   templateUrl: './arme.component.html',
-  styleUrl: './arme.component.css',
+  styleUrls: [
+    '../../../../assets/css/badge.css',
+    '../../../../assets/css/card.css',
+    './arme.component.css',
+  ],
 })
 export class ArmeComponent {
   @Input() selectedVilleType: string = 'capitale';
   @Input() selectedRegion: string = 'commun';
+  @Input() activeCategorieCodes: Array<string> = [];
 
   villes: Array<Ville>;
-  items: Array<Arme> = [];
-  allItems: Array<Arme> = [];
-  categories: Array<Categorie> = [];
-  categoryStates: Record<string, boolean> = {};
+  items: Array<ArmeVente> = [];
+  allItems: Array<ArmeVente> = [];
 
   constructor() {
     this.villes = VilleHelper.getAll().sort((a, b) =>
       a.libelle.localeCompare(b.libelle),
     );
-    this.categories = ItemHelper.getAllCategories();
+    this.allItems = ShopService.mapToVente(
+      ItemHelper.getAll(),
+      () => new ArmeVente(),
+      (vente, item) => {
+        vente.arme = item;
+      },
+    );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedVilleType']) {
+      this.refreshItems();
+    }
+
+    if (changes['selectedRegion']) {
+      this.refreshZone();
+    }
+
+    if (changes['activeCategorieCodes']) {
+      this.refreshItems();
+    }
+  }
+
+  private refreshItems() {
+    this.items = ShopService.refreshItems(
+      this.allItems,
+      this.villes,
+      this.selectedVilleType,
+      this.activeCategorieCodes,
+      (vente) => vente.arme,
+    );
+  }
+
+  private refreshZone(): void {
+    this.allItems = ShopService.mapToVente(
+      ItemHelper.getAll(this.selectedRegion),
+      () => new ArmeVente(),
+      (vente, item) => {
+        vente.arme = item;
+      },
+    );
+
     this.refreshItems();
   }
 
-  ngOnChanges(): void {
-    this.refreshItems();
-  }
-
-  public getStatStatut(stat: string): string {
-    if (stat.startsWith('-')) {
-      return 'stat-down';
-    }
-    if (stat.indexOf('-') !== -1) {
-      let statNumber = parseInt(stat.charAt(2));
-      if (statNumber > 3) {
-        return 'stat-down';
-      }
-      if ((statNumber = 3)) {
-        return 'stat-middle';
-      }
-    }
-    return 'stat-up';
-  }
-
-  private refreshItems(): void {
-    const ville = this.villes.find(
-      (x) =>
-        x.region === this.selectedRegion && x.type === this.selectedVilleType,
-    );
-
-    this.allItems = ItemHelper.getAll(this.selectedRegion).filter((item) =>
-      this.estPresent(item, ville),
-    );
-
-    this.buildCategories();
-    this.applyCategoryFilter();
-  }
-
-  private buildCategories(): void {
-    const nextStates: Record<string, boolean> = {};
-
-    for (const category of this.categories) {
-      nextStates[category.code] = this.categoryStates[category.code] ?? true;
-    }
-
-    this.categoryStates = nextStates;
-  }
-
-  onCategoryToggle(): void {
-    this.applyCategoryFilter();
-  }
-
-  private applyCategoryFilter(): void {
-    const activeCodes = this.categories
-      .filter((category) => this.categoryStates[category.code])
-      .map((category) => category.code);
-
-    if (activeCodes.length === 0) {
-      this.items = [];
-      return;
-    }
-
-    this.items = this.allItems.filter((item) =>
-      activeCodes.includes(item.categorie.code),
-    );
-  }
-
-  public estPresent(item: Item, ville: Ville | undefined): boolean {
-    if (!ville) {
-      return true;
-    }
-
-    let random = Math.floor(Math.random() * 101);
-    let handicap = item.basePourcentage - ville.handicap;
-
-    if (handicap < 2) {
-      handicap = 2;
-    }
-
-    return random < handicap;
+  public getStatStatut(stat: string) {
+    return `stat-badge ${ShopService.getStatStatut(stat)}`;
   }
 }

@@ -17,14 +17,27 @@ export class Item {
   'informations': string = '';
 }
 
+export class ArmeVente {
+  'arme': Arme;
+  'promotion': number;
+  'prixReel': number;
+}
 export class Arme extends Item {
   'degats': string;
 }
-
+export class ArmureVente {
+  'armure': Armure;
+  'promotion': number;
+  'prixReel': number;
+}
 export class Armure extends Item {
   'armure': string;
 }
-
+export class PotionVente {
+  'potion': Potion;
+  'promotion': number;
+  'prixReel': number;
+}
 export class Potion extends Item {
   'duree': string;
   'vie': string;
@@ -158,7 +171,7 @@ export class ItemHelper {
     if (!dico) return 'commun';
 
     const origineList = Object.values(dico);
-    const zoneProba = 15; // % pour l'origine correspondant à la zone
+    const zoneProba = 25; // % pour l'origine correspondant à la zone
     const autreProba = 1.5; // % pour chaque autre origine
 
     let totalPourOrigines = 0;
@@ -243,6 +256,59 @@ export class ItemHelper {
       {
         code: 'grimoire',
         libelle: 'Grimoires',
+      },
+    ];
+  }
+
+  static getAllCategoriesArmure(): Array<Categorie> {
+    return [
+      {
+        code: 'armure-cuir',
+        libelle: 'Cuir',
+      },
+      {
+        code: 'armure-cuir-renforce',
+        libelle: 'Cuir Renforcé',
+      },
+      {
+        code: 'armure-cuir-travaille',
+        libelle: 'Cuir Travaillé',
+      },
+      {
+        code: 'armure-maille',
+        libelle: 'Mailles',
+      },
+      {
+        code: 'armure-maille-renforcee',
+        libelle: 'Mailles Renforcées',
+      },
+      {
+        code: 'armure-maille-travaillee',
+        libelle: 'Mailles Travaillées',
+      },
+      {
+        code: 'armure-plaque',
+        libelle: 'Plaques',
+      },
+      {
+        code: 'armure-plaque-renforcee',
+        libelle: 'Plaques Renforcées',
+      },
+      {
+        code: 'armure-plaque-travaillee',
+        libelle: 'Plaques Travaillées',
+      },
+      {
+        code: 'bouclier',
+        libelle: 'Boucliers',
+      },
+      {
+        code: 'robe',
+        libelle: 'Robes',
+      },
+      {
+        code: 'chapeau',
+        libelle: 'Chapeaux',
       },
     ];
   }
@@ -2953,7 +3019,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-cuir'),
         categorie: {
-          code: 'armure-cuir-renforcé',
+          code: 'armure-cuir-renforce',
           libelle: 'Cuir Renforcé',
         },
         prix: 75,
@@ -2975,7 +3041,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-cuir'),
         categorie: {
-          code: 'armure-cuir-renforcé',
+          code: 'armure-cuir-renforce',
           libelle: 'Cuir Renforcé',
         },
         prix: 75,
@@ -2997,7 +3063,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-cuir'),
         categorie: {
-          code: 'armure-cuir-renforcé',
+          code: 'armure-cuir-renforce',
           libelle: 'Cuir Renforcé',
         },
         prix: 200,
@@ -3019,7 +3085,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-cuir'),
         categorie: {
-          code: 'armure-cuir-renforcé',
+          code: 'armure-cuir-renforce',
           libelle: 'Cuir Renforcé',
         },
         prix: 75,
@@ -3041,7 +3107,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-cuir'),
         categorie: {
-          code: 'armure-cuir-renforcé',
+          code: 'armure-cuir-renforce',
           libelle: 'Cuir Renforcé',
         },
         prix: 0,
@@ -3467,7 +3533,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-maille'),
         categorie: {
-          code: 'armure-maille-travaillees',
+          code: 'armure-maille-travaillee',
           libelle: 'Mailles Travaillées',
         },
         prix: 350,
@@ -3489,7 +3555,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-maille'),
         categorie: {
-          code: 'armure-maille-travaillees',
+          code: 'armure-maille-travaillee',
           libelle: 'Mailles Travaillées',
         },
         prix: 350,
@@ -3511,7 +3577,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-maille'),
         categorie: {
-          code: 'armure-maille-travaillees',
+          code: 'armure-maille-travaillee',
           libelle: 'Mailles Travaillées',
         },
         prix: 350,
@@ -3533,7 +3599,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-maille'),
         categorie: {
-          code: 'armure-maille-travaillees',
+          code: 'armure-maille-travaillee',
           libelle: 'Mailles Travaillées',
         },
         prix: 700,
@@ -3555,7 +3621,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-maille'),
         categorie: {
-          code: 'armure-maille-travaillees',
+          code: 'armure-maille-travaillee',
           libelle: 'Mailles Travaillées',
         },
         prix: 350,
@@ -3577,7 +3643,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-maille'),
         categorie: {
-          code: 'armure-maille-travaillees',
+          code: 'armure-maille-travaillee',
           libelle: 'Mailles Travaillées',
         },
         prix: 0,

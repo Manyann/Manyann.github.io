@@ -8,21 +8,16 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class PromotionPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(value: number): SafeHtml {
-    const random = Math.floor(Math.random() * 20);
+  transform(value: number, promotion: number): SafeHtml {
     let badge = '';
 
-    if (random === 0) {
-      value = value * 0.8;
+    if (promotion === -20) {
       badge = `<span class="shop-price-badge price-sale-strong">-20%</span>`;
-    } else if (random === 1) {
-      value = value * 0.9;
+    } else if (promotion === -10) {
       badge = `<span class="shop-price-badge price-sale">-10%</span>`;
-    } else if (random === 18) {
-      value = value * 1.1;
+    } else if (promotion === 10) {
       badge = `<span class="shop-price-badge price-up">+10%</span>`;
-    } else if (random === 19) {
-      value = value * 1.2;
+    } else if (promotion === 20) {
       badge = `<span class="shop-price-badge price-up-strong">+20%</span>`;
     }
 

@@ -1,9 +1,11 @@
 <div class="shop-page">
-  <div class="shop-filters-card">
-    <div class="filters-title">
-      <i class="pi pi-sliders-h"></i>
-      Paramètres du marché
-    </div>
+  <p-panel class="shop-filters-card" [toggleable]="true">
+    <ng-template pTemplate="header">
+      <div class="filters-title">
+        <i class="pi pi-sliders-h"></i>
+        <span>Paramètres du marché</span>
+      </div>
+    </ng-template>
 
     <div class="select-container">
       <div class="filter-field">
@@ -28,13 +30,28 @@
         </select>
       </div>
     </div>
-  </div>
+    <div class="shop-categories">
+      <div class="categories-grid">
+        <div
+          class="category-switch"
+          *ngFor="let category of categorieSelectable"
+        >
+          <span>{{ category.libelle }}</span
+          ><p-inputSwitch
+            [(ngModel)]="categoryStates[category.code]"
+            (onChange)="onCategoryToggle()"
+          />
+        </div>
+      </div>
+    </div>
+  </p-panel>
 
-  <p-tabView class="custom-tabs shop-tabs">
+  <p-tabView class="custom-tabs shop-tabs" (onChange)="onTabChange($event)">
     <p-tabPanel header="Armes">
       <app-shop-arme
         [selectedVilleType]="selectedVilleType"
         [selectedRegion]="selectedZone"
+        [activeCategorieCodes]="activeCategorieCodes"
       >
       </app-shop-arme>
     </p-tabPanel>
@@ -43,6 +60,7 @@
       <app-shop-armure
         [selectedVilleType]="selectedVilleType"
         [selectedRegion]="selectedZone"
+        [activeCategorieCodes]="activeCategorieCodes"
       >
       </app-shop-armure>
     </p-tabPanel>

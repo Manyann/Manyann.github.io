@@ -40,7 +40,7 @@
       <td
         pFrozenColumn
         class="td-price"
-        [innerHTML]="item.prix | promotion"
+        [innerHTML]="item.prix | promotion: 0"
       ></td>
       <td [innerHTML]="item.duree"></td>
       <td [innerHTML]="item.vie"></td>

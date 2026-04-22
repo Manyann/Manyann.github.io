@@ -440,6 +440,7 @@ p-inputswitch {
 
 @media (max-width: 520px) {
   p-inputswitch {
+    width: 2rem;
     margin: 0;
   }
 }
@@ -467,7 +468,6 @@ p-inputswitch {
 .rarity-mythique {
   color: #ffd700;
 }
-
 
 /* =========================
    ANIMATIONS GÉNÉRALES

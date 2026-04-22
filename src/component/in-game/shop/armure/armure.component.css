@@ -242,14 +242,6 @@
   border-color: rgba(180, 100, 255, 0.26);
 }
 
-:host ::ng-deep .shop-price-cell {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.22rem;
-  min-width: 4.2rem;
-}
-
 :host ::ng-deep .shop-price {
   font-weight: 800;
   color: var(--text-main);
@@ -298,14 +290,6 @@
   border-color: rgba(255, 90, 90, 0.32);
 }
 
-.shop-price-cell {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.22rem;
-  min-width: 4.2rem;
-}
-
 .shop-price {
   font-weight: 800;
   color: var(--text-main);
@@ -352,8 +336,4 @@
   background: rgba(255, 90, 90, 0.18);
   color: #ff7c7c;
   border-color: rgba(255, 90, 90, 0.32);
-}
-.td-price {
-  min-width: 6.5rem;
-  white-space: normal !important;
 }
