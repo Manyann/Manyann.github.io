@@ -1,21 +1,45 @@
-<p-table
-  [value]="items"
-  [scrollable]="true"
-  scrollHeight="35rem"
-  styleClass="mt-3 boutique-table-gemmes"
->
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Nom</th>
-      <th pSortableColumn="prix">Prix</th>
-      <th>Informations</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-item>
-    <tr>
-      <td>{{ item.libelle }}</td>
-      <td class="td-prix">{{ item.prix }}</td>
-      <td class="td-infos">{{ item.informations }}</td>
-    </tr>
-  </ng-template>
-</p-table>
+<div class="desktop-view">
+  <p-table
+    [value]="items"
+    [scrollable]="true"
+    scrollHeight="35rem"
+    styleClass="mt-3 boutique-table-gemmes"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nom</th>
+        <th pSortableColumn="prix">Prix</th>
+        <th>Informations</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>{{ item.libelle }}</td>
+        <td class="td-prix">{{ item.prix }}</td>
+        <td class="td-infos">{{ item.informations }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="mobile-cards">
+  <div *ngFor="let item of items" class="mobile-card">
+    <div class="mobile-card-header">
+      <div class="mobile-card-title">{{ item.libelle }}</div>
+    </div>
+
+    <div class="mobile-stats-grid">
+      <div class="mobile-stat">
+        <span class="mobile-stat-label">PO</span>
+        <span class="stat-badge">
+          {{ item.prix }}
+        </span>
+      </div>
+      <div class="mobile-stat">
+        <span class="mobile-stat-label">Info</span>
+        <span class="stat-badge">
+          {{ item.informations }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -75,19 +75,3 @@
   white-space: normal;
   min-width: 18rem;
 }
-
-@media (max-width: 700px) {
-  :host ::ng-deep .boutique-table-gemmes table {
-    min-width: 32rem;
-  }
-
-  :host ::ng-deep .boutique-table-gemmes .p-datatable-thead > tr > th,
-  :host ::ng-deep .boutique-table-gemmes .p-datatable-tbody > tr > td {
-    padding: 0.7rem 0.65rem;
-    font-size: 0.9rem;
-  }
-
-  .td-infos {
-    min-width: 14rem;
-  }
-}

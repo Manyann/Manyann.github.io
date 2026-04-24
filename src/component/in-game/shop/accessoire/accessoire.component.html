@@ -12,9 +12,8 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pFrozenColumn>Nom</th>
-        <th pFrozenColumn pSortableColumn="prix">Prix</th>
-        <th>Durée</th>
+        <th>Nom</th>
+        <th pSortableColumn="prix">Prix</th>
         <th pSortableColumn="vie">EV</th>
         <th pSortableColumn="mana">EA</th>
         <th>AT / PRD</th>
@@ -24,6 +23,8 @@
         <th pSortableColumn="adresse">AD</th>
         <th pSortableColumn="force">FO</th>
         <th pSortableColumn="chance">CHN</th>
+        <th pSortableColumn="chance">PR</th>
+        <th pSortableColumn="chance">RUP</th>
         <th>Informations</th>
       </tr>
     </ng-template>
@@ -37,13 +38,8 @@
     </ng-template>
     <ng-template pTemplate="body" let-item>
       <tr>
-        <td pFrozenColumn>{{ item.libelle }}</td>
-        <td
-          pFrozenColumn
-          class="td-price"
-          [innerHTML]="item.prix | promotion: 0"
-        ></td>
-        <td [innerHTML]="item.duree"></td>
+        <td>{{ item.libelle }}</td>
+        <td class="td-price" [innerHTML]="item.prix | promotion: 0"></td>
         <td [innerHTML]="item.vie"></td>
         <td [innerHTML]="item.mana"></td>
         <td>{{ item.attaque }} / {{ item.parade }}</td>
@@ -53,6 +49,8 @@
         <td [innerHTML]="item.adresse"></td>
         <td [innerHTML]="item.force"></td>
         <td>{{ item.chance }}</td>
+        <td>{{ item.armure }}</td>
+        <td>{{ item.rupture }}</td>
         <td [innerHTML]="item.informations"></td>
       </tr>
     </ng-template>
@@ -70,13 +68,6 @@
         <span class="mobile-stat-label">PO</span>
         <span class="stat-badge">
           {{ item.prix }}
-        </span>
-      </div>
-
-      <div class="mobile-stat">
-        <span class="mobile-stat-label">Durée</span>
-        <span class="stat-badge {{ item.duree }}">
-          {{ item.duree }}
         </span>
       </div>
 
@@ -155,6 +146,24 @@
           <span class="mobile-stat-label">CHN</span>
           <span class="stat-badge">
             {{ item.chance }}
+          </span>
+        </div>
+      }
+
+      @if (item.armure !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">PR</span>
+          <span class="stat-badge">
+            {{ item.armure }}
+          </span>
+        </div>
+      }
+
+      @if (item.rupture !== "") {
+        <div class="mobile-stat">
+          <span class="mobile-stat-label">RUP</span>
+          <span class="stat-badge">
+            {{ item.rupture }}
           </span>
         </div>
       }

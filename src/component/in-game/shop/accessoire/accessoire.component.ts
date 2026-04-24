@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { PromotionPipe } from '../promotion.pipe';
-import { Item, ItemHelper, Potion } from '../../../model/item';
+import { Accessoire, Item, ItemHelper, Potion } from '../../../model/item';
 import { Ville, VilleHelper } from '../../../model/villes';
 
 @Component({
-  selector: 'app-shop-potion',
+  selector: 'app-shop-accessoire',
   standalone: true,
   imports: [
     CommonModule,
@@ -17,18 +17,18 @@ import { Ville, VilleHelper } from '../../../model/villes';
     ButtonModule,
     PromotionPipe,
   ],
-  templateUrl: './potion.component.html',
+  templateUrl: './accessoire.component.html',
   styleUrls: [
     '../../../../assets/css/badge.css',
     '../../../../assets/css/card.css',
-    './potion.component.css',
+    './accessoire.component.css',
   ],
 })
-export class PotionComponent {
+export class AccessoireComponent {
   @Input() selectedVilleType: string = 'capitale';
 
   villes: Array<Ville>;
-  items: Array<Potion> = [];
+  items: Array<Accessoire> = [];
 
   constructor() {
     this.villes = VilleHelper.getAll().sort((a, b) =>
@@ -39,7 +39,7 @@ export class PotionComponent {
   public filterItems() {
     let ville = this.villes.find((x) => x.type == this.selectedVilleType);
 
-    this.items = ItemHelper.getAllPotion().filter((x) =>
+    this.items = ItemHelper.getAllAccesoire().filter((x) =>
       this.estPresent(x, ville),
     );
   }

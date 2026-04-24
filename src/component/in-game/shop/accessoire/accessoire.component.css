@@ -1,0 +1,356 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+:host ::ng-deep .boutique-table {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+:host ::ng-deep .boutique-table .p-datatable {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+}
+
+:host ::ng-deep .boutique-table .p-datatable-wrapper {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+:host ::ng-deep .boutique-table table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  min-width: 70rem;
+}
+
+:host ::ng-deep .boutique-table .p-datatable-thead > tr > th {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.02)
+    ),
+    var(--bg-secondary);
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  padding: 0.9rem 0.85rem;
+}
+
+:host ::ng-deep .boutique-table .p-datatable-tbody > tr > td,
+:host ::ng-deep .boutique-table .p-datatable-tbody > tr > th {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 0.85rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .boutique-table .p-datatable-tbody > tr:nth-child(even) > td,
+:host ::ng-deep .boutique-table .p-datatable-tbody > tr:nth-child(even) > th {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+:host ::ng-deep .boutique-table .p-datatable-tbody > tr:hover > td,
+:host ::ng-deep .boutique-table .p-datatable-tbody > tr:hover > th {
+  background: rgba(200, 170, 110, 0.08);
+}
+
+.group-header td {
+  background: linear-gradient(
+    90deg,
+    rgba(200, 170, 110, 0.16),
+    rgba(255, 255, 255, 0.02)
+  ) !important;
+  color: var(--accent) !important;
+  font-weight: 800;
+  text-align: left;
+  font-size: 1rem;
+  letter-spacing: 0.2px;
+  border-left: 4px solid var(--accent);
+  padding: 0.85rem 1rem !important;
+  white-space: nowrap;
+}
+
+:host ::ng-deep .boutique-table .p-frozen-column {
+  background: #171a1f !important;
+}
+
+:host ::ng-deep .boutique-table .p-datatable-tbody > tr:hover .p-frozen-column {
+  background: rgba(200, 170, 110, 0.08) !important;
+}
+
+/* Colonnes longues */
+:host ::ng-deep .boutique-table td:last-child,
+:host ::ng-deep .boutique-table th:last-child {
+  white-space: normal;
+  min-width: 18rem;
+  line-height: 1.4;
+}
+
+/* Mobile / petits écrans */
+@media (max-width: 900px) {
+  :host ::ng-deep .boutique-table table {
+    min-width: 58rem;
+  }
+
+  :host ::ng-deep .boutique-table .p-datatable-thead > tr > th {
+    padding: 0.7rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  :host ::ng-deep .boutique-table .p-datatable-tbody > tr > td,
+  :host ::ng-deep .boutique-table .p-datatable-tbody > tr > th {
+    padding: 0.65rem 0.65rem;
+    font-size: 0.88rem;
+  }
+
+  :host ::ng-deep .boutique-table td:last-child,
+  :host ::ng-deep .boutique-table th:last-child {
+    min-width: 14rem;
+  }
+}
+
+@media (max-width: 600px) {
+  :host ::ng-deep .boutique-table table {
+    min-width: 52rem;
+  }
+
+  .group-header td {
+    font-size: 0.92rem;
+    padding: 0.7rem 0.8rem !important;
+  }
+}
+
+/* =========================
+   TAGS D'ORIGINE
+========================= */
+
+.shop-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.45rem;
+  padding: 0.14rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border: 1px solid transparent;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.tag-default {
+  background: rgba(255, 255, 255, 0.06);
+  color: #d7d7d7;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.tag-elfe {
+  background: rgba(255, 215, 0, 0.14);
+  color: #ffd95e;
+  border-color: rgba(255, 215, 0, 0.28);
+}
+
+.tag-nain {
+  background: rgba(255, 153, 0, 0.14);
+  color: #ffb347;
+  border-color: rgba(255, 153, 0, 0.28);
+}
+
+.tag-orc {
+  background: rgba(80, 200, 120, 0.14);
+  color: #75df8c;
+  border-color: rgba(80, 200, 120, 0.28);
+}
+
+.tag-pirate {
+  background: rgba(255, 90, 90, 0.14);
+  color: #ff8e8e;
+  border-color: rgba(255, 90, 90, 0.28);
+}
+
+.tag-sable {
+  background: rgba(90, 220, 255, 0.14);
+  color: #8be9ff;
+  border-color: rgba(90, 220, 255, 0.28);
+}
+
+.tag-samurai {
+  background: rgba(180, 100, 255, 0.14);
+  color: #c99cff;
+  border-color: rgba(180, 100, 255, 0.28);
+}
+
+/* =========================
+   BONUS
+========================= */
+
+.shop-bonus {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.4rem;
+  padding: 0.12rem 0.46rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.bonus-elfe {
+  background: rgba(255, 215, 0, 0.14);
+  color: #ffd95e;
+  border-color: rgba(255, 215, 0, 0.26);
+}
+
+.bonus-nain {
+  background: rgba(255, 153, 0, 0.14);
+  color: #ffb347;
+  border-color: rgba(255, 153, 0, 0.26);
+}
+
+.bonus-orc {
+  background: rgba(80, 200, 120, 0.14);
+  color: #75df8c;
+  border-color: rgba(80, 200, 120, 0.26);
+}
+
+.bonus-pirate {
+  background: rgba(255, 90, 90, 0.14);
+  color: #ff8e8e;
+  border-color: rgba(255, 90, 90, 0.26);
+}
+
+.bonus-sable {
+  background: rgba(90, 220, 255, 0.14);
+  color: #8be9ff;
+  border-color: rgba(90, 220, 255, 0.26);
+}
+
+.bonus-samurai {
+  background: rgba(180, 100, 255, 0.14);
+  color: #c99cff;
+  border-color: rgba(180, 100, 255, 0.26);
+}
+
+/* =========================
+   PRIX / PROMOTIONS
+========================= */
+
+.shop-price {
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.shop-price-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  margin-left: 0.45rem;
+  padding: 0.16rem 0.42rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.shop-price-badge i {
+  font-size: 0.72rem;
+}
+
+.price-sale-strong {
+  background: rgba(50, 200, 120, 0.18);
+  color: #7ef0aa;
+  border-color: rgba(50, 200, 120, 0.32);
+}
+
+.price-sale {
+  background: rgba(80, 200, 120, 0.14);
+  color: #79e79c;
+  border-color: rgba(80, 200, 120, 0.26);
+}
+
+.price-up {
+  background: rgba(255, 120, 120, 0.14);
+  color: #ff9797;
+  border-color: rgba(255, 120, 120, 0.26);
+}
+
+.price-up-strong {
+  background: rgba(255, 90, 90, 0.18);
+  color: #ff7c7c;
+  border-color: rgba(255, 90, 90, 0.32);
+}
+
+/* cellule prix */
+.shop-price-cell {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.22rem;
+  min-width: 4.2rem;
+}
+
+.shop-price {
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.shop-price-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  padding: 0.14rem 0.38rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.shop-price-badge i {
+  font-size: 0.68rem;
+  line-height: 1;
+}
+
+.price-sale-strong {
+  background: rgba(50, 200, 120, 0.18);
+  color: #7ef0aa;
+  border-color: rgba(50, 200, 120, 0.32);
+}
+
+.price-sale {
+  background: rgba(80, 200, 120, 0.14);
+  color: #79e79c;
+  border-color: rgba(80, 200, 120, 0.26);
+}
+
+.price-up {
+  background: rgba(255, 120, 120, 0.14);
+  color: #ff9797;
+  border-color: rgba(255, 120, 120, 0.26);
+}
+
+.price-up-strong {
+  background: rgba(255, 90, 90, 0.18);
+  color: #ff7c7c;
+  border-color: rgba(255, 90, 90, 0.32);
+}

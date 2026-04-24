@@ -13,6 +13,7 @@ import { GemmeComponent } from './gemme/gemme.component';
 import { Categorie, ItemHelper } from '../../model/item';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { PanelModule } from 'primeng/panel';
+import { AccessoireComponent } from './accessoire/accessoire.component';
 
 @Component({
   selector: 'app-shop',
@@ -29,6 +30,7 @@ import { PanelModule } from 'primeng/panel';
     GemmeComponent,
     InputSwitchModule,
     PanelModule,
+    AccessoireComponent,
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
