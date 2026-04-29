@@ -3012,7 +3012,7 @@ export class ItemHelper {
         libelle: 'Ensemble',
         basePourcentage: 200,
         region: 'commun',
-        origine: this.getOrigine(zone, 'armure-cuir'),
+        origine: 'commun',
         categorie: {
           code: 'armure-cuir',
           libelle: 'Cuir',
@@ -3146,7 +3146,7 @@ export class ItemHelper {
         libelle: 'Ensemble renforcé',
         basePourcentage: 250,
         region: 'commun',
-        origine: this.getOrigine(zone, 'armure-cuir'),
+        origine: 'commun',
         categorie: {
           code: 'armure-cuir-renforce',
           libelle: 'Cuir Renforcé',
@@ -3280,7 +3280,7 @@ export class ItemHelper {
         libelle: 'Ensemble travaillé',
         basePourcentage: 250,
         region: 'commun',
-        origine: this.getOrigine(zone, 'armure-cuir'),
+        origine: 'commun',
         categorie: {
           code: 'armure-cuir-travaille',
           libelle: 'Cuir Travaillé',
@@ -3414,7 +3414,7 @@ export class ItemHelper {
         libelle: 'Ensemble de mailles',
         basePourcentage: 250,
         region: 'commun',
-        origine: this.getOrigine(zone, 'armure-maille'),
+        origine: 'commun',
         categorie: {
           code: 'armure-maille',
           libelle: 'Mailles',
@@ -3548,7 +3548,7 @@ export class ItemHelper {
         libelle: 'Ensemble de mailles renforcé',
         basePourcentage: 250,
         region: 'commun',
-        origine: this.getOrigine(zone, 'armure-maille'),
+        origine: 'commun',
         categorie: {
           code: 'armure-maille-renforcee',
           libelle: 'Mailles renforcées',
@@ -3682,7 +3682,7 @@ export class ItemHelper {
         libelle: 'Ensemble de mailles travaillé',
         basePourcentage: 250,
         region: 'commun',
-        origine: this.getOrigine(zone, 'armure-maille'),
+        origine: 'commun',
         categorie: {
           code: 'armure-maille-travaillee',
           libelle: 'Mailles Travaillées',
@@ -3816,7 +3816,7 @@ export class ItemHelper {
         libelle: 'Ensemble de plaque',
         basePourcentage: 65,
         region: 'commun',
-        origine: this.getOrigine(zone, 'armure-plaque'),
+        origine: 'commun',
         categorie: {
           code: 'armure-plaque',
           libelle: 'Plaque',
@@ -3950,7 +3950,7 @@ export class ItemHelper {
         libelle: 'Ensemble de plaque renforcé',
         basePourcentage: 60,
         region: 'commun',
-        origine: this.getOrigine(zone, 'armure-plaque'),
+        origine: 'commun',
         categorie: {
           code: 'armure-plaque-renforcee',
           libelle: 'Plaque Renforcée',
@@ -4084,7 +4084,7 @@ export class ItemHelper {
         libelle: 'Ensemble de plaque travaillé',
         basePourcentage: 55,
         region: 'commun',
-        origine: this.getOrigine(zone, 'armure-plaque'),
+        origine: 'commun',
         categorie: {
           code: 'armure-plaque-travaillee',
           libelle: 'Plaque Travaillée',
@@ -4487,6 +4487,7 @@ export class ItemHelper {
 
   static getAllArmureForLoot(): Record<ItemRarity, LootItem[]> {
     let items = this.getAllArmure()
+      .filter((x) => x.prix > 0)
       .map((item) => ({
         name: item.libelle,
         rarity: this.getQualiteFromBaseChance(
