@@ -863,7 +863,6 @@ export class StatistiquesService {
   }
 
   async getMaxEnnemisJoueur(joueur: string) {
-    debugger;
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
 
     let totalMobByName: Record<string, number> = {};
