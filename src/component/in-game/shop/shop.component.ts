@@ -45,6 +45,8 @@ export class ShopComponent {
   categories: Array<Categorie> = [];
   categorieSelectable: Array<Categorie> = [];
   categoriesArmures: Array<Categorie> = [];
+  categoriesAccessoires: Array<Categorie> = [];
+  categoriesPotions: Array<Categorie> = [];
   activeCategorieCodes: Array<string> = [];
   categoryStates: Record<string, boolean> = {};
   activeIndex: number = 0;
@@ -62,6 +64,8 @@ export class ShopComponent {
     this.selectedZone = '';
     this.categories = ItemHelper.getAllCategories();
     this.categoriesArmures = ItemHelper.getAllCategoriesArmure();
+    this.categoriesPotions = ItemHelper.getAllCategoriesPotion();
+    this.categoriesAccessoires = ItemHelper.getAllCategoriesAccessoire();
     this.buildCategories(this.categories);
   }
 
@@ -69,24 +73,17 @@ export class ShopComponent {
     const nextStates: Record<string, boolean> = {};
 
     for (const category of categories) {
-      nextStates[category.code] = this.categoryStates[category.code] ?? true;
+      nextStates[category.code] = this.categoryStates[category.code] ?? false;
     }
 
     this.categoryStates = nextStates;
     this.categorieSelectable = categories;
   }
 
-  onCategoryToggle(): void {
-    let categoriesToFilter: Categorie[] = [];
-    if (this.activeIndex === 0) {
-      categoriesToFilter = this.categories;
-    } else if (this.activeIndex === 1) {
-      categoriesToFilter = this.categoriesArmures;
-    }
-
-    this.activeCategorieCodes = categoriesToFilter
-      .filter((category) => this.categoryStates[category.code])
-      .map((category) => category.code);
+  onCategoryToggle() {
+    this.activeCategorieCodes = Object.keys(this.categoryStates).filter(
+      (code) => this.categoryStates[code],
+    );
   }
 
   onChangedVille(event: Event): void {
@@ -107,6 +104,10 @@ export class ShopComponent {
       this.buildCategories(this.categories);
     } else if (event.index === 1) {
       this.buildCategories(this.categoriesArmures);
+    } else if (event.index === 2) {
+      this.buildCategories(this.categoriesAccessoires);
+    } else if (event.index === 3) {
+      this.buildCategories(this.categoriesPotions);
     } else {
       this.buildCategories([]);
     }

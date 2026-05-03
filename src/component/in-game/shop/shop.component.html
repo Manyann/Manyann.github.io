@@ -45,40 +45,112 @@
       </div>
     </div>
   </p-panel>
+  <div class="desktop-view">
+    <p-tabView class="custom-tabs shop-tabs" (onChange)="onTabChange($event)">
+      <p-tabPanel header="Armes">
+        <app-shop-arme
+          [selectedVilleType]="selectedVilleType"
+          [selectedRegion]="selectedZone"
+          [activeCategorieCodes]="activeCategorieCodes"
+        >
+        </app-shop-arme>
+      </p-tabPanel>
 
-  <p-tabView class="custom-tabs shop-tabs" (onChange)="onTabChange($event)">
-    <p-tabPanel header="Armes">
-      <app-shop-arme
-        [selectedVilleType]="selectedVilleType"
-        [selectedRegion]="selectedZone"
-        [activeCategorieCodes]="activeCategorieCodes"
-      >
-      </app-shop-arme>
-    </p-tabPanel>
+      <p-tabPanel header="Armures">
+        <app-shop-armure
+          [selectedVilleType]="selectedVilleType"
+          [selectedRegion]="selectedZone"
+          [activeCategorieCodes]="activeCategorieCodes"
+        >
+        </app-shop-armure>
+      </p-tabPanel>
 
-    <p-tabPanel header="Armures">
-      <app-shop-armure
-        [selectedVilleType]="selectedVilleType"
-        [selectedRegion]="selectedZone"
-        [activeCategorieCodes]="activeCategorieCodes"
-      >
-      </app-shop-armure>
-    </p-tabPanel>
+      <p-tabPanel header="Accessoire">
+        <app-shop-accessoire
+          [selectedVilleType]="selectedVilleType"
+          [activeCategorieCodes]="activeCategorieCodes"
+        ></app-shop-accessoire>
+      </p-tabPanel>
 
-    <p-tabPanel header="Accessoire">
-      <app-shop-accessoire
-        [selectedVilleType]="selectedVilleType"
-      ></app-shop-accessoire>
-    </p-tabPanel>
+      <p-tabPanel header="Potions">
+        <app-shop-potion
+          [selectedVilleType]="selectedVilleType"
+          [activeCategorieCodes]="activeCategorieCodes"
+        ></app-shop-potion>
+      </p-tabPanel>
 
-    <p-tabPanel header="Potions">
-      <app-shop-potion
-        [selectedVilleType]="selectedVilleType"
-      ></app-shop-potion>
-    </p-tabPanel>
+      <p-tabPanel header="Gemmes">
+        <app-shop-gemme
+          [selectedVilleType]="selectedVilleType"
+        ></app-shop-gemme>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
 
-    <p-tabPanel header="Gemmes">
-      <app-shop-gemme [selectedVilleType]="selectedVilleType"></app-shop-gemme>
-    </p-tabPanel>
-  </p-tabView>
+  <div class="mobile-view">
+    <p-tabView class="custom-tabs shop-tabs" (onChange)="onTabChange($event)">
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center gap-2">
+            <img src="assets/icons/arme.svg" width="16" height="16" />
+          </span>
+        </ng-template>
+        <app-shop-arme
+          [selectedVilleType]="selectedVilleType"
+          [selectedRegion]="selectedZone"
+          [activeCategorieCodes]="activeCategorieCodes"
+        >
+        </app-shop-arme>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center gap-2">
+            <img src="assets/icons/armure.svg" width="16" height="16" />
+          </span>
+        </ng-template>
+        <app-shop-armure
+          [selectedVilleType]="selectedVilleType"
+          [selectedRegion]="selectedZone"
+          [activeCategorieCodes]="activeCategorieCodes"
+        >
+        </app-shop-armure>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center gap-2">
+            <img src="assets/icons/accessoire.svg" width="16" height="16" />
+          </span>
+        </ng-template>
+        <app-shop-accessoire
+          [selectedVilleType]="selectedVilleType"
+          [activeCategorieCodes]="activeCategorieCodes"
+        ></app-shop-accessoire>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center gap-2">
+            <img src="assets/icons/potion.svg" width="16" height="16" />
+          </span>
+        </ng-template>
+        <app-shop-potion
+          [selectedVilleType]="selectedVilleType"
+          [activeCategorieCodes]="activeCategorieCodes"
+        ></app-shop-potion>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center gap-2">
+            <img src="assets/icons/gemme.svg" width="16" height="16" />
+          </span>
+        </ng-template>
+        <app-shop-gemme
+          [selectedVilleType]="selectedVilleType"
+        ></app-shop-gemme>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
 </div>

@@ -9,6 +9,9 @@ export class PromotionPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(value: number, promotion: number): SafeHtml {
+    if (value === 0) {
+      return '';
+    }
     let badge = '';
 
     if (promotion === -20) {

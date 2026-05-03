@@ -1,11 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { PromotionPipe } from '../promotion.pipe';
-import { Accessoire, Item, ItemHelper, Potion } from '../../../model/item';
+import {
+  Accessoire,
+  AccessoireVente,
+  Item,
+  ItemHelper,
+  Potion,
+} from '../../../model/item';
 import { Ville, VilleHelper } from '../../../model/villes';
+import { ShopService } from '../shop.service';
 
 @Component({
   selector: 'app-shop-accessoire',
@@ -26,41 +33,36 @@ import { Ville, VilleHelper } from '../../../model/villes';
 })
 export class AccessoireComponent {
   @Input() selectedVilleType: string = 'capitale';
+  @Input() activeCategorieCodes: Array<string> = [];
 
   villes: Array<Ville>;
-  items: Array<Accessoire> = [];
+  items: Array<AccessoireVente> = [];
+  allItems: Array<AccessoireVente> = [];
 
   constructor() {
     this.villes = VilleHelper.getAll().sort((a, b) =>
       a.libelle.localeCompare(b.libelle),
     );
-  }
-
-  public filterItems() {
-    let ville = this.villes.find((x) => x.type == this.selectedVilleType);
-
-    this.items = ItemHelper.getAllAccesoire().filter((x) =>
-      this.estPresent(x, ville),
+    this.allItems = ShopService.mapToVente(
+      ItemHelper.getAllAccesoire(),
+      () => new AccessoireVente(),
+      (vente, item) => {
+        vente.accessoire = item;
+      },
     );
   }
 
-  public estPresent(item: Item, ville: Ville | undefined): boolean {
-    if (ville === undefined) {
-      return true;
-    }
-
-    let random = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
-    let handicap = item.basePourcentage;
-    handicap -= ville.handicap;
-
-    if (handicap < 1) {
-      handicap = 1;
-    }
-
-    return random < handicap;
+  ngOnChanges(): void {
+    this.refreshItems();
   }
 
-  ngOnChanges() {
-    this.filterItems();
+  private refreshItems() {
+    this.items = ShopService.refreshItems(
+      this.allItems,
+      this.villes,
+      this.selectedVilleType,
+      this.activeCategorieCodes,
+      (vente) => vente.accessoire,
+    );
   }
 }

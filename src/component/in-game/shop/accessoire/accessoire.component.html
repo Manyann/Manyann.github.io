@@ -1,12 +1,11 @@
 <div class="desktop-view">
-  >
   <p-table
     [value]="items"
     [scrollable]="true"
     scrollHeight="35rem"
-    dataKey="categorie.code"
+    dataKey="accessoire.categorie.code"
     rowGroupMode="subheader"
-    groupRowsBy="categorie.code"
+    groupRowsBy="accessoire.categorie.code"
     [tableStyle]="{ 'min-width': '70rem' }"
     styleClass="mt-3 p-datatable-striped boutique-table"
   >
@@ -32,26 +31,29 @@
     <ng-template pTemplate="groupheader" let-item let-expanded="expanded">
       <tr class="group-header">
         <td colspan="100%">
-          <div>{{ item.categorie.libelle }}</div>
+          <div>{{ item.accessoire.categorie.libelle }}</div>
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item>
       <tr>
-        <td>{{ item.libelle }}</td>
-        <td class="td-price" [innerHTML]="item.prix | promotion: 0"></td>
-        <td [innerHTML]="item.vie"></td>
-        <td [innerHTML]="item.mana"></td>
-        <td>{{ item.attaque }} / {{ item.parade }}</td>
-        <td>{{ item.courage }}</td>
-        <td>{{ item.intelligence }}</td>
-        <td>{{ item.charisme }}</td>
-        <td [innerHTML]="item.adresse"></td>
-        <td [innerHTML]="item.force"></td>
-        <td>{{ item.chance }}</td>
-        <td>{{ item.armure }}</td>
-        <td>{{ item.rupture }}</td>
-        <td [innerHTML]="item.informations"></td>
+        <td>{{ item.accessoire.libelle }}</td>
+        <td
+          class="td-price"
+          [innerHTML]="item.accessoire.prix | promotion: item.promotion"
+        ></td>
+        <td [innerHTML]="item.accessoire.vie"></td>
+        <td [innerHTML]="item.accessoire.mana"></td>
+        <td>{{ item.accessoire.attaque }} / {{ item.accessoire.parade }}</td>
+        <td>{{ item.accessoire.courage }}</td>
+        <td>{{ item.accessoire.intelligence }}</td>
+        <td>{{ item.accessoire.charisme }}</td>
+        <td [innerHTML]="item.accessoire.adresse"></td>
+        <td [innerHTML]="item.accessoire.force"></td>
+        <td>{{ item.accessoire.chance }}</td>
+        <td>{{ item.accessoire.armure }}</td>
+        <td>{{ item.accessoire.rupture }}</td>
+        <td [innerHTML]="item.accessoire.informations"></td>
       </tr>
     </ng-template>
   </p-table>
@@ -60,119 +62,121 @@
 <div class="mobile-cards">
   <div *ngFor="let item of items" class="mobile-card">
     <div class="mobile-card-header">
-      <div class="mobile-card-title">{{ item.libelle }}</div>
+      <div class="mobile-card-title">{{ item.accessoire.libelle }}</div>
     </div>
 
     <div class="mobile-stats-grid">
       <div class="mobile-stat">
         <span class="mobile-stat-label">PO</span>
         <span class="stat-badge">
-          {{ item.prix }}
+          {{ item.accessoire.prix }}
         </span>
       </div>
 
-      @if (item.vie !== "") {
+      @if (item.accessoire.vie !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">EV</span>
           <span class="stat-badge">
-            {{ item.vie }}
+            {{ item.accessoire.vie }}
           </span>
         </div>
       }
 
-      @if (item.mana !== "") {
+      @if (item.accessoire.mana !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">EA</span>
           <span class="stat-badge">
-            {{ item.mana }}
+            {{ item.accessoire.mana }}
           </span>
         </div>
       }
 
-      @if (item.attaque !== "" || item.parade !== "") {
+      @if (item.accessoire.attaque !== "" || item.accessoire.parade !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">AR/PRD</span>
-          <span class="stat-badge"> {{ item.attaque }}/{{ item.parade }} </span>
+          <span class="stat-badge">
+            {{ item.accessoire.attaque }}/{{ item.accessoire.parade }}
+          </span>
         </div>
       }
 
-      @if (item.courage !== "") {
+      @if (item.accessoire.courage !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">COU</span>
           <span class="stat-badge">
-            {{ item.courage }}
+            {{ item.accessoire.courage }}
           </span>
         </div>
       }
 
-      @if (item.intelligence !== "") {
+      @if (item.accessoire.intelligence !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">INT</span>
           <span class="stat-badge">
-            {{ item.intelligence }}
+            {{ item.accessoire.intelligence }}
           </span>
         </div>
       }
 
-      @if (item.charisme !== "") {
+      @if (item.accessoire.charisme !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">CHA</span>
           <span class="stat-badge">
-            {{ item.charisme }}
+            {{ item.accessoire.charisme }}
           </span>
         </div>
       }
 
-      @if (item.adresse !== "") {
+      @if (item.accessoire.adresse !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">AD</span>
           <span class="stat-badge">
-            {{ item.adresse }}
+            {{ item.accessoire.adresse }}
           </span>
         </div>
       }
 
-      @if (item.force !== "") {
+      @if (item.accessoire.force !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">FO</span>
           <span class="stat-badge">
-            {{ item.force }}
+            {{ item.accessoire.force }}
           </span>
         </div>
       }
 
-      @if (item.chance !== "") {
+      @if (item.accessoire.chance !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">CHN</span>
           <span class="stat-badge">
-            {{ item.chance }}
+            {{ item.accessoire.chance }}
           </span>
         </div>
       }
 
-      @if (item.armure !== "") {
+      @if (item.accessoire.armure !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">PR</span>
           <span class="stat-badge">
-            {{ item.armure }}
+            {{ item.accessoire.armure }}
           </span>
         </div>
       }
 
-      @if (item.rupture !== "") {
+      @if (item.accessoire.rupture !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">RUP</span>
           <span class="stat-badge">
-            {{ item.rupture }}
+            {{ item.accessoire.rupture }}
           </span>
         </div>
       }
 
-      @if (item.informations !== "") {
+      @if (item.accessoire.informations !== "") {
         <div class="mobile-stat">
           <span class="mobile-stat-label">INFO</span>
           <span class="stat-badge">
-            {{ item.informations }}
+            {{ item.accessoire.informations }}
           </span>
         </div>
       }

@@ -443,6 +443,9 @@ p-inputswitch {
     width: 2rem;
     margin: 0;
   }
+  .p-tabview .p-tabview-nav li {
+    margin-right: 0;
+  }
 }
 /* RARITIES */
 .rarity-perave {

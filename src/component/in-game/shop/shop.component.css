@@ -187,4 +187,28 @@
   .category-switch {
     width: 7rem;
   }
+
+  .p-tabview .p-tabview-nav li {
+    margin: 0;
+  }
+}
+
+.desktop-view {
+  display: block;
+}
+
+.mobile-view {
+  display: none;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+@media (max-width: 520px) {
+  .desktop-view {
+    display: none;
+  }
+
+  .mobile-view {
+    display: flex;
+  }
 }

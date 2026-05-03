@@ -29,4 +29,8 @@ export class CreationComponent {
     this.origineName = origineName;
     this.activeIndex = 1;
   }
+
+  onTabChange() {
+    this.origineName = '';
+  }
 }

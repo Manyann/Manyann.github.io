@@ -1,5 +1,9 @@
 <div class="creation-page">
-  <p-tabView [(activeIndex)]="activeIndex" class="creation-tabs">
+  <p-tabView
+    [(activeIndex)]="activeIndex"
+    class="creation-tabs"
+    (onChange)="onTabChange()"
+  >
     <p-tabPanel header="Classes">
       <app-origine (openMetier)="openMetiers($event)"></app-origine>
     </p-tabPanel>

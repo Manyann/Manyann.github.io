@@ -13,7 +13,6 @@ import { UnMetierListComponent } from '../../../common/unmetier-list/unmetier-li
   selector: 'app-origine',
   standalone: true,
   imports: [
-    RouterOutlet,
     CommonModule,
     TreeTableModule,
     SidebarComponent,

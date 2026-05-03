@@ -10,7 +10,7 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th></th>
+          <th style="width: 3rem"></th>
           <th>Metier</th>
           <th>COU</th>
           <th>INT</th>
@@ -73,9 +73,9 @@
               icon="pi pi-tag"
               styleClass="btn-origine btn-info"
             />
-            @if (rowData.treeLevel == 1 && origineName != "") {
+            @if (origineName != "") {
               <p-button
-                (onClick)="openInformationsComplete($event, rowData.shortCode)"
+                (click)="openInformationsComplete($event, rowNode.node)"
                 icon="pi pi-tags"
                 styleClass="btn-origine btn-infos"
               />
@@ -119,11 +119,9 @@
               icon="pi pi-tag"
               styleClass="btn-origine btn-info"
             />
-            @if (mobileCurrentLevel == 1 && origineName != "") {
+            @if (origineName != "") {
               <p-button
-                (onClick)="
-                  openInformationsComplete($event, node.data.shortCode)
-                "
+                (onClick)="openInformationsComplete($event, node.data)"
                 icon="pi pi-tags"
                 styleClass="btn-origine btn-infos"
               />
@@ -194,7 +192,7 @@
     </div>
   </div>
 
-    <app-sidebar [(visible)]="sidebarVisible">
+  <app-sidebar [(visible)]="sidebarVisible">
     <div class="sidebar-origine-title">{{ metierToSee.nom }}</div>
 
     @if (metierToSee.caracteristiques.length > 0) {
@@ -221,9 +219,7 @@
 
     @if (metierToSee.competencesHerites.length > 0) {
       <app-competence-list
-        [competences]="
-          metierToSee.competencesHerites
-        "
+        [competences]="metierToSee.competencesHerites"
       ></app-competence-list>
     }
 
@@ -238,54 +234,45 @@
   </app-sidebar>
 
   <app-sidebar [(visible)]="sidebarVisibleComplete">
-    <div class="sidebar-origine-title">{{ origine.nom }} {{ metierToSee.nom }}</div>
+    <div class="sidebar-origine-title">
+      {{ origine.nom }} {{ metierToSee.nom }}
+    </div>
 
-    <app-statistique-merge
-      [origine]="origine"
-      [metier]="metierToSee"
-    ></app-statistique-merge>
-
-    @if (metierToSee.caracteristiques.length > 0) {
-      <div class="parts" *ngIf="metierToSee.caracteristiques.length > 0">
+    @if (getAllCaracteristiques().length > 0) {
+      <div class="parts">
         <div class="title">Caractéristiques</div>
         <div class="list-item-details-items">
-          <span *ngFor="let caracteristique of origine.caracteristiques">
-            {{ caracteristique }}
-          </span>
-          <span *ngFor="let caracteristique of metierToSee.caracteristiques">
+          <span *ngFor="let caracteristique of getAllCaracteristiques()">
             {{ caracteristique }}
           </span>
         </div>
       </div>
     }
 
-    @if (metierToSee.restrictions.length > 0) {
-      <div class="parts" *ngIf="metierToSee.restrictions.length > 0">
+    @if (getAllRestrictions().length > 0) {
+      <div class="parts">
         <div class="title">Restrictions</div>
         <div class="list-item-details-items">
-          <span *ngFor="let restriction of origine.restrictions">
-            {{ restriction }}
-          </span>
-          <span *ngFor="let restriction of metierToSee.restrictions">
+          <span *ngFor="let restriction of getAllRestrictions()">
             {{ restriction }}
           </span>
         </div>
       </div>
     }
 
-    @if (metierToSee.competencesHerites.length > 0) {
+    @if (getAllCompetencesHerites().length > 0) {
       <app-competence-list
-        [competences]="
-          metierToSee.competencesHerites.concat(origine.competencesHerites)
-        "
+        [competences]="getAllCompetencesHerites()"
       ></app-competence-list>
     }
 
-    @if (metierToSee.autres.length > 0) {
-      <div class="parts list-autres" *ngIf="metierToSee.autres.length > 0">
+    @if (getAllAutres().length > 0) {
+      <div class="parts list-autres">
         <div class="title">Autres</div>
         <div class="list-item-details-items">
-          <span *ngFor="let autre of metierToSee.autres">{{ autre }}</span>
+          <span *ngFor="let autre of getAllAutres()">
+            {{ autre }}
+          </span>
         </div>
       </div>
     }

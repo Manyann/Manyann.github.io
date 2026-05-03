@@ -58,7 +58,7 @@ export class Accessoire extends Item {
 }
 
 export class AccessoireVente {
-  'accesoire': Accessoire;
+  'accessoire': Accessoire;
   'promotion': number;
   'prixReel': number;
 }
@@ -325,7 +325,7 @@ export class ItemHelper {
     ];
   }
 
-  static getAllCatergoriesAccesoire(): Array<Categorie> {
+  static getAllCategoriesAccessoire(): Array<Categorie> {
     return [
       {
         code: 'anneau',
@@ -350,6 +350,63 @@ export class ItemHelper {
       {
         code: 'gant',
         libelle: 'Gant',
+      },
+    ];
+  }
+
+  static getAllCategoriesPotion(): Array<Categorie> {
+    return [
+      {
+        code: 'adresse',
+        libelle: 'Adresse',
+      },
+      {
+        code: 'armure',
+        libelle: 'Armure',
+      },
+      {
+        code: 'armure-magique',
+        libelle: 'Armure magique',
+      },
+      {
+        code: 'attaque',
+        libelle: 'Attaque',
+      },
+      {
+        code: 'chance',
+        libelle: 'Chance',
+      },
+      {
+        code: 'charisme',
+        libelle: 'Charisme',
+      },
+      {
+        code: 'courage',
+        libelle: 'Courage',
+      },
+      {
+        code: 'force',
+        libelle: 'Force',
+      },
+      {
+        code: 'intelligence',
+        libelle: 'Intelligence',
+      },
+      {
+        code: 'mana',
+        libelle: 'Mana',
+      },
+      {
+        code: 'mixe',
+        libelle: 'Mixe',
+      },
+      {
+        code: 'parade',
+        libelle: 'Parade',
+      },
+      {
+        code: 'soins',
+        libelle: 'Soins',
       },
     ];
   }
@@ -3038,7 +3095,7 @@ export class ItemHelper {
         region: 'commun',
         origine: this.getOrigine(zone, 'armure-cuir'),
         categorie: {
-          code: 'armure-cuir-renforcé',
+          code: 'armure-cuir-renforce',
           libelle: 'Cuir Renforcé',
         },
         prix: 75,
