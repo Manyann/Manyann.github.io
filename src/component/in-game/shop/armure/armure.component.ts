@@ -46,6 +46,7 @@ export class ArmureComponent {
   villes: Array<Ville>;
   items: Array<ArmureVente> = [];
   allItems: Array<ArmureVente> = [];
+  availableItems: Array<ArmureVente> = [];
 
   constructor() {
     this.villes = VilleHelper.getAll().sort((a, b) =>
@@ -61,24 +62,35 @@ export class ArmureComponent {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedVilleType']) {
-      this.refreshItems();
-    }
-
     if (changes['selectedRegion']) {
       this.refreshZone();
+      return;
+    }
+
+    if (changes['selectedVilleType']) {
+      this.refreshPresence();
+      return;
     }
 
     if (changes['activeCategorieCodes']) {
-      this.refreshItems();
+      this.applyCategoryFilter();
     }
   }
 
-  private refreshItems() {
-    this.items = ShopService.refreshItems(
+  private refreshPresence(): void {
+    this.availableItems = ShopService.refreshPresence(
       this.allItems,
       this.villes,
       this.selectedVilleType,
+      (vente) => vente.armure,
+    );
+
+    this.applyCategoryFilter();
+  }
+
+  private applyCategoryFilter(): void {
+    this.items = ShopService.applyCategoryFilter(
+      this.availableItems,
       this.activeCategorieCodes,
       (vente) => vente.armure,
     );
@@ -93,7 +105,7 @@ export class ArmureComponent {
       },
     );
 
-    this.refreshItems();
+    this.refreshPresence();
   }
 
   public getStatStatut(stat: string) {

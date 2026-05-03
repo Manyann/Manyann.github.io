@@ -28,11 +28,29 @@ export class ShopService {
     activeCategorieCodes: Array<string>,
     getItem: (vente: V) => T,
   ): V[] {
-    const ville = villes.find((x) => x.type === selectedVilleType);
-    let items = allItems;
-    items = allItems.filter((vente) => this.estPresent(getItem(vente), ville));
+    const availableItems = this.refreshPresence(
+      allItems,
+      villes,
+      selectedVilleType,
+      getItem,
+    );
 
-    return this.applyCategoryFilter(items, activeCategorieCodes, getItem);
+    return this.applyCategoryFilter(
+      availableItems,
+      activeCategorieCodes,
+      getItem,
+    );
+  }
+
+  public static refreshPresence<T extends Item, V>(
+    allItems: V[],
+    villes: Ville[],
+    selectedVilleType: string,
+    getItem: (vente: V) => T,
+  ): V[] {
+    const ville = villes.find((x) => x.type === selectedVilleType);
+
+    return allItems.filter((vente) => this.estPresent(getItem(vente), ville));
   }
 
   public static mapToVente<
@@ -77,7 +95,7 @@ export class ShopService {
     });
   }
 
-  private static applyCategoryFilter<T extends Item, V>(
+  public static applyCategoryFilter<T extends Item, V>(
     items: V[],
     activeCategorieCodes: string[],
     getItem: (vente: V) => T,

@@ -32,6 +32,7 @@ export class PotionComponent {
   villes: Array<Ville>;
   items: Array<PotionVente> = [];
   allItems: Array<PotionVente> = [];
+  availableItems: Array<PotionVente> = [];
 
   constructor() {
     this.villes = VilleHelper.getAll().sort((a, b) =>
@@ -46,15 +47,31 @@ export class PotionComponent {
     );
   }
 
-  ngOnChanges(): void {
-    this.refreshItems();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedVilleType']) {
+      this.refreshPresence();
+      return;
+    }
+
+    if (changes['activeCategorieCodes']) {
+      this.applyCategoryFilter();
+    }
   }
 
-  private refreshItems() {
-    this.items = ShopService.refreshItems(
+  private refreshPresence(): void {
+    this.availableItems = ShopService.refreshPresence(
       this.allItems,
       this.villes,
       this.selectedVilleType,
+      (vente) => vente.potion,
+    );
+
+    this.applyCategoryFilter();
+  }
+
+  private applyCategoryFilter(): void {
+    this.items = ShopService.applyCategoryFilter(
+      this.availableItems,
       this.activeCategorieCodes,
       (vente) => vente.potion,
     );

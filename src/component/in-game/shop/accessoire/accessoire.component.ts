@@ -32,6 +32,7 @@ export class AccessoireComponent {
   villes: Array<Ville>;
   items: Array<AccessoireVente> = [];
   allItems: Array<AccessoireVente> = [];
+  availableItems: Array<AccessoireVente> = [];
 
   constructor() {
     this.villes = VilleHelper.getAll().sort((a, b) =>
@@ -46,15 +47,31 @@ export class AccessoireComponent {
     );
   }
 
-  ngOnChanges(): void {
-    this.refreshItems();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedVilleType']) {
+      this.refreshPresence();
+      return;
+    }
+
+    if (changes['activeCategorieCodes']) {
+      this.applyCategoryFilter();
+    }
   }
 
-  private refreshItems() {
-    this.items = ShopService.refreshItems(
+  private refreshPresence(): void {
+    this.availableItems = ShopService.refreshPresence(
       this.allItems,
       this.villes,
       this.selectedVilleType,
+      (vente) => vente.accessoire,
+    );
+
+    this.applyCategoryFilter();
+  }
+
+  private applyCategoryFilter(): void {
+    this.items = ShopService.applyCategoryFilter(
+      this.availableItems,
       this.activeCategorieCodes,
       (vente) => vente.accessoire,
     );
