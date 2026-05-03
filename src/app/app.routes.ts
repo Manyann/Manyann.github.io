@@ -7,7 +7,6 @@ import { HeroComponent } from '../component/documentation/hero/hero.component';
 import { EquipementComponent } from '../component/documentation/equipement/equipement.component';
 import { SortComponent } from '../component/documentation/hero/sort/sort.component';
 import { InGameComponent } from '../component/in-game/in-game.component';
-import { TeleportationComponent } from '../component/in-game/teleportation/teleportation.component';
 import { ShopComponent } from '../component/in-game/shop/shop.component';
 import { CreationComponent } from '../component/in-game/creation/creation.component';
 import { GestionComponent } from '../component/gestion/gestion.component';
@@ -16,35 +15,34 @@ import { StatistiqueComponent } from '../component/statistique/statistique.compo
 import { LootboxComponent } from '../component/in-game/lootbox/lootbox.component';
 
 export const routes: Routes = [
-    { path: '',component: HomeComponent,title: 'Home page'},
-    { 
-        path: 'documentation',
-        pathMatch:"full",
-        component:DocumentationComponent,
-    },
-    {path:"documentation/autres", component:AutreComponent},
-    {path:"documentation/bestiaires", component:BestiaireComponent},
-    {path:"documentation/equipements", component:EquipementComponent},
-    {path:"documentation/heros", component:HeroComponent},
-    {path:"documentation/heros/sorts", component:SortComponent},
-    { 
-        path: 'in-game',
-        pathMatch:"full",
-        component:InGameComponent,
-    },
-    {path:"in-game/teleportation", component:TeleportationComponent},
-    {path:"in-game/shop", component:ShopComponent},
-    {path:"in-game/creer", component:CreationComponent},
-    { 
-        path: 'gestion',
-        pathMatch:"full",
-        component:GestionComponent,
-    },
-    {path:"gestion/combat", component:CombatComponent},
-    {
-        path:"statistique",
-        pathMatch:"full",
-        component:StatistiqueComponent
-    },
-    {path:"loot", component:LootboxComponent},
+  { path: '', component: HomeComponent, title: 'Home page' },
+  {
+    path: 'documentation',
+    pathMatch: 'full',
+    component: DocumentationComponent,
+  },
+  { path: 'documentation/autres', component: AutreComponent },
+  { path: 'documentation/bestiaires', component: BestiaireComponent },
+  { path: 'documentation/equipements', component: EquipementComponent },
+  { path: 'documentation/heros', component: HeroComponent },
+  { path: 'documentation/heros/sorts', component: SortComponent },
+  {
+    path: 'in-game',
+    pathMatch: 'full',
+    component: InGameComponent,
+  },
+  { path: 'in-game/shop', component: ShopComponent },
+  { path: 'in-game/creer', component: CreationComponent },
+  {
+    path: 'gestion',
+    pathMatch: 'full',
+    component: GestionComponent,
+  },
+  { path: 'gestion/combat', component: CombatComponent },
+  {
+    path: 'statistique',
+    pathMatch: 'full',
+    component: StatistiqueComponent,
+  },
+  { path: 'loot', component: LootboxComponent },
 ];
