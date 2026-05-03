@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { CodeLibelle } from '../../model/code-libelle';
-import { CreationHelper } from '../../model/creation';
+import { CreationHelper } from '../../../services/creation';
 
 @Component({
   selector: 'app-competence-list',

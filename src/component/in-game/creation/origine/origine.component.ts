@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Output, EventEmitter } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { TreeTableModule } from 'primeng/treetable';
-import { CreationHelper, Origine } from '../../../model/creation';
 import { TreeNode } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
 import { CompetenceListComponent } from '../../../common/competence-list/competence-list.component';
 import { UnMetierListComponent } from '../../../common/unmetier-list/unmetier-list.component';
+import { CreationHelper, Origine } from '../../../../services/creation';
 
 @Component({
   selector: 'app-origine',

@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
+
+import { TreeNode } from 'primeng/api';
+import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
+import { ButtonModule } from 'primeng/button';
+import { CompetenceListComponent } from '../../../common/competence-list/competence-list.component';
 import {
   Caracteristique,
   CreationHelper,
   Metier,
   Origine,
-} from '../../../model/creation';
-import { TreeNode } from 'primeng/api';
-import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
-import { ButtonModule } from 'primeng/button';
-import { CompetenceListComponent } from '../../../common/competence-list/competence-list.component';
-import { StatistiqueComponent } from '../../../statistique/statistique.component';
-import { StatistiqueMergeComponent } from '../statistique-merge/statistique-merge.component';
+} from '../../../../services/creation';
 
 @Component({
   selector: 'app-metier',
@@ -23,7 +22,6 @@ import { StatistiqueMergeComponent } from '../statistique-merge/statistique-merg
     SidebarComponent,
     ButtonModule,
     CompetenceListComponent,
-    StatistiqueMergeComponent,
   ],
   templateUrl: './metier.component.html',
   styleUrls: [

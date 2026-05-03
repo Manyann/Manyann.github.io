@@ -2,15 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { CodeLibelle } from '../../model/code-libelle';
-import { CreationHelper } from '../../model/creation';
+import { CreationHelper } from '../../../services/creation';
 
 @Component({
   selector: 'app-unmetier-list',
   standalone: true,
   imports: [CommonModule, CardModule],
   templateUrl: './unmetier-list.component.html',
-  styleUrls: ['./unmetier-list.component.css',
-    '../../../assets/css/sidebar-stats.css',],
+  styleUrls: [
+    './unmetier-list.component.css',
+    '../../../assets/css/sidebar-stats.css',
+  ],
 })
 export class UnMetierListComponent {
   @Input() public unMetiers: Array<string> = [];
