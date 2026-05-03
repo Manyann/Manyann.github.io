@@ -1,6 +1,5 @@
-import { ItemHelper, ItemRarity, LootItem } from '../../model/item';
+import { ItemHelper, ItemRarity, LootItem } from '../../../services/items';
 
-// Service pour la gestion du loot
 export class LootService {
   private items: Record<ItemRarity, LootItem[]> = {
     artisant: [],

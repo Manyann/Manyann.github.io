@@ -10,10 +10,10 @@ import { TabViewModule } from 'primeng/tabview';
 import { ArmureComponent } from './armure/armure.component';
 import { PotionComponent } from './potion/potion.component';
 import { GemmeComponent } from './gemme/gemme.component';
-import { Categorie, ItemHelper } from '../../model/item';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { PanelModule } from 'primeng/panel';
 import { AccessoireComponent } from './accessoire/accessoire.component';
+import { Categorie, ItemHelper } from '../../../services/items';
 
 @Component({
   selector: 'app-shop',
@@ -38,7 +38,6 @@ import { AccessoireComponent } from './accessoire/accessoire.component';
 export class ShopComponent {
   title = 'shop';
   villes: Array<Ville>;
-  villesType: Array<CodeLibelle>;
   zones: Array<CodeLibelle>;
   selectedVilleType: string;
   selectedZone: string;
@@ -52,14 +51,8 @@ export class ShopComponent {
   activeIndex: number = 0;
 
   constructor() {
-    this.villes = VilleHelper.getAll().sort((a, b) =>
-      a.libelle.localeCompare(b.libelle),
-    );
+    this.villes = VilleHelper.getAll().sort((x) => x.handicap);
     this.zones = VilleHelper.getAllZones();
-    this.villesType = this.villes.map((x) => ({
-      code: x.type,
-      libelle: x.libelle,
-    }));
     this.selectedVilleType = '';
     this.selectedZone = '';
     this.categories = ItemHelper.getAllCategories();

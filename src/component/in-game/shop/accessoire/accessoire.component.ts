@@ -4,15 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { PromotionPipe } from '../promotion.pipe';
-import {
-  Accessoire,
-  AccessoireVente,
-  Item,
-  ItemHelper,
-  Potion,
-} from '../../../model/item';
 import { Ville, VilleHelper } from '../../../model/villes';
 import { ShopService } from '../shop.service';
+import { AccessoireVente, ItemHelper } from '../../../../services/items';
 
 @Component({
   selector: 'app-shop-accessoire',

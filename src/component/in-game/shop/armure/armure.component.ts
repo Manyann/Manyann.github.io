@@ -11,9 +11,9 @@ import {
 } from '../bonus.pipe';
 import { OriginePipe, OriginePrixPipe } from '../origine.pipe';
 import { PromotionPipe } from '../promotion.pipe';
-import { Armure, ArmureVente, Item, ItemHelper } from '../../../model/item';
 import { Ville, VilleHelper } from '../../../model/villes';
 import { ShopService } from '../shop.service';
+import { ArmureVente, ItemHelper } from '../../../../services/items';
 
 @Component({
   selector: 'app-shop-armure',

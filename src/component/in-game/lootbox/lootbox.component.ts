@@ -14,11 +14,11 @@ import {
   trigger,
 } from '@angular/animations';
 import { LootService } from './lootbox.service';
-import { ItemRarity, LootItem } from '../../model/item';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ButtonModule } from 'primeng/button';
+import { LootItem, ItemRarity } from '../../../services/items';
 
 @Component({
   selector: 'app-loot-system',

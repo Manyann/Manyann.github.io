@@ -14,8 +14,8 @@
           <option value="" disabled selected>
             Choisissez une taille de ville...
           </option>
-          <option *ngFor="let type of villesType" [value]="type.code">
-            {{ type.libelle }}
+          <option *ngFor="let ville of villes" [value]="ville.type">
+            {{ ville.libelle }}
           </option>
         </select>
       </div>

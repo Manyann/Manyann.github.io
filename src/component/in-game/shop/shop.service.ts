@@ -1,4 +1,4 @@
-import { Item } from '../../model/item';
+import { Item } from '../../../services/items';
 import { Ville } from '../../model/villes';
 
 export class ShopService {
@@ -29,10 +29,8 @@ export class ShopService {
     getItem: (vente: V) => T,
   ): V[] {
     const ville = villes.find((x) => x.type === selectedVilleType);
-
-    let items = allItems.filter((vente) =>
-      this.estPresent(getItem(vente), ville),
-    );
+    let items = allItems;
+    items = allItems.filter((vente) => this.estPresent(getItem(vente), ville));
 
     return this.applyCategoryFilter(items, activeCategorieCodes, getItem);
   }

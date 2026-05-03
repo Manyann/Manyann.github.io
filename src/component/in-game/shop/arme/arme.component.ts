@@ -13,10 +13,10 @@ import {
 import { OriginePipe, OriginePrixPipe } from '../origine.pipe';
 import { PromotionPipe } from '../promotion.pipe';
 import { Ville, VilleHelper } from '../../../model/villes';
-import { ArmeVente, ItemHelper } from '../../../model/item';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { PanelModule } from 'primeng/panel';
 import { ShopService } from '../shop.service';
+import { ArmeVente, ItemHelper } from '../../../../services/items';
 
 @Component({
   selector: 'app-shop-arme',

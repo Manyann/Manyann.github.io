@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { PromotionPipe } from '../promotion.pipe';
-import { Item, ItemHelper, Potion, PotionVente } from '../../../model/item';
 import { Ville, VilleHelper } from '../../../model/villes';
 import { ShopService } from '../shop.service';
+import { ItemHelper, PotionVente } from '../../../../services/items';
 
 @Component({
   selector: 'app-shop-potion',
