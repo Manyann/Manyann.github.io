@@ -27,6 +27,7 @@ import {
   styleUrls: [
     '../../assets/css/trophe.css',
     '../../assets/css/stat-panel.css',
+    '../../assets/css/tabview.css',
     './statistique.component.css',
     '../../assets/css/chart.css',
   ],

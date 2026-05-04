@@ -50,6 +50,10 @@
   justify-content: space-between;
 }
 
+::ng-deep .p-panel.p-component.p-panel-toggleable {
+  width: 100%;
+}
+
 .filters-title {
   display: flex;
   align-items: center;
@@ -109,44 +113,6 @@
   box-shadow: 0 0 0 3px rgba(200, 170, 110, 0.12);
 }
 
-:host ::ng-deep .shop-tabs .p-tabview-nav {
-  background: transparent;
-  border: none;
-  gap: 0.5rem;
-}
-
-:host ::ng-deep .shop-tabs .p-tabview-nav li .p-tabview-nav-link {
-  border-radius: 14px 14px 0 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.03),
-    rgba(255, 255, 255, 0.015)
-  );
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  transition: all 0.2s ease;
-}
-
-:host ::ng-deep .shop-tabs .p-tabview-nav li .p-tabview-nav-link:hover {
-  border-color: rgba(200, 170, 110, 0.35);
-  color: #fff;
-}
-
-:host ::ng-deep .shop-tabs .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  background: linear-gradient(
-    180deg,
-    rgba(200, 170, 110, 0.16),
-    rgba(255, 255, 255, 0.02)
-  );
-  border-color: rgba(200, 170, 110, 0.4);
-  color: #fff;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-}
-
-:host ::ng-deep .shop-tabs .p-tabview-panels {
-  padding: 1rem 0 0 0;
-  background: transparent;
-}
 .category-switch {
   width: 12rem;
   height: 2rem;

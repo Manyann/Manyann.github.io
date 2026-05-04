@@ -33,7 +33,7 @@ import { Categorie, ItemHelper } from '../../../services/items';
     AccessoireComponent,
   ],
   templateUrl: './shop.component.html',
-  styleUrl: './shop.component.css',
+  styleUrls: ['../../../assets/css/tabview.css', './shop.component.css'],
 })
 export class ShopComponent {
   title = 'shop';

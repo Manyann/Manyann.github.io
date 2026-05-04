@@ -1,95 +1,77 @@
 :host {
   display: block;
-}
 
-/* =========================
-   VARIABLES VISUELLES
-========================= */
-:host {
-  --panel-bg: #171a1f;
-  --panel-bg-2: #1d2127;
-  --panel-bg-3: #232831;
   --panel-border: rgba(255, 255, 255, 0.08);
-  --panel-border-strong: rgba(255, 255, 255, 0.12);
   --panel-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-
   --text-main: #e7eaf0;
   --text-soft: #b7bec9;
-  --text-faded: #6f7782;
-
   --accent: #d4af37;
-  --accent-soft: rgba(212, 175, 55, 0.15);
 }
 
 .stats-page {
   padding: 0.75rem;
 }
 
-/* =========================
-   TABVIEW
-========================= */
-:host ::ng-deep .stats-tabs .p-tabview-panels,
+/* PrimeNG TabView */
 :host ::ng-deep .p-tabview-panels {
   background: transparent;
-  padding: 1rem 0 0 0;
+  padding-top: 1rem;
 }
 
-:host ::ng-deep .stats-tabs .p-tabview-nav,
 :host ::ng-deep .p-tabview-nav {
   gap: 0.45rem;
-  border: none;
+  border: 0;
   background: transparent;
   flex-wrap: wrap;
 }
 
-:host ::ng-deep .stats-tabs .p-tabview-nav li .p-tabview-nav-link,
-:host ::ng-deep .p-tabview-nav li .p-tabview-nav-link {
+:host ::ng-deep .p-tabview-nav-link {
   border-radius: 12px 12px 0 0;
+  border: 1px solid var(--panel-border);
+  color: var(--text-soft);
+  transition: 0.2s ease;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.03),
     rgba(255, 255, 255, 0.015)
   );
-  border: 1px solid var(--panel-border);
-  color: var(--text-soft);
-  transition: all 0.2s ease;
 }
 
-:host ::ng-deep .stats-tabs .p-tabview-nav li .p-tabview-nav-link:hover,
-:host ::ng-deep .p-tabview-nav li .p-tabview-nav-link:hover {
+:host ::ng-deep .p-tabview-nav-link:hover {
+  color: var(--text-main);
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.06),
     rgba(255, 255, 255, 0.025)
   );
-  color: var(--text-main);
 }
 
-:host ::ng-deep .stats-tabs .p-tabview-nav li.p-highlight .p-tabview-nav-link,
-:host ::ng-deep .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+:host ::ng-deep .p-highlight .p-tabview-nav-link {
+  color: #fff;
+  border-color: rgba(212, 175, 55, 0.32);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
   background: linear-gradient(
     180deg,
     rgba(212, 175, 55, 0.18),
     rgba(255, 255, 255, 0.03)
   );
-  border-color: rgba(212, 175, 55, 0.32);
-  color: #fff;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
 }
 
-/* =========================
-   PANELS
-========================= */
+/* PrimeNG Panel */
+p-panel {
+  width: 100%;
+}
+
 :host ::ng-deep .stats-panel .p-panel {
-  border-radius: 18px;
   overflow: hidden;
+  border-radius: 18px;
   border: 1px solid var(--panel-border);
+  box-shadow: var(--panel-shadow);
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.02),
     rgba(255, 255, 255, 0.01)
   );
-  box-shadow: var(--panel-shadow);
 }
 
 :host ::ng-deep .stats-panel .p-panel-header {
@@ -105,9 +87,9 @@
 }
 
 :host ::ng-deep .stats-panel .p-panel-title {
-  font-weight: 700;
-  font-size: 1.25rem;
   color: var(--accent);
+  font-size: 1.25rem;
+  font-weight: 700;
   letter-spacing: 0.3px;
 }
 
@@ -116,23 +98,15 @@
   background: transparent;
 }
 
-p-panel {
-  width: 100%;
-}
-
-/* =========================
-   LAYOUT GLOBAL
-========================= */
+/* Layout */
 .top-container {
   display: flex;
-  margin: 1rem 0;
   flex-direction: column;
   gap: 1rem;
+  margin: 1rem 0;
 }
 
-/* =========================
-   LOADING SKELETON
-========================= */
+/* Skeleton */
 .stat-skeleton {
   display: grid;
   gap: 0.7rem;
@@ -149,91 +123,43 @@ p-panel {
     rgba(255, 255, 255, 0.05) 75%
   );
   background-size: 200% 100%;
-  animation: shimmer 1.3s infinite linear;
+  animation: shimmer 1.3s linear infinite;
 }
 
 .stat-skeleton div:nth-child(1) {
   width: 88%;
 }
-
 .stat-skeleton div:nth-child(2) {
   width: 100%;
 }
-
 .stat-skeleton div:nth-child(3) {
   width: 76%;
 }
-
 .stat-skeleton div:nth-child(4) {
   width: 92%;
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
+  to {
     background-position: -200% 0;
   }
 }
 
-
-
-/* =========================
-   LOADING GLOBAL
-========================= */
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
-  color: #666;
-}
-
-.loading-container i {
-  margin-bottom: 1rem;
-  color: #007ad9;
-}
-
-.loading-container p {
-  font-size: 1.1rem;
-  margin: 0;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
+/* Responsive */
 @media (max-width: 900px) {
   .stats-page {
     padding: 0.6rem;
   }
 
-  :host ::ng-deep .p-tabview-nav {
-    gap: 0.35rem;
-  }
-
-  :host ::ng-deep .p-tabview-nav li .p-tabview-nav-link {
-    padding: 0.7rem 0.85rem;
-    font-size: 0.9rem;
-  }
-
-  .chart-grid {
+  .chart-grid,
+  .stat-section,
+  .infos-achivement {
     grid-template-columns: 1fr;
-    gap: 12px;
   }
 
   .chart {
     min-height: 250px;
     padding: 8px;
-  }
-
-  .stat-section {
-    grid-template-columns: 1fr;
-  }
-
-  .infos-achivement {
-    grid-template-columns: 1fr;
   }
 
   .achivement {
@@ -267,26 +193,6 @@ p-panel {
     padding: 0.45rem;
   }
 
-  :host ::ng-deep .p-tabview-panels {
-    padding-top: 0.75rem;
-  }
-
-  :host ::ng-deep .p-tabview-nav {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  :host ::ng-deep .p-tabview-nav li {
-    flex: 1 1 calc(50% - 0.35rem);
-  }
-
-  :host ::ng-deep .p-tabview-nav li .p-tabview-nav-link {
-    justify-content: center;
-    text-align: center;
-    font-size: 0.82rem;
-    padding: 0.65rem 0.6rem;
-  }
-
   :host ::ng-deep .stats-panel .p-panel-header {
     padding: 0.85rem 0.95rem;
   }
@@ -300,8 +206,8 @@ p-panel {
   }
 
   .top-container {
-    margin: 0.75rem 0;
     gap: 0.75rem;
+    margin: 0.75rem 0;
   }
 
   .stat-card {
@@ -310,9 +216,9 @@ p-panel {
   }
 
   .stat-header {
-    font-size: 1rem;
     margin-bottom: 0.8rem;
     padding-bottom: 0.6rem;
+    font-size: 1rem;
   }
 
   .stat-line {
@@ -328,25 +234,16 @@ p-panel {
 }
 
 @media (max-width: 420px) {
-  :host ::ng-deep .p-tabview-nav li {
-    flex: 1 1 100%;
-  }
-  .mobile-tight {
-    padding: 0.5rem;
-  }
-
-  ::ng-deep .chart.expanded canvas {
+  :host ::ng-deep .chart.expanded canvas {
     height: 15rem !important;
   }
 
   .stat-header {
     font-size: 0.95rem;
   }
-
   .stat-label {
     font-size: 0.86rem;
   }
-
   .stat-value {
     font-size: 0.84rem;
   }

@@ -1,0 +1,79 @@
+/* PrimeNG TabView */
+:host ::ng-deep .p-tabview-panels {
+  background: transparent;
+  padding-top: 1rem;
+}
+
+:host ::ng-deep .p-tabview-nav {
+  gap: 0.45rem;
+  border: 0;
+  background: transparent;
+  flex-wrap: wrap;
+}
+
+:host ::ng-deep .p-tabview-nav-link {
+  border-radius: 12px 12px 0 0;
+  border: 1px solid var(--panel-border);
+  color: var(--text-soft);
+  transition: 0.2s ease;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.015)
+  );
+}
+
+:host ::ng-deep .p-tabview-nav-link:hover {
+  color: var(--text-main);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.025)
+  );
+}
+
+:host ::ng-deep .p-highlight .p-tabview-nav-link {
+  color: #fff;
+  border-color: rgba(212, 175, 55, 0.32);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(
+    180deg,
+    rgba(212, 175, 55, 0.18),
+    rgba(255, 255, 255, 0.03)
+  );
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  :host ::ng-deep .p-tabview-nav {
+    gap: 0.35rem;
+  }
+
+  :host ::ng-deep .p-tabview-nav-link {
+    padding: 0.7rem 0.85rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  :host ::ng-deep .p-tabview-panels {
+    padding-top: 0.75rem;
+  }
+
+  :host ::ng-deep .p-tabview-nav li {
+    flex: 1 1 calc(50% - 0.35rem);
+  }
+
+  :host ::ng-deep .p-tabview-nav-link {
+    justify-content: center;
+    padding: 0.65rem 0.6rem;
+    font-size: 0.82rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  :host ::ng-deep .p-tabview-nav li {
+    flex-basis: 100%;
+  }
+}
