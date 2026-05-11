@@ -227,7 +227,7 @@ export class MetierComponent {
   }
 
   getAllAutres(): string[] {
-    return this.getAllStringValuesFromHeritage('autres');
+    return this.getAllStringValuesFromHeritage('competencesSpeciales');
   }
 
   getAllCompetencesHerites(): string[] {
@@ -240,9 +240,10 @@ export class MetierComponent {
   }
 
   private getAllStringValuesFromHeritage(
-    field: 'caracteristiques' | 'restrictions' | 'autres',
+    field: 'caracteristiques' | 'restrictions' | 'competencesSpeciales',
   ): Array<string> {
-    const origineValues = field === 'autres' ? [] : (this.origine[field] ?? []);
+    const origineValues =
+      field === 'competencesSpeciales' ? [] : (this.origine[field] ?? []);
 
     const metierValues = this.getMetierHeritage(this.metierToSee).reduce(
       (values: Array<string>, metier) => [...values, ...(metier[field] ?? [])],

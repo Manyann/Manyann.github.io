@@ -9,6 +9,7 @@ export class Origine {
   caracteristiques: Array<string> = [];
   restrictions: Array<string> = [];
   competencesHerites: Array<string> = [];
+  competencesSpeciales: Array<string> = [];
   restrictionsMetierShortCode: Array<string> = [];
   isForbidden: boolean = false;
 }
@@ -25,7 +26,7 @@ export class Metier {
   caracteristiques: Array<string> = [];
   restrictions: Array<string> = [];
   competencesHerites: Array<string> = [];
-  autres: Array<string> = [];
+  competencesSpeciales: Array<string> = [];
   isForbidden: boolean = false;
   shortCodeParents: Array<string> = [];
   subMetiers: Array<Metier> = [];

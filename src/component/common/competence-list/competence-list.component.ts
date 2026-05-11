@@ -16,6 +16,7 @@ import { CreationHelper } from '../../../services/creation';
 })
 export class CompetenceListComponent {
   @Input() public competences: Array<string> = [];
+  @Input() public type: string = 'héritées';
 
   public allCompetence: Array<CodeLibelle> =
     CreationHelper.getAllBasiqueCompetences();

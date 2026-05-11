@@ -181,6 +181,13 @@
         ></app-competence-list>
       }
 
+      @if (origineToSee.competencesSpeciales.length > 0) {
+        <app-competence-list
+          [competences]="origineToSee.competencesSpeciales"
+          type="spéciales"
+        ></app-competence-list>
+      }
+
       @if (origineToSee.restrictionsMetierShortCode.length > 0) {
         <app-unmetier-list
           [unMetiers]="origineToSee.restrictionsMetierShortCode"
