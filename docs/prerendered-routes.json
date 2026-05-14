@@ -1,6 +1,7 @@
 {
   "routes": [
     "/",
+    "/competences",
     "/documentation",
     "/documentation/autres",
     "/documentation/bestiaires",
@@ -12,7 +13,6 @@
     "/in-game",
     "/in-game/creer",
     "/in-game/shop",
-    "/in-game/teleportation",
     "/loot",
     "/statistique"
   ]
