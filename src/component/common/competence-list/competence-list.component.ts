@@ -33,6 +33,10 @@ export class CompetenceListComponent {
       this.competencesFiltered = [];
       return;
     }
+    if (this.type !== 'héritées') {
+      this.competencesFiltered = this.competences;
+      return;
+    }
     const map = new Map(
       [
         ...this.competences.reduce((acc, item) => {

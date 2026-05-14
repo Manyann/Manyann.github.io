@@ -687,7 +687,7 @@ export function createMetiers(): Array<Metier> {
       ],
       restrictions: ['Armes à 2 mains', 'Bouclier', '2PR Max'],
       competencesHerites: ['AG', 'ADR', 'AEC', 'CLA', 'ER', 'LDM'],
-      competencesSpeciales: [],
+      competencesSpeciales: ['demonologue'],
       isForbidden: false,
       subMetiers: [],
       shortCodeParents: [],

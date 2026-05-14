@@ -422,7 +422,7 @@ export function createOrigines(): Array<Origine> {
         'Arme de jet',
       ],
       competencesHerites: ['AG', 'CDG', 'ER', 'RB', 'PS', 'DS*'],
-      competencesSpeciales: ['#walkryrie'],
+      competencesSpeciales: ['#walkyrie'],
       restrictionsMetierShortCode: [
         'PR',
         'VO',

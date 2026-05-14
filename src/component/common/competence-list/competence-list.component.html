@@ -2,7 +2,13 @@
   <div class="title">Compétences {{ type }}</div>
   <div class="list-item-details-items">
     <span *ngFor="let competenceFiltered of competencesFiltered">
-      {{ competenceFiltered }}
+      @if (!competenceFiltered.startsWith("#")) {
+        {{ competenceFiltered }}
+      } @else {
+        <a href="competences/{{ competenceFiltered }}" target="_blank"
+          >Voir les compétences spéciales</a
+        >
+      }
     </span>
   </div>
 </div>

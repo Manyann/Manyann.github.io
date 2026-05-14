@@ -28,6 +28,7 @@ export class CreationHelper {
       caracteristiques: [],
       restrictions: [],
       competencesHerites: [],
+      competencesSpeciales: [],
       restrictionsMetierShortCode: [],
       isForbidden: false,
     };
@@ -50,10 +51,10 @@ export class CreationHelper {
       caracteristiques: [],
       restrictions: [],
       competencesHerites: [],
+      competencesSpeciales: [],
       isForbidden: false,
       shortCodeParents: [],
       subMetiers: [],
-      autres: [],
     };
   }
 
