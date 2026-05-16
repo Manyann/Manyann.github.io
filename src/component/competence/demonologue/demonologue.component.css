@@ -1,0 +1,147 @@
+.demonologue-page {
+  padding: 1rem;
+  color: #d8d8d8;
+}
+
+.spell-section {
+  margin-bottom: 3rem;
+}
+
+.niveau-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.niveau-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #842626, #2a0d0d);
+  border: 2px solid #b94b4b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 0 12px rgba(185, 75, 75, 0.45);
+}
+
+.niveau-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, #842626, transparent);
+  margin: 0 1rem;
+}
+
+.niveau-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #d46a6a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.spell-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.spell-card {
+  width: 25rem;
+  background: linear-gradient(
+    145deg,
+    rgba(32, 12, 12, 0.95),
+    rgba(14, 8, 8, 0.98)
+  );
+
+  border: 1px solid rgba(185, 75, 75, 0.3);
+
+  border-left: 4px solid #b94b4b;
+
+  border-radius: 10px;
+
+  padding: 1rem;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.spell-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 0 18px rgba(185, 75, 75, 0.2),
+    0 0 32px rgba(185, 75, 75, 0.1);
+}
+
+.spell-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spell-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f1d2d2;
+}
+
+.spell-cost {
+  background: rgba(185, 75, 75, 0.18);
+  border: 1px solid rgba(185, 75, 75, 0.4);
+  color: #ffb5b5;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.spell-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.8rem 0;
+}
+
+.tag {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag.test {
+  background: rgba(130, 70, 160, 0.2);
+  color: #d5b7ff;
+}
+
+.tag.cast {
+  background: rgba(60, 120, 180, 0.2);
+  color: #b7dbff;
+}
+
+.tag.category {
+  background: rgba(185, 75, 75, 0.2);
+  color: #ffbcbc;
+}
+
+.spell-effect {
+  line-height: 1.6;
+  color: #d4d4d4;
+}
+
+.spell-condition {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  color: #ffb3b3;
+  font-size: 0.9rem;
+}

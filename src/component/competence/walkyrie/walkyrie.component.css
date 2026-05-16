@@ -1,0 +1,205 @@
+.walkyrie-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.walkyrie-branch {
+  border-radius: 18px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #14161a;
+}
+
+.branch-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.branch-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.branch-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #f5f5f5;
+}
+
+.branch-header p {
+  margin: 0.25rem 0 0;
+  color: #cfcfcf;
+  line-height: 1.4;
+}
+
+.competence-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.competence-card {
+  border-radius: 14px;
+  padding: 1rem;
+  background: rgba(10, 12, 16, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.competence-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.competence-top h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.05rem;
+}
+
+.competence-cost {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f5f5f5;
+}
+
+.competence-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.75rem 0;
+}
+
+.competence-tags span {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #dcdcdc;
+}
+
+.competence-effect {
+  margin: 0;
+  color: #d5d5d5;
+  line-height: 1.55;
+}
+
+.competence-condition {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e8d8a8;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Base Walkyrie : neutre mais bonne */
+.branch-walkyrie {
+  background: linear-gradient(145deg, #171b22, #101216);
+  border-color: rgba(180, 190, 210, 0.25);
+}
+
+.branch-walkyrie .branch-icon {
+  background: linear-gradient(145deg, #6f7d8f, #343c48);
+}
+
+/* Gardienne de l’aube : lumineuse / soin */
+.branch-aube {
+  background: linear-gradient(145deg, #2a2415, #12110c);
+  border-color: rgba(255, 214, 120, 0.45);
+  box-shadow: 0 0 22px rgba(255, 214, 120, 0.08);
+}
+
+.branch-aube .branch-icon {
+  background: radial-gradient(circle, #ffe39c, #c58b22);
+  color: #2b2108;
+}
+
+.branch-aube .competence-cost,
+.branch-aube .competence-tags span {
+  background: rgba(255, 214, 120, 0.14);
+  color: #ffe3a0;
+}
+
+/* Compagnie du crépuscule : vengeresse */
+.branch-crepuscule {
+  background: linear-gradient(145deg, #24131a, #100b0f);
+  border-color: rgba(210, 80, 110, 0.42);
+  box-shadow: 0 0 22px rgba(210, 80, 110, 0.08);
+}
+
+.branch-crepuscule .branch-icon {
+  background: linear-gradient(145deg, #9e243f, #35101a);
+}
+
+.branch-crepuscule .competence-cost,
+.branch-crepuscule .competence-tags span {
+  background: rgba(210, 80, 110, 0.14);
+  color: #ffb0c1;
+}
+
+/* Légion céleste : armée d’élite */
+.branch-legion {
+  background: linear-gradient(145deg, #151b22, #0d1014);
+  border-color: rgba(130, 165, 210, 0.38);
+}
+
+.branch-legion .branch-icon {
+  background: linear-gradient(145deg, #506b8d, #1d2a3a);
+}
+
+.branch-legion .competence-cost,
+.branch-legion .competence-tags span {
+  background: rgba(130, 165, 210, 0.14);
+  color: #bcd8ff;
+}
+
+/* Archange : boss ultime */
+.branch-archange {
+  position: relative;
+  background:
+    radial-gradient(circle at top, rgba(255, 245, 180, 0.25), transparent 35%),
+    linear-gradient(145deg, #2c2611, #0f0e0a);
+  border: 1px solid rgba(255, 230, 120, 0.75);
+  box-shadow:
+    0 0 28px rgba(255, 230, 120, 0.18),
+    inset 0 0 24px rgba(255, 230, 120, 0.08);
+}
+
+.branch-archange .branch-icon {
+  background: radial-gradient(circle, #fff7b8, #d9a72f);
+  color: #2a2105;
+  box-shadow: 0 0 22px rgba(255, 230, 120, 0.45);
+}
+
+.branch-archange .branch-header h2 {
+  color: #ffe88c;
+  text-shadow: 0 0 10px rgba(255, 230, 120, 0.35);
+}
+
+.branch-archange .competence-card {
+  border-color: rgba(255, 230, 120, 0.35);
+  background: rgba(24, 20, 10, 0.84);
+}
+
+.branch-archange .competence-cost,
+.branch-archange .competence-tags span {
+  background: rgba(255, 230, 120, 0.16);
+  color: #ffe88c;
+}

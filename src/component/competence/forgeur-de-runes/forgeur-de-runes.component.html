@@ -1,0 +1,58 @@
+<div class="rune-page">
+  <div class="niveau-section" *ngFor="let niveau of niveaux">
+    <div class="niveau-header">
+      <div class="niveau-rune">
+        {{ niveau }}
+      </div>
+
+      <div class="niveau-title">Niveau {{ niveau }}</div>
+    </div>
+
+    <div class="rune-grid">
+      <div
+        class="rune-card"
+        *ngFor="let competence of getCompetencesByNiveau(niveau)"
+      >
+        <div class="rune-top">
+          <div class="rune-symbol">ᚱ</div>
+
+          <div class="rune-info">
+            <h3>{{ competence.nom }}</h3>
+
+            <div class="rune-tags">
+              <span *ngIf="competence.categorie">
+                {{ competence.categorie }}
+              </span>
+
+              <span *ngIf="competence.test">
+                {{ competence.test }}
+              </span>
+            </div>
+          </div>
+
+          <div class="ea-cost" *ngIf="competence.cout">
+            {{ competence.cout }}
+          </div>
+        </div>
+
+        <div class="rune-effect">
+          {{ competence.effet }}
+        </div>
+
+        <div class="rune-footer">
+          <span *ngIf="competence.lancement">
+            {{ competence.lancement }}
+          </span>
+
+          <span *ngIf="competence.cible">
+            {{ competence.cible }}
+          </span>
+
+          <span *ngIf="competence.condition">
+            {{ competence.condition }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

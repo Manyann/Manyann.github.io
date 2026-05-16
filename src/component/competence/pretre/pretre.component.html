@@ -1,0 +1,66 @@
+<div class="pretre-page">
+  <div
+    class="ordre-section"
+    *ngFor="let ordre of ordres"
+    [ngClass]="getOrdreClass(ordre)"
+  >
+    <div class="ordre-header">
+      <div class="ordre-icon">
+        <i [class]="getOrdreIcon(ordre)"></i>
+      </div>
+
+      <div>
+        <h2>{{ ordre }}</h2>
+        <p>{{ getOrdreDescription(ordre) }}</p>
+      </div>
+    </div>
+
+    <div
+      class="categorie-section"
+      *ngFor="let niveau of getNiveauxByOrdre(ordre)"
+    >
+      <div class="categorie-title">
+        <span>{{ niveau }}</span>
+      </div>
+
+      <div class="spell-list">
+        <div
+          class="spell-card"
+          *ngFor="
+            let competence of getCompetencesByOrdreAndNiveau(ordre, niveau)
+          "
+        >
+          <div class="spell-icon">
+            <i [class]="getCategorieIcon(competence.categorie)"></i>
+          </div>
+
+          <div class="spell-content">
+            <div class="spell-top">
+              <h3>{{ competence.nom }}</h3>
+
+              <span class="spell-cost" *ngIf="competence.cout">
+                {{ competence.cout }}
+              </span>
+            </div>
+
+            <div class="spell-tags">
+              <span *ngIf="competence.cible">{{ competence.cible }}</span>
+              <span *ngIf="competence.test">{{ competence.test }}</span>
+              <span *ngIf="competence.lancement">{{
+                competence.lancement
+              }}</span>
+            </div>
+
+            <p class="spell-effect">
+              {{ competence.effet }}
+            </p>
+
+            <div class="spell-condition" *ngIf="competence.condition">
+              {{ competence.condition }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

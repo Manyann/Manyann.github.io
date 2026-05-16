@@ -224,17 +224,10 @@
     }
 
     @if (metierToSee.competencesSpeciales.length > 0) {
-      <div
-        class="parts list-autres"
-        *ngIf="metierToSee.competencesSpeciales.length > 0"
-      >
-        <div class="title">Compétences spéciales</div>
-        <div class="list-item-details-items">
-          <span *ngFor="let autre of metierToSee.competencesSpeciales">{{
-            autre
-          }}</span>
-        </div>
-      </div>
+      <app-competence-list
+        [competences]="getAllAutres()"
+        type="spéciales"
+      ></app-competence-list>
     }
   </app-sidebar>
 
@@ -272,14 +265,10 @@
     }
 
     @if (getAllAutres().length > 0) {
-      <div class="parts list-autres">
-        <div class="title">Compétences spéciales</div>
-        <div class="list-item-details-items">
-          <span *ngFor="let autre of getAllAutres()">
-            {{ autre }}
-          </span>
-        </div>
-      </div>
+      <app-competence-list
+        [competences]="getAllAutres()"
+        type="spéciales"
+      ></app-competence-list>
     }
   </app-sidebar>
 </div>

@@ -1,0 +1,191 @@
+.rune-page {
+  padding: 1rem;
+  color: #d7dce2;
+}
+
+.niveau-section {
+  margin-bottom: 2.5rem;
+}
+
+.niveau-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.niveau-rune {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 12px;
+
+  background: linear-gradient(145deg, #3a4653, #1b232c);
+
+  border: 1px solid rgba(130, 180, 220, 0.35);
+
+  color: #9ed8ff;
+
+  font-weight: 700;
+  font-size: 1.1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    inset 0 0 12px rgba(158, 216, 255, 0.08),
+    0 0 16px rgba(158, 216, 255, 0.08);
+}
+
+.niveau-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #c8d7e5;
+  letter-spacing: 0.05em;
+}
+
+.rune-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.rune-card {
+  width: 30rem;
+  position: relative;
+
+  background: linear-gradient(
+    145deg,
+    rgba(24, 30, 38, 0.96),
+    rgba(14, 18, 24, 0.98)
+  );
+
+  border: 1px solid rgba(130, 180, 220, 0.22);
+
+  border-radius: 16px;
+
+  padding: 1rem;
+
+  overflow: hidden;
+}
+
+.rune-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(158, 216, 255, 0.03),
+    transparent 40%
+  );
+
+  pointer-events: none;
+}
+
+.rune-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.rune-symbol {
+  width: 46px;
+  height: 46px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: linear-gradient(145deg, #445465, #1d2630);
+
+  border: 1px solid rgba(158, 216, 255, 0.25);
+
+  color: #9ed8ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.4rem;
+  font-weight: bold;
+
+  box-shadow: 0 0 14px rgba(158, 216, 255, 0.08);
+}
+
+.rune-info {
+  flex: 1;
+}
+
+.rune-info h3 {
+  margin: 0;
+  color: #eef4fb;
+  font-size: 1.05rem;
+}
+
+.rune-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+
+.rune-tags span {
+  padding: 0.25rem 0.55rem;
+
+  border-radius: 999px;
+
+  background: rgba(158, 216, 255, 0.08);
+
+  color: #9ed8ff;
+
+  font-size: 0.72rem;
+
+  text-transform: uppercase;
+}
+
+.ea-cost {
+  padding: 0.35rem 0.7rem;
+
+  border-radius: 999px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(90, 140, 180, 0.22),
+    rgba(50, 80, 110, 0.18)
+  );
+
+  border: 1px solid rgba(158, 216, 255, 0.18);
+
+  color: #d8efff;
+
+  font-size: 0.8rem;
+
+  white-space: nowrap;
+}
+
+.rune-effect {
+  margin-top: 1rem;
+
+  line-height: 1.6;
+
+  color: #cfd8e2;
+}
+
+.rune-footer {
+  margin-top: 1rem;
+
+  padding-top: 0.8rem;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+
+  color: #9fb2c5;
+
+  font-size: 0.85rem;
+}

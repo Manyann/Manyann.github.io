@@ -1,0 +1,65 @@
+<div class="ingenieur-page">
+  <div
+    class="meca-section"
+    *ngFor="let branche of branches"
+    [ngClass]="getBrancheClass(branche)"
+  >
+    <div class="meca-section-header">
+      <div class="meca-section-icon">
+        @if (branche === "Méca") {
+          <i class="pi pi-cog"></i>
+        } @else if (branche.indexOf("1") !== -1) {
+          <i class="pi pi-star-half"></i>
+        } @else {
+          <i class="pi pi-star"></i>
+        }
+      </div>
+
+      <div>
+        <h2>{{ branche }}</h2>
+        <p>{{ getBrancheDescription(branche) }}</p>
+      </div>
+    </div>
+
+    <div class="meca-grid">
+      <div class="meca-card" *ngFor="let meca of getMecasByBranche(branche)">
+        <div class="meca-top">
+          <div>
+            <h3>{{ meca.nom }}</h3>
+            <span class="meca-type">{{ meca.branche }}</span>
+          </div>
+
+          <div class="meca-badge">
+            <i class="pi {{ meca.icon }}"></i>
+          </div>
+        </div>
+
+        <div class="meca-stats">
+          <div class="stat">
+            <span class="stat-label">HP</span>
+            <strong>{{ meca.hp }}</strong>
+          </div>
+
+          <div class="stat">
+            <span class="stat-label">PR</span>
+            <strong>{{ meca.pr }}</strong>
+          </div>
+
+          <div class="stat">
+            <span class="stat-label">AT</span>
+            <strong>{{ meca.attaque }}</strong>
+          </div>
+
+          <div class="stat">
+            <span class="stat-label">PRD</span>
+            <strong>{{ meca.parade }}</strong>
+          </div>
+        </div>
+
+        <div class="meca-effect">
+          {{ meca.effet }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

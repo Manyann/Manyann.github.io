@@ -1,0 +1,49 @@
+<div class="walkyrie-page">
+  <div
+    class="walkyrie-branch"
+    *ngFor="let branche of branches"
+    [ngClass]="getBrancheClass(branche)"
+  >
+    <div class="branch-header">
+      <div class="branch-icon">
+        <i [class]="getBrancheIcon(branche)"></i>
+      </div>
+
+      <div>
+        <h2>{{ branche }}</h2>
+        <p>{{ getBrancheDescription(branche) }}</p>
+      </div>
+    </div>
+
+    <div class="competence-list">
+      <div
+        class="competence-card"
+        *ngFor="let competence of getCompetencesByBranche(branche)"
+      >
+        <div class="competence-top">
+          <h3>{{ competence.nom }}</h3>
+
+          <span class="competence-cost" *ngIf="competence.cout">
+            {{ competence.cout }}
+          </span>
+        </div>
+
+        <div class="competence-tags">
+          <span *ngIf="competence.niveau">Niveau {{ competence.niveau }}</span>
+          <span *ngIf="competence.lancement">{{ competence.lancement }}</span>
+          <span *ngIf="competence.cible">{{ competence.cible }}</span>
+          <span *ngIf="competence.test">{{ competence.test }}</span>
+        </div>
+
+        <p class="competence-effect">
+          {{ competence.effet }}
+        </p>
+
+        <div class="competence-condition" *ngIf="competence.condition">
+          <i class="pi pi-info-circle"></i>
+          {{ competence.condition }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

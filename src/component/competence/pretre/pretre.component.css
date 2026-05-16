@@ -1,0 +1,248 @@
+.pretre-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.ordre-section {
+  border-radius: 18px;
+  padding: 1rem;
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.ordre-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.ordre-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.ordre-header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.ordre-header p {
+  margin: 0.25rem 0 0;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.categorie-section {
+  margin-bottom: 1rem;
+  border-radius: 14px;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.categorie-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.spell-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.spell-card {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.spell-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.spell-content {
+  flex: 1;
+}
+
+.spell-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.spell-top h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 0.98rem;
+}
+
+.spell-cost {
+  font-size: 0.78rem;
+  white-space: nowrap;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.spell-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.4rem 0;
+}
+
+.spell-tags span {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.spell-effect {
+  margin: 0;
+  color: #ddd;
+  line-height: 1.35;
+  font-size: 0.88rem;
+}
+
+.spell-condition {
+  margin-top: 0.45rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 8px;
+  display: inline-block;
+  font-size: 0.78rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Harmonie */
+.ordre-harmonie {
+  border-color: rgba(246, 211, 141, 0.55);
+  background:
+    radial-gradient(circle at top, rgba(246, 211, 141, 0.16), transparent 35%),
+    linear-gradient(145deg, #2b2110, #11100b);
+  color: #f6d38d;
+}
+
+.ordre-harmonie .ordre-icon,
+.ordre-harmonie .spell-icon {
+  background: rgba(246, 211, 141, 0.18);
+  color: #ffe5a6;
+}
+
+.ordre-harmonie .categorie-title,
+.ordre-harmonie .spell-cost,
+.ordre-harmonie .spell-condition {
+  color: #ffe5a6;
+}
+
+/* Néant */
+.ordre-neant {
+  border-color: rgba(111, 137, 201, 0.55);
+  background:
+    radial-gradient(circle at top, rgba(111, 137, 201, 0.16), transparent 35%),
+    linear-gradient(145deg, #141b2c, #080b12);
+  color: #9fb7f2;
+}
+
+.ordre-neant .ordre-icon,
+.ordre-neant .spell-icon {
+  background: rgba(111, 137, 201, 0.18);
+  color: #d9e4ff;
+}
+
+.ordre-neant .categorie-title,
+.ordre-neant .spell-cost,
+.ordre-neant .spell-condition {
+  color: #d9e4ff;
+}
+
+/* Cycle */
+.ordre-cycle {
+  border-color: rgba(122, 191, 116, 0.55);
+  background:
+    radial-gradient(circle at top, rgba(122, 191, 116, 0.16), transparent 35%),
+    linear-gradient(145deg, #142814, #080f08);
+  color: #9ee39a;
+}
+
+.ordre-cycle .ordre-icon,
+.ordre-cycle .spell-icon {
+  background: rgba(122, 191, 116, 0.18);
+  color: #d8f2d3;
+}
+
+.ordre-cycle .categorie-title,
+.ordre-cycle .spell-cost,
+.ordre-cycle .spell-condition {
+  color: #d8f2d3;
+}
+
+/* Destin */
+/* Destin : violet / rouge, destinée mystique */
+.ordre-destin {
+  border-color: rgba(205, 80, 160, 0.65);
+  background:
+    radial-gradient(circle at top, rgba(205, 80, 160, 0.22), transparent 36%),
+    radial-gradient(
+      circle at bottom right,
+      rgba(130, 35, 80, 0.22),
+      transparent 42%
+    ),
+    linear-gradient(145deg, #2a1024, #10070d);
+  color: #f0a6d8;
+  box-shadow:
+    0 0 22px rgba(205, 80, 160, 0.14),
+    inset 0 0 18px rgba(205, 80, 160, 0.06);
+}
+
+.ordre-destin .ordre-icon,
+.ordre-destin .spell-icon {
+  background: rgba(205, 80, 160, 0.2);
+  color: #ffd2ef;
+  border: 1px solid rgba(255, 160, 220, 0.28);
+}
+
+.ordre-destin .categorie-title,
+.ordre-destin .spell-cost,
+.ordre-destin .spell-condition {
+  color: #ffd2ef;
+}
+
+.ordre-destin .spell-card {
+  background: rgba(55, 16, 42, 0.58);
+  border-color: rgba(205, 80, 160, 0.24);
+}
+
+.ordre-destin .spell-tags span {
+  background: rgba(205, 80, 160, 0.13);
+  color: #f7bddf;
+}

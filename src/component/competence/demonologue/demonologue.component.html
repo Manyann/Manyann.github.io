@@ -1,0 +1,54 @@
+samurai
+<div class="demonologue-page">
+  <div class="spell-section" *ngFor="let niveau of niveaux">
+    <div class="niveau-header">
+      <div class="niveau-circle">
+        {{ niveau }}
+      </div>
+
+      <div class="niveau-line"></div>
+
+      <div class="niveau-title">Niveau {{ niveau }}</div>
+    </div>
+
+    <div class="spell-list">
+      <div
+        class="spell-card"
+        *ngFor="let competence of getCompetencesByNiveau(niveau)"
+      >
+        <div class="spell-top">
+          <div class="spell-name">
+            {{ competence.nom }}
+          </div>
+
+          <div class="spell-cost" *ngIf="competence.cout">
+            {{ competence.cout }}
+          </div>
+        </div>
+
+        <div class="spell-tags">
+          <span *ngIf="competence.test" class="tag test">
+            {{ competence.test }}
+          </span>
+
+          <span *ngIf="competence.lancement" class="tag cast">
+            {{ competence.lancement }}
+          </span>
+
+          <span *ngIf="competence.categorie" class="tag category">
+            {{ competence.categorie }}
+          </span>
+        </div>
+
+        <div class="spell-effect">
+          {{ competence.effet }}
+        </div>
+
+        <div class="spell-condition" *ngIf="competence.condition">
+          <i class="pi pi-exclamation-triangle"></i>
+          {{ competence.condition }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
