@@ -80,15 +80,15 @@
 .spell-icon {
   width: 44px;
   height: 44px;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: inherit;
-  background: rgba(255, 255, 255, 0.08);
-}
 
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
 .spell-content {
   flex: 1;
 }
@@ -245,4 +245,22 @@
 .ordre-destin .spell-tags span {
   background: rgba(205, 80, 160, 0.13);
   color: #f7bddf;
+}
+
+.pretre-svg {
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.25));
+}
+
+.ordre-svg {
+  width: 34px;
+  height: 34px;
+}
+
+.categorie-svg {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.18));
 }

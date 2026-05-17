@@ -1,0 +1,88 @@
+<div class="elementaliste-page">
+  <div class="element-toggle-panel">
+    <div
+      class="element-toggle"
+      *ngFor="let element of ['Eau', 'Terre', 'Feu', 'Air']"
+      [ngClass]="[
+        getElementClass(element),
+        isElementActive(element) ? 'active' : '',
+      ]"
+      (click)="selectedElements[element] = !selectedElements[element]"
+    >
+      <img
+        class="element-svg"
+        [src]="getElementIconPath(element)"
+        [alt]="element"
+      />
+      <span>{{ element }}</span>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="filteredCompetences.length === 0">
+    Sélectionne un ou plusieurs éléments pour afficher les sorts disponibles.
+  </div>
+
+  <ng-container *ngFor="let groupe of elementHierarchieFlat">
+    <div
+      class="element-section"
+      *ngIf="getCompetencesByGroupeFiltered(groupe.nom).length > 0"
+      [ngClass]="getElementClass(groupe.nom)"
+    >
+      <div class="element-header">
+        <div class="element-title">
+          <img
+            class="element-svg"
+            [src]="getElementIconPath(groupe.nom)"
+            [alt]="groupe.nom"
+          />
+          <span>{{ groupe.nom }}</span>
+        </div>
+
+        <div class="element-combo">
+          <span
+            class="element-chip"
+            *ngFor="let element of groupe.elements"
+            [ngClass]="getElementClass(element)"
+          >
+            <img
+              class="element-svg"
+              [src]="getElementIconPath(element)"
+              [alt]="element"
+            />
+            {{ element }}
+          </span>
+        </div>
+      </div>
+
+      <div class="spell-grid">
+        <div
+          class="spell-card"
+          *ngFor="let competence of getCompetencesByGroupeFiltered(groupe.nom)"
+        >
+          <div class="spell-top">
+            <h3>{{ competence.nom }}</h3>
+
+            <span class="spell-level" *ngIf="competence.niveau">
+              Niv. {{ competence.niveau }}
+            </span>
+          </div>
+
+          <div class="spell-tags">
+            <span>{{ competence.categorie }}</span>
+            <span *ngIf="competence.cout">{{ competence.cout }}</span>
+            <span *ngIf="competence.cible">{{ competence.cible }}</span>
+            <span *ngIf="competence.test">{{ competence.test }}</span>
+          </div>
+
+          <p class="spell-effect">
+            {{ competence.effet }}
+          </p>
+
+          <div class="spell-condition" *ngIf="competence.condition">
+            {{ competence.condition }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

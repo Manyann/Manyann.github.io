@@ -6,7 +6,11 @@
   >
     <div class="branch-header">
       <div class="branch-icon">
-        <i [class]="getBrancheIcon(branche)"></i>
+        <img
+          class="element-svg"
+          [src]="getBrancheIconPath(branche)"
+          [alt]="branche"
+        />
       </div>
 
       <div>

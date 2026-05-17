@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   CompetenceRecap,
-  competencesDemonologue,
   competencesPretre,
 } from '../../../services/creation/data/competences.data';
 
@@ -11,7 +10,7 @@ import {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './pretre.component.html',
-  styleUrl: './pretre.component.css',
+  styleUrls: ['./pretre.component.css', '../../../assets/css/competence.css'],
 })
 export class PretreComponent {
   public competences = competencesPretre();
@@ -56,19 +55,15 @@ export class PretreComponent {
     }
   }
 
-  getOrdreIcon(ordre: string): string {
-    switch (ordre) {
-      case "Ordre de l'harmonie":
-        return 'pi pi-sun';
-      case 'Ordre du néant':
-        return 'pi pi-moon';
-      case 'Ordre du cycle éternel':
-        return 'pi pi-spinner';
-      case 'Ordre du destin':
-        return 'pi pi-compass';
-      default:
-        return 'pi pi-star';
-    }
+  getOrdreIconPath(ordre: string): string {
+    const icons: Record<string, string> = {
+      "Ordre de l'harmonie": 'assets/icons/pretres/soleil.svg',
+      'Ordre du néant': 'assets/icons/pretres/neant.svg',
+      'Ordre du cycle éternel': 'assets/icons/pretres/cycle.svg',
+      'Ordre du destin': 'assets/icons/pretres/destin.svg',
+    };
+
+    return icons[ordre] ?? 'assets/icons/pretres/soleil.svg';
   }
 
   getOrdreDescription(ordre: string): string {
@@ -86,22 +81,28 @@ export class PretreComponent {
     }
   }
 
-  getCategorieIcon(categorie: string): string {
-    switch (categorie) {
-      case 'affaiblissement':
-        return 'pi pi-angle-double-down';
-      case 'amelioration':
-        return 'pi pi-angle-double-up';
-      case 'autre':
-        return 'pi pi-sparkles';
-      case 'degat':
-        return 'pi pi-bolt';
-      case 'soutient':
-        return 'pi pi-shield';
-      case 'soin':
-        return 'pi pi-heart';
-      default:
-        return 'pi pi-sparkles';
-    }
+  getCategorieIconPath(categorie: string): string {
+    const icons: Record<string, string> = {
+      affaiblissement: 'assets/icons/categories/affaiblissement.svg',
+
+      amelioration: 'assets/icons/categories/amelioration.svg',
+
+      autre: 'assets/icons/categories/autre.svg',
+
+      degat: 'assets/icons/categories/degat.svg',
+
+      soutient: 'assets/icons/categories/soutient.svg',
+
+      soin: 'assets/icons/categories/soin.svg',
+    };
+
+    return (
+      icons[
+        categorie
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+      ] ?? 'assets/icons/categories/autre.svg'
+    );
   }
 }

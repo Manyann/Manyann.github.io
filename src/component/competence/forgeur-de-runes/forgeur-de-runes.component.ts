@@ -10,7 +10,10 @@ import {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './forgeur-de-runes.component.html',
-  styleUrl: './forgeur-de-runes.component.css',
+  styleUrls: [
+    './forgeur-de-runes.component.css',
+    '../../../assets/css/competence.css',
+  ],
 })
 export class ForgeurRunesComponent {
   niveaux = [4, 5, 6, 8];

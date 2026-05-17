@@ -10,7 +10,7 @@ import {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './walkyrie.component.html',
-  styleUrl: './walkyrie.component.css',
+  styleUrls: ['./walkyrie.component.css', '../../../assets/css/competence.css'],
 })
 export class WalkyrieComponent {
   public competences = competencesWalkyrie();
@@ -42,19 +42,16 @@ export class WalkyrieComponent {
     }
   }
 
-  getBrancheIcon(branche: string): string {
-    switch (branche) {
-      case 'Gardienne de l’aube':
-        return 'pi pi-sun';
-      case 'Compagnie du crépuscule':
-        return 'pi pi-bolt';
-      case 'Légion céleste':
-        return 'pi pi-shield';
-      case 'Archange':
-        return 'pi pi-star-fill';
-      default:
-        return 'pi pi-heart';
-    }
+  getBrancheIconPath(branche: string): string {
+    const icons: Record<string, string> = {
+      'Gardienne de l’aube': 'assets/icons/walkyries/gardienne-aube.svg',
+      'Compagnie du crépuscule':
+        'assets/icons/walkyries/compagnie-crepuscule.svg',
+      'Légion céleste': 'assets/icons/walkyries/legion-celeste.svg',
+      Archange: 'assets/icons/walkyries/archange.svg',
+    };
+
+    return icons[branche] ?? 'assets/icons/walkyries/walkyrie.svg';
   }
 
   getBrancheDescription(branche: string): string {

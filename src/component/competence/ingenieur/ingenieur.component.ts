@@ -10,7 +10,10 @@ import {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './ingenieur.component.html',
-  styleUrl: './ingenieur.component.css',
+  styleUrls: [
+    './ingenieur.component.css',
+    '../../../assets/css/competence.css',
+  ],
 })
 export class IngenieurComponent {
   public mecas = competencesIngenieur();

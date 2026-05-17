@@ -1,19 +1,22 @@
 <div class="desktop-view">
   <p-tabView class="custom-tabs" [(activeIndex)]="activeIndex">
+    <p-tabPanel header="Pretre">
+      <app-competences-pretre />
+    </p-tabPanel>
+    <p-tabPanel header="Mage">
+      <app-competences-mage />
+    </p-tabPanel>
     <p-tabPanel header="Walkyrie">
       <app-competences-walkyrie />
-    </p-tabPanel>
-    <p-tabPanel header="Démonologue">
-      <app-competences-demonologue />
-    </p-tabPanel>
-    <p-tabPanel header="Forgeur de runes">
-      <app-competences-forgeur-de-runes />
     </p-tabPanel>
     <p-tabPanel header="Ingénieur">
       <app-competences-ingenieur />
     </p-tabPanel>
-    <p-tabPanel header="Pretre">
-      <app-competences-pretre />
+    <p-tabPanel header="Forgeur de runes">
+      <app-competences-forgeur-de-runes />
+    </p-tabPanel>
+    <p-tabPanel header="Démonologue">
+      <app-competences-demonologue />
     </p-tabPanel>
   </p-tabView>
 </div>

@@ -1,0 +1,270 @@
+.elementaliste-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.tier-header {
+  margin-bottom: 1rem;
+}
+
+.tier-header h2 {
+  color: #fff;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.element-section {
+  border-radius: 18px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.element-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.element-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.element-title span {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+}
+
+.element-combo {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.element-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.spell-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.spell-card {
+  border-radius: 14px;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spell-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.spell-top h3 {
+  margin: 0;
+  color: white;
+}
+
+.spell-level {
+  white-space: nowrap;
+  color: #ddd;
+}
+
+.spell-tags {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin: 0.75rem 0;
+}
+
+.spell-tags span {
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.75rem;
+  color: #eee;
+}
+
+.spell-effect {
+  margin: 0;
+  color: #ddd;
+  line-height: 1.5;
+}
+
+.spell-condition {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ccc;
+  font-size: 0.85rem;
+}
+
+/* FEU */
+.feu {
+  background: linear-gradient(145deg, #2a120d, #120907);
+  border-color: rgba(255, 110, 60, 0.4);
+}
+
+/* EAU */
+.eau {
+  background: linear-gradient(145deg, #0d1f2a, #071117);
+  border-color: rgba(90, 180, 255, 0.4);
+}
+
+/* AIR */
+.air {
+  background: linear-gradient(145deg, #1a1f2a, #0b0f14);
+  border-color: rgba(180, 220, 255, 0.35);
+}
+
+/* TERRE */
+.terre {
+  background: linear-gradient(145deg, #241c12, #120d08);
+  border-color: rgba(190, 140, 70, 0.35);
+}
+
+/* VAPEUR */
+.vapeur {
+  background: linear-gradient(145deg, #1f2530, #11161c);
+  border-color: rgba(180, 220, 255, 0.4);
+}
+
+/* LAVE */
+.lave {
+  background: linear-gradient(145deg, #32130c, #170907);
+  border-color: rgba(255, 90, 40, 0.45);
+}
+
+/* FOUDRE */
+.foudre {
+  background: linear-gradient(145deg, #241235, #12081b);
+  border-color: rgba(180, 100, 255, 0.45);
+}
+
+/* BOIS */
+.bois--vegetal {
+  background: linear-gradient(145deg, #152612, #091108);
+  border-color: rgba(120, 220, 120, 0.45);
+}
+
+/* POUSSIERE */
+.poussiere {
+  background: linear-gradient(145deg, #2b2621, #15120f);
+  border-color: rgba(200, 180, 150, 0.4);
+}
+
+/* GLACE */
+.glace {
+  background: linear-gradient(145deg, #102534, #08131b);
+  border-color: rgba(120, 220, 255, 0.45);
+}
+
+/* BRUME */
+.brume {
+  background: linear-gradient(145deg, #272235, #13101a);
+  border-color: rgba(200, 180, 255, 0.45);
+}
+
+/* SABLE */
+.sable {
+  background: linear-gradient(145deg, #2d2418, #171109);
+  border-color: rgba(255, 210, 120, 0.4);
+}
+
+/* METAL */
+.metal {
+  background: linear-gradient(145deg, #22272d, #101418);
+  border-color: rgba(180, 200, 220, 0.45);
+}
+
+/* ONDE */
+.onde {
+  background: linear-gradient(145deg, #1a2030, #0b0f17);
+  border-color: rgba(120, 140, 255, 0.45);
+}
+
+.element-toggle-panel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.element-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem;
+  border-radius: 14px;
+  cursor: pointer;
+  opacity: 0.45;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.element-toggle:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+.element-toggle.active {
+  opacity: 1;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.16);
+}
+
+.element-toggle i {
+  font-size: 1.25rem;
+}
+
+.empty-state {
+  color: #aaa;
+  text-align: center;
+  padding: 2rem;
+}
+
+.element-svg {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
+}
+
+.element-title .element-svg {
+  width: 30px;
+  height: 30px;
+}
+
+.element-chip .element-svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 700px) {
+  .element-toggle-panel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

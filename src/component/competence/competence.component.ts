@@ -7,6 +7,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ForgeurRunesComponent } from './forgeur-de-runes/forgeur-de-runes.component';
 import { IngenieurComponent } from './ingenieur/ingenieur.component';
 import { PretreComponent } from './pretre/pretre.component';
+import { MageComponent } from './mage/mage.component';
 
 @Component({
   selector: 'app-competences',
@@ -19,6 +20,7 @@ import { PretreComponent } from './pretre/pretre.component';
     ForgeurRunesComponent,
     IngenieurComponent,
     PretreComponent,
+    MageComponent,
   ],
   templateUrl: './competence.component.html',
   styleUrl: './competence.component.css',
@@ -27,9 +29,12 @@ export class CompetencesComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   tabIndexMap: Record<string, number> = {
-    walkyrie: 0,
-    demonologue: 1,
-    forgeurDeRunes: 2,
+    pretre: 0,
+    mage: 1,
+    walkyrie: 2,
+    ingenieur: 3,
+    forgeurDeRunes: 4,
+    demonologue: 5,
   };
 
   activeIndex = 0;

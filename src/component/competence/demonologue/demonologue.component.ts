@@ -10,7 +10,10 @@ import {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './demonologue.component.html',
-  styleUrl: './demonologue.component.css',
+  styleUrls: [
+    './demonologue.component.css',
+    '../../../assets/css/competence.css',
+  ],
 })
 export class DemonologueComponent {
   niveaux = [1, 2, 3, 4, 5, 6, 8];

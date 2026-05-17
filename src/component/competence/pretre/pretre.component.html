@@ -6,7 +6,11 @@
   >
     <div class="ordre-header">
       <div class="ordre-icon">
-        <i [class]="getOrdreIcon(ordre)"></i>
+        <img
+          class="pretre-svg ordre-svg"
+          [src]="getOrdreIconPath(ordre)"
+          [alt]="ordre"
+        />
       </div>
 
       <div>
@@ -31,7 +35,11 @@
           "
         >
           <div class="spell-icon">
-            <i [class]="getCategorieIcon(competence.categorie)"></i>
+            <img
+              class="categorie-svg"
+              [src]="getCategorieIconPath(competence.categorie)"
+              [alt]="competence.categorie"
+            />
           </div>
 
           <div class="spell-content">

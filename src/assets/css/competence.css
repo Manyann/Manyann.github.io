@@ -1,0 +1,104 @@
+/* =========================
+   RESPONSIVE GLOBAL
+========================= */
+
+@media (max-width: 900px) {
+  .walkyrie-page,
+  .ingenieur-page,
+  .pretre-page {
+    padding: 0.75rem;
+  }
+
+  .competence-list,
+  .meca-grid,
+  .spell-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .walkyrie-branch,
+  .meca-section,
+  .ordre-section {
+    padding: 1rem;
+  }
+
+  .branch-header,
+  .meca-section-header,
+  .ordre-header {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .branch-header,
+  .meca-section-header,
+  .ordre-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .branch-icon,
+  .meca-section-icon,
+  .ordre-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 1.15rem;
+  }
+
+  .branch-header h2,
+  .meca-section-header h2,
+  .ordre-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .branch-header p,
+  .meca-section-header p,
+  .ordre-header p {
+    font-size: 0.9rem;
+  }
+
+  .competence-card,
+  .meca-card,
+  .spell-card {
+    padding: 0.85rem;
+  }
+
+  .competence-top,
+  .meca-top,
+  .spell-top {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .competence-cost,
+  .music-cost,
+  .spell-cost {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 1200px) {
+  .pretre-page {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .pretre-page {
+    grid-template-columns: 1fr;
+  }
+
+  .spell-card {
+    flex-direction: column;
+  }
+
+  .spell-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 500px) {
+  .meca-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
