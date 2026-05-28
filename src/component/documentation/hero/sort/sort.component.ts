@@ -27,17 +27,17 @@ export class SortComponent {
       {
         image: 'assets/img/card/sort/mage.PNG',
         titre: 'Mages',
-        url: 'competences/mage',
+        url: 'competences#mage',
       },
       {
         image: 'assets/img/card/sort/pretre.PNG',
         titre: 'Prêtres',
-        url: 'competences/pretre',
+        url: 'competences#pretre',
       },
       {
         image: 'assets/img/card/sort/ingenieur.PNG',
         titre: 'Ingénieur',
-        url: 'competences/ingenieur',
+        url: 'competences#ingenieur',
       },
     ];
 

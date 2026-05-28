@@ -1,0 +1,248 @@
+.archeologue-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  color: #eadfca;
+}
+
+.job-header {
+  border-radius: 18px;
+  padding: 1.25rem;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(210, 160, 90, 0.16),
+      transparent 35%
+    ),
+    linear-gradient(145deg, #21170f, #0e0b08);
+  border: 1px solid rgba(210, 160, 90, 0.35);
+}
+
+.job-header h1 {
+  margin: 0;
+  color: #f2c37a;
+  font-size: 1.6rem;
+}
+
+.job-header p {
+  margin: 0.25rem 0 0;
+  color: #cdbb9d;
+}
+
+.job-section {
+  border-radius: 18px;
+  padding: 1.25rem;
+  border: 1px solid rgba(220, 180, 120, 0.25);
+  background: linear-gradient(145deg, #18130f, #0d0a08);
+}
+
+.branche-archeologue {
+  border-color: rgba(190, 140, 80, 0.35);
+}
+
+.branche-conservateur {
+  border-color: rgba(120, 190, 220, 0.45);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(120, 190, 220, 0.14),
+      transparent 35%
+    ),
+    linear-gradient(145deg, #111a20, #080c0f);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-icon img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #f4d39b;
+  font-size: 1.3rem;
+}
+
+.branche-conservateur .section-header h2 {
+  color: #bdeeff;
+}
+
+.section-header p {
+  margin: 0.25rem 0 0;
+  color: #c9b9a0;
+  line-height: 1.4;
+}
+
+.branche-conservateur .section-header p {
+  color: #a9cdd9;
+}
+
+.niveau-section {
+  margin-top: 1.25rem;
+}
+
+.niveau-title {
+  color: #f2c37a;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.branche-conservateur .niveau-title {
+  color: #bdeeff;
+}
+
+.competence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+}
+
+.competence-card {
+  display: flex;
+  gap: 0.85rem;
+  border-radius: 14px;
+  padding: 1rem;
+  background: rgba(10, 8, 6, 0.65);
+  border: 1px solid rgba(255, 220, 160, 0.13);
+}
+
+.branche-conservateur .competence-card {
+  background: rgba(8, 15, 20, 0.72);
+  border-color: rgba(120, 190, 220, 0.18);
+}
+
+.spell-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.spell-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.spell-content {
+  flex: 1;
+}
+
+.spell-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.spell-top h3 {
+  margin: 0;
+  color: #fff0d2;
+  font-size: 1rem;
+}
+
+.spell-cost {
+  white-space: nowrap;
+  height: fit-content;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(230, 180, 110, 0.14);
+  color: #f2c37a;
+  font-size: 0.78rem;
+}
+
+.branche-conservateur .spell-cost {
+  background: rgba(120, 190, 220, 0.14);
+  color: #bdeeff;
+}
+
+.spell-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.65rem 0;
+}
+
+.spell-tags span {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #d8c7a8;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.branche-conservateur .spell-tags span {
+  color: #bddce6;
+}
+
+.spell-effect {
+  margin: 0;
+  color: #ded2bd;
+  line-height: 1.45;
+  font-size: 0.9rem;
+}
+
+.branche-conservateur .spell-effect {
+  color: #d1e5ea;
+}
+
+.spell-condition {
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f4d39b;
+  font-size: 0.82rem;
+}
+
+.branche-conservateur .spell-condition {
+  color: #bdeeff;
+}
+
+@media (max-width: 700px) {
+  .competence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    align-items: flex-start;
+  }
+
+  .competence-card {
+    flex-direction: column;
+  }
+
+  .spell-top {
+    flex-direction: column;
+  }
+
+  .spell-cost {
+    width: fit-content;
+  }
+}

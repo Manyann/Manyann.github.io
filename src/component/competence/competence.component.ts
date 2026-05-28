@@ -8,6 +8,7 @@ import { ForgeurRunesComponent } from './forgeur-de-runes/forgeur-de-runes.compo
 import { IngenieurComponent } from './ingenieur/ingenieur.component';
 import { PretreComponent } from './pretre/pretre.component';
 import { MageComponent } from './mage/mage.component';
+import { ArcheologueComponent } from './archeologue/archeologue.component';
 
 @Component({
   selector: 'app-competences',
@@ -21,6 +22,7 @@ import { MageComponent } from './mage/mage.component';
     IngenieurComponent,
     PretreComponent,
     MageComponent,
+    ArcheologueComponent,
   ],
   templateUrl: './competence.component.html',
   styleUrl: './competence.component.css',
@@ -35,6 +37,7 @@ export class CompetencesComponent implements OnInit {
     ingenieur: 3,
     forgeurDeRunes: 4,
     demonologue: 5,
+    archeologue: 6,
   };
 
   activeIndex = 0;
