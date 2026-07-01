@@ -62,6 +62,10 @@ export class HerosService {
     return this.getCachedCollection(StorageKeys.HERO_DEGATS);
   }
 
+  async getAllHerosSoins() {
+    return this.getCachedCollection(StorageKeys.HERO_SOINS);
+  }
+
   async getAllHerosMob() {
     return this.getCachedCollection(StorageKeys.HERO_MOBS);
   }
@@ -430,6 +434,72 @@ export class HerosService {
       trophes.push(await this.setTrophe(joueur, 'La fierté de Thanos'));
     }
     this.storage.addElementInStorageGroup(StorageKeys.HERO_DEGATS, document);
+
+    //#endregion trophes
+
+    return trophes;
+  }
+
+  async updateSoins(
+    nom: string,
+    soins: number,
+    tour: number,
+  ): Promise<string[]> {
+    let document: DocumentData = {
+      hero_nom: nom,
+      intensite: soins,
+      date: new Date(),
+      tour: tour,
+    };
+
+    await setDoc(
+      doc(this.firestore, 'heros_soins', crypto.randomUUID()),
+      document,
+    );
+
+    //#region trophes
+
+    let heros = await this.getByName(nom);
+
+    let joueur = heros[0]['code_joueur'];
+
+    let allHeros = await this.getAllHeroOfJoueur(joueur);
+
+    let trophes = [];
+    if (soins >= 5) {
+      trophes.push(await this.setTrophe(joueur, 'Bandage Correctement Posé'));
+    }
+
+    if (soins >= 15) {
+      trophes.push(await this.setTrophe(joueur, 'Guerisseur'));
+    }
+
+    if (soins >= 30) {
+      trophes.push(await this.setTrophe(joueur, 'Le messie'));
+    }
+
+    let totalSoins = 0;
+    const allSoins = await this.getAllHerosSoins();
+    for (const hero of allHeros) {
+      const heroSoins = allSoins.filter((x) => x['hero_nom'] === hero['nom']);
+      heroSoins.forEach((element) => {
+        totalSoins += element['intensite'];
+      });
+    }
+
+    if (totalSoins > 300) {
+      trophes.push(await this.setTrophe(joueur, 'Médecin professionel'));
+    }
+    if (totalSoins > 1000) {
+      trophes.push(await this.setTrophe(joueur, 'Tony Tony Chopper'));
+    }
+    if (totalSoins > 5000) {
+      trophes.push(await this.setTrophe(joueur, 'Miracle de Drum'));
+    }
+    if (totalSoins > 15000) {
+      trophes.push(await this.setTrophe(joueur, 'Avatar de la Vie'));
+    }
+    this.storage.addElementInStorageGroup(StorageKeys.HERO_SOINS, document);
 
     //#endregion trophes
 

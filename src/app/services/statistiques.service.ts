@@ -7,7 +7,6 @@ import {
   getDoc,
   getDocs,
   query,
-  setDoc,
   where,
 } from '@angular/fire/firestore';
 import { CodeValeur } from '../../component/model/code-libelle';
@@ -317,6 +316,37 @@ export class StatistiquesService {
     return values.sort((n1, n2) => n2.valeur - n1.valeur);
   }
 
+  async getSoinsTotaux(slice: number | null = null) {
+    if (!this.storage.get(StorageKeys.STATS_SOINS)) {
+      let soins = (
+        await getDocs(query(collection(this.firestore, 'heros_soins')))
+      ).docs.map((entries) => entries.data());
+
+      let statistiques: CodeValeur[] = [];
+
+      soins.forEach((soin) => {
+        if (
+          statistiques.find((x) => x.code == soin['hero_nom']) === undefined
+        ) {
+          statistiques.push({ code: soin['hero_nom'], valeur: 0 });
+        }
+        statistiques.find((x) => x.code == soin['hero_nom'])!.valeur +=
+          soin['intensite'];
+      });
+
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_SOINS, statistiques);
+    }
+
+    let values: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_SOINS) ?? [];
+
+    if (slice !== null) {
+      values = values.sort((n1, n2) => n2.valeur - n1.valeur).slice(0, slice);
+    }
+
+    return values.sort((n1, n2) => n2.valeur - n1.valeur);
+  }
+
   async getDegatsMax(slice: number | null = null) {
     if (!this.storage.get(StorageKeys.STATS_DEGATS_MAX)) {
       let degats = (
@@ -348,6 +378,42 @@ export class StatistiquesService {
 
     let values: CodeValeur[] =
       this.storage.get<CodeValeur[]>(StorageKeys.STATS_DEGATS_MAX) ?? [];
+
+    if (slice !== null) {
+      values = values.sort((n1, n2) => n2.valeur - n1.valeur).slice(0, slice);
+    }
+
+    return values.sort((n1, n2) => n2.valeur - n1.valeur);
+  }
+
+  async getSoinsMax(slice: number | null = null) {
+    if (!this.storage.get(StorageKeys.STATS_SOINS_MAX)) {
+      let soins = (
+        await getDocs(query(collection(this.firestore, 'heros_soins')))
+      ).docs.map((entries) => entries.data());
+
+      let statistiques: CodeValeur[] = [];
+
+      soins.forEach((soin) => {
+        if (
+          statistiques.find((x) => x.code == soin['hero_nom']) === undefined
+        ) {
+          statistiques.push({ code: soin['hero_nom'], valeur: 0 });
+        }
+        if (
+          statistiques.find((x) => x.code == soin['hero_nom'])!.valeur <
+          soin['intensite']
+        ) {
+          statistiques.find((x) => x.code == soin['hero_nom'])!.valeur =
+            soin['intensite'];
+        }
+      });
+
+      this.storage.set<CodeValeur[]>(StorageKeys.STATS_SOINS_MAX, statistiques);
+    }
+
+    let values: CodeValeur[] =
+      this.storage.get<CodeValeur[]>(StorageKeys.STATS_SOINS_MAX) ?? [];
 
     if (slice !== null) {
       values = values.sort((n1, n2) => n2.valeur - n1.valeur).slice(0, slice);
@@ -597,11 +663,20 @@ export class StatistiquesService {
     if (!this.storage.has(key)) {
       let totalDegats = await this.getTotalDegatsJoueur(joueur);
       let maxDegat = await this.getMaxDegatsJoueur(joueur);
+      let totalSoins = await this.getTotalSoinsJoueur(joueur);
+      let maxSoins = await this.getMaxSoinsJoueur(joueur);
       let totalEnnemis = await this.getTotalEnnemisJoueur(joueur);
       let maxEnnemis = await this.getMaxEnnemisJoueur(joueur);
 
       let statistiques: JoueurStatistique = {
-        details: [totalDegats, maxDegat, totalEnnemis, maxEnnemis],
+        details: [
+          totalDegats,
+          maxDegat,
+          totalSoins,
+          maxSoins,
+          totalEnnemis,
+          maxEnnemis,
+        ],
       };
 
       this.storage.set<JoueurStatistique>(key, statistiques, 10);
@@ -925,6 +1000,37 @@ export class StatistiquesService {
     } as JoueurStatistiqueDetails;
   }
 
+  async getMaxSoinsJoueur(joueur: string) {
+    const heros = await this.herosService.getAllHeroOfJoueur(joueur);
+    const noms = new Set(heros.map((h) => h['nom']));
+
+    const degats = (
+      await getDocs(collection(this.firestore, 'heros_soins'))
+    ).docs.map((d) => d.data());
+
+    let heroNom = '';
+    let maxDegat = -Infinity;
+
+    for (const d of degats) {
+      const hn = d['hero_nom'];
+      if (!noms.has(hn)) continue;
+      const val = d['intensite'] ?? 0;
+      if (val > maxDegat) {
+        maxDegat = val;
+        heroNom = hn;
+      }
+    }
+
+    if (maxDegat === Number.NEGATIVE_INFINITY) {
+      maxDegat = 0;
+    }
+
+    return {
+      libelle: 'Plus gros soins donnés',
+      valeur: `${maxDegat} ( ${heroNom} )`,
+    } as JoueurStatistiqueDetails;
+  }
+
   async getPersoCountJoueur(joueur: string) {
     let heros = await this.herosService.getAllHeroOfJoueur(joueur);
 
@@ -1134,6 +1240,33 @@ export class StatistiquesService {
 
     let details: JoueurStatistiqueDetails = {
       libelle: 'Dégâts totaux infligés',
+      valeur: total.toString(),
+    };
+
+    return details;
+  }
+
+  async getTotalSoinsJoueur(joueur: string) {
+    let heros = await this.herosService.getAllHeroOfJoueur(joueur);
+
+    let total = 0;
+
+    for (const hero of heros) {
+      let degats = (
+        await getDocs(
+          query(
+            collection(this.firestore, 'heros_soins'),
+            where('hero_nom', '==', hero['nom']),
+          ),
+        )
+      ).docs.map((entries) => entries.data());
+      degats.forEach((element) => {
+        total += element['intensite'];
+      });
+    }
+
+    let details: JoueurStatistiqueDetails = {
+      libelle: 'Soins totaux donnés',
       valeur: total.toString(),
     };
 

@@ -5,13 +5,14 @@ export enum StorageKeys {
   HERO_ORIGINES = 'hero_origines',
   HERO_METIERS = 'hero_metiers',
   HERO_CRITIQUES = 'heros_critiques',
-  HERO_PARADES= 'heros_parades',
-  HERO_ECHECS= 'heros_echecs',
-  HERO_ENTROPIQUES= 'heros_entropiques',
-  HERO_DEGATS= 'heros_degats',
-  HERO_MOBS= 'heros_mobs',
-  HERO_ARMES= 'hero_armes',
-  HERO_ARMURES= 'hero_armures',
+  HERO_PARADES = 'heros_parades',
+  HERO_ECHECS = 'heros_echecs',
+  HERO_ENTROPIQUES = 'heros_entropiques',
+  HERO_DEGATS = 'heros_degats',
+  HERO_MOBS = 'heros_mobs',
+  HERO_ARMES = 'hero_armes',
+  HERO_ARMURES = 'hero_armures',
+  HERO_SOINS = 'hero_soins',
   ARMES = 'armes',
   ARMURES = 'armures',
   POTIONS = 'potions',
@@ -25,22 +26,24 @@ export enum StorageKeys {
   STATS_JOUEUR_TRIVIA = 'statistiques_joueur_trivia',
   STATS_ARMES = 'statistiques_armes',
   STATS_ARMURES = 'statistiques_armures',
-  STATS_CRITS= 'statistiques_critiques',
-  STATS_ECHECS= 'statistiques_echecs',
-  STATS_ENTROPIQUES= 'statistiques_entropique',
-  STATS_DEGATS= 'statistiques_degats',
-  STATS_DEGATS_MAX= 'statistiques_degats_max',
-  STATS_MOBS= 'statistiques_mobs',
-  STATS_JOUEURS_MJ =  'statistiques_joueurs_mj',
+  STATS_CRITS = 'statistiques_critiques',
+  STATS_ECHECS = 'statistiques_echecs',
+  STATS_ENTROPIQUES = 'statistiques_entropique',
+  STATS_DEGATS = 'statistiques_degats',
+  STATS_DEGATS_MAX = 'statistiques_degats_max',
+  STATS_MOBS = 'statistiques_mobs',
+  STATS_JOUEURS_MJ = 'statistiques_joueurs_mj',
   TROPHES = 'joueurs_trophes',
   ORIGINES = 'origines',
-  METIERS = 'metiers'
+  METIERS = 'metiers',
+  STATS_SOINS = 'statistiques_soins',
+  STATS_SOINS_MAX = 'statistiques_soins_max',
 }
 
 type StorageKey = StorageKeys | string;
 
 interface StoredEnvelope<T> {
-  v: 1;              // version de format
+  v: 1; // version de format
   expiresAt: number; // timestamp ms
   value: T;
 }
@@ -53,7 +56,11 @@ export class StorageService {
   /** Si true: get() migrera l'ancien format (valeur brute) vers enveloppe */
   private readonly enableMigration = true;
 
-  set<T>(key: StorageKey, value: T, expirationMinutes: number = this.defaultExpirationMinutes): void {
+  set<T>(
+    key: StorageKey,
+    value: T,
+    expirationMinutes: number = this.defaultExpirationMinutes,
+  ): void {
     const expiresAt = Date.now() + expirationMinutes * 60_000;
     const payload: StoredEnvelope<T> = { v: 1, expiresAt, value };
     localStorage.setItem(String(key), JSON.stringify(payload));
@@ -61,7 +68,11 @@ export class StorageService {
 
   /** Stocke une valeur "sans expiration" (si tu en as besoin) */
   setPermanent<T>(key: StorageKey, value: T): void {
-    const payload: StoredEnvelope<T> = { v: 1, expiresAt: Number.POSITIVE_INFINITY, value };
+    const payload: StoredEnvelope<T> = {
+      v: 1,
+      expiresAt: Number.POSITIVE_INFINITY,
+      value,
+    };
     localStorage.setItem(String(key), JSON.stringify(payload));
   }
 
@@ -131,10 +142,12 @@ export class StorageService {
     finderProperty: keyof K,
     finderValue: K[keyof K],
     setterProperty: keyof K,
-    value: V
+    value: V,
   ): boolean {
     const list = this.get<K[]>(key) ?? [];
-    const idx = list.findIndex(item => item?.[finderProperty] === finderValue);
+    const idx = list.findIndex(
+      (item) => item?.[finderProperty] === finderValue,
+    );
     if (idx === -1) return false;
 
     list[idx] = { ...list[idx], [setterProperty]: value } as K;
@@ -154,10 +167,10 @@ export class StorageService {
     key: StorageKey,
     finderProperty: keyof K,
     finderValue: K[keyof K],
-    item: K
+    item: K,
   ): 'updated' | 'added' {
     const list = this.get<K[]>(key) ?? [];
-    const idx = list.findIndex(x => x?.[finderProperty] === finderValue);
+    const idx = list.findIndex((x) => x?.[finderProperty] === finderValue);
 
     if (idx === -1) {
       list.push(item);

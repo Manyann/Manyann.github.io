@@ -31,6 +31,15 @@
                   styleClass="icon-btn action-btn-primary"
                 />
               </div>
+              <div class="mini-group">
+                <span class="mini-label">Soins</span>
+                <p-inputNumber [(ngModel)]="addSoins" class="input-xs" />
+                <p-button
+                  (onClick)="updateSoins(hero['nom'])"
+                  icon="pi pi-heart"
+                  styleClass="icon-btn action-btn-primary"
+                />
+              </div>
 
               <div class="mini-group">
                 <span class="mini-label">Int.</span>

@@ -55,6 +55,10 @@ export class StatistiqueComponent {
     StatistiqueChartDataService.emptyChart();
   dataDegatsMax: StatistiqueDashboardData =
     StatistiqueChartDataService.emptyChart();
+  dataSoinsTotal: StatistiqueDashboardData =
+    StatistiqueChartDataService.emptyChart();
+  dataSoinsMax: StatistiqueDashboardData =
+    StatistiqueChartDataService.emptyChart();
   dataEnnemis: StatistiqueDashboardData =
     StatistiqueChartDataService.emptyChart();
   dataRapports: StatistiqueDashboardData =
@@ -68,6 +72,8 @@ export class StatistiqueComponent {
   optionsBardataCritsdataEchecCrits: any = {};
   optionsBardataDegatsTotal: any = {};
   optionsBardataDegatsMax: any = {};
+  optionsBardataSoinsTotal: any = {};
+  optionsBardataSoinsMax: any = {};
   optionsBardataEnnemis: any = {};
   optionsBardataRapports: any = {};
   optionsBardataRapportsJoueurMj: any = {};
@@ -118,6 +124,8 @@ export class StatistiqueComponent {
       this.dataEchecCrits = data.echecCrits;
       this.dataDegatsTotal = data.degatsTotal;
       this.dataDegatsMax = data.degatsMax;
+      this.dataSoinsTotal = data.soinsTotal;
+      this.dataSoinsMax = data.soinsMax;
       this.dataEnnemis = data.ennemis;
       this.dataRapportsJoueurMj = data.rapportsJoueurMj;
       this.dataRapports = data.rapports;
@@ -142,6 +150,8 @@ export class StatistiqueComponent {
       getChartOptions('Échecs Critiques');
     this.optionsBardataDegatsTotal = getChartOptions('Dégâts Totaux');
     this.optionsBardataDegatsMax = getChartOptions('Dégâts Max');
+    this.optionsBardataSoinsTotal = getChartOptions('Soins Totaux');
+    this.optionsBardataSoinsMax = getChartOptions('Soins Max');
     this.optionsBardataEnnemis = getChartOptions('Ennemis rencontrés');
     this.optionsBardataRapports = getChartOptions('Rapport Critiques / Echecs');
     this.optionsBardataRapportsJoueurMj = getChartOptionsStackedVertical(

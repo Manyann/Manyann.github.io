@@ -142,6 +142,52 @@
 
         <div
           class="chart"
+          [class.expanded]="expandedChart === 'dataSoinsTotal'"
+          *ngIf="expandedChart === null || expandedChart === 'dataSoinsTotal'"
+        >
+          <p-chart
+            #chart
+            type="bar"
+            [data]="dataSoinsTotal"
+            [options]="optionsBardataSoinsTotal"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataSoinsTotal',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataSoinsTotal',
+            }"
+            (click)="toggleChart('dataSoinsTotal')"
+          ></i>
+        </div>
+
+        <div
+          class="chart"
+          [class.expanded]="expandedChart === 'dataSoinsMax'"
+          *ngIf="expandedChart === null || expandedChart === 'dataSoinsMax'"
+        >
+          <p-chart
+            #chart
+            type="bar"
+            [data]="dataSoinsMax"
+            [options]="optionsBardataSoinsMax"
+          />
+          <i
+            class="pi"
+            [ngClass]="{
+              'pi-arrow-up-right-and-arrow-down-left-from-center':
+                expandedChart !== 'dataSoinsMax',
+              'pi-arrow-down-left-and-arrow-up-right-to-center':
+                expandedChart === 'dataSoinsMax',
+            }"
+            (click)="toggleChart('dataSoinsMax')"
+          ></i>
+        </div>
+
+        <div
+          class="chart"
           [class.expanded]="expandedChart === 'dataEnnemis'"
           *ngIf="expandedChart === null || expandedChart === 'dataEnnemis'"
         >

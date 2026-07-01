@@ -7,6 +7,8 @@ export interface StatistiqueDashboard {
   echecCrits: StatistiqueDashboardData;
   degatsTotal: StatistiqueDashboardData;
   degatsMax: StatistiqueDashboardData;
+  soinsTotal: StatistiqueDashboardData;
+  soinsMax: StatistiqueDashboardData;
   ennemis: StatistiqueDashboardData;
   rapports: StatistiqueDashboardData;
   rapportsJoueurMj: StatistiqueDashboardData;
