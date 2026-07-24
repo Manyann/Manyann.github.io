@@ -155,7 +155,7 @@ export class LootboxComponent implements OnInit, OnDestroy {
       { label: 'Pérave', value: weights.perave, className: 'rarity-perave' },
       { label: 'Qualité', value: weights.qualite, className: 'rarity-qualite' },
       {
-        label: 'Artisant',
+        label: 'Artisan',
         value: weights.artisant,
         className: 'rarity-artisant',
       },

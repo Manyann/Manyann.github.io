@@ -46,19 +46,19 @@ export class StatistiqueChartDataService {
 
     return {
       origines: this.toHorizontalBarData('Origines', originesData, onlyTop),
-      metiers: this.toHorizontalBarData('Metiers', metiersData, onlyTop),
+      metiers: this.toHorizontalBarData('Métiers', metiersData, onlyTop),
       crits: this.toHorizontalBarData('Critiques', critsData, onlyTop),
       echecCrits: this.toHorizontalBarData(
-        'Echecs Critiques / Entropiques',
+        'Échecs Critiques / Entropiques',
         echecCritsData,
         onlyTop,
       ),
       degatsTotal: this.toHorizontalBarData(
-        'Degats totaux',
+        'Dégâts totaux',
         degatsTotalData,
         onlyTop,
       ),
-      degatsMax: this.toHorizontalBarData('Dégats Max', degatsMaxData, onlyTop),
+      degatsMax: this.toHorizontalBarData('Dégâts Max', degatsMaxData, onlyTop),
       soinsTotal: this.toHorizontalBarData(
         'Soins totaux',
         soinsTotalData,
@@ -67,7 +67,7 @@ export class StatistiqueChartDataService {
       soinsMax: this.toHorizontalBarData('Soins Max', soinsMaxData, onlyTop),
       ennemis: this.toHorizontalBarData('Ennemis', ennemisData, onlyTop),
       rapportsJoueurMj: this.withTitle(
-        'Rapport Crit et Echec Joueurs / MJ',
+        'Rapport Crit et Échec Joueurs / MJ',
         rapportsJoueurMjData,
       ),
       rapports: this.withTitle('Échecs vs Critiques', rapportsData),

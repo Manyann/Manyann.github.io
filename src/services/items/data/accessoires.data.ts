@@ -66,7 +66,7 @@ export const getAccessoiresData = (): Accessoire[] => {
         origine: '',
       },
       {
-        libelle: "Anneau d'intelligence ",
+        libelle: "Anneau d'intelligence",
         prix: 500,
         basePourcentage: 90,
         categorie: { code: 'anneau', libelle: 'Anneau' },
@@ -192,7 +192,7 @@ export const getAccessoiresData = (): Accessoire[] => {
         origine: '',
       },
       {
-        libelle: 'Anneau de solidité ',
+        libelle: 'Anneau de solidité',
         prix: 1000,
         basePourcentage: 80,
         categorie: { code: 'anneau', libelle: 'Anneau' },
@@ -255,7 +255,7 @@ export const getAccessoiresData = (): Accessoire[] => {
         origine: '',
       },
       {
-        libelle: 'Serti de visé',
+        libelle: 'Serti de visée',
         prix: 400,
         basePourcentage: 75,
         categorie: { code: 'anneau', libelle: 'Anneau' },
@@ -654,10 +654,10 @@ export const getAccessoiresData = (): Accessoire[] => {
         origine: '',
       },
       {
-        libelle: 'Colier de critique',
+        libelle: 'Collier de critique',
         prix: 4000,
         basePourcentage: 60,
-        categorie: { code: 'colier', libelle: 'Colier' },
+        categorie: { code: 'collier', libelle: 'Collier' },
         courage: '',
         intelligence: '',
         charisme: '',
@@ -675,10 +675,10 @@ export const getAccessoiresData = (): Accessoire[] => {
         origine: '',
       },
       {
-        libelle: "Colier d'intensité",
+        libelle: "Collier d'intensité",
         prix: 5000,
         basePourcentage: 40,
-        categorie: { code: 'colier', libelle: 'Colier' },
+        categorie: { code: 'collier', libelle: 'Collier' },
         courage: '',
         intelligence: '',
         charisme: '',
@@ -780,7 +780,7 @@ export const getAccessoiresData = (): Accessoire[] => {
         origine: '',
       },
       {
-        libelle: 'Cape passe partout',
+        libelle: 'Cape passe-partout',
         prix: 200,
         basePourcentage: 75,
         categorie: { code: 'cape', libelle: 'Cape' },

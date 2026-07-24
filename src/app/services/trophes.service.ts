@@ -24,7 +24,7 @@ export class TrophesService {
       'forgeur-de-runes': 'Forgeur de rêves',
       'herboriste': 'Le père du mousse',
       'artificier': 'Enzo Santorini',
-      'ingenieur-automate': 'Le reveil des machines',
+      'ingenieur-automate': 'Le réveil des machines',
       'inquisiteur': 'Au bûcher',
       'soldat': 'Formation tortue',
       'berzerk': 'Tryndamère',

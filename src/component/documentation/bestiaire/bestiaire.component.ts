@@ -36,7 +36,7 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/bestiaire/foret1.png",
-      titre:"Fôret",
+      titre:"Forêt",
       url:"assets/img/pdfs/bestiaire/rencontre-foret.PNG"
     },
     {

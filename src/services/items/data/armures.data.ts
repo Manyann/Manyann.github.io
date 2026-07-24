@@ -1075,7 +1075,7 @@ export const getArmuresData = (
       attaque: '',
       parade: '',
       rupture: '',
-      informations: '-1 aux critiques réçus',
+      informations: '-1 aux critiques reçus',
     },
     //#endregion Plage
     //#region Plaque renforcée
@@ -1124,7 +1124,7 @@ export const getArmuresData = (
       informations: '',
     },
     {
-      libelle: 'Brasssards de plaque renforcées',
+      libelle: 'Brassards de plaque renforcés',
       basePourcentage: 60,
       region: 'commun',
       origine: getOrigine(zone, 'armure-plaque'),
@@ -1209,7 +1209,7 @@ export const getArmuresData = (
       attaque: '',
       parade: '',
       rupture: '',
-      informations: '-1 aux critiques réçus',
+      informations: '-1 aux critiques reçus',
     },
     //#endregion Plaque renforcée
     //#region Plaque travaillée
@@ -1343,7 +1343,7 @@ export const getArmuresData = (
       attaque: '',
       parade: '',
       rupture: '',
-      informations: '-1 aux critiques réçus / -1 rupture PR',
+      informations: '-1 aux critiques reçus / -1 rupture PR',
     },
     //#endregion Plaque travaillée
     //#region Robe
@@ -1570,7 +1570,7 @@ export const getArmuresData = (
     //#endregion Robe
     //#region Chapeau
     {
-      libelle: 'Chapeau Fripé de l Initié',
+      libelle: "Chapeau Fripé de l'Initié",
       basePourcentage: 95,
       region: 'commun',
       origine: getOrigine(zone, 'chapeau'),

@@ -75,7 +75,7 @@ export const getPotionsData = (): Potion[] => {
         informations: '',
       },
       {
-        libelle: 'Enorme potion de vie',
+        libelle: 'Énorme potion de vie',
         basePourcentage: 70,
         region: 'commun',
         origine: '',
@@ -565,7 +565,7 @@ export const getPotionsData = (): Potion[] => {
         informations: '',
       },
       {
-        libelle: "Elixir d'agilité",
+        libelle: "Élixir d'agilité",
         basePourcentage: 75,
         region: 'commun',
         origine: '',
@@ -710,7 +710,7 @@ export const getPotionsData = (): Potion[] => {
         attaque: '',
         parade: '',
         rupture: '',
-        informations: '-1 à tous les resultas de jet',
+        informations: '-1 à tous les résultats de jet',
       },
       {
         libelle: 'Potion du Hasard Heureux',
@@ -1057,15 +1057,15 @@ export const getPotionsData = (): Potion[] => {
         informations: '+4PR Magique',
       },
       //#endregion Armure magique
-      //#region Mixe
+      //#region Mixte
       {
         libelle: 'Élixir du Héros des Légendes',
         basePourcentage: 70,
         region: 'commun',
         origine: '',
         categorie: {
-          code: 'mixe',
-          libelle: 'Mixe',
+          code: 'mixte',
+          libelle: 'Mixte',
         },
         prix: 200,
         duree: '5',
@@ -1088,8 +1088,8 @@ export const getPotionsData = (): Potion[] => {
         region: 'commun',
         origine: '',
         categorie: {
-          code: 'mixe',
-          libelle: 'Mixe',
+          code: 'mixte',
+          libelle: 'Mixte',
         },
         prix: 250,
         duree: '5',
@@ -1112,8 +1112,8 @@ export const getPotionsData = (): Potion[] => {
         region: 'commun',
         origine: '',
         categorie: {
-          code: 'mixe',
-          libelle: 'Mixe',
+          code: 'mixte',
+          libelle: 'Mixte',
         },
         prix: 250,
         duree: '5',
@@ -1136,8 +1136,8 @@ export const getPotionsData = (): Potion[] => {
         region: 'commun',
         origine: '',
         categorie: {
-          code: 'mixe',
-          libelle: 'Mixe',
+          code: 'mixte',
+          libelle: 'Mixte',
         },
         prix: 150,
         duree: '5',
@@ -1160,8 +1160,8 @@ export const getPotionsData = (): Potion[] => {
         region: 'commun',
         origine: '',
         categorie: {
-          code: 'mixe',
-          libelle: 'Mixe',
+          code: 'mixte',
+          libelle: 'Mixte',
         },
         prix: 100,
         duree: '5',
@@ -1184,8 +1184,8 @@ export const getPotionsData = (): Potion[] => {
         region: 'commun',
         origine: '',
         categorie: {
-          code: 'mixe',
-          libelle: 'Mixe',
+          code: 'mixte',
+          libelle: 'Mixte',
         },
         prix: 120,
         duree: '5',
@@ -1208,8 +1208,8 @@ export const getPotionsData = (): Potion[] => {
         region: 'commun',
         origine: '',
         categorie: {
-          code: 'mixe',
-          libelle: 'Mixe',
+          code: 'mixte',
+          libelle: 'Mixte',
         },
         prix: 120,
         duree: '5',
@@ -1232,8 +1232,8 @@ export const getPotionsData = (): Potion[] => {
         region: 'commun',
         origine: '',
         categorie: {
-          code: 'mixe',
-          libelle: 'Mixe',
+          code: 'mixte',
+          libelle: 'Mixte',
         },
         prix: 400,
         duree: '*',
@@ -1256,8 +1256,8 @@ export const getPotionsData = (): Potion[] => {
         region: 'commun',
         origine: '',
         categorie: {
-          code: 'mixe',
-          libelle: 'Mixe',
+          code: 'mixte',
+          libelle: 'Mixte',
         },
         prix: 500,
         duree: '5',

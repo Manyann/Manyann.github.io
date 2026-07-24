@@ -109,7 +109,7 @@ export function createBasiqueCompetences(): Array<CodeLibelle> {
     },
     {
       code: 'ER',
-      libelle: 'Erudition',
+      libelle: 'Érudition',
     },
     {
       code: 'ES',
@@ -344,7 +344,7 @@ export function competencesWalkyrie(): Array<CompetenceRecap> {
       cout: 'X EV',
       lancement: 'Immédiat',
       cible: 'Ennemis',
-      effet: 'X dégats magique.',
+      effet: 'X dégâts magiques.',
       test: 'Magie Psy',
     },
     {
@@ -355,7 +355,7 @@ export function competencesWalkyrie(): Array<CompetenceRecap> {
       lancement: 'Immédiat',
       test: 'Magie Psy',
       cible: 'Allié',
-      effet: 'Réssucite un allié. Perd 15EV initial et une cara.',
+      effet: 'Ressuscite un allié. Perd 15EV initial et une cara.',
     },
   ];
 }
@@ -991,7 +991,7 @@ export function competencesPretre(): Array<CompetenceRecap> {
       test: 'PS',
       niveau: 'cycle',
       effet:
-        'Inflige ou rend 3D. Alterne entre rendre de la vie aux alliés et infliger les dégats aux ennemis.',
+        'Inflige ou rend 3D. Alterne entre rendre de la vie aux alliés et infliger les dégâts aux ennemis.',
     },
     {
       nom: "L'équilibre du cycle",

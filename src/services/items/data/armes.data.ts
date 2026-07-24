@@ -72,7 +72,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: '',
       },
       {
-        libelle: "Dague d'artisant renommé",
+        libelle: "Dague d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'dague'),
@@ -250,7 +250,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: '',
       },
       {
-        libelle: "Epée d'artisant renommé",
+        libelle: "Epée d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'epee'),
@@ -450,7 +450,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: '',
       },
       {
-        libelle: "Hache d'artisant renommé",
+        libelle: "Hache d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'hache'),
@@ -606,7 +606,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: "1/12 chance d'infliger -1PR",
       },
       {
-        libelle: "Masse d'artisant renommé",
+        libelle: "Masse d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'masse'),
@@ -762,7 +762,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: '',
       },
       {
-        libelle: "Hache d'artisant renommé",
+        libelle: "Hache d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'hache-deux'),
@@ -918,7 +918,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: "1/8 chance d'infliger -1PR",
       },
       {
-        libelle: "Marteau d'artisant renommé",
+        libelle: "Marteau d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'marteau'),
@@ -1031,7 +1031,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: "1/20 d'ignorer PR",
       },
       {
-        libelle: 'lance de qualité correcte',
+        libelle: 'Lance de qualité correcte',
         basePourcentage: 90,
         region: 'commun',
         origine: getOrigine(zone, 'lance'),
@@ -1075,7 +1075,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: "1/10 d'ignorer PR",
       },
       {
-        libelle: "Lance d'artisant renommé",
+        libelle: "Lance d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'lance'),
@@ -1231,7 +1231,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: '',
       },
       {
-        libelle: "Arc d'artisant renommé",
+        libelle: "Arc d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'arc'),
@@ -1409,7 +1409,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: "-4 à l'esquive",
       },
       {
-        libelle: "Arbalète d'artisant renommé",
+        libelle: "Arbalète d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'arbalete'),
@@ -1587,7 +1587,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: '1/6 chance de faire tomber à terre',
       },
       {
-        libelle: "Javelot d'artisant renommé",
+        libelle: "Javelot d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'javelot'),
@@ -1743,7 +1743,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         informations: 'Impossible de parer avec',
       },
       {
-        libelle: "Pistolet d'artisant renommé",
+        libelle: "Pistolet d'artisan renommé",
         basePourcentage: 70,
         region: 'commun',
         origine: getOrigine(zone, 'pistolet'),
@@ -1874,7 +1874,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         attaque: '-3',
         parade: '-1',
         rupture: '1-4',
-        informations: '+1 dégat sorts',
+        informations: '+1 dégâts sorts',
       },
       {
         libelle: 'Bâton de Saule',
@@ -1940,7 +1940,7 @@ export const getArmesData = (getOrigine: OrigineResolver, zone: string = 'commun
         attaque: '-2',
         parade: '',
         rupture: '1-3',
-        informations: '+1 dégat sorts',
+        informations: '+1 dégâts sorts',
       },
       {
         libelle: 'Le Bâton de l’Éclipse',

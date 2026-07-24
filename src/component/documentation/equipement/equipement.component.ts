@@ -43,7 +43,7 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/equipement/ingredient.PNG",
-      titre:"Ingredients",
+      titre:"Ingrédients",
       url:"assets/img/pdfs/equipement/tableau-ingredients-naheulbeuk-jdr.pdf"
     },
     {
@@ -58,12 +58,12 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/equipement/materiel.PNG",
-      titre:"Materiels",
+      titre:"Matériels",
       url:"assets/img/pdfs/equipement/tableau-materiel-naheulbeuk-jdr.pdf"
     },
     {
       image:"assets/img/card/equipement/objet-exclusif.PNG",
-      titre:"Objets exclusif",
+      titre:"Objets exclusifs",
       url:"assets/img/pdfs/equipement/objets-exclusifs-naheulbeuk-jdr(licoy).pdf"
     },
   ]

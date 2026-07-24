@@ -116,8 +116,8 @@ export const ACCESSOIRE_CATEGORIES: Categorie[] = [
         libelle: 'Talisman',
       },
       {
-        code: 'colier',
-        libelle: 'Colier',
+        code: 'collier',
+        libelle: 'Collier',
       },
       {
         code: 'bracelet',
@@ -175,8 +175,8 @@ export const POTION_CATEGORIES: Categorie[] = [
         libelle: 'Mana',
       },
       {
-        code: 'mixe',
-        libelle: 'Mixe',
+        code: 'mixte',
+        libelle: 'Mixte',
       },
       {
         code: 'parade',

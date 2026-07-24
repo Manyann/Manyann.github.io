@@ -27,7 +27,7 @@ private buildCardList():Array<Card>{
   const list : Array<Card> = [
     {
       image:"assets/img/card/hero.jpg",
-      titre:"Héro",
+      titre:"Héros",
       url:"heros"
     },
     {
@@ -37,7 +37,7 @@ private buildCardList():Array<Card>{
     },
     {
       image:"assets/img/card/equipement.jpg",
-      titre:"Equipement",
+      titre:"Équipement",
       url:"equipements"
     },
     {

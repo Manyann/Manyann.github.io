@@ -995,7 +995,7 @@ export class StatistiquesService {
     }
 
     return {
-      libelle: 'Plus gros dégats infligés',
+      libelle: 'Plus gros dégâts infligés',
       valeur: `${maxDegat} ( ${heroNom} )`,
     } as JoueurStatistiqueDetails;
   }
@@ -1071,7 +1071,7 @@ export class StatistiquesService {
     );
 
     let details: JoueurStatistiqueDetails = {
-      libelle: 'Maximun de destins utilisés',
+      libelle: 'Maximum de destins utilisés',
       valeur:
         (maxDestinHero['destin_utilise'] == undefined
           ? 0
@@ -1094,7 +1094,7 @@ export class StatistiquesService {
     );
 
     let details: JoueurStatistiqueDetails = {
-      libelle: 'Total de bon points',
+      libelle: 'Total de bons points',
       valeur: totalDestin.toString(),
     };
 
@@ -1112,7 +1112,7 @@ export class StatistiquesService {
     );
 
     let details: JoueurStatistiqueDetails = {
-      libelle: 'Héro avec le plus de bon points',
+      libelle: 'Héros avec le plus de bons points',
       valeur: maxDestinHero['bon_point'] + ' ( ' + maxDestinHero['nom'] + ' )',
     };
 
@@ -1147,7 +1147,7 @@ export class StatistiquesService {
     );
 
     let details: JoueurStatistiqueDetails = {
-      libelle: 'Héro avec le plus de mauvais points',
+      libelle: 'Héros avec le plus de mauvais points',
       valeur:
         maxDestinHero['mauvais_point'] + ' ( ' + maxDestinHero['nom'] + ' )',
     };
@@ -1198,7 +1198,7 @@ export class StatistiquesService {
     const total = critiques.filter((c) => noms.has(c['hero_nom'])).length;
 
     return {
-      libelle: 'Total de parades exceptionelles',
+      libelle: 'Total de parades exceptionnelles',
       valeur: String(total),
     } as JoueurStatistiqueDetails;
   }

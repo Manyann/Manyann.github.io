@@ -252,7 +252,7 @@ export class CombatComponent {
       armure: 0,
       attaque: 0,
       code: '*-' + this.mobs.length,
-      degats: 'dégats',
+      degats: 'dégâts',
       experience: 0,
       informations: 'infos',
       libelle: 'nom',

@@ -471,7 +471,7 @@ export class HerosService {
     }
 
     if (soins >= 15) {
-      trophes.push(await this.setTrophe(joueur, 'Guerisseur'));
+      trophes.push(await this.setTrophe(joueur, 'Guérisseur'));
     }
 
     if (soins >= 30) {
@@ -488,7 +488,7 @@ export class HerosService {
     }
 
     if (totalSoins > 300) {
-      trophes.push(await this.setTrophe(joueur, 'Médecin professionel'));
+      trophes.push(await this.setTrophe(joueur, 'Médecin professionnel'));
     }
     if (totalSoins > 1000) {
       trophes.push(await this.setTrophe(joueur, 'Tony Tony Chopper'));
@@ -691,7 +691,7 @@ export class HerosService {
     if (
       [19, 20].some((e) => heroCritiques.map((x) => x.intensite).includes(e))
     ) {
-      trophes.push(await this.setTrophe(joueur, 'Mort instantané'));
+      trophes.push(await this.setTrophe(joueur, 'Mort instantanée'));
     }
     if (
       heroCritiques.filter((x) => x.intensite == 19 || x.intensite == 20)
