@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { PanelModule } from 'primeng/panel';
+import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
@@ -32,6 +33,7 @@ import { Toaster } from '../../../utils/toaster';
     InputNumberModule,
     FormsModule,
     ConfirmDialogModule,
+    TooltipModule,
   ],
   providers: [ConfirmationService],
   templateUrl: './combat.component.html',
@@ -54,8 +56,11 @@ export class CombatComponent {
   addMob: Mob | undefined;
   addMobNumber: number = 1;
   tour: number = 1;
+  mobsCollapsed: boolean = false;
   heroDegats: Record<string, number> = {};
   heroSoins: Record<string, number> = {};
+
+  currentDegats: { degats: number; type: string } | undefined;
 
   sidebarVisible: boolean;
   confirmationService: ConfirmationService;
@@ -91,6 +96,10 @@ export class CombatComponent {
     this.tour++;
   }
 
+  toggleMobsCollapsed() {
+    this.mobsCollapsed = !this.mobsCollapsed;
+  }
+
   endCombat() {
     this.confirmationService.confirm({
       message: 'Fin ?',
@@ -112,6 +121,13 @@ export class CombatComponent {
   addMort(hero: string) {
     this.herosService.addMort(hero).then(() => {
       this.toaster.info('Mort ajoutée');
+    });
+  }
+
+  addBonPoint(hero: string) {
+    this.herosService.addBonPoint(hero).then((trophes) => {
+      this.toaster.info('Bon point ajouté');
+      this.handleTrophes(trophes);
     });
   }
 
@@ -183,7 +199,12 @@ export class CombatComponent {
     });
   }
 
-  updateDegatsDealt(hero: string) {
+  updateDegatsDealt(hero: string, type: string) {
+    this.currentDegats = {
+      degats: this.addDegats,
+      type: type,
+    };
+
     this.herosService
       .updateDegatsDealt(hero, this.addDegats, this.getFakeTour(hero))
       .then((trophes) => {
@@ -191,6 +212,26 @@ export class CombatComponent {
         this.handleTrophes(trophes);
         this.addDegats = 0;
       });
+  }
+
+  handleMobClicked(mob: Mob) {
+    if (this.currentDegats !== undefined) {
+      switch (this.currentDegats.type) {
+        case 'normal':
+          mob.vie -= Math.max(this.currentDegats.degats - mob.armure, 0);
+          break;
+        case 'magique':
+          mob.vie -= Math.max(
+            this.currentDegats.degats - (mob.armureMagique ?? 0),
+          );
+          break;
+        case 'brut':
+          mob.vie -= this.currentDegats.degats;
+          break;
+        default:
+      }
+      this.currentDegats = undefined;
+    }
   }
 
   updateSoins(hero: string) {
@@ -229,6 +270,7 @@ export class CombatComponent {
       this.mobs.push({
         index: this.mobs.length,
         armure: mob.armure,
+        armureMagique: mob.armureMagique,
         attaque: mob.attaque,
         code: mob.code,
         degats: mob.degats,
@@ -250,6 +292,7 @@ export class CombatComponent {
     this.mobs.push({
       index: this.mobs.length,
       armure: 0,
+      armureMagique: 0,
       attaque: 0,
       code: '*-' + this.mobs.length,
       degats: 'dégâts',
