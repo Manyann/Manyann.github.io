@@ -1,306 +1,432 @@
 <div class="combat-page">
   <div class="combat-shell">
-    <!-- HEROES -->
-    <section class="combat-card heroes-card">
+    <!-- MOBS -->
+    <section class="combat-card mobs-card">
       <div class="card-header compact-header">
         <div>
-          <div class="combat-title">Héros</div>
-          <div class="combat-subtitle">Actions rapides en combat</div>
+          <div class="combat-title">Générations des Ennemis</div>
         </div>
-
         <p-button
-          icon="pi pi-stop-circle"
-          label="Fin du combat"
-          (click)="endCombat()"
-          styleClass="end-combat-btn"
+          [icon]="mobsCollapsed ? 'pi pi-chevron-down' : 'pi pi-chevron-up'"
+          (onClick)="toggleMobsCollapsed()"
+          styleClass="icon-btn action-btn-secondary"
         />
       </div>
 
-      <div class="hero-list-scroll">
-        <div class="hero-table">
-          <div *ngFor="let hero of heroSession$ | async" class="hero-row">
-            <div class="hero-name">{{ hero["nom"] }}</div>
+      @if (!mobsCollapsed) {
+        <div class="combat-toolbar compact-toolbar">
+          <div class="toolbar-block">
+            <span class="toolbar-label">Mob</span>
+            <p-autoComplete
+              [(ngModel)]="addMob"
+              name="addOrigine"
+              [dropdown]="true"
+              [suggestions]="autoCompleteMobs ?? []"
+              optionLabel="libelle"
+              placeholder="Mob"
+              (completeMethod)="search($event)"
+              class="mob-autocomplete"
+            />
+            <p-inputNumber class="input-xs" [(ngModel)]="addMobNumber" />
+            <p-button
+              (onClick)="generateMob()"
+              label="Générer"
+              icon="pi pi-plus"
+              styleClass="mini-btn action-btn-primary"
+            />
+            <p-button
+              (onClick)="generateCustomMob()"
+              label="Custom"
+              icon="pi pi-plus"
+              styleClass="mini-btn action-btn-secondary"
+            />
+          </div>
+        </div>
 
-            <div class="hero-inline-actions">
-              <div class="mini-group">
-                <span class="mini-label">Dégâts</span>
-                <p-inputNumber [(ngModel)]="addDegats" class="input-xs" />
-                <p-button
-                  (onClick)="updateDegatsDealt(hero['nom'])"
-                  icon="pi pi-plus"
-                  styleClass="icon-btn action-btn-primary"
-                />
+        <div class="mob-table-wrap">
+          <p-table
+            [value]="mobs"
+            dataKey="code"
+            class="combat-table"
+            [scrollable]="true"
+            scrollHeight="28rem"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Nom</th>
+                <th>Vie</th>
+                <th>AT</th>
+                <th>PRD</th>
+                <th>Dégâts</th>
+                <th>Armure</th>
+                <th>XP</th>
+                <th>Infos</th>
+                <th>Actions</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-mob>
+              <tr>
+                <td pEditableColumn>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="mob.libelle" />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ mob.libelle }}
+                    </ng-template>
+                  </p-cellEditor>
+                </td>
+
+                <td pEditableColumn>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="mob.vie"
+                        required
+                      />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ mob.vie }}
+                    </ng-template>
+                  </p-cellEditor>
+                </td>
+
+                <td pEditableColumn>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText [(ngModel)]="mob.attaque" />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ mob.attaque }}
+                    </ng-template>
+                  </p-cellEditor>
+                </td>
+
+                <td pEditableColumn>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="mob.parade" />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ mob.parade }}
+                    </ng-template>
+                  </p-cellEditor>
+                </td>
+
+                <td pEditableColumn>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="mob.degats" />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ mob.degats }}
+                    </ng-template>
+                  </p-cellEditor>
+                </td>
+
+                <td pEditableColumn>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input pInputText type="text" [(ngModel)]="mob.armure" />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ mob.armure }}
+                    </ng-template>
+                  </p-cellEditor>
+                  /
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="mob.armureMagique"
+                      />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ mob.armureMagique }}
+                    </ng-template>
+                  </p-cellEditor>
+                </td>
+
+                <td pEditableColumn>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="mob.experience"
+                      />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ mob.experience }}
+                    </ng-template>
+                  </p-cellEditor>
+                </td>
+
+                <td pEditableColumn>
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="mob.informations"
+                      />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                      {{ mob.informations }}
+                    </ng-template>
+                  </p-cellEditor>
+                </td>
+
+                <td>
+                  <div class="row-button">
+                    <p-button
+                      icon="pi pi-times"
+                      pTooltip="Mort"
+                      tooltipPosition="top"
+                      (onClick)="killMob(mob.index, mob.code, mob.libelle)"
+                      styleClass="icon-btn action-btn-danger"
+                    />
+                    <p-button
+                      icon="pi pi-undo"
+                      pTooltip="Annuler"
+                      tooltipPosition="top"
+                      (onClick)="revertMob(mob.index)"
+                      styleClass="icon-btn action-btn-muted"
+                    />
+                    <p-button
+                      icon="pi pi-save"
+                      pTooltip="Save"
+                      tooltipPosition="top"
+                      (onClick)="saveMob(mob.index)"
+                      styleClass="icon-btn action-btn-primary"
+                    />
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      }
+    </section>
+
+    <div class="combat-columns">
+      <!-- HEROES -->
+      <section class="combat-card heroes-card">
+        <div class="card-header compact-header">
+          <div>
+            <div class="combat-title">Combat</div>
+          </div>
+
+          <p-button
+            icon="pi pi-stop-circle"
+            label="Fin du combat"
+            (click)="endCombat()"
+            styleClass="end-combat-btn"
+          />
+        </div>
+
+        <div class="hero-list-scroll">
+          <div class="hero-cards-grid">
+            <div *ngFor="let hero of heroSession$ | async" class="hero-card">
+              <div class="hero-card-name">{{ hero["nom"] }}</div>
+
+              <div class="hero-card-actions">
+                <div class="mini-group">
+                  <span class="mini-label">Dégâts</span>
+                  <p-inputNumber [(ngModel)]="addDegats" class="input-xs" />
+                  <p-button
+                    (onClick)="updateDegatsDealt(hero['nom'], 'normal')"
+                    icon="pi pi-plus"
+                    styleClass="icon-btn action-btn-primary"
+                  />
+                  <p-button
+                    (onClick)="updateDegatsDealt(hero['nom'], 'magique')"
+                    icon="pi pi-plus"
+                    pTooltip="Dégats magique"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-warning"
+                  />
+                  <p-button
+                    (onClick)="updateDegatsDealt(hero['nom'], 'brut')"
+                    icon="pi pi-plus"
+                    pTooltip="Dégats brut"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-danger"
+                  />
+                </div>
+                <div class="mini-group">
+                  <span class="mini-label">Soins</span>
+                  <p-inputNumber [(ngModel)]="addSoins" class="input-xs" />
+                  <p-button
+                    (onClick)="updateSoins(hero['nom'])"
+                    icon="pi pi-heart"
+                    styleClass="icon-btn action-btn-primary"
+                  />
+                </div>
+
+                <div class="mini-group-actions">
+                  <span class="mini-label">Int.</span>
+                  <p-inputNumber [(ngModel)]="addIntensite" class="input-xs" />
+                  <p-button
+                    (onClick)="addCoupCritique(hero['nom'])"
+                    icon="pi pi-bolt"
+                    pTooltip="Coup critique"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-primary"
+                  />
+                  <p-button
+                    (onClick)="addEchecCritique(hero['nom'])"
+                    icon="pi pi-times"
+                    pTooltip="Échec critique"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-danger"
+                  />
+                  <p-button
+                    (onClick)="addParadeCritique(hero['nom'])"
+                    icon="pi pi-shield"
+                    pTooltip="Parade critique"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-secondary"
+                  />
+                  <p-button
+                    (onClick)="addEntropique(hero['nom'])"
+                    icon="pi pi-sparkles"
+                    pTooltip="Sort entropique"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-warning"
+                  />
+                </div>
+
+                <div class="mini-group">
+                  <p-button
+                    (onClick)="removeDestin(hero['nom'])"
+                    icon="pi pi-ethereum"
+                    pTooltip="Destin"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-muted"
+                  />
+                  <p-button
+                    (onClick)="addMort(hero['nom'])"
+                    icon="pi pi-wave-pulse"
+                    pTooltip="Mort"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-danger"
+                  />
+                  <p-button
+                    (onClick)="addBonPoint(hero['nom'])"
+                    icon="pi pi-thumbs-up"
+                    pTooltip="Bon point"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-secondary"
+                  />
+                </div>
               </div>
-              <div class="mini-group">
-                <span class="mini-label">Soins</span>
-                <p-inputNumber [(ngModel)]="addSoins" class="input-xs" />
-                <p-button
-                  (onClick)="updateSoins(hero['nom'])"
-                  icon="pi pi-heart"
-                  styleClass="icon-btn action-btn-primary"
-                />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOBS QUICKVIEW -->
+      <section class="combat-card mobs-quickview-card">
+        <div class="card-header compact-header">
+          <div>
+            <div class="combat-title">Mobs</div>
+          </div>
+        </div>
+
+        <div class="mob-quick-actions">
+          <span class="mini-label">Int.</span>
+          <p-inputNumber [(ngModel)]="addIntensite" class="input-xs" />
+          <div class="mini-group-actions">
+            <p-button
+              (onClick)="addCoupCritiqueMJ()"
+              icon="pi pi-bolt"
+              pTooltip="Coup critique"
+              tooltipPosition="top"
+              styleClass="icon-btn action-btn-primary"
+            />
+            <p-button
+              (onClick)="addEchecCritiqueMJ()"
+              icon="pi pi-times"
+              pTooltip="Échec critique"
+              tooltipPosition="top"
+              styleClass="icon-btn action-btn-danger"
+            />
+            <p-button
+              (onClick)="addParadeCritiqueMJ()"
+              icon="pi pi-shield"
+              pTooltip="Parade critique"
+              tooltipPosition="top"
+              styleClass="icon-btn action-btn-secondary"
+            />
+            <p-button
+              (onClick)="addEntropiqueMJ()"
+              icon="pi pi-sparkles"
+              pTooltip="Sort entropique"
+              tooltipPosition="top"
+              styleClass="icon-btn action-btn-warning"
+            />
+          </div>
+        </div>
+
+        <div class="mob-list-scroll">
+          <div class="mob-cards-grid">
+            <div
+              *ngFor="let mob of mobs"
+              class="mob-card mob-card-clickable"
+              [class.mob-card-pending]="currentDegats !== undefined"
+              (click)="handleMobClicked(mob)"
+            >
+              <div class="mob-card-name">
+                {{ mob.libelle }}
               </div>
 
-              <div class="mini-group">
-                <span class="mini-label">Int.</span>
-                <p-inputNumber [(ngModel)]="addIntensite" class="input-xs" />
-                <p-button
-                  (onClick)="addCoupCritique(hero['nom'])"
-                  label="CC"
-                  styleClass="mini-btn action-btn-primary"
-                />
-                <p-button
-                  (onClick)="addEchecCritique(hero['nom'])"
-                  label="EC"
-                  styleClass="mini-btn action-btn-danger"
-                />
-                <p-button
-                  (onClick)="addParadeCritique(hero['nom'])"
-                  label="PC"
-                  styleClass="mini-btn action-btn-secondary"
-                />
-                <p-button
-                  (onClick)="addEntropique(hero['nom'])"
-                  label="SE"
-                  styleClass="mini-btn action-btn-warning"
-                />
+              <div class="mob-card-stats">
+                <div class="mob-stat">
+                  <span class="mini-label">Vie</span>
+                  <span class="stat-value">{{ mob.vie }}</span>
+                </div>
+                <div class="mob-stat">
+                  <span class="mini-label">AT</span>
+                  <span class="stat-value">{{ mob.attaque }}</span>
+                </div>
+                <div class="mob-stat">
+                  <span class="mini-label">PRD</span>
+                  <span class="stat-value">{{ mob.parade }}</span>
+                </div>
+                <div class="mob-stat">
+                  <span class="mini-label">Dégâts</span>
+                  <span class="stat-value">{{ mob.degats }}</span>
+                </div>
+                <div class="mob-stat">
+                  <span class="mini-label">PR</span>
+                  <span class="stat-value"
+                    >{{ mob.armure }}/{{ mob.armureMagique }}</span
+                  >
+                </div>
               </div>
 
-              <div class="mini-group">
+              <div class="mob-card-actions">
                 <p-button
-                  (onClick)="removeDestin(hero['nom'])"
-                  label="Destin"
-                  icon="pi pi-minus"
-                  styleClass="mini-btn action-btn-muted"
-                />
-                <p-button
-                  (onClick)="addMort(hero['nom'])"
-                  label="Mort"
-                  icon="pi pi-plus"
-                  styleClass="mini-btn action-btn-danger"
+                  icon="pi pi-wave-pulse"
+                  pTooltip="Mort"
+                  tooltipPosition="top"
+                  (onClick)="
+                    killMob(mob.index, mob.code, mob.libelle);
+                    $event.stopPropagation()
+                  "
+                  styleClass="icon-btn action-btn-danger"
                 />
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- COMBAT -->
-    <section class="combat-card mobs-card">
-      <div class="card-header compact-header">
-        <div>
-          <div class="combat-title">Combat</div>
-          <div class="combat-subtitle">Ennemis et événements MJ</div>
-        </div>
-      </div>
-
-      <div class="combat-toolbar compact-toolbar">
-        <div class="toolbar-block">
-          <span class="toolbar-label">Mob</span>
-          <p-autoComplete
-            [(ngModel)]="addMob"
-            name="addOrigine"
-            [dropdown]="true"
-            [suggestions]="autoCompleteMobs ?? []"
-            optionLabel="libelle"
-            placeholder="Mob"
-            (completeMethod)="search($event)"
-            class="mob-autocomplete"
-          />
-          <p-inputNumber class="input-xs" [(ngModel)]="addMobNumber" />
-          <p-button
-            (onClick)="generateMob()"
-            label="Générer"
-            icon="pi pi-plus"
-            styleClass="mini-btn action-btn-primary"
-          />
-          <p-button
-            (onClick)="generateCustomMob()"
-            label="Custom"
-            icon="pi pi-plus"
-            styleClass="mini-btn action-btn-secondary"
-          />
-        </div>
-
-        <div class="toolbar-block toolbar-block-right">
-          <span class="toolbar-label">MJ</span>
-          <p-inputNumber class="input-xs" [(ngModel)]="addIntensite" />
-          <p-button
-            (onClick)="addCoupCritiqueMJ()"
-            label="CC MJ"
-            styleClass="mini-btn action-btn-primary"
-          />
-          <p-button
-            (onClick)="addEchecCritiqueMJ()"
-            label="EC MJ"
-            styleClass="mini-btn action-btn-danger"
-          />
-          <p-button
-            (onClick)="addParadeCritiqueMJ()"
-            label="PC MJ"
-            styleClass="mini-btn action-btn-secondary"
-          />
-          <p-button
-            (onClick)="addEntropiqueMJ()"
-            label="SE MJ"
-            styleClass="mini-btn action-btn-warning"
-          />
-        </div>
-      </div>
-
-      <div class="mob-table-wrap">
-        <p-table
-          [value]="mobs"
-          dataKey="code"
-          class="combat-table"
-          [scrollable]="true"
-          scrollHeight="28rem"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th>Nom</th>
-              <th>Vie</th>
-              <th>AT</th>
-              <th>PRD</th>
-              <th>Dégâts</th>
-              <th>Armure</th>
-              <th>XP</th>
-              <th>Infos</th>
-              <th>Actions</th>
-            </tr>
-          </ng-template>
-
-          <ng-template pTemplate="body" let-mob>
-            <tr>
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="mob.libelle" />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ mob.libelle }}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input
-                      pInputText
-                      type="text"
-                      [(ngModel)]="mob.vie"
-                      required
-                    />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ mob.vie }}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input pInputText [(ngModel)]="mob.attaque" />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ mob.attaque }}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="mob.parade" />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ mob.parade }}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="mob.degats" />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ mob.degats }}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input pInputText type="text" [(ngModel)]="mob.armure" />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ mob.armure }}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input
-                      pInputText
-                      type="text"
-                      [(ngModel)]="mob.experience"
-                    />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ mob.experience }}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-
-              <td pEditableColumn>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <input
-                      pInputText
-                      type="text"
-                      [(ngModel)]="mob.informations"
-                    />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ mob.informations }}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-
-              <td>
-                <div class="row-button">
-                  <p-button
-                    icon="pi pi-times"
-                    label="Mort"
-                    (onClick)="killMob(mob.index, mob.code, mob.libelle)"
-                    styleClass="mini-btn action-btn-danger"
-                  />
-                  <p-button
-                    icon="pi pi-undo"
-                    label="Annuler"
-                    (onClick)="revertMob(mob.index)"
-                    styleClass="mini-btn action-btn-muted"
-                  />
-                  <p-button
-                    icon="pi pi-save"
-                    label="Save"
-                    (onClick)="saveMob(mob.index)"
-                    styleClass="mini-btn action-btn-primary"
-                  />
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 
   <p-toast />
