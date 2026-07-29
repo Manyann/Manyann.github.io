@@ -411,6 +411,13 @@
               </div>
 
               <div class="mob-card-actions">
+                <p-splitButton
+                  icon="pi pi-exclamation-triangle"
+                  pTooltip="Critique reçu"
+                  tooltipPosition="top"
+                  [model]="getMobMenuItems(mob)"
+                  styleClass="mob-split-btn"
+                />
                 <p-button
                   icon="pi pi-wave-pulse"
                   pTooltip="Mort"

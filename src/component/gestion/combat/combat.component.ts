@@ -12,13 +12,14 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { PanelModule } from 'primeng/panel';
 import { TooltipModule } from 'primeng/tooltip';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { Mob } from '../../model/ennemi';
 import { MobsService } from '../../../app/services/mob.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Toaster } from '../../../utils/toaster';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @Component({
   selector: 'app-combat',
@@ -34,6 +35,7 @@ import { Toaster } from '../../../utils/toaster';
     FormsModule,
     ConfirmDialogModule,
     TooltipModule,
+    SplitButtonModule,
   ],
   providers: [ConfirmationService],
   templateUrl: './combat.component.html',
@@ -64,6 +66,8 @@ export class CombatComponent {
 
   sidebarVisible: boolean;
   confirmationService: ConfirmationService;
+
+  private mobMenuItemsCache = new Map<number, MenuItem[]>();
 
   constructor(
     private herosService: HerosService,
@@ -231,6 +235,117 @@ export class CombatComponent {
         default:
       }
       this.currentDegats = undefined;
+    }
+  }
+
+  getMobMenuItems(mob: Mob): MenuItem[] {
+    if (!this.mobMenuItemsCache.has(mob.index)) {
+      this.mobMenuItemsCache.set(mob.index, this.buildCritiqueRecuItems(mob));
+    }
+    return this.mobMenuItemsCache.get(mob.index)!;
+  }
+
+  private buildCritiqueRecuItems(mob: Mob): MenuItem[] {
+    const buildSubItems = (itemLabel: string, labels: string[]): MenuItem[] =>
+      labels.map((subItemLabel) => ({
+        label: subItemLabel,
+        command: () => this.handleCritiqueRecu(itemLabel, subItemLabel, mob),
+      }));
+
+    const subItemCac = [
+      '7-8',
+      '9-10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+    ];
+    const subItemDistances = ['5-6', '7-8', '9-11', '17', '18'];
+    const subItemMainsNues = ['12', '13', '15', '16-17'];
+
+    return [
+      {
+        label: 'Tranchant',
+        icon: 'pi pi-times',
+        items: buildSubItems('Tranchant', subItemCac),
+      },
+      {
+        label: 'Contondant',
+        icon: 'pi pi-hammer',
+        items: buildSubItems('Contondant', subItemCac),
+      },
+      {
+        label: 'Distances',
+        icon: 'pi pi-arrow-right',
+        items: buildSubItems('Distances', subItemDistances),
+      },
+      {
+        label: 'Mains nues',
+        icon: 'pi pi-thumbs-up',
+        items: buildSubItems('Mains nues', subItemMainsNues),
+      },
+    ];
+  }
+
+  private static readonly CRITIQUE_RECU_TABLE: Record<
+    string,
+    Record<string, { armure?: number; attaque?: number; parade?: number }>
+  > = {
+    Tranchant: {
+      '7-8': { armure: 1 },
+      '9-10': { armure: 2 },
+      '11': { armure: 5 },
+      '12': { attaque: 1, parade: 2 },
+      '13': { attaque: 5, parade: 6 },
+      '14': { attaque: 3, parade: 3 },
+      '15': { attaque: 5, parade: 6 },
+      '16': { attaque: 4, parade: 6 },
+      '17': { attaque: 2, parade: 2 },
+    },
+    Contondant: {
+      '7-8': { armure: 1 },
+      '9-10': { armure: 2 },
+      '11': { armure: 5 },
+      '12': { attaque: 1, parade: 2 },
+      '13': { attaque: 5, parade: 6 },
+      '14': { attaque: 2, parade: 2 },
+      '15': { attaque: 5, parade: 6 },
+      '16': { attaque: 4, parade: 6 },
+      '17': { attaque: 2, parade: 2 },
+    },
+    Distances: {
+      '5-6': { attaque: 2, parade: 2 },
+      '7-8': { attaque: 2, parade: 2 },
+      '9-11': { attaque: 1, parade: 1 },
+      '17': { attaque: 2, parade: 2 },
+      '18': { attaque: 2, parade: 2 },
+    },
+    'Mains nues': {
+      '12': { attaque: 1, parade: 2 },
+      '13': { attaque: 5, parade: 6 },
+      '15': { attaque: 5, parade: 6 },
+      '16-17': { attaque: 2, parade: 2 },
+    },
+  };
+
+  handleCritiqueRecu(itemLabel: string, subItemLabel: string, mob: Mob) {
+    const effect =
+      CombatComponent.CRITIQUE_RECU_TABLE[itemLabel]?.[subItemLabel];
+    if (!effect) {
+      return;
+    }
+
+    if (effect.armure !== undefined) {
+      mob.armure = Math.max(0, mob.armure - effect.armure);
+    }
+    if (effect.attaque !== undefined) {
+      mob.attaque = Math.max(1, mob.attaque - effect.attaque);
+    }
+    if (effect.parade !== undefined) {
+      mob.parade = Math.max(1, mob.parade - effect.parade);
     }
   }
 

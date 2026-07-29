@@ -314,6 +314,86 @@
 .mob-card-actions {
   display: flex;
   justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+/* SPLIT BUTTON */
+:host ::ng-deep .mob-split-btn.p-splitbutton {
+  height: 2rem;
+}
+
+:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton,
+:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton {
+  background: rgba(255, 100, 100, 0.14);
+  border: 1px solid rgba(255, 100, 100, 0.28);
+  color: #ff8b8b;
+  min-height: 2rem;
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton {
+  padding: 0.32rem;
+  min-width: 2rem;
+  border-right: 0 none;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+}
+
+:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton {
+  padding: 0.32rem 0.4rem;
+  border-left: 1px solid rgba(255, 100, 100, 0.35);
+  border-top-right-radius: 9px;
+  border-bottom-right-radius: 9px;
+}
+
+:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton:hover,
+:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton:hover,
+:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton:enabled:hover,
+:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton:enabled:hover {
+  background: rgba(255, 100, 100, 0.26);
+}
+
+:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton:focus,
+:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 100, 100, 0.4);
+}
+
+:host ::ng-deep .p-tieredmenu {
+  background: var(--bg-main);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  padding: 0.3rem;
+}
+
+:host ::ng-deep .p-tieredmenu .p-menuitem-link {
+  color: var(--text-main);
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+}
+
+:host ::ng-deep .p-tieredmenu .p-menuitem-link:hover {
+  background: rgba(200, 170, 110, 0.14);
+  color: var(--accent);
+}
+
+:host ::ng-deep .p-tieredmenu .p-menuitem-icon {
+  margin-right: 0.5rem;
+}
+
+:host ::ng-deep .p-tieredmenu .p-submenu-list {
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  top: auto;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 0.25rem;
 }
 
 /* INPUTS */
