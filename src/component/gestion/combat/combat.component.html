@@ -326,6 +326,35 @@
                 </div>
               </div>
             </div>
+            <div class="hero-card">
+              <div class="hero-card-name">{{ "Autre" }}</div>
+
+              <div class="hero-card-actions">
+                <div class="mini-group">
+                  <span class="mini-label">Dégâts</span>
+                  <p-inputNumber [(ngModel)]="addDegats" class="input-xs" />
+                  <p-button
+                    (onClick)="updateDegatsDealt('autre', 'normal')"
+                    icon="pi pi-plus"
+                    styleClass="icon-btn action-btn-primary"
+                  />
+                  <p-button
+                    (onClick)="updateDegatsDealt('autre', 'magique')"
+                    icon="pi pi-plus"
+                    pTooltip="Dégats magique"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-warning"
+                  />
+                  <p-button
+                    (onClick)="updateDegatsDealt('autre', 'brut')"
+                    icon="pi pi-plus"
+                    pTooltip="Dégats brut"
+                    tooltipPosition="top"
+                    styleClass="icon-btn action-btn-danger"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -379,7 +408,7 @@
               *ngFor="let mob of mobs"
               class="mob-card mob-card-clickable"
               [class.mob-card-pending]="currentDegats !== undefined"
-              (click)="handleMobClicked(mob)"
+              (click)="handleMobClicked(mob); closeMobMenu()"
             >
               <div class="mob-card-name">
                 {{ mob.libelle }}
@@ -411,13 +440,65 @@
               </div>
 
               <div class="mob-card-actions">
-                <p-splitButton
-                  icon="pi pi-exclamation-triangle"
-                  pTooltip="Critique reçu"
-                  tooltipPosition="top"
-                  [model]="getMobMenuItems(mob)"
-                  styleClass="mob-split-btn"
-                />
+                <div class="mob-menu">
+                  <p-button
+                    icon="pi pi-exclamation-triangle"
+                    pTooltip="Critique reçu"
+                    tooltipPosition="top"
+                    (onClick)="
+                      toggleMobMenu(mob.index); $event.stopPropagation()
+                    "
+                    styleClass="icon-btn action-btn-danger"
+                  />
+
+                  @if (openMobMenuIndex === mob.index) {
+                    <div
+                      class="mob-menu-panel"
+                      (click)="$event.stopPropagation()"
+                    >
+                      @for (
+                        category of critiqueRecuCategories;
+                        track category.label
+                      ) {
+                        <div class="mob-menu-category">
+                          <button
+                            type="button"
+                            class="mob-menu-category-btn"
+                            (click)="toggleMobMenuCategory(category.label)"
+                          >
+                            <i class="pi {{ category.icon }}"></i>
+                            <span>{{ category.label }}</span>
+                          </button>
+
+                          @if (openMobMenuCategory === category.label) {
+                            <div class="mob-menu-subitems">
+                              @for (
+                                subItem of getCritiqueRecuSubItems(
+                                  category.label
+                                );
+                                track subItem
+                              ) {
+                                <button
+                                  type="button"
+                                  class="mob-menu-subitem-btn"
+                                  (click)="
+                                    selectCritiqueRecu(
+                                      category.label,
+                                      subItem,
+                                      mob
+                                    )
+                                  "
+                                >
+                                  {{ subItem }}
+                                </button>
+                              }
+                            </div>
+                          }
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
                 <p-button
                   icon="pi pi-wave-pulse"
                   pTooltip="Mort"

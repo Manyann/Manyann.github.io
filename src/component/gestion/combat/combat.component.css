@@ -62,7 +62,6 @@
 
 /* HEROES */
 .hero-list-scroll {
-  max-height: 33vh;
   min-height: 11rem;
   overflow-y: auto;
   padding-right: 0.25rem;
@@ -317,83 +316,69 @@
   gap: 0.35rem;
 }
 
-/* SPLIT BUTTON */
-:host ::ng-deep .mob-split-btn.p-splitbutton {
-  height: 2rem;
+/* MOB MENU (custom, replaces p-splitButton/p-tieredMenu — incompatible with Angular 17 signals) */
+.mob-menu {
+  position: relative;
 }
 
-:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton,
-:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton {
-  background: rgba(255, 100, 100, 0.14);
-  border: 1px solid rgba(255, 100, 100, 0.28);
-  color: #ff8b8b;
-  min-height: 2rem;
-  transition:
-    background 0.15s ease,
-    box-shadow 0.15s ease;
-}
-
-:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton {
-  padding: 0.32rem;
-  min-width: 2rem;
-  border-right: 0 none;
-  border-top-left-radius: 9px;
-  border-bottom-left-radius: 9px;
-}
-
-:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton {
-  padding: 0.32rem 0.4rem;
-  border-left: 1px solid rgba(255, 100, 100, 0.35);
-  border-top-right-radius: 9px;
-  border-bottom-right-radius: 9px;
-}
-
-:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton:hover,
-:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton:hover,
-:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton:enabled:hover,
-:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton:enabled:hover {
-  background: rgba(255, 100, 100, 0.26);
-}
-
-:host ::ng-deep .mob-split-btn .p-splitbutton-defaultbutton:focus,
-:host ::ng-deep .mob-split-btn .p-splitbutton-menubutton:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 100, 100, 0.4);
-}
-
-:host ::ng-deep .p-tieredmenu {
+.mob-menu-panel {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 0.35rem;
+  width: max-content;
+  max-width: 14rem;
   background: var(--bg-main);
   color: var(--text-main);
   border: 1px solid var(--border);
   border-radius: 10px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
   padding: 0.3rem;
+  z-index: 20;
 }
 
-:host ::ng-deep .p-tieredmenu .p-menuitem-link {
-  color: var(--text-main);
-  border-radius: 8px;
+.mob-menu-category-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
   padding: 0.45rem 0.6rem;
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
 }
 
-:host ::ng-deep .p-tieredmenu .p-menuitem-link:hover {
+.mob-menu-category-btn:hover {
   background: rgba(200, 170, 110, 0.14);
   color: var(--accent);
 }
 
-:host ::ng-deep .p-tieredmenu .p-menuitem-icon {
-  margin-right: 0.5rem;
+.mob-menu-subitems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.3rem 0.3rem 0.4rem 1.6rem;
 }
 
-:host ::ng-deep .p-tieredmenu .p-submenu-list {
-  background: var(--bg-main);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
-  top: auto;
-  bottom: 100%;
-  left: 0;
-  margin-bottom: 0.25rem;
+.mob-menu-subitem-btn {
+  padding: 0.3rem 0.5rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  font-size: 0.76rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mob-menu-subitem-btn:hover {
+  background: rgba(200, 170, 110, 0.2);
+  color: var(--accent);
 }
 
 /* INPUTS */

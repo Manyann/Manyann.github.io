@@ -12,14 +12,13 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { PanelModule } from 'primeng/panel';
 import { TooltipModule } from 'primeng/tooltip';
-import { ConfirmationService, MenuItem } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { Mob } from '../../model/ennemi';
 import { MobsService } from '../../../app/services/mob.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Toaster } from '../../../utils/toaster';
-import { SplitButtonModule } from 'primeng/splitbutton';
 
 @Component({
   selector: 'app-combat',
@@ -35,7 +34,6 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     FormsModule,
     ConfirmDialogModule,
     TooltipModule,
-    SplitButtonModule,
   ],
   providers: [ConfirmationService],
   templateUrl: './combat.component.html',
@@ -67,7 +65,15 @@ export class CombatComponent {
   sidebarVisible: boolean;
   confirmationService: ConfirmationService;
 
-  private mobMenuItemsCache = new Map<number, MenuItem[]>();
+  openMobMenuIndex: number | null = null;
+  openMobMenuCategory: string | null = null;
+
+  readonly critiqueRecuCategories: { label: string; icon: string }[] = [
+    { label: 'Tranchant', icon: 'pi-times' },
+    { label: 'Contondant', icon: 'pi-hammer' },
+    { label: 'Distances', icon: 'pi-arrow-right' },
+    { label: 'Mains nues', icon: 'pi-thumbs-up' },
+  ];
 
   constructor(
     private herosService: HerosService,
@@ -209,13 +215,15 @@ export class CombatComponent {
       type: type,
     };
 
-    this.herosService
-      .updateDegatsDealt(hero, this.addDegats, this.getFakeTour(hero))
-      .then((trophes) => {
-        this.toaster.info(`${this.addDegats} ajouté(s)`);
-        this.handleTrophes(trophes);
-        this.addDegats = 0;
-      });
+    if (hero !== 'autre') {
+      this.herosService
+        .updateDegatsDealt(hero, this.addDegats, this.getFakeTour(hero))
+        .then((trophes) => {
+          this.toaster.info(`${this.addDegats} ajouté(s)`);
+          this.handleTrophes(trophes);
+          this.addDegats = 0;
+        });
+    }
   }
 
   handleMobClicked(mob: Mob) {
@@ -238,56 +246,32 @@ export class CombatComponent {
     }
   }
 
-  getMobMenuItems(mob: Mob): MenuItem[] {
-    if (!this.mobMenuItemsCache.has(mob.index)) {
-      this.mobMenuItemsCache.set(mob.index, this.buildCritiqueRecuItems(mob));
+  toggleMobMenu(mobIndex: number): void {
+    if (this.openMobMenuIndex === mobIndex) {
+      this.closeMobMenu();
+    } else {
+      this.openMobMenuIndex = mobIndex;
+      this.openMobMenuCategory = null;
     }
-    return this.mobMenuItemsCache.get(mob.index)!;
   }
 
-  private buildCritiqueRecuItems(mob: Mob): MenuItem[] {
-    const buildSubItems = (itemLabel: string, labels: string[]): MenuItem[] =>
-      labels.map((subItemLabel) => ({
-        label: subItemLabel,
-        command: () => this.handleCritiqueRecu(itemLabel, subItemLabel, mob),
-      }));
+  closeMobMenu(): void {
+    this.openMobMenuIndex = null;
+    this.openMobMenuCategory = null;
+  }
 
-    const subItemCac = [
-      '7-8',
-      '9-10',
-      '11',
-      '12',
-      '13',
-      '14',
-      '15',
-      '16',
-      '17',
-    ];
-    const subItemDistances = ['5-6', '7-8', '9-11', '17', '18'];
-    const subItemMainsNues = ['12', '13', '15', '16-17'];
+  toggleMobMenuCategory(category: string): void {
+    this.openMobMenuCategory =
+      this.openMobMenuCategory === category ? null : category;
+  }
 
-    return [
-      {
-        label: 'Tranchant',
-        icon: 'pi pi-times',
-        items: buildSubItems('Tranchant', subItemCac),
-      },
-      {
-        label: 'Contondant',
-        icon: 'pi pi-hammer',
-        items: buildSubItems('Contondant', subItemCac),
-      },
-      {
-        label: 'Distances',
-        icon: 'pi pi-arrow-right',
-        items: buildSubItems('Distances', subItemDistances),
-      },
-      {
-        label: 'Mains nues',
-        icon: 'pi pi-thumbs-up',
-        items: buildSubItems('Mains nues', subItemMainsNues),
-      },
-    ];
+  getCritiqueRecuSubItems(category: string): string[] {
+    return Object.keys(CombatComponent.CRITIQUE_RECU_TABLE[category] ?? {});
+  }
+
+  selectCritiqueRecu(itemLabel: string, subItemLabel: string, mob: Mob): void {
+    this.handleCritiqueRecu(itemLabel, subItemLabel, mob);
+    this.closeMobMenu();
   }
 
   private static readonly CRITIQUE_RECU_TABLE: Record<
