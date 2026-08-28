@@ -60,9 +60,9 @@ export class BestiaireComponent {
         url: 'assets/img/pdfs/bestiaire/rencontre-plaine.PNG',
       },
       {
-        image: 'assets/img/card/bestiaire/rencontre-sousterrain.png',
+        image: 'assets/img/card/bestiaire/souterrain.png',
         titre: 'Sous terre',
-        url: 'assets/img/pdfs/bestiaire/rencontre-sousterrain.PNG',
+        url: 'assets/img/pdfs/bestiaire/rencontre-sousterrain.png',
       },
     ];
 
