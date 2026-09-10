@@ -51,6 +51,15 @@ export class Gemme {
   'informations': string = '';
 }
 
+export class Fleche {
+  'libelle': string;
+  'prix': number;
+  'degat': string;
+  'basePourcentage': number;
+  'informations': string = '';
+  'categorie': Categorie;
+}
+
 export class Accessoire extends Item {
   'armure': string;
   'vie': string;

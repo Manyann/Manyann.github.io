@@ -14,6 +14,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { PanelModule } from 'primeng/panel';
 import { AccessoireComponent } from './accessoire/accessoire.component';
 import { Categorie, ItemHelper } from '../../../services/items';
+import { FlecheComponent } from './fleche/fleche.component';
 
 @Component({
   selector: 'app-shop',
@@ -31,6 +32,7 @@ import { Categorie, ItemHelper } from '../../../services/items';
     InputSwitchModule,
     PanelModule,
     AccessoireComponent,
+    FlecheComponent,
   ],
   templateUrl: './shop.component.html',
   styleUrls: ['../../../assets/css/tabview.css', './shop.component.css'],

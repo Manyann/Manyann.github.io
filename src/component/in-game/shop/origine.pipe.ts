@@ -48,7 +48,7 @@ export class OriginePrixPipe implements PipeTransform {
   transform(value: number, origine: string): number {
     if (origine === 'commun') return value;
     if (origine === 'samurai' || origine === 'orc') return value * 1.4;
-    if (origine === 'nain') return value * 0.8;
+    if (origine === 'nain') return value * 1.6;
     return value * 1.2;
   }
 }

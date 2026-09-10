@@ -27,7 +27,7 @@ export function createOrigines(): Array<Origine> {
       chance: new Caracteristique(),
       caracteristiques: ['35EV', '+1AT -1PRD'],
       restrictions: ['Arbalètes', 'Armure complete', 'Bouclier'],
-      competencesHerites: ['ADB', 'BP', 'CDN', 'SDP', 'TV', 'TDM*'],
+      competencesHerites: ['ADB', 'BP', 'CDN', 'IN', 'SDP', 'TV', 'TDM*'],
       competencesSpeciales: [],
       restrictionsMetierShortCode: [
         'PR',
@@ -59,9 +59,9 @@ export function createOrigines(): Array<Origine> {
       restrictions: [
         'Arc et Arbalètes',
         'Armes à 2 mains non naine',
-        '4PR Max',
+        '5PR Max',
       ],
-      competencesHerites: ['ADT', 'CDN', 'ME', 'IDT', 'PE', 'RA', 'TC*'],
+      competencesHerites: ['ADT', 'AEC', 'CDN', 'ME', 'IDT', 'PE', 'RA', 'TC*'],
       competencesSpeciales: [],
       restrictionsMetierShortCode: [
         'MO',
@@ -89,7 +89,7 @@ export function createOrigines(): Array<Origine> {
       chance: new Caracteristique(),
       caracteristiques: ['25EV', '33EA', '+1CHA niveau 2 et 3'],
       restrictions: ['Armes à 2 mains', '2PR Max'],
-      competencesHerites: ['ADR', 'CDG', 'CH', 'ER', 'RB', 'TDP', 'PS*'],
+      competencesHerites: ['ADR', 'CDG', 'CH', 'ER', 'RB', 'TDP', 'PE', 'PS*'],
       competencesSpeciales: [],
       restrictionsMetierShortCode: [
         'PR',
@@ -130,7 +130,7 @@ export function createOrigines(): Array<Origine> {
       chance: new Caracteristique(),
       caracteristiques: ['25EV', '30EA', '+1CHA niveau 2 et 3'],
       restrictions: ['Armes à 2 mains', '4PR Max'],
-      competencesHerites: ['CH', 'CLA', 'NT', 'PS', 'TC', 'TDP', 'DS*'],
+      competencesHerites: ['CH', 'CLA', 'LDM', 'NT', 'PS', 'TC', 'TDP', 'DS*'],
       competencesSpeciales: [],
       restrictionsMetierShortCode: [
         'PR',

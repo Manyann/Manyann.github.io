@@ -620,16 +620,16 @@ export function createMetiers(): Array<Metier> {
       adresse: { type: 'min', nombre: '9+' },
       force: new Caracteristique(),
       chance: new Caracteristique(),
-      caracteristiques: [],
+      caracteristiques: [
+        'Analyste : Un ennemi aléatoire a -1PR',
+        'Amélioration : Il peut ajouter 1 cara à une arme (test INT, si rate +1 RUP)',
+      ],
       restrictions: ['4PR Max'],
       competencesHerites: ['BDD', 'DE', 'ER', 'FDP'],
       competencesSpeciales: ['Polyvalence : Ajoute 1 aux tests des alliés'],
       isForbidden: false,
       subMetiers: [],
-      shortCodeParents: [
-        'Analyste : Un ennemi aléatoire a -1PR',
-        'Amélioration : Il peut ajouter 1 cara à une arme (test INT, si rate +1 RUP)',
-      ],
+      shortCodeParents: ['AT'],
     },
     {
       nom: 'Artificier',
@@ -963,7 +963,9 @@ export function createMetiers(): Array<Metier> {
       adresse: new Caracteristique(),
       force: new Caracteristique(),
       chance: new Caracteristique(),
-      caracteristiques: ['Justice vertueuse : 3 bons points / 2 mauvais points'],
+      caracteristiques: [
+        'Justice vertueuse : 3 bons points / 2 mauvais points',
+      ],
       restrictions: [],
       competencesHerites: ['CLA', 'PS'],
       competencesSpeciales: ['#walkyrie'],

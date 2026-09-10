@@ -1,13 +1,39 @@
-import { Accessoire, Arme, Armure, Categorie, Gemme, ItemRarity, LootItem, Potion } from './models/item.model';
+import {
+  Accessoire,
+  Arme,
+  Armure,
+  Categorie,
+  Fleche,
+  Gemme,
+  ItemRarity,
+  LootItem,
+  Potion,
+} from './models/item.model';
 import { getAccessoiresData } from './data/accessoires.data';
 import { getArmesData } from './data/armes.data';
 import { getArmuresData } from './data/armures.data';
 import { getGemmesData } from './data/gemmes.data';
 import { getPotionsData } from './data/potions.data';
-import { ACCESSOIRE_CATEGORIES, ARME_CATEGORIES, ARMURE_CATEGORIES, POTION_CATEGORIES } from './constants/item-categories.constants';
-import { DEFAULT_ACCESSOIRE, DEFAULT_ARME, DEFAULT_ARMURE, DEFAULT_GEMME, DEFAULT_POTION } from './constants/item-defaults.constants';
+import {
+  ACCESSOIRE_CATEGORIES,
+  ARME_CATEGORIES,
+  ARMURE_CATEGORIES,
+  POTION_CATEGORIES,
+} from './constants/item-categories.constants';
+import {
+  DEFAULT_ACCESSOIRE,
+  DEFAULT_ARME,
+  DEFAULT_ARMURE,
+  DEFAULT_FLECHE,
+  DEFAULT_GEMME,
+  DEFAULT_POTION,
+} from './constants/item-defaults.constants';
 import { ITEM_ORIGINES } from './constants/item-origines.constants';
-import { getQualiteFromBaseChance, groupItemsForLoot } from './utils/item-loot.util';
+import {
+  getQualiteFromBaseChance,
+  groupItemsForLoot,
+} from './utils/item-loot.util';
+import { getFlechesData } from './data/fleches.data';
 
 export class ItemHelper {
   private static getOrigine(zone: string, armeType: string): string {
@@ -15,7 +41,7 @@ export class ItemHelper {
     if (!dico) return 'commun';
 
     const origineList = Object.values(dico);
-    const zoneProba = 25;
+    const zoneProba = 10;
     const autreProba = 1.5;
 
     let totalPourOrigines = 0;
@@ -75,6 +101,10 @@ export class ItemHelper {
     return { ...DEFAULT_ACCESSOIRE };
   }
 
+  static getDefaultFleche(): Gemme {
+    return { ...DEFAULT_FLECHE };
+  }
+
   static getAll(zone: string = 'commun'): Arme[] {
     return getArmesData(this.getOrigine.bind(this), zone);
   }
@@ -105,6 +135,10 @@ export class ItemHelper {
 
   static getAllGemmes(): Gemme[] {
     return getGemmesData();
+  }
+
+  static getAllFleches(): Fleche[] {
+    return getFlechesData();
   }
 
   static getAllGemmeForLoot(): Record<ItemRarity, LootItem[]> {
