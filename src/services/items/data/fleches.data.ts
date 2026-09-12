@@ -108,6 +108,17 @@ export const getFlechesData = (): Fleche[] => {
       },
     },
     {
+      libelle: 'Flèche renforcée',
+      degat: '2',
+      prix: 150,
+      basePourcentage: 40,
+      informations: 'Lot de 5. Ne se brise pas',
+      categorie: {
+        code: 'fleche',
+        libelle: 'Fleche',
+      },
+    },
+    {
       libelle: 'Fleche éthérée',
       degat: '-',
       prix: 50,
@@ -229,9 +240,20 @@ export const getFlechesData = (): Fleche[] => {
       },
     },
     {
+      libelle: 'Carreau renforcé',
+      degat: '3',
+      prix: 150,
+      basePourcentage: 40,
+      informations: 'Lot de 5. Ne se brise pas',
+      categorie: {
+        code: 'carreau',
+        libelle: 'Carreau',
+      },
+    },
+    {
       libelle: 'Carreau bénie',
       degat: '-',
-      prix: 300,
+      prix: 220,
       basePourcentage: 15,
       informations: 'Critique sur 1-10',
       categorie: {

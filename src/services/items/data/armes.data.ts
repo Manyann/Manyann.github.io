@@ -1871,13 +1871,13 @@ export const getArmesData = (
       courage: '',
       intelligence: '',
       charisme: '',
-      adresse: '-1',
+      adresse: '',
       force: '',
       chance: '',
       attaque: '-3',
       parade: '-1',
       rupture: '1-4',
-      informations: '+1 dégâts sorts',
+      informations: '+1 dégâts sorts. -1ESQ',
     },
     {
       libelle: 'Bâton de Saule',
@@ -1892,14 +1892,14 @@ export const getArmesData = (
       degats: '1D+2',
       courage: '',
       intelligence: '1',
-      charisme: '',
-      adresse: '-1',
+      charisme: '-1',
+      adresse: '',
       force: '',
       chance: '',
       attaque: '-3',
       parade: '',
       rupture: '1-4',
-      informations: '',
+      informations: '+1 dégats aux sorts. -1 ESQ',
     },
     {
       libelle: "Bâton d'Elémentaliste",
@@ -1915,17 +1915,17 @@ export const getArmesData = (
       courage: '',
       intelligence: '1',
       charisme: '1',
-      adresse: '-1',
+      adresse: '',
       force: '',
       chance: '',
       attaque: '-3',
       parade: '',
       rupture: '1-3',
-      informations: "+1 aux sorts d'un élément",
+      informations: "+1 dégats aux sorts d'un élément. -1ESQ",
     },
     {
       libelle: 'Bâton Arcanique',
-      basePourcentage: 60,
+      basePourcentage: 50,
       region: 'commun',
       origine: getOrigine(zone, 'baton'),
       categorie: {
@@ -1937,17 +1937,17 @@ export const getArmesData = (
       courage: '',
       intelligence: '1',
       charisme: '1',
-      adresse: '-1',
+      adresse: '',
       force: '',
       chance: '',
       attaque: '-2',
       parade: '',
       rupture: '1-3',
-      informations: '+1 dégâts sorts',
+      informations: '+1 dégâts sorts. -1ESQ',
     },
     {
       libelle: 'Le Bâton de l’Éclipse',
-      basePourcentage: 50,
+      basePourcentage: 45,
       region: 'commun',
       origine: getOrigine(zone, 'baton'),
       categorie: {
@@ -1959,17 +1959,17 @@ export const getArmesData = (
       courage: '',
       intelligence: '1',
       charisme: '2',
-      adresse: '-1',
+      adresse: '',
       force: '',
       chance: '1',
       attaque: '-2',
       parade: '',
       rupture: '1-2',
-      informations: 'critique 1-2 / échec 19-20',
+      informations: 'critique 1-2 / échec 19-20. -1ESQ',
     },
     {
       libelle: 'Le Brise-Monde',
-      basePourcentage: 40,
+      basePourcentage: 20,
       region: 'commun',
       origine: getOrigine(zone, 'baton'),
       categorie: {
@@ -1977,14 +1977,14 @@ export const getArmesData = (
         libelle: 'Bâtons',
       },
       prix: 4500,
-      degats: '1D+3',
+      degats: '2D+3',
       courage: '1',
       intelligence: '1',
       charisme: '1',
       adresse: '',
       force: '1',
       chance: '',
-      attaque: '',
+      attaque: '+1',
       parade: '',
       rupture: '1',
       informations: 'Peut faire son spell en attaquant avec le marteau',
@@ -1993,7 +1993,7 @@ export const getArmesData = (
     //#region Grimoire
     {
       libelle: 'Grimoire élémentaire basique (feu)',
-      basePourcentage: 80,
+      basePourcentage: 70,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2015,7 +2015,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire basique (eau)',
-      basePourcentage: 80,
+      basePourcentage: 70,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2037,7 +2037,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire basique (terre)',
-      basePourcentage: 80,
+      basePourcentage: 70,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2059,7 +2059,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire basique (air)',
-      basePourcentage: 80,
+      basePourcentage: 70,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2081,7 +2081,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire avancé (feu)',
-      basePourcentage: 70,
+      basePourcentage: 45,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2103,7 +2103,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire avancé (eau)',
-      basePourcentage: 70,
+      basePourcentage: 45,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2125,7 +2125,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire avancé (terre)',
-      basePourcentage: 70,
+      basePourcentage: 45,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2147,7 +2147,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire avancé (air)',
-      basePourcentage: 70,
+      basePourcentage: 45,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2169,7 +2169,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire expert (feu)',
-      basePourcentage: 60,
+      basePourcentage: 35,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2191,7 +2191,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire expert (eau)',
-      basePourcentage: 60,
+      basePourcentage: 35,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2213,7 +2213,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire expert (terre)',
-      basePourcentage: 60,
+      basePourcentage: 35,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2235,7 +2235,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire élémentaire expert (air)',
-      basePourcentage: 60,
+      basePourcentage: 35,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2257,7 +2257,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire universel',
-      basePourcentage: 50,
+      basePourcentage: 25,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2279,7 +2279,7 @@ export const getArmesData = (
     },
     {
       libelle: 'Grimoire des Sables du Temps',
-      basePourcentage: 40,
+      basePourcentage: 15,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
@@ -2301,7 +2301,7 @@ export const getArmesData = (
     },
     {
       libelle: "Codex de l'infini",
-      basePourcentage: 10,
+      basePourcentage: 5,
       region: 'commun',
       origine: getOrigine(zone, 'grimoire'),
       categorie: {
