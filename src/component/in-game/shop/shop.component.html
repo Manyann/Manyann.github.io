@@ -150,6 +150,17 @@
       <p-tabPanel>
         <ng-template pTemplate="header">
           <span class="flex align-items-center gap-2">
+            <img src="assets/icons/fleche.svg" width="16" height="16" />
+          </span>
+        </ng-template>
+        <app-shop-fleche
+          [selectedVilleType]="selectedVilleType"
+        ></app-shop-fleche>
+      </p-tabPanel>
+
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <span class="flex align-items-center gap-2">
             <img src="assets/icons/gemme.svg" width="16" height="16" />
           </span>
         </ng-template>

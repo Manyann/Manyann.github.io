@@ -2246,3 +2246,99 @@ export function competencesConservateur(): Array<CompetenceRecap> {
     },
   ];
 }
+
+export function competencesSylvain(): Array<CompetenceRecap> {
+  return [
+    // EAU
+    {
+      nom: 'Soin de la foret',
+      branche: 'Eau',
+      categorie: 'soin',
+      cout: '2 PA',
+      cible: 'Allié',
+      test: 'PS',
+      effet: 'Rend 1D+1 EV.',
+      niveau: 1,
+    },
+    {
+      nom: 'Restauration de la nature',
+      branche: 'Eau',
+      categorie: 'soutien',
+      cout: '2 PA',
+      cible: 'Allié',
+      test: 'PS',
+      effet: 'Rend 1D4+2 PA.',
+      niveau: 1,
+    },
+
+    {
+      nom: 'Purge',
+      branche: 'Eau',
+      categorie: 'utilitaire',
+      cout: '4 PA',
+      test: 'PS',
+      effet: "Enlève une altération d'état.",
+      niveau: 2,
+    },
+    {
+      nom: 'Soin sylvestre',
+      branche: 'Eau',
+      categorie: 'soin',
+      cout: '4 PA',
+      cible: 'Allié',
+      test: 'PS',
+      effet: 'Rend 2D+2 + 1D4 EV.',
+      niveau: 3,
+    },
+    // BOIS / VÉGÉTAL
+    {
+      nom: 'Tapis de ronce',
+      branche: 'Bois / Végétal',
+      categorie: 'affaiblissement',
+      cout: '3 PA',
+      cible: 'Ennemi',
+      test: 'PH',
+      effet: 'Inflige AD -3.',
+      niveau: 4,
+    },
+    {
+      nom: 'Lasso de lianes',
+      branche: 'Bois / Végétal',
+      categorie: 'dégât',
+      cout: '3 PA',
+      cible: 'Ennemi',
+      test: 'PH',
+      effet: 'Inflige 1D+8 dégâts.',
+      niveau: 5,
+    },
+    {
+      nom: 'Revitalisation',
+      branche: 'Bois / Végétal',
+      categorie: 'soutien',
+      cout: '5 PA',
+      cible: 'Groupe',
+      test: 'PS',
+      effet: 'Confère +2 C et +2 FO.',
+      niveau: 6,
+    },
+    {
+      nom: 'Membre végétal',
+      branche: 'Bois / Végétal',
+      categorie: 'utilitaire',
+      cout: '8 PA',
+      cible: 'Allié',
+      test: 'PH',
+      effet: 'Remplace un membre coupé ; malus du membre divisé par 2.',
+      niveau: 7,
+    },
+    {
+      nom: 'Ent protecteur des sylvains',
+      branche: 'Bois / Végétal',
+      categorie: 'invocation',
+      cout: '12 PA',
+      test: 'PH',
+      effet: 'Invocation : 3D dégâts ; 8 AT/PRD ; 2 PR ; 40 EV.',
+      niveau: 7,
+    },
+  ];
+}

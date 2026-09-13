@@ -22,6 +22,9 @@ export class HeroComponent {
   public openUrl(url: string): void {
     if (url.indexOf('pdf') != -1) {
       window.open(url, '_blank');
+    } else if (url.startsWith('competences')) {
+      const [path, fragment] = url.split('#');
+      this.router.navigate(['/', path], { fragment });
     } else {
       this.router.navigate(['documentation', 'heros', url]);
     }
@@ -47,7 +50,7 @@ export class HeroComponent {
       {
         image: 'assets/img/card/equipement/livre.PNG',
         titre: 'Livres de sort',
-        url: 'sorts/competences#mage',
+        url: 'competences#mage',
       },
     ];
 

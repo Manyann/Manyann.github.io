@@ -5,6 +5,7 @@ import {
   Categorie,
   Fleche,
   Gemme,
+  Ingredient,
   ItemRarity,
   LootItem,
   Potion,
@@ -13,6 +14,7 @@ import { getAccessoiresData } from './data/accessoires.data';
 import { getArmesData } from './data/armes.data';
 import { getArmuresData } from './data/armures.data';
 import { getGemmesData } from './data/gemmes.data';
+import { getIngredientsData } from './data/ingredients.data';
 import { getPotionsData } from './data/potions.data';
 import {
   ACCESSOIRE_CATEGORIES,
@@ -139,6 +141,10 @@ export class ItemHelper {
 
   static getAllFleches(): Fleche[] {
     return getFlechesData();
+  }
+
+  static getAllIngredients(): Ingredient[] {
+    return getIngredientsData();
   }
 
   static getAllGemmeForLoot(): Record<ItemRarity, LootItem[]> {

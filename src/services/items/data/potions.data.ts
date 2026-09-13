@@ -1324,5 +1324,10 @@ export const getPotionsData = (): Potion[] => {
       prix: '1200',
       information: 'Mort de la cible',
     },
+    {
+      libelle: 'Potion de rappel',
+      prix: '120',
+      information: 'Renvoi au début de la zone',
+    },
   ];
 };

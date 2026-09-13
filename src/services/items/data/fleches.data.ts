@@ -1,11 +1,6 @@
 import { Fleche } from '../models/item.model';
 
 export const getFlechesData = (): Fleche[] => {
-  // ici la liste des fleches et des carreaux disponible
-  // les carreaux sont uniquement pour les arbalètes,
-  // les fleches uniquement pour les arcs
-  // a intégrer au shop dans accessoire ou dans armes
-  // ainsi que au lootbox
   // MAJ dans le but de rendre plus attrayant les personnages distances
   return [
     {

@@ -51,12 +51,19 @@ export class Gemme {
   'informations': string = '';
 }
 
-export class Fleche {
+export class Ingredient {
   'libelle': string;
   'prix': number;
+  'zone': string;
+  'utilite': string[];
+}
+
+export class Fleche {
+  'libelle': string;
   'degat': string;
+  'prix': number;
   'basePourcentage': number;
-  'informations': string = '';
+  'informations': string;
   'categorie': Categorie;
 }
 

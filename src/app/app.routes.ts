@@ -5,6 +5,7 @@ import { BestiaireComponent } from '../component/documentation/bestiaire/bestiai
 import { AutreComponent } from '../component/documentation/autre/autre.component';
 import { HeroComponent } from '../component/documentation/hero/hero.component';
 import { EquipementComponent } from '../component/documentation/equipement/equipement.component';
+import { IngredientComponent } from '../component/documentation/equipement/ingredient/ingredient.component';
 import { SortComponent } from '../component/documentation/hero/sort/sort.component';
 import { InGameComponent } from '../component/in-game/in-game.component';
 import { ShopComponent } from '../component/in-game/shop/shop.component';
@@ -25,6 +26,10 @@ export const routes: Routes = [
   { path: 'documentation/autres', component: AutreComponent },
   { path: 'documentation/bestiaires', component: BestiaireComponent },
   { path: 'documentation/equipements', component: EquipementComponent },
+  {
+    path: 'documentation/equipements/ingredients',
+    component: IngredientComponent,
+  },
   { path: 'documentation/heros', component: HeroComponent },
   { path: 'documentation/heros/sorts', component: SortComponent },
   {

@@ -1365,7 +1365,7 @@ export const getArmesData = (
       attaque: '',
       parade: '',
       rupture: '1-4',
-      informations: "-3 à l'esquive",
+      informations: "Cible: -3 à l'esquive",
     },
     {
       libelle: 'Arbalète de qualité correcte',
@@ -1387,7 +1387,7 @@ export const getArmesData = (
       attaque: '',
       parade: '',
       rupture: '1-3',
-      informations: "-3 à l'esquive",
+      informations: "Cible: -3 à l'esquive",
     },
     {
       libelle: 'Arbalète de bonne qualité',
@@ -1409,7 +1409,7 @@ export const getArmesData = (
       attaque: '',
       parade: '',
       rupture: '1-3',
-      informations: "-4 à l'esquive",
+      informations: "Cible: -4 à l'esquive",
     },
     {
       libelle: "Arbalète d'artisan renommé",
@@ -1431,7 +1431,7 @@ export const getArmesData = (
       attaque: '',
       parade: '',
       rupture: '1-3',
-      informations: "-4 à l'esquive",
+      informations: "Cible: -4 à l'esquive",
     },
     {
       libelle: 'Arbalète Durandil',
@@ -1453,7 +1453,7 @@ export const getArmesData = (
       attaque: '',
       parade: '',
       rupture: '1-2',
-      informations: "-5 à l'esquive",
+      informations: "Cible: -5 à l'esquive",
     },
     {
       libelle: "Arbalète d'excellence",
@@ -1475,7 +1475,7 @@ export const getArmesData = (
       attaque: '',
       parade: '',
       rupture: '1-2',
-      informations: "-5 à l'esquive",
+      informations: "Cible: -5 à l'esquive",
     },
     {
       libelle: 'Arbalète de combat',
@@ -1497,7 +1497,7 @@ export const getArmesData = (
       attaque: '',
       parade: '',
       rupture: '1-2',
-      informations: "-5 à l'esquive",
+      informations: "Cible: -5 à l'esquive",
     },
     {
       libelle: "Arbalète d'immobilisation",
@@ -1519,7 +1519,7 @@ export const getArmesData = (
       attaque: '',
       parade: '',
       rupture: '1',
-      informations: "-7 à l'esquive",
+      informations: "Cible: -7 à l'esquive",
     },
     //#endregion Arbaletes
     //#region Javelots

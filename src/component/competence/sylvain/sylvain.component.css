@@ -1,0 +1,248 @@
+.sylvain-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  color: #dcead8;
+}
+
+.job-header {
+  border-radius: 18px;
+  padding: 1.25rem;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(110, 180, 150, 0.16),
+      transparent 35%
+    ),
+    linear-gradient(145deg, #0f1a14, #080e0a);
+  border: 1px solid rgba(110, 180, 150, 0.35);
+}
+
+.job-header h1 {
+  margin: 0;
+  color: #9be3b8;
+  font-size: 1.6rem;
+}
+
+.job-header p {
+  margin: 0.25rem 0 0;
+  color: #b9d0c1;
+}
+
+.job-section {
+  border-radius: 18px;
+  padding: 1.25rem;
+  border: 1px solid rgba(120, 190, 220, 0.25);
+  background: linear-gradient(145deg, #0d151a, #080b0d);
+}
+
+.branche-eau {
+  border-color: rgba(90, 170, 210, 0.35);
+}
+
+.branche-vegetal {
+  border-color: rgba(110, 190, 120, 0.45);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(110, 190, 120, 0.14),
+      transparent 35%
+    ),
+    linear-gradient(145deg, #101a11, #080c08);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-icon img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #a8d8f0;
+  font-size: 1.3rem;
+}
+
+.branche-vegetal .section-header h2 {
+  color: #b9eec4;
+}
+
+.section-header p {
+  margin: 0.25rem 0 0;
+  color: #a0b9ab;
+  line-height: 1.4;
+}
+
+.branche-vegetal .section-header p {
+  color: #a9d9b0;
+}
+
+.niveau-section {
+  margin-top: 1.25rem;
+}
+
+.niveau-title {
+  color: #a8d8f0;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.branche-vegetal .niveau-title {
+  color: #b9eec4;
+}
+
+.competence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+}
+
+.competence-card {
+  display: flex;
+  gap: 0.85rem;
+  border-radius: 14px;
+  padding: 1rem;
+  background: rgba(6, 10, 8, 0.65);
+  border: 1px solid rgba(160, 220, 255, 0.13);
+}
+
+.branche-vegetal .competence-card {
+  background: rgba(8, 15, 10, 0.72);
+  border-color: rgba(120, 220, 140, 0.18);
+}
+
+.spell-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.spell-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.spell-content {
+  flex: 1;
+}
+
+.spell-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.spell-top h3 {
+  margin: 0;
+  color: #eafff2;
+  font-size: 1rem;
+}
+
+.spell-cost {
+  white-space: nowrap;
+  height: fit-content;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(120, 200, 230, 0.14);
+  color: #a8d8f0;
+  font-size: 0.78rem;
+}
+
+.branche-vegetal .spell-cost {
+  background: rgba(120, 220, 140, 0.14);
+  color: #b9eec4;
+}
+
+.spell-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.65rem 0;
+}
+
+.spell-tags span {
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #c8d8ce;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.branche-vegetal .spell-tags span {
+  color: #cdeed3;
+}
+
+.spell-effect {
+  margin: 0;
+  color: #d3ded6;
+  line-height: 1.45;
+  font-size: 0.9rem;
+}
+
+.branche-vegetal .spell-effect {
+  color: #d6ecda;
+}
+
+.spell-condition {
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #a8d8f0;
+  font-size: 0.82rem;
+}
+
+.branche-vegetal .spell-condition {
+  color: #b9eec4;
+}
+
+@media (max-width: 700px) {
+  .competence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    align-items: flex-start;
+  }
+
+  .competence-card {
+    flex-direction: column;
+  }
+
+  .spell-top {
+    flex-direction: column;
+  }
+
+  .spell-cost {
+    width: fit-content;
+  }
+}
