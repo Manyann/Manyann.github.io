@@ -41,7 +41,7 @@ export const getFlechesData = (): Fleche[] => {
       degat: '-',
       prix: 5,
       basePourcentage: 80,
-      informations: 'Lot de 5. ESQ -2',
+      informations: 'Lot de 5. Cible : ESQ -2',
       categorie: {
         code: 'fleche',
         libelle: 'Fleche',
@@ -52,7 +52,7 @@ export const getFlechesData = (): Fleche[] => {
       degat: '-',
       prix: 5,
       basePourcentage: 70,
-      informations: 'Lot de 5. AD-3. Vise 2 cibles',
+      informations: 'Lot de 5. AD-3. Vise 1 cible et son allié le plus proche',
       categorie: {
         code: 'fleche',
         libelle: 'Fleche',
@@ -63,7 +63,7 @@ export const getFlechesData = (): Fleche[] => {
       degat: '-',
       prix: 10,
       basePourcentage: 70,
-      informations: 'ESQ -2 permanent',
+      informations: 'Cible : ESQ -2 permanent',
       categorie: {
         code: 'fleche',
         libelle: 'Fleche',
@@ -85,7 +85,7 @@ export const getFlechesData = (): Fleche[] => {
       degat: '-',
       prix: 15,
       basePourcentage: 60,
-      informations: 'AT -2',
+      informations: 'Cible : AT -2',
       categorie: {
         code: 'fleche',
         libelle: 'Fleche',
@@ -107,7 +107,7 @@ export const getFlechesData = (): Fleche[] => {
       degat: '2',
       prix: 150,
       basePourcentage: 40,
-      informations: 'Lot de 5. Ne se brise pas',
+      informations: 'Lot de 5. Récupéré à la fin du combat',
       categorie: {
         code: 'fleche',
         libelle: 'Fleche',
@@ -162,7 +162,7 @@ export const getFlechesData = (): Fleche[] => {
       degat: '-',
       prix: 10,
       basePourcentage: 75,
-      informations: 'Lot de 5. ESQ -2',
+      informations: 'Lot de 5. Cible : ESQ -2',
       categorie: {
         code: 'carreau',
         libelle: 'Carreau',
@@ -173,7 +173,7 @@ export const getFlechesData = (): Fleche[] => {
       degat: '-',
       prix: 15,
       basePourcentage: 70,
-      informations: 'Cible: 1/4 chance lache son arme',
+      informations: 'Touche la cible et tous les ennemies en ligne droite',
       categorie: {
         code: 'carreau',
         libelle: 'Carreau',
@@ -206,7 +206,8 @@ export const getFlechesData = (): Fleche[] => {
       degat: '-',
       prix: 30,
       basePourcentage: 40,
-      informations: 'Lot de 5. AD-3. Vise 3 cibles',
+      informations:
+        'Lot de 5. AD-3. Vise 1 cible et ses 2 alliés les plus proches',
       categorie: {
         code: 'carreau',
         libelle: 'Carreau',
@@ -239,7 +240,7 @@ export const getFlechesData = (): Fleche[] => {
       degat: '3',
       prix: 150,
       basePourcentage: 40,
-      informations: 'Lot de 5. Ne se brise pas',
+      informations: 'Lot de 5. Récupéré à la fin du combat',
       categorie: {
         code: 'carreau',
         libelle: 'Carreau',
