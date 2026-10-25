@@ -16,15 +16,40 @@ export const getQualiteFromBaseChance = (chance: number): ItemRarity => {
   return 'perave';
 };
 
-export const groupItemsForLoot = <T extends { libelle: string; basePourcentage: number }>(
+// Un objet d'origine non commune gagne un tiers, jusqu'à excellence.
+const RARITY_UPGRADE_WITH_ORIGINE: Partial<Record<ItemRarity, ItemRarity>> = {
+  perave: 'qualite',
+  qualite: 'artisant',
+  artisant: 'excellence',
+};
+
+export const getQualiteWithOrigine = (
+  rarity: ItemRarity,
+  origine?: string,
+): ItemRarity => {
+  if (!origine || origine === 'commun') {
+    return rarity;
+  }
+  return RARITY_UPGRADE_WITH_ORIGINE[rarity] ?? rarity;
+};
+
+export const groupItemsForLoot = <
+  T extends { libelle: string; basePourcentage: number; origine?: string },
+>(
   items: T[],
+  withOrigines: boolean = false,
 ): Record<ItemRarity, LootItem[]> =>
   items.reduce(
     (acc, item) => {
-      const rarity = getQualiteFromBaseChance(item.basePourcentage);
+      const origine = withOrigines ? item.origine : undefined;
+      const rarity = getQualiteWithOrigine(
+        getQualiteFromBaseChance(item.basePourcentage),
+        origine,
+      );
       acc[rarity].push({
         name: item.libelle,
         rarity,
+        origine,
       });
       return acc;
     },

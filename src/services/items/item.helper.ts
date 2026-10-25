@@ -37,6 +37,8 @@ import {
 } from './utils/item-loot.util';
 import { getFlechesData } from './data/fleches.data';
 
+const LOOT_ORIGINE_PROBA = 5;
+
 export class ItemHelper {
   private static getOrigine(zone: string, armeType: string): string {
     const dico = ITEM_ORIGINES[armeType];
@@ -65,6 +67,15 @@ export class ItemHelper {
     }
 
     return 'commun';
+  }
+
+  // Tirage d'origine pour le butin : probabilité fixe, indépendante de la zone.
+  private static getOrigineForLoot(_zone: string, armeType: string): string {
+    const dico = ITEM_ORIGINES[armeType];
+    if (!dico || Math.random() * 100 >= LOOT_ORIGINE_PROBA) return 'commun';
+
+    const origineList = Object.values(dico);
+    return origineList[Math.floor(Math.random() * origineList.length)];
   }
 
   static getAllCategories(): Categorie[] {
@@ -111,8 +122,13 @@ export class ItemHelper {
     return getArmesData(this.getOrigine.bind(this), zone);
   }
 
-  static getAllForLoot(): Record<ItemRarity, LootItem[]> {
-    return groupItemsForLoot(this.getAll());
+  static getAllForLoot(
+    withOrigines: boolean = false,
+  ): Record<ItemRarity, LootItem[]> {
+    return groupItemsForLoot(
+      getArmesData(this.getOrigineForLoot.bind(this), 'commun'),
+      withOrigines,
+    );
   }
 
   static getQualiteFromBaseChance(chance: number): ItemRarity {
@@ -123,8 +139,13 @@ export class ItemHelper {
     return getArmuresData(this.getOrigine.bind(this), zone);
   }
 
-  static getAllArmureForLoot(): Record<ItemRarity, LootItem[]> {
-    return groupItemsForLoot(this.getAllArmure());
+  static getAllArmureForLoot(
+    withOrigines: boolean = false,
+  ): Record<ItemRarity, LootItem[]> {
+    return groupItemsForLoot(
+      getArmuresData(this.getOrigineForLoot.bind(this), 'commun'),
+      withOrigines,
+    );
   }
 
   static getAllPotion(): Potion[] {

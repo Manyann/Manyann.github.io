@@ -123,6 +123,11 @@
                 <div class="item-rarity">
                   {{ formatRarity(item.rarity) }}
                 </div>
+                <div
+                  class="item-origine"
+                  *ngIf="item.origine"
+                  [innerHTML]="item.origine | origine"
+                ></div>
               </div>
             </div>
 
@@ -159,6 +164,11 @@
             >
               {{ formatRarity(wonItem.rarity) }}
             </div>
+            <div
+              class="result-origine"
+              *ngIf="wonItem.origine"
+              [innerHTML]="wonItem.origine | origine"
+            ></div>
           </div>
         </div>
       </section>

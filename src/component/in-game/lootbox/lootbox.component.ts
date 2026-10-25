@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ButtonModule } from 'primeng/button';
 import { LootItem, ItemRarity } from '../../../services/items';
+import { OriginePipe } from '../shop/origine.pipe';
 
 @Component({
   selector: 'app-loot-system',
@@ -29,6 +30,7 @@ import { LootItem, ItemRarity } from '../../../services/items';
     FormsModule,
     InputSwitchModule,
     ButtonModule,
+    OriginePipe,
   ],
   providers: [LootService],
   templateUrl: './lootbox.component.html',

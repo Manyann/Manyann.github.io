@@ -113,4 +113,5 @@ export interface LootItem {
   id?: number;
   name: string;
   rarity: ItemRarity;
+  origine?: string;
 }

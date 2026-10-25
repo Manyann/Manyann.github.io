@@ -87,10 +87,10 @@ export class LootService {
     includeGemmes: boolean,
   ): LootItem[] {
     const armes = includeArmes
-      ? ItemHelper.getAllForLoot()
+      ? ItemHelper.getAllForLoot(true)
       : this.emptyLootTable();
     const armures = includeArmures
-      ? ItemHelper.getAllArmureForLoot()
+      ? ItemHelper.getAllArmureForLoot(true)
       : this.emptyLootTable();
     const potions = includePotions
       ? ItemHelper.getAllPotionForLoot()
