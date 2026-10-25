@@ -49,7 +49,7 @@ export class BonusArmurePipe implements PipeTransform {
   transform(value: string, origine: string): SafeHtml {
     if (origine === 'nain') {
       return this.sanitizer.bypassSecurityTrustHtml(
-        `${value}${badge('+1', 'bonus-nain')}`,
+        `${value}${badge('+1 PR*', 'bonus-nain')}`,
       );
     }
     return this.sanitizer.bypassSecurityTrustHtml(value);
